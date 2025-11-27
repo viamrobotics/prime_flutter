@@ -1,0 +1,51 @@
+import 'package:flutter/widgets.dart';
+
+import '../theme/prime_color_scheme.dart';
+import '../theme/prime_theme.dart';
+
+enum BadgeVariant { success, danger, warning, info, neutral }
+
+class Badge extends StatelessWidget {
+  final String text;
+  final BadgeVariant variant;
+  final bool showBackground;
+  final IconData? icon;
+
+  const Badge({super.key, required this.text, this.variant = BadgeVariant.neutral, this.icon, this.showBackground = true});
+
+  @override
+  Widget build(BuildContext context) {
+    return PrimeTheme.consumer(
+      builder: (context, theme) {
+        final colors = _getColors(variant, theme.colorScheme);
+
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: showBackground ? BoxDecoration(color: colors.backgroundColor, borderRadius: BorderRadius.circular(4)) : null,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) ...[Icon(icon, size: 14, color: colors.foregroundColor), const SizedBox(width: 4)],
+              Text(text, style: theme.textTheme.label.copyWith(color: colors.foregroundColor)),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  ({Color backgroundColor, Color foregroundColor}) _getColors(BadgeVariant variant, PrimeColorScheme colorScheme) {
+    switch (variant) {
+      case BadgeVariant.success:
+        return (backgroundColor: colorScheme.successLight, foregroundColor: colorScheme.successDark);
+      case BadgeVariant.danger:
+        return (backgroundColor: colorScheme.dangerLight, foregroundColor: colorScheme.dangerDark);
+      case BadgeVariant.warning:
+        return (backgroundColor: colorScheme.warningLight, foregroundColor: colorScheme.warningDark);
+      case BadgeVariant.info:
+        return (backgroundColor: colorScheme.infoLight, foregroundColor: colorScheme.infoDark);
+      case BadgeVariant.neutral:
+        return (backgroundColor: colorScheme.gray2, foregroundColor: colorScheme.gray8);
+    }
+  }
+}

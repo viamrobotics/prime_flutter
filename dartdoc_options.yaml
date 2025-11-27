@@ -1,0 +1,8 @@
+dartdoc:
+  categoryOrder:
+    - "Widgets"
+    - "Theme"
+  
+  # Include custom CSS for rendering PrimeIcons in documentation
+  header:
+    - doc/styles/prime_icons_header.html

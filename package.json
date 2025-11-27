@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mdi/svg": "^7.4.47",
+    "oslllo-svg-fixer": "^5.0.0"
+  }
+}
