@@ -10,7 +10,6 @@ export 'src/theme/prime_typography.dart';
 export 'src/widgets/app_bar.dart';
 export 'src/widgets/badge.dart';
 export 'src/widgets/button.dart';
-export 'src/widgets/card.dart';
 export 'src/widgets/prime_app.dart';
 export 'src/widgets/prime_icons.dart';
 export 'src/widgets/prime_scaffold.dart';
