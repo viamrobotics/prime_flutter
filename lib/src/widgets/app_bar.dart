@@ -21,10 +21,13 @@ class PrimeAppBar extends StatelessWidget {
 
         // Automatically add back button if no leading widget and route can be dismissed
         if (effectiveLeading == null && canPop) {
-          effectiveLeading = GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            behavior: HitTestBehavior.opaque,
-            child: SizedBox(width: 48, height: 48, child: Icon(PrimeIcons.arrowLeft, size: 24, color: theme.colorScheme.textDefault)),
+          effectiveLeading = MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              behavior: HitTestBehavior.opaque,
+              child: SizedBox(width: 48, height: 48, child: Icon(PrimeIcons.arrowLeft, size: 24, color: theme.colorScheme.textDefault)),
+            ),
           );
         }
 
