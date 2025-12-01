@@ -11,8 +11,17 @@ class Button extends StatefulWidget {
   final ButtonVariant variant;
   final Widget? icon;
   final bool disabled;
+  final bool fullWidth;
 
-  const Button({super.key, required this.label, this.onPressed, this.variant = ButtonVariant.secondary, this.icon, this.disabled = false});
+  const Button({
+    super.key,
+    required this.label,
+    this.onPressed,
+    this.variant = ButtonVariant.secondary,
+    this.icon,
+    this.disabled = false,
+    this.fullWidth = false,
+  });
 
   @override
   State<Button> createState() => _ButtonState();
@@ -46,6 +55,7 @@ class _ButtonState extends State<Button> {
             },
             onTap: widget.disabled ? null : widget.onPressed,
             child: AnimatedContainer(
+              width: widget.fullWidth ? double.infinity : null,
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),

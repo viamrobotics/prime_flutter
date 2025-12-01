@@ -62,7 +62,21 @@ class ButtonScreen extends StatelessWidget {
                   Button(label: 'Ghost', onPressed: () {}, variant: ButtonVariant.ghost),
                   Button(label: 'Success', onPressed: () {}, variant: ButtonVariant.success),
                   Button(label: 'Danger', onPressed: () {}, variant: ButtonVariant.danger),
+                  Button(label: 'Outline Danger', onPressed: () {}, variant: ButtonVariant.outlineDanger),
                 ],
+              ),
+            ),
+
+            const SizedBox(height: 40),
+
+            // Full width
+            _buildSection(
+              title: 'Full Width',
+              description: 'Buttons can be full width to span the width of the container. Set fullWidth to true.',
+              child: Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: [Button(label: 'Full Width', onPressed: () {}, variant: ButtonVariant.primary, fullWidth: true)],
               ),
             ),
 
