@@ -1,12 +1,13 @@
 import 'package:flutter/widgets.dart';
 import '../theme/prime_theme.dart';
 
-class AppBar extends StatelessWidget {
+class PrimeAppBar extends StatelessWidget {
   final Widget title;
+  final Widget? leading;
   final List<Widget>? actions;
   final Widget? bottom;
 
-  const AppBar({super.key, required this.title, this.actions, this.bottom});
+  const PrimeAppBar({super.key, required this.title, this.leading, this.actions, this.bottom});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,14 @@ class AppBar extends StatelessWidget {
             Container(
               height: 56,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              color: theme.colorScheme.bgExtraLight,
+
+              decoration: BoxDecoration(
+                color: theme.colorScheme.bgExtraLight,
+                border: Border(bottom: BorderSide(color: theme.colorScheme.borderLight)),
+              ),
               child: Row(
                 children: [
+                  if (leading != null) ...[leading!, const SizedBox(width: 8)],
                   DefaultTextStyle(style: theme.textTheme.title, child: title),
                   if (actions != null) ...[const Spacer(), ...actions!],
                 ],

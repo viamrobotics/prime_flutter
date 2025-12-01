@@ -14,3 +14,4 @@ export 'src/widgets/card.dart';
 export 'src/widgets/prime_app.dart';
 export 'src/widgets/prime_icons.dart';
 export 'src/widgets/prime_scaffold.dart';
+export 'src/widgets/progress.dart';

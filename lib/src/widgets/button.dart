@@ -9,7 +9,7 @@ class Button extends StatefulWidget {
   final String label;
   final VoidCallback? onPressed;
   final ButtonVariant variant;
-  final IconData? icon;
+  final Widget? icon;
   final bool disabled;
 
   const Button({super.key, required this.label, this.onPressed, this.variant = ButtonVariant.secondary, this.icon, this.disabled = false});
@@ -58,11 +58,18 @@ class _ButtonState extends State<Button> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (widget.icon != null) ...[Icon(widget.icon, size: 18, color: colors.foregroundColor), const SizedBox(width: 8)],
-                  Text(
-                    widget.label,
-                    style: theme.textTheme.bodyDefault.copyWith(color: colors.foregroundColor, fontWeight: FontWeight.w600, height: 1.0),
-                  ),
+                  if (widget.icon != null) ...[
+                    IconTheme(
+                      data: IconThemeData(size: 18, color: colors.foregroundColor),
+                      child: widget.icon!,
+                    ),
+                    if (widget.label.isNotEmpty) const SizedBox(width: 8),
+                  ],
+                  if (widget.label.isNotEmpty)
+                    Text(
+                      widget.label,
+                      style: theme.textTheme.bodyDefault.copyWith(color: colors.foregroundColor, fontWeight: FontWeight.w600, height: 1.0),
+                    ),
                 ],
               ),
             ),

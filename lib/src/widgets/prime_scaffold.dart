@@ -7,20 +7,13 @@ class PrimeScaffold extends StatelessWidget {
   final Widget? bottomNavigationBar;
   final Color? backgroundColor;
 
-  const PrimeScaffold({
-    super.key,
-    required this.body,
-    this.appBar,
-    this.bottomNavigationBar,
-    this.backgroundColor,
-  });
+  const PrimeScaffold({super.key, required this.body, this.appBar, this.bottomNavigationBar, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return PrimeTheme.consumer(
       builder: (context, theme) {
-        final effectiveBackgroundColor =
-            backgroundColor ?? theme.colorScheme.bgExtraLight;
+        final effectiveBackgroundColor = backgroundColor ?? theme.colorScheme.white;
 
         return Container(
           color: effectiveBackgroundColor,

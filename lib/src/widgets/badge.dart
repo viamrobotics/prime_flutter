@@ -9,7 +9,7 @@ class Badge extends StatelessWidget {
   final String text;
   final BadgeVariant variant;
   final bool showBackground;
-  final IconData? icon;
+  final Widget? icon;
 
   const Badge({super.key, required this.text, this.variant = BadgeVariant.neutral, this.icon, this.showBackground = true});
 
@@ -25,8 +25,13 @@ class Badge extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (icon != null) ...[Icon(icon, size: 14, color: colors.foregroundColor), const SizedBox(width: 4)],
-              Text(text, style: theme.textTheme.label.copyWith(color: colors.foregroundColor)),
+              if (icon != null)
+                IconTheme(
+                  data: IconThemeData(size: 18, color: colors.foregroundColor),
+                  child: icon!,
+                ),
+              if (text.isNotEmpty && icon != null) const SizedBox(width: 8),
+              if (text.isNotEmpty) Text(text, style: theme.textTheme.label.copyWith(color: colors.foregroundColor)),
             ],
           ),
         );

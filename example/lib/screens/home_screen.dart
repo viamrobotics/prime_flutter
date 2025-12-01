@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
-import 'badge_screen.dart';
-import 'button_screen.dart';
-import 'icons_screen.dart';
+
+import 'screens.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -41,6 +40,14 @@ class HomeScreen extends StatelessWidget {
               description: 'Buttons with different variants and states',
               icon: PrimeIcons.cursorMove,
               screen: const ButtonScreen(),
+            ),
+            const SizedBox(height: 16),
+            _buildShowcaseCard(
+              context: context,
+              title: 'Progress',
+              description: 'Progress indicators and spinners',
+              icon: PrimeIcons.syncIcon,
+              screen: const ProgressScreen(),
             ),
             // Add more showcase cards here as you develop widgets
           ],

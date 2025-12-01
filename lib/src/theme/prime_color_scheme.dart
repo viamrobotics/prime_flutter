@@ -53,10 +53,14 @@ class PrimeColorScheme {
 
   final Color primary;
   final Color danger;
+  final Color success;
+  final Color warning;
 
   const PrimeColorScheme({
     required this.primary,
     required this.danger,
+    required this.success,
+    required this.warning,
     required this.textHeading,
     required this.textDefault,
     required this.textSubtle1,
@@ -102,6 +106,8 @@ class PrimeColorScheme {
     return const PrimeColorScheme(
       primary: PrimeColors.black,
       danger: PrimeColors.dangerDark,
+      success: PrimeColors.successDark,
+      warning: PrimeColors.warningDark,
       textHeading: PrimeColors.textHeading,
       textDefault: PrimeColors.textDefault,
       textSubtle1: PrimeColors.textSubtle1,
