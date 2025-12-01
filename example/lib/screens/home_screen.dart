@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             const Text('Component Showcase', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
             const SizedBox(height: 32),
-            _buildShowcaseCard(
+            _buildListItem(
               context: context,
               title: 'Icons',
               description: 'Browse all available PrimeIcons',
@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               screen: const IconsScreen(),
             ),
             const SizedBox(height: 16),
-            _buildShowcaseCard(
+            _buildListItem(
               context: context,
               title: 'Badge',
               description: 'Status badges with different variants',
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
               screen: const BadgeScreen(),
             ),
             const SizedBox(height: 16),
-            _buildShowcaseCard(
+            _buildListItem(
               context: context,
               title: 'Buttons',
               description: 'Buttons with different variants and states',
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
               screen: const ButtonScreen(),
             ),
             const SizedBox(height: 16),
-            _buildShowcaseCard(
+            _buildListItem(
               context: context,
               title: 'Progress',
               description: 'Progress indicators and spinners',
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               screen: const ProgressScreen(),
             ),
             const SizedBox(height: 16),
-            _buildShowcaseCard(
+            _buildListItem(
               context: context,
               title: 'List Items',
               description: 'List items with standard and card variants',
@@ -63,15 +63,24 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildShowcaseCard({
+  Widget _buildListItem({
     required BuildContext context,
     required String title,
     required String description,
     required IconData icon,
     required Widget screen,
   }) {
-    return GestureDetector(
-      onTap: () {
+    return ListItem.card(
+      leading: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(color: const Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(8)),
+        child: Icon(icon, size: 24, color: const Color(0xFF1976D2)),
+      ),
+      title: Text(title),
+      subtitle: Text(description),
+      trailing: const Icon(PrimeIcons.chevronRight),
+      onPressed: () {
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) => screen,
@@ -86,36 +95,6 @@ class HomeScreen extends StatelessWidget {
           ),
         );
       },
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: const Color(0xFFFAFAFA),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFFE0E0E0), width: 1),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(color: const Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(8)),
-              child: Icon(icon, size: 24, color: const Color(0xFF1976D2)),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 4),
-                  Text(description, style: const TextStyle(fontSize: 14, color: Color(0xFF757575))),
-                ],
-              ),
-            ),
-            const Icon(PrimeIcons.chevronRight, size: 20, color: Color(0xFF9E9E9E)),
-          ],
-        ),
-      ),
     );
   }
 }
