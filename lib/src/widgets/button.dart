@@ -73,7 +73,7 @@ class _ButtonState extends State<Button> {
                       data: IconThemeData(size: 18, color: colors.foregroundColor),
                       child: widget.icon!,
                     ),
-                    if (widget.label.isNotEmpty) const SizedBox(width: 8),
+                    if (widget.label.isNotEmpty) const SizedBox(width: 6),
                   ],
                   if (widget.label.isNotEmpty)
                     Text(
@@ -112,7 +112,7 @@ class _ButtonState extends State<Button> {
               ? colorScheme.gray2
               : _isHovered
               ? colorScheme.gray1
-              : const Color(0xFFFFFFFF),
+              : colorScheme.bgExtraLight,
           foregroundColor: colorScheme.gray9,
           borderColor: colorScheme.gray3,
         );

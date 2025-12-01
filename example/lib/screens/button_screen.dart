@@ -48,7 +48,10 @@ class ButtonScreen extends StatelessWidget {
               child: Wrap(
                 spacing: 16,
                 runSpacing: 16,
-                children: [Button(label: 'Full Width', onPressed: () {}, variant: ButtonVariant.primary, fullWidth: true)],
+                children: [
+                  Button(label: 'Full Width', onPressed: () {}, variant: ButtonVariant.primary, fullWidth: true),
+                  Button(icon: const Icon(PrimeIcons.plus), label: 'Add Component', onPressed: () {}, fullWidth: true),
+                ],
               ),
             ),
 
@@ -123,11 +126,7 @@ class ButtonScreen extends StatelessWidget {
         const SizedBox(height: 8),
         Text(description, style: const TextStyle(fontSize: 14, color: Color(0xFF757575))),
         const SizedBox(height: 16),
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(color: const Color(0xFFF5F5F5), borderRadius: BorderRadius.circular(8)),
-          child: child,
-        ),
+        child,
       ],
     );
   }
