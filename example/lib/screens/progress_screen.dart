@@ -45,12 +45,6 @@ class ProgressScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 32),
-              _buildSection(
-                context,
-                title: '',
-                children: [Button(onPressed: () {}, label: '', icon: const Progress())],
-              ),
-              const SizedBox(height: 32),
             ],
           ),
         ),
