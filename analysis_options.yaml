@@ -4,5 +4,6 @@ linter:
   rules:
     directives_ordering: true
     prefer_relative_imports: true
+    avoid_print: false
 
 
