@@ -155,32 +155,9 @@ class IconsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeScaffold(
+      appBar: const PrimeAppBar(title: Text('Icons')),
       body: Column(
         children: [
-          // Header with back button
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1)),
-            ),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: const Row(
-                    children: [
-                      Icon(PrimeIcons.chevronLeft, size: 20),
-                      SizedBox(width: 4),
-                      Text('Back', style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 16),
-                const Text('Icons', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ],
-            ),
-          ),
-          // Content
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),

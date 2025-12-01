@@ -7,36 +7,7 @@ class BadgeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeScaffold(
-      appBar: // Header with back button
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1)),
-        ),
-        child: SizedBox(
-          width: double.infinity,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(PrimeIcons.chevronLeft, size: 20),
-                      SizedBox(width: 4),
-                      Text('Back', style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                ),
-              ),
-              const Text('Badge', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ],
-          ),
-        ),
-      ),
+      appBar: const PrimeAppBar(title: Text('Badge')),
       body: Column(
         children: [
           // Content

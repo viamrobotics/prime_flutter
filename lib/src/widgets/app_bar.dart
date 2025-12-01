@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import '../theme/prime_theme.dart';
+import 'prime_icons.dart';
 
 class PrimeAppBar extends StatelessWidget {
   final Widget title;
@@ -11,8 +12,22 @@ class PrimeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
+    final bool canPop = parentRoute?.impliesAppBarDismissal ?? false;
+
     return PrimeTheme.consumer(
       builder: (context, theme) {
+        Widget? effectiveLeading = leading;
+
+        // Automatically add back button if no leading widget and route can be dismissed
+        if (effectiveLeading == null && canPop) {
+          effectiveLeading = GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            behavior: HitTestBehavior.opaque,
+            child: SizedBox(width: 48, height: 48, child: Icon(PrimeIcons.arrowLeft, size: 24, color: theme.colorScheme.textDefault)),
+          );
+        }
+
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -26,7 +41,7 @@ class PrimeAppBar extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  if (leading != null) ...[leading!, const SizedBox(width: 8)],
+                  if (effectiveLeading != null) ...[effectiveLeading, const SizedBox(width: 8)],
                   DefaultTextStyle(style: theme.textTheme.title, child: title),
                   if (actions != null) ...[const Spacer(), ...actions!],
                 ],

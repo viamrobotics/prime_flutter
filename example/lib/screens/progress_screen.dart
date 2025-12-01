@@ -7,10 +7,7 @@ class ProgressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeScaffold(
-      appBar: PrimeAppBar(
-        leading: GestureDetector(onTap: () => Navigator.of(context).pop(), child: const Icon(PrimeIcons.chevronLeft, size: 24)),
-        title: const Text('Progress'),
-      ),
+      appBar: const PrimeAppBar(title: Text('Progress')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

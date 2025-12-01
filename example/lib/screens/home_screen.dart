@@ -9,13 +9,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeScaffold(
+      appBar: const PrimeAppBar(title: Text('Prime Flutter')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Prime Flutter', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
             const Text('Component Showcase', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
             const SizedBox(height: 32),
             _buildShowcaseCard(
@@ -48,6 +47,14 @@ class HomeScreen extends StatelessWidget {
               description: 'Progress indicators and spinners',
               icon: PrimeIcons.syncIcon,
               screen: const ProgressScreen(),
+            ),
+            const SizedBox(height: 16),
+            _buildShowcaseCard(
+              context: context,
+              title: 'List Items',
+              description: 'List items with standard and card variants',
+              icon: PrimeIcons.menu,
+              screen: const ListItemScreen(),
             ),
             // Add more showcase cards here as you develop widgets
           ],
