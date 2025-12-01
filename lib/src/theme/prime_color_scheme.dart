@@ -104,7 +104,7 @@ class PrimeColorScheme {
 
   factory PrimeColorScheme.light() {
     return const PrimeColorScheme(
-      primary: PrimeColors.black,
+      primary: PrimeColors.gray9,
       danger: PrimeColors.dangerDark,
       success: PrimeColors.successDark,
       warning: PrimeColors.warningDark,

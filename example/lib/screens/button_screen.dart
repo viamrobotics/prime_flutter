@@ -85,8 +85,26 @@ class ButtonScreen extends StatelessWidget {
                     variant: ButtonVariant.ghost,
                   ),
                   Button(label: 'Delete', icon: const Icon(PrimeIcons.trashCanOutline), onPressed: () {}, variant: ButtonVariant.danger),
-                  Button(label: 'Loading...', icon: const Progress(), onPressed: () {}),
+                  Button(
+                    label: 'Delete Component',
+                    icon: const Icon(PrimeIcons.trashCanOutline),
+                    onPressed: () {},
+                    variant: ButtonVariant.outlineDanger,
+                  ),
                 ],
+              ),
+            ),
+
+            const SizedBox(height: 40),
+
+            // Loading State
+            _buildSection(
+              title: 'Loading State',
+              description: 'Buttons can be in a loading state to indicate progress.',
+              child: Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: [Button(label: 'Loading...', icon: const Progress(), onPressed: null)],
               ),
             ),
 

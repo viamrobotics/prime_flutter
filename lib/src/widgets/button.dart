@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../theme/prime_color_scheme.dart';
 import '../theme/prime_theme.dart';
 
-enum ButtonVariant { primary, secondary, ghost, danger, success }
+enum ButtonVariant { primary, secondary, ghost, danger, outlineDanger, success }
 
 class Button extends StatefulWidget {
   final String label;
@@ -126,6 +126,17 @@ class _ButtonState extends State<Button> {
               : base,
           foregroundColor: const Color(0xFFFFFFFF),
           borderColor: null,
+        );
+      case ButtonVariant.outlineDanger:
+        final base = colorScheme.dangerLight;
+        return (
+          backgroundColor: _isPressed
+              ? Color.lerp(base, colorScheme.danger, 0.2)!
+              : _isHovered
+              ? Color.lerp(base, colorScheme.dangerMedium, 0.2)!
+              : base,
+          foregroundColor: colorScheme.danger,
+          borderColor: colorScheme.dangerMedium,
         );
       case ButtonVariant.success:
         final base = colorScheme.successDark;
