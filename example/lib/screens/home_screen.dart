@@ -9,76 +9,76 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Prime Flutter')),
+      appBar: PrimeAppBar(title: Text('Prime Flutter')),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(24, 24, 24, 36),
         child: Column(
           spacing: 16,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Component Showcase', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
+            Text('Component Showcase', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
             _buildListItem(
               context: context,
               title: 'Icons',
               description: 'Browse all available PrimeIcons',
               icon: PrimeIcons.alert,
-              screen: const IconsScreen(),
+              screen: IconsScreen(),
             ),
             _buildListItem(
               context: context,
               title: 'Badge',
               description: 'Status badges with different variants',
               icon: PrimeIcons.tagOutline,
-              screen: const BadgeScreen(),
+              screen: BadgeScreen(),
             ),
             _buildListItem(
               context: context,
               title: 'Buttons',
               description: 'Buttons with different variants and states',
               icon: PrimeIcons.openInNew,
-              screen: const ButtonScreen(),
+              screen: ButtonScreen(),
             ),
             _buildListItem(
               context: context,
               title: 'Progress',
               description: 'Progress indicators and spinners',
               icon: PrimeIcons.syncIcon,
-              screen: const ProgressScreen(),
+              screen: ProgressScreen(),
             ),
             _buildListItem(
               context: context,
               title: 'List Items',
               description: 'List items with standard and card variants',
               icon: PrimeIcons.menu,
-              screen: const ListItemScreen(),
+              screen: ListItemScreen(),
             ),
             _buildListItem(
               context: context,
               title: 'Navigation Bar',
               description: 'Bottom navigation bar',
               icon: PrimeIcons.cursorMove,
-              screen: const NavBarScreen(),
+              screen: NavBarScreen(),
             ),
             _buildListItem(
               context: context,
               title: 'Top Tab Bar',
               description: 'Top navigation tabs',
               icon: PrimeIcons.minus, // Placeholder for tabs
-              screen: const TabBarScreen(),
+              screen: TabBarScreen(),
             ),
             _buildListItem(
               context: context,
               title: 'Avatar',
               description: 'User avatars',
               icon: PrimeIcons.robotOutline,
-              screen: const AvatarScreen(),
+              screen: AvatarScreen(),
             ),
             _buildListItem(
               context: context,
               title: 'Expansion List Item',
               description: 'Collapsible list items',
               icon: PrimeIcons.chevronDown,
-              screen: const ExpansionListItemScreen(),
+              screen: ExpansionListItemScreen(),
             ),
             // Add more showcase cards here as you develop widgets
           ],
@@ -98,12 +98,12 @@ class HomeScreen extends StatelessWidget {
       leading: Container(
         width: 48,
         height: 48,
-        decoration: BoxDecoration(color: const Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(8)),
-        child: Icon(icon, size: 24, color: const Color(0xFF1976D2)),
+        decoration: BoxDecoration(color: Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(8)),
+        child: Icon(icon, size: 24, color: Color(0xFF1976D2)),
       ),
       title: Text(title),
       subtitle: Text(description),
-      trailing: const Icon(PrimeIcons.chevronRight),
+      trailing: Icon(PrimeIcons.chevronRight),
       onPressed: () {
         Navigator.of(context).push(
           PageRouteBuilder(
