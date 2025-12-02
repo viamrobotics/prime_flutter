@@ -78,7 +78,14 @@ class HomeScreen extends StatelessWidget {
               title: 'Expansion List Item',
               description: 'Collapsible list items',
               icon: PrimeIcons.chevronDown,
-              screen: ExpansionListItemScreen(),
+              screen: const ExpansionListItemScreen(),
+            ),
+            _buildListItem(
+              context: context,
+              title: 'Bottom Sheet',
+              description: 'Modal bottom sheets',
+              icon: PrimeIcons.arrowUp,
+              screen: const BottomSheetScreen(),
             ),
             // Add more showcase cards here as you develop widgets
           ],
