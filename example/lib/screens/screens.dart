@@ -8,3 +8,4 @@ export 'tab_bar_screen.dart';
 export 'avatar_screen.dart';
 export 'bottom_sheet_screen.dart';
 export 'expansion_list_item_screen.dart';
+export 'filter_pill_screen.dart';

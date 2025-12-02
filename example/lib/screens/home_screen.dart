@@ -87,6 +87,13 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.arrowUp,
               screen: const BottomSheetScreen(),
             ),
+            _buildListItem(
+              context: context,
+              title: 'Filter Pills',
+              description: 'Selectable filter chips',
+              icon: PrimeIcons.tagOutline,
+              screen: const FilterPillScreen(),
+            ),
             // Add more showcase cards here as you develop widgets
           ],
         ),

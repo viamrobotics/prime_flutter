@@ -14,6 +14,7 @@ export 'src/widgets/bottom_sheet.dart';
 export 'src/widgets/button.dart';
 export 'src/widgets/divider.dart';
 export 'src/widgets/expansion_list_item.dart';
+export 'src/widgets/filter_pill.dart';
 export 'src/widgets/list_item.dart';
 export 'src/widgets/navigation_bar.dart';
 export 'src/widgets/prime_app.dart';
