@@ -8,6 +8,7 @@ export 'src/theme/prime_typography.dart';
 
 // Widgets
 export 'src/widgets/app_bar.dart';
+export 'src/widgets/avatar.dart';
 export 'src/widgets/badge.dart';
 export 'src/widgets/button.dart';
 export 'src/widgets/list_item.dart';

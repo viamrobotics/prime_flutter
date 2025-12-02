@@ -66,6 +66,13 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.minus, // Placeholder for tabs
               screen: const TabBarScreen(),
             ),
+            _buildListItem(
+              context: context,
+              title: 'Avatar',
+              description: 'User avatars',
+              icon: PrimeIcons.robotOutline,
+              screen: const AvatarScreen(),
+            ),
             // Add more showcase cards here as you develop widgets
           ],
         ),
