@@ -13,10 +13,10 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
+          spacing: 16,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Component Showcase', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
-            const SizedBox(height: 32),
             _buildListItem(
               context: context,
               title: 'Icons',
@@ -24,7 +24,6 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.alert,
               screen: const IconsScreen(),
             ),
-            const SizedBox(height: 16),
             _buildListItem(
               context: context,
               title: 'Badge',
@@ -32,7 +31,6 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.tagOutline,
               screen: const BadgeScreen(),
             ),
-            const SizedBox(height: 16),
             _buildListItem(
               context: context,
               title: 'Buttons',
@@ -40,7 +38,6 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.openInNew,
               screen: const ButtonScreen(),
             ),
-            const SizedBox(height: 16),
             _buildListItem(
               context: context,
               title: 'Progress',
@@ -48,7 +45,6 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.syncIcon,
               screen: const ProgressScreen(),
             ),
-            const SizedBox(height: 16),
             _buildListItem(
               context: context,
               title: 'List Items',
@@ -56,13 +52,19 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.menu,
               screen: const ListItemScreen(),
             ),
-            const SizedBox(height: 16),
             _buildListItem(
               context: context,
               title: 'Navigation Bar',
               description: 'Bottom navigation bar',
               icon: PrimeIcons.cursorMove,
               screen: const NavBarScreen(),
+            ),
+            _buildListItem(
+              context: context,
+              title: 'Top Tab Bar',
+              description: 'Top navigation tabs',
+              icon: PrimeIcons.minus, // Placeholder for tabs
+              screen: const TabBarScreen(),
             ),
             // Add more showcase cards here as you develop widgets
           ],
