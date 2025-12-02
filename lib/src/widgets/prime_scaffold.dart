@@ -20,7 +20,7 @@ class PrimeScaffold extends StatelessWidget {
           child: Column(
             children: [
               if (appBar != null) appBar!,
-              Expanded(child: SafeArea(top: false, child: body)),
+              Expanded(child: SafeArea(top: false, bottom: false, child: body)),
               if (bottomNavigationBar != null) SafeArea(top: false, child: bottomNavigationBar!),
             ],
           ),
