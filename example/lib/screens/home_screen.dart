@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
     return PrimeScaffold(
       appBar: const PrimeAppBar(title: Text('Prime Flutter')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.fromLTRB(24, 24, 24, 36),
         child: Column(
           spacing: 16,
           crossAxisAlignment: CrossAxisAlignment.start,

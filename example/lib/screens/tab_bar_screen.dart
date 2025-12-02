@@ -23,7 +23,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
           ),
         ],
         bottom: PrimeTabBar(
-          items: const ['CONTROL', 'LOGS'],
+          items: const ['CONTROL', 'LOGS', 'SETTINGS', 'ALERTS', 'HISTORY', 'DIAGNOSTICS'],
           selectedIndex: _selectedIndex,
           onDestinationSelected: (index) => setState(() => _selectedIndex = index),
         ),
