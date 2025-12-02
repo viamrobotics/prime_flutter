@@ -73,6 +73,13 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.robotOutline,
               screen: const AvatarScreen(),
             ),
+            _buildListItem(
+              context: context,
+              title: 'Expansion Card',
+              description: 'Collapsible content cards',
+              icon: PrimeIcons.chevronDown,
+              screen: const ExpansionCardScreen(),
+            ),
             // Add more showcase cards here as you develop widgets
           ],
         ),

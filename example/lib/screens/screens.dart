@@ -6,3 +6,4 @@ export 'list_item_screen.dart';
 export 'nav_bar_screen.dart';
 export 'tab_bar_screen.dart';
 export 'avatar_screen.dart';
+export 'expansion_card_screen.dart';
