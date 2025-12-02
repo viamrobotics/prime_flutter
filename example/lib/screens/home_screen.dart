@@ -94,6 +94,13 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.link,
               screen: const FilterPillScreen(),
             ),
+            _buildListItem(
+              context: context,
+              title: 'Input',
+              description: 'Text input fields',
+              icon: PrimeIcons.cardTextOutline,
+              screen: const InputScreen(),
+            ),
             // Add more showcase cards here as you develop widgets
           ],
         ),
