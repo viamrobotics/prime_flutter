@@ -75,10 +75,10 @@ class HomeScreen extends StatelessWidget {
             ),
             _buildListItem(
               context: context,
-              title: 'Expansion Card',
-              description: 'Collapsible content cards',
+              title: 'Expansion List Item',
+              description: 'Collapsible list items',
               icon: PrimeIcons.chevronDown,
-              screen: const ExpansionCardScreen(),
+              screen: const ExpansionListItemScreen(),
             ),
             // Add more showcase cards here as you develop widgets
           ],

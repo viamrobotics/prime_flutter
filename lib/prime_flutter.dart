@@ -11,7 +11,7 @@ export 'src/widgets/app_bar.dart';
 export 'src/widgets/avatar.dart';
 export 'src/widgets/badge.dart';
 export 'src/widgets/button.dart';
-export 'src/widgets/expansion_card.dart';
+export 'src/widgets/expansion_list_item.dart';
 export 'src/widgets/list_item.dart';
 export 'src/widgets/navigation_bar.dart';
 export 'src/widgets/prime_app.dart';

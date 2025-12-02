@@ -2,15 +2,16 @@ import 'package:flutter/widgets.dart';
 import '../theme/prime_theme.dart';
 import 'prime_icons.dart';
 
-class ExpansionCard extends StatefulWidget {
+class ExpansionListItem extends StatefulWidget {
   final Widget title;
   final Widget? leading;
   final Widget? trailing;
   final List<Widget> children;
   final bool initiallyExpanded;
   final ValueChanged<bool>? onExpansionChanged;
+  final bool _isCard;
 
-  const ExpansionCard({
+  const ExpansionListItem({
     super.key,
     required this.title,
     this.leading,
@@ -18,13 +19,23 @@ class ExpansionCard extends StatefulWidget {
     this.children = const <Widget>[],
     this.initiallyExpanded = false,
     this.onExpansionChanged,
-  });
+  }) : _isCard = false;
+
+  const ExpansionListItem.card({
+    super.key,
+    required this.title,
+    this.leading,
+    this.trailing,
+    this.children = const <Widget>[],
+    this.initiallyExpanded = false,
+    this.onExpansionChanged,
+  }) : _isCard = true;
 
   @override
-  State<ExpansionCard> createState() => _ExpansionCardState();
+  State<ExpansionListItem> createState() => _ExpansionListItemState();
 }
 
-class _ExpansionCardState extends State<ExpansionCard> with SingleTickerProviderStateMixin {
+class _ExpansionListItemState extends State<ExpansionListItem> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _iconTurns;
   late Animation<double> _heightFactor;
@@ -67,15 +78,12 @@ class _ExpansionCardState extends State<ExpansionCard> with SingleTickerProvider
   Widget build(BuildContext context) {
     return PrimeTheme.consumer(
       builder: (context, theme) {
-        final Color backgroundColor = theme.colorScheme.bgExtraLight;
-        final Color borderColor = theme.colorScheme.borderLight;
+        final Color backgroundColor = widget._isCard ? theme.colorScheme.bgExtraLight : const Color(0x00000000);
+        final BoxBorder? border = widget._isCard ? Border.all(color: theme.colorScheme.borderLight) : null;
+        final BorderRadius? borderRadius = widget._isCard ? BorderRadius.circular(theme.cornerRadius) : null;
 
         return Container(
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            border: Border.all(color: borderColor),
-            borderRadius: BorderRadius.circular(theme.cornerRadius),
-          ),
+          decoration: BoxDecoration(color: backgroundColor, border: border, borderRadius: borderRadius),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
