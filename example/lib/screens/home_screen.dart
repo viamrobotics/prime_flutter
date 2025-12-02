@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
               context: context,
               title: 'Top Tab Bar',
               description: 'Top navigation tabs',
-              icon: PrimeIcons.minus, // Placeholder for tabs
+              icon: PrimeIcons.navigationVariant, // Placeholder for tabs
               screen: TabBarScreen(),
             ),
             _buildListItem(
@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
               context: context,
               title: 'Filter Pills',
               description: 'Selectable filter chips',
-              icon: PrimeIcons.tagOutline,
+              icon: PrimeIcons.link,
               screen: const FilterPillScreen(),
             ),
             // Add more showcase cards here as you develop widgets
