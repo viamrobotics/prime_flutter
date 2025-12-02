@@ -17,14 +17,12 @@ class PrimeScaffold extends StatelessWidget {
 
         return Container(
           color: effectiveBackgroundColor,
-          child: SafeArea(
-            child: Column(
-              children: [
-                if (appBar != null) appBar!,
-                Expanded(child: body),
-                if (bottomNavigationBar != null) bottomNavigationBar!,
-              ],
-            ),
+          child: Column(
+            children: [
+              if (appBar != null) appBar!,
+              Expanded(child: SafeArea(top: false, child: body)),
+              if (bottomNavigationBar != null) SafeArea(top: false, child: bottomNavigationBar!),
+            ],
           ),
         );
       },
