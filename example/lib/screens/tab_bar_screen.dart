@@ -10,6 +10,7 @@ class TabBarScreen extends StatefulWidget {
 
 class _TabBarScreenState extends State<TabBarScreen> {
   int _selectedIndex = 0;
+  int _scrollableTabBarIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +23,31 @@ class _TabBarScreenState extends State<TabBarScreen> {
             onPressed: () {},
           ),
         ],
-        bottom: PrimeTabBar(
-          items: const ['CONTROL', 'LOGS', 'SETTINGS', 'ALERTS', 'HISTORY', 'DIAGNOSTICS'],
+        bottom: TabBar(
+          items: const ['TAB 1', 'TAB 2', 'SCROLL EXAMPLE'],
           selectedIndex: _selectedIndex,
           onDestinationSelected: (index) => setState(() => _selectedIndex = index),
         ),
       ),
       body: Center(
-        child: Text(
-          _selectedIndex == 0 ? 'Control Panel' : 'System Logs',
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (_selectedIndex == 0) const Text('Tab 1'),
+            if (_selectedIndex == 1) const Text('Tab 2'),
+            if (_selectedIndex == 2)
+              Column(
+                children: [
+                  const SizedBox(height: 16),
+                  const Text('This is a scrollable tab bar example'),
+                  TabBar(
+                    items: const ['CONTROL', 'LOGS', 'SETTINGS', 'ALERTS', 'HISTORY', 'DIAGNOSTICS'],
+                    selectedIndex: _scrollableTabBarIndex,
+                    onDestinationSelected: (index) => setState(() => _scrollableTabBarIndex = index),
+                  ),
+                ],
+              ),
+          ],
         ),
       ),
     );
