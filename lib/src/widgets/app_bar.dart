@@ -26,7 +26,7 @@ class PrimeAppBar extends StatelessWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               behavior: HitTestBehavior.opaque,
-              child: SizedBox(width: 48, height: 48, child: Icon(PrimeIcons.arrowLeft, size: 24, color: theme.colorScheme.textDefault)),
+              child: SizedBox.square(dimension: 24, child: Icon(PrimeIcons.chevronLeft, size: 24, color: theme.colorScheme.textDefault)),
             ),
           );
         }

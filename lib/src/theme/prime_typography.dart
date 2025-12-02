@@ -6,7 +6,7 @@ class PrimeTypography {
 
   static const TextStyle heading = TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: PrimeColors.textHeading, height: 1.2);
 
-  static const TextStyle title = TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: PrimeColors.textHeading, height: 1.3);
+  static const TextStyle title = TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: PrimeColors.textHeading, height: .8);
 
   static const TextStyle bodyDefault = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: PrimeColors.textDefault, height: 1.5);
 
