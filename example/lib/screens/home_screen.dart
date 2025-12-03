@@ -16,6 +16,16 @@ class HomeScreen extends StatelessWidget {
           spacing: 16,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text('Example Screens', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
+            _buildListItem(
+              context: context,
+              title: 'Locations',
+              description: 'See example Locations screen',
+              icon: PrimeIcons.viamLocalModule,
+              screen: LocationsScreen(),
+            ),
+
+            SizedBox(height: 16),
             Text('Component Showcase', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
             _buildListItem(
               context: context,
