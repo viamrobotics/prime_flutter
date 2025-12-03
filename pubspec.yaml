@@ -1,7 +1,8 @@
 name: prime_flutter
 description: "A new Flutter package project."
 version: 0.0.1
-homepage:
+homepage: https://github.com/viamrobotics/prime_flutter
+repository: https://github.com/viamrobotics/prime_flutter
 
 environment:
   sdk: ^3.10.0
