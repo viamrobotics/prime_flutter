@@ -1,39 +1,96 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# P.R.I.M.E. Flutter
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+**Pretty Rad Interactive Modular Elements**
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+Made with ❤️ at Viam.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A collection of UI elements for Flutter, implementing Viam's design system.
+
+> **Note**
+> This is the Flutter implementation of Prime. For the web version, see [viamrobotics/prime](https://github.com/viamrobotics/prime).
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Prime Flutter provides a set of polished, reusable widgets that adhere to a consistent design system:
+
+-   **Avatar**: Circular avatars for user profiles or icons.
+-   **Badge**: Status indicators with various semantic variants (success, danger, warning, info).
+-   **Button**: Customizable buttons with multiple variants (primary, secondary, ghost, danger).
+-   **Input**: Styled text fields with built-in focus states and icon support.
+-   **ListItem**: Versatile list items with support for leading/trailing widgets and expansion.
+-   **NavigationBar**: A custom bottom navigation bar.
+-   **PrimeAppBar**: A clean, customizable app bar.
+-   **PrimeSheet**: A modal bottom sheet with a modern look and feel.
+-   **FilterPill**: Selectable chips for filtering content.
+-   **Progress**: Circular progress indicators.
+-   **PrimeScaffold**: A scaffold wrapper that integrates seamlessly with the Prime theme.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add `prime_flutter` to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  prime_flutter:
+    path: ./path/to/prime_flutter
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Wrap your application in `PrimeApp` to provide the necessary theme context:
 
 ```dart
-const like = 'sample';
+import 'package:flutter/widgets.dart';
+import 'package:prime_flutter/prime_flutter.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PrimeApp(
+      title: 'Prime Flutter Demo',
+      home: const HomeScreen(),
+    );
+  }
+}
 ```
 
-## Additional information
+### Using Widgets
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:prime_flutter/prime_flutter.dart';
+
+// ...
+
+Button(
+  label: 'Click Me',
+  variant: ButtonVariant.primary,
+  onPressed: () {
+    print('Button pressed!');
+  },
+)
+
+Input(
+  placeholder: 'Enter your name',
+  leading: Icon(PrimeIcons.account),
+)
+```
+
+## Theming
+
+Prime Flutter uses `PrimeTheme` to manage colors, typography, and other design tokens. You can access the current theme using `PrimeTheme.of(context)`.
+
+```dart
+final theme = PrimeTheme.of(context);
+final primaryColor = theme.colorScheme.primary;
+```
+
+## License
+
+Copyright 2021-2023 Viam Inc.
+Apache 2.0
