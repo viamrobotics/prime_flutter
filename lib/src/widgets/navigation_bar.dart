@@ -19,7 +19,7 @@ class NavigationBar extends StatelessWidget {
     return PrimeTheme.consumer(
       builder: (context, theme) {
         return Container(
-          height: 80,
+          height: 60,
           decoration: BoxDecoration(
             color: theme.colorScheme.bgExtraLight,
             border: Border(top: BorderSide(color: theme.colorScheme.gray3, width: 1)),
@@ -71,8 +71,8 @@ class _NavBarItemRendererState extends State<_NavBarItemRenderer> {
     final colors = PrimeTheme.of(context).colorScheme;
     final typography = PrimeTheme.of(context).textTheme;
 
-    final iconColor = widget.isSelected ? colors.gray9 : colors.gray5;
-    final textColor = widget.isSelected ? colors.gray9 : colors.gray5;
+    final iconColor = widget.isSelected ? colors.gray9 : colors.gray6;
+    final textColor = widget.isSelected ? colors.gray9 : colors.gray6;
     final iconData = (widget.isSelected && widget.item.selectedIcon != null) ? widget.item.selectedIcon! : widget.item.icon;
 
     return MouseRegion(
@@ -85,10 +85,14 @@ class _NavBarItemRendererState extends State<_NavBarItemRenderer> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(iconData, color: iconColor, size: 24),
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             Text(
               widget.item.label,
-              style: typography.bodySmall.copyWith(color: textColor, fontWeight: widget.isSelected ? FontWeight.w600 : FontWeight.w500),
+              style: typography.bodySmall.copyWith(
+                fontSize: 12,
+                color: textColor,
+                fontWeight: widget.isSelected ? FontWeight.w600 : FontWeight.w500,
+              ),
             ),
           ],
         ),

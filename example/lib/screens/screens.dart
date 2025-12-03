@@ -1,3 +1,5 @@
+// examples
+export 'examples/locations_screen.dart';
 
 // widgets
 export 'widgets/badge_screen.dart';
