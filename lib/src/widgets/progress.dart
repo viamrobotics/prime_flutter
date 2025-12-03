@@ -6,9 +6,14 @@ import '../theme/prime_colors.dart';
 
 enum ProgressVariant { light, dark }
 
+/// A progress widget. Used to display a progress indicator.
 class Progress extends StatefulWidget {
   final double size;
+
+  /// The variant of the progress indicator. Light or dark.
   final ProgressVariant variant;
+
+  /// The number of ticks to display in the progress indicator.
   final int tickCount;
 
   const Progress({super.key, this.size = 16.0, this.variant = ProgressVariant.dark, this.tickCount = 8});

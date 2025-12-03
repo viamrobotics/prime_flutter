@@ -5,6 +5,7 @@ import '../theme/prime_theme.dart';
 
 enum ButtonVariant { primary, secondary, ghost, danger, outlineDanger, success }
 
+/// A button widget. With different variants for different use cases.
 class Button extends StatefulWidget {
   final String label;
   final VoidCallback? onPressed;

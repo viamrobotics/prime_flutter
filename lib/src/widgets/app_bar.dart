@@ -2,10 +2,20 @@ import 'package:flutter/widgets.dart';
 import '../theme/prime_theme.dart';
 import 'prime_icons.dart';
 
+/// A simple app bar widget that can be used to display a title, leading, actions, and bottom widgets.
 class PrimeAppBar extends StatelessWidget {
+  /// The title widget to display in the app bar.
   final Widget? title;
+
+  /// The leading widget to display in the app bar. Will be automatically replaced with a back button if the route can be dismissed.
   final Widget? leading;
+
+  /// The actions widget to display in the app bar. Will be automatically aligned to the right.
   final List<Widget>? actions;
+
+  /// The bottom widget to display in the app bar. Will be automatically aligned to the bottom.
+  ///
+  /// Typically used to display a [PrimeTabBar].
   final Widget? bottom;
 
   const PrimeAppBar({super.key, this.title, this.leading, this.actions, this.bottom});

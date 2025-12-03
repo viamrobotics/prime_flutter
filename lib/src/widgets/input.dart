@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../prime_flutter.dart';
 
+/// A text input widget. Lightly wraps a [TextField] with a [Material] widget.
 class Input extends StatelessWidget {
   final TextEditingController? controller;
   final String? placeholder;

@@ -5,10 +5,18 @@ import '../theme/prime_theme.dart';
 
 enum BadgeVariant { success, danger, warning, info, neutral }
 
+/// A simple Badge widget. Used for labeling items with status or type.
 class Badge extends StatelessWidget {
+  /// The text to display in the badge.
   final String text;
+
+  /// The variant of the badge. Defaults to [BadgeVariant.neutral].
   final BadgeVariant variant;
+
+  /// Whether to show the background color of the badge. Defaults to true.
   final bool showBackground;
+
+  /// The icon to display in the badge. Defaults to null.
   final Widget? icon;
 
   const Badge({super.key, required this.text, this.variant = BadgeVariant.neutral, this.icon, this.showBackground = true});

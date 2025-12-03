@@ -2,15 +2,30 @@ import 'package:flutter/widgets.dart';
 import '../theme/prime_theme.dart';
 import 'prime_icons.dart';
 
+/// A widget users can tap to show or hide a list of children.
 class ExpansionListItem extends StatefulWidget {
+  /// The title of the expansion list item.
   final Widget title;
+
+  /// The widget to show before the title, on the left.
   final Widget? leading;
+
+  /// The widget to show after the title, on the right of the widget.
   final Widget? trailing;
+
+  /// The list of children to be displayed when the expansion list item is expanded.
   final List<Widget> children;
+
+  /// Whether the expansion list item should be expanded by default.
   final bool initiallyExpanded;
+
+  /// A callback function to be called when the expansion list item is expanded or collapsed.
   final ValueChanged<bool>? onExpansionChanged;
+
+  /// Whether the expansion list item should be displayed as a card.
   final bool _isCard;
 
+  /// Creates an expansion list item.
   const ExpansionListItem({
     super.key,
     required this.title,
@@ -21,6 +36,7 @@ class ExpansionListItem extends StatefulWidget {
     this.onExpansionChanged,
   }) : _isCard = false;
 
+  /// Creates an expansion list item that is displayed as a card.
   const ExpansionListItem.card({
     super.key,
     required this.title,

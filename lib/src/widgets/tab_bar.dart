@@ -1,9 +1,17 @@
 import 'package:flutter/widgets.dart';
 import '../theme/prime_theme.dart';
 
+/// A tab bar widget. Used to display a tab bar. Scrolls horizontally if there are too many tabs.
+///
+/// Typically used in the [PrimeScaffold] in the [PrimeAppBar.bottom] property.
 class TabBar extends StatelessWidget {
+  /// The list of tabs to display in the tab bar.
   final List<String> items;
+
+  /// The currently selected tab index.
   final int selectedIndex;
+
+  /// The callback to be called when a tab is selected.
   final ValueChanged<int> onDestinationSelected;
 
   const TabBar({super.key, required this.items, required this.selectedIndex, required this.onDestinationSelected});

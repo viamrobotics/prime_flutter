@@ -3,18 +3,31 @@ import '../theme/prime_theme.dart';
 
 enum _ListItemVariant { standard, card }
 
+/// A widget for building lists of items.
 class ListItem extends StatefulWidget {
+  /// The leading widget of the list item. A widget to be displayed before the title.
   final Widget? leading;
+
+  /// The title of the list item.
   final Widget? title;
+
+  /// The subtitle of the list item.
   final Widget? subtitle;
+
+  /// The trailing widget of the list item. A widget to be displayed after the title.
   final Widget? trailing;
+
+  /// The callback function to be called when the list item is tapped.
   final VoidCallback? onPressed;
+
   final bool isThreeLine;
   final _ListItemVariant _variant;
 
+  /// Creates a standard list item.
   const ListItem({super.key, this.leading, this.title, this.subtitle, this.trailing, this.onPressed, this.isThreeLine = false})
     : _variant = _ListItemVariant.standard;
 
+  /// Creates a card list item.
   const ListItem.card({super.key, this.leading, this.title, this.subtitle, this.trailing, this.onPressed, this.isThreeLine = false})
     : _variant = _ListItemVariant.card;
 

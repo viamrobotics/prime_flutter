@@ -4,6 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import '../theme/prime_theme.dart';
 import '../theme/prime_theme_data.dart';
 
+/// A widget for building a Prime app. Lightly wraps a [WidgetsApp] with a [PrimeTheme].
+///
+/// use at the root of your app to provide a theme and other configuration options when building a Prime styled application.
 class PrimeApp extends StatefulWidget {
   final String title;
   final Widget? home;
@@ -118,8 +121,7 @@ class _PrimeAppState extends State<PrimeApp> {
         key: GlobalObjectKey(this),
         title: widget.title,
         color: (widget.theme ?? PrimeThemeData.light()).colorScheme.black,
-        textStyle:
-            (widget.theme ?? PrimeThemeData.light()).textTheme.bodyDefault,
+        textStyle: (widget.theme ?? PrimeThemeData.light()).textTheme.bodyDefault,
         debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
         routeInformationProvider: widget.routeInformationProvider,
         routeInformationParser: widget.routeInformationParser,
@@ -153,8 +155,7 @@ class _PrimeAppState extends State<PrimeApp> {
       onGenerateRoute: widget.onGenerateRoute,
       onGenerateInitialRoutes: widget.onGenerateInitialRoutes,
       onUnknownRoute: widget.onUnknownRoute,
-      navigatorObservers:
-          widget.navigatorObservers ?? const <NavigatorObserver>[],
+      navigatorObservers: widget.navigatorObservers ?? const <NavigatorObserver>[],
       builder: _builder,
       locale: widget.locale,
       localizationsDelegates: _localizationsDelegates,
@@ -169,8 +170,7 @@ class _PrimeAppState extends State<PrimeApp> {
       pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) {
         return PageRouteBuilder<T>(
           settings: settings,
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              builder(context),
+          pageBuilder: (context, animation, secondaryAnimation) => builder(context),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
@@ -189,12 +189,8 @@ class _PrimeAppState extends State<PrimeApp> {
         builder: (context) {
           final theme = PrimeTheme.of(context);
           final content = child ?? const SizedBox.shrink();
-          final wrappedContent = DefaultTextStyle(
-            style: theme.textTheme.bodyDefault,
-            child: content,
-          );
-          return widget.builder?.call(context, wrappedContent) ??
-              wrappedContent;
+          final wrappedContent = DefaultTextStyle(style: theme.textTheme.bodyDefault, child: content);
+          return widget.builder?.call(context, wrappedContent) ?? wrappedContent;
         },
       ),
     );

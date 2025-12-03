@@ -1,11 +1,21 @@
 import 'package:flutter/widgets.dart';
 import '../../prime_flutter.dart';
 
+/// A filter pill widget. Used to filter data.
 class FilterPill extends StatelessWidget {
+  /// The label of the filter pill.
   final String label;
+
+  /// Whether the filter pill is selected.
   final bool isSelected;
+
+  /// The callback function to be called when the filter pill is tapped.
   final VoidCallback? onTap;
+
+  /// The color of the filter pill. If null, the theme's primary color is used.
   final Color? color;
+
+  /// The leading widget of the filter pill. A widget to be displayed before the label.
   final Widget? leading;
 
   const FilterPill({super.key, required this.label, this.isSelected = false, this.onTap, this.color, this.leading});

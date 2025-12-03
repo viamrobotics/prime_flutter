@@ -3,10 +3,19 @@ import 'package:flutter/widgets.dart';
 
 import '../../prime_flutter.dart';
 
+/// A simple bottom sheet widget that can be used to display a title, background color, and child widget.
+/// Currently lightly wraps materials bottom sheet.
 class BottomSheet extends StatelessWidget {
+  /// The child widget to display in the bottom sheet.
   final Widget child;
+
+  /// The title widget to display in the bottom sheet. A helper widget for commonly styled bottom sheet titles.
   final String? title;
+
+  /// The background color of the bottom sheet. Defaults to [PrimeColorScheme.bgExtraLight].
   final Color? backgroundColor;
+
+  /// Whether the bottom sheet should be scrollable. Defaults to true.
   final bool isScrollable;
 
   const BottomSheet({super.key, required this.child, this.title, this.backgroundColor, this.isScrollable = true});

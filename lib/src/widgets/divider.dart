@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../prime_flutter.dart';
 
+/// A simple divider widget.
 class Divider extends StatelessWidget {
   const Divider({super.key});
 
