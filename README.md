@@ -2,7 +2,7 @@
 
 **Pretty Rad Interactive Modular Elements**
 
-Made with ❤️ at Viam.
+Made with 💙 at Viam.
 
 A collection of UI elements for Flutter, implementing Viam's design system.
 
@@ -92,5 +92,5 @@ final primaryColor = theme.colorScheme.primary;
 
 ## License
 
-Copyright 2021-2023 Viam Inc.
+Copyright 2025 Viam Inc.
 Apache 2.0
