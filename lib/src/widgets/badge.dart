@@ -7,8 +7,9 @@ enum BadgeVariant { success, danger, warning, info, neutral }
 
 /// A simple Badge widget. Used for labeling items with status or type.
 class Badge extends StatelessWidget {
-  /// The text to display in the badge.
-  final String text;
+  // TODO CP 12/16/2025 - this should be a Text Widget
+  /// The content to display in the badge.
+  final Widget child;
 
   /// The variant of the badge. Defaults to [BadgeVariant.neutral].
   final BadgeVariant variant;
@@ -19,7 +20,7 @@ class Badge extends StatelessWidget {
   /// The icon to display in the badge. Defaults to null.
   final Widget? icon;
 
-  const Badge({super.key, required this.text, this.variant = BadgeVariant.neutral, this.icon, this.showBackground = true});
+  const Badge({super.key, required this.child, this.variant = BadgeVariant.neutral, this.icon, this.showBackground = true});
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +39,11 @@ class Badge extends StatelessWidget {
                   data: IconThemeData(size: 18, color: colors.foregroundColor),
                   child: icon!,
                 ),
-              if (text.isNotEmpty && icon != null) const SizedBox(width: 8),
-              if (text.isNotEmpty) Text(text, style: theme.textTheme.label.copyWith(color: colors.foregroundColor)),
+              if (icon != null) const SizedBox(width: 8),
+              DefaultTextStyle(
+                style: theme.textTheme.label.copyWith(color: colors.foregroundColor),
+                child: child,
+              ),
             ],
           ),
         );

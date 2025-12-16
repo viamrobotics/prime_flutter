@@ -26,7 +26,7 @@ class ExpansionListItemScreen extends StatelessWidget {
                 Divider(),
                 ExpansionListItem(
                   title: Text('With Trailing Badge'),
-                  trailing: Badge(text: 'NEW', variant: BadgeVariant.success),
+                  trailing: Badge(variant: BadgeVariant.success, child: Text('NEW')),
                   children: [
                     Text('Content with trailing badge.'),
                     SizedBox(height: 8),
@@ -56,7 +56,7 @@ class ExpansionListItemScreen extends StatelessWidget {
                   ),
                   ExpansionListItem.card(
                     title: Text('With Trailing Badge'),
-                    trailing: Badge(text: 'NEW', variant: BadgeVariant.success),
+                    trailing: Badge(variant: BadgeVariant.success, child: Text('NEW')),
                     children: [
                       Text('Content with trailing badge.'),
                       SizedBox(height: 8),
