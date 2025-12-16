@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../theme/prime_theme.dart';
 import '../theme/prime_theme_data.dart';
+import '../theme/prime_theme_mode.dart';
 
 /// A widget for building a Prime app. Lightly wraps a [WidgetsApp] with a [PrimeTheme].
 ///
@@ -31,6 +32,7 @@ class PrimeApp extends StatefulWidget {
   final String? restorationScopeId;
   final PrimeThemeData? theme;
   final PrimeThemeData? darkTheme;
+  final PrimeThemeMode themeMode;
 
   // Router specific
   final RouteInformationProvider? routeInformationProvider;
@@ -64,6 +66,7 @@ class PrimeApp extends StatefulWidget {
     this.restorationScopeId,
     this.theme,
     this.darkTheme,
+    this.themeMode = PrimeThemeMode.system,
   }) : routeInformationProvider = null,
        routeInformationParser = null,
        routerDelegate = null,
@@ -92,6 +95,7 @@ class PrimeApp extends StatefulWidget {
     this.restorationScopeId,
     this.theme,
     this.darkTheme,
+    this.themeMode = PrimeThemeMode.system,
   }) : home = null,
        routes = null,
        initialRoute = null,
@@ -120,8 +124,8 @@ class _PrimeAppState extends State<PrimeApp> {
       return WidgetsApp.router(
         key: GlobalObjectKey(this),
         title: widget.title,
-        color: (widget.theme ?? PrimeThemeData.light()).colorScheme.black,
-        textStyle: (widget.theme ?? PrimeThemeData.light()).textTheme.bodyDefault,
+        color: _theme.colorScheme.black,
+        textStyle: _theme.textTheme.bodyDefault,
         debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
         routeInformationProvider: widget.routeInformationProvider,
         routeInformationParser: widget.routeInformationParser,
@@ -142,11 +146,12 @@ class _PrimeAppState extends State<PrimeApp> {
       );
     }
 
+    final effectiveTheme = _theme;
     return WidgetsApp(
       key: GlobalObjectKey(this),
       title: widget.title,
-      color: (widget.theme ?? PrimeThemeData.light()).colorScheme.black,
-      textStyle: (widget.theme ?? PrimeThemeData.light()).textTheme.bodyDefault,
+      color: effectiveTheme.colorScheme.black,
+      textStyle: effectiveTheme.textTheme.bodyDefault,
       debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
       home: widget.home,
       routes: widget.routes ?? const <String, WidgetBuilder>{},
@@ -179,9 +184,22 @@ class _PrimeAppState extends State<PrimeApp> {
     );
   }
 
+  PrimeThemeData get _theme {
+    final mode = widget.themeMode;
+    final platformBrightness = MediaQuery.platformBrightnessOf(context);
+    final useDarkTheme = mode == PrimeThemeMode.dark || (mode == PrimeThemeMode.system && platformBrightness == Brightness.dark);
+
+    final theme = widget.theme ?? PrimeThemeData.light();
+    final darkTheme = widget.darkTheme ?? theme;
+
+    if (useDarkTheme) {
+      return darkTheme;
+    }
+    return theme;
+  }
+
   Widget _builder(BuildContext context, Widget? child) {
-    final effectiveTheme = widget.theme ?? PrimeThemeData.light();
-    // TODO: Implement dark theme resolution based on platform brightness if needed
+    final effectiveTheme = _theme;
 
     return PrimeTheme(
       data: effectiveTheme,

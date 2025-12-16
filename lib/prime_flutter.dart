@@ -4,8 +4,8 @@ export 'src/theme/prime_colors.dart';
 export 'src/theme/prime_text_theme.dart';
 export 'src/theme/prime_theme.dart';
 export 'src/theme/prime_theme_data.dart';
+export 'src/theme/prime_theme_mode.dart';
 export 'src/theme/prime_typography.dart';
-
 // Widgets
 export 'src/widgets/app_bar.dart';
 export 'src/widgets/avatar.dart';
