@@ -7,7 +7,6 @@ enum BadgeVariant { success, danger, warning, info, neutral }
 
 /// A simple Badge widget. Used for labeling items with status or type.
 class Badge extends StatelessWidget {
-  // TODO CP 12/16/2025 - this should be a Text Widget
   /// The content to display in the badge.
   final Widget child;
 
