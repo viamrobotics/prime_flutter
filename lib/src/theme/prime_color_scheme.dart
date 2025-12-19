@@ -2,151 +2,126 @@ import 'package:flutter/widgets.dart';
 import 'prime_colors.dart';
 
 class PrimeColorScheme {
-  final Color textHeading;
-  final Color textDefault;
-  final Color textSubtle1;
-  final Color textSubtle2;
-  final Color textDisabled;
-  final Color textLink;
+  // --- Surface (Backgrounds) ---
+  /// Scaffold background, Bottom sheet background
+  // TODO rename to background
+  final Color surfaceBase;
 
-  final Color bgExtraLight;
-  final Color bgLight;
-  final Color bgMedium;
+  /// App bar, Filter pill section/unselected
+  // TODO rename to surface
+  final Color surfaceOffset;
 
-  final Color disabledDark;
-  final Color disabledLight;
+  /// Badge background, Avatar fill
+  final Color surfaceHighlight;
 
-  final Color borderLight;
-  final Color borderMedium;
+  // --- Typography (Content) ---
+  /// Titles, Headers, Primary text
+  final Color textPrimary;
 
-  final Color opacityLight;
-  final Color opacityMedium;
+  /// Secondary text, Unselected tabs
+  final Color textSecondary;
 
-  final Color dangerDark;
-  final Color dangerLight;
-  final Color dangerMedium;
+  /// Subtitles, Meta data, Placeholder
+  final Color textTertiary;
 
-  final Color warningDark;
-  final Color warningLight;
-  final Color warningMedium;
-  final Color warningBright;
+  /// Placeholders, Count badges
+  final Color textPlaceholder;
 
-  final Color successDark;
-  final Color successLight;
-  final Color successMedium;
+  // --- Icons ---
+  /// Selected icons
+  final Color iconPrimary;
 
-  final Color infoDark;
-  final Color infoLight;
-  final Color infoMedium;
+  /// Navigation, Action icons
+  final Color iconSecondary;
 
-  final Color black;
-  final Color gray9;
-  final Color gray8;
-  final Color gray7;
-  final Color gray6;
-  final Color gray5;
-  final Color gray4;
-  final Color gray3;
-  final Color gray2;
-  final Color gray1;
-  final Color white;
+  /// Disabled/Inactive icons
+  final Color iconDisabled;
 
-  final Color primary;
-  final Color danger;
-  final Color success;
-  final Color warning;
+  // --- Interactive (Buttons & Inputs) ---
+  /// Primary button bg, Selected states
+  final Color actionPrimaryBg;
+
+  /// Primary button text
+  final Color actionPrimaryFg;
+
+  /// Neutral button bg
+  final Color actionNeutralBg;
+
+  /// Button borders
+  final Color borderSubtle;
+
+  /// Input text
+  final Color inputText;
+
+  /// Input focus ring/border
+  final Color inputFocus;
+
+  // --- Status (Feedback) ---
+  final Color statusDangerBg;
+  final Color statusDangerFg;
+  final Color statusInfoBg;
+  final Color statusInfoFg;
+  final Color statusSuccessFg;
+  final Color statusWarningFg;
 
   const PrimeColorScheme({
-    required this.primary,
-    required this.danger,
-    required this.success,
-    required this.warning,
-    required this.textHeading,
-    required this.textDefault,
-    required this.textSubtle1,
-    required this.textSubtle2,
-    required this.textDisabled,
-    required this.textLink,
-    required this.bgExtraLight,
-    required this.bgLight,
-    required this.bgMedium,
-    required this.disabledDark,
-    required this.disabledLight,
-    required this.borderLight,
-    required this.borderMedium,
-    required this.opacityLight,
-    required this.opacityMedium,
-    required this.dangerDark,
-    required this.dangerLight,
-    required this.dangerMedium,
-    required this.warningDark,
-    required this.warningLight,
-    required this.warningMedium,
-    required this.warningBright,
-    required this.successDark,
-    required this.successLight,
-    required this.successMedium,
-    required this.infoDark,
-    required this.infoLight,
-    required this.infoMedium,
-    required this.black,
-    required this.gray9,
-    required this.gray8,
-    required this.gray7,
-    required this.gray6,
-    required this.gray5,
-    required this.gray4,
-    required this.gray3,
-    required this.gray2,
-    required this.gray1,
-    required this.white,
+    required this.surfaceBase,
+    required this.surfaceOffset,
+    required this.surfaceHighlight,
+    required this.textPrimary,
+    required this.textSecondary,
+    required this.textTertiary,
+    required this.textPlaceholder,
+    required this.iconPrimary,
+    required this.iconSecondary,
+    required this.iconDisabled,
+    required this.actionPrimaryBg,
+    required this.actionPrimaryFg,
+    required this.actionNeutralBg,
+    required this.borderSubtle,
+    required this.inputText,
+    required this.inputFocus,
+    required this.statusDangerBg,
+    required this.statusDangerFg,
+    required this.statusInfoBg,
+    required this.statusInfoFg,
+    required this.statusSuccessFg,
+    required this.statusWarningFg,
   });
 
   factory PrimeColorScheme.light() {
     return const PrimeColorScheme(
-      primary: PrimeColors.gray9,
-      danger: PrimeColors.dangerDark,
-      success: PrimeColors.successDark,
-      warning: PrimeColors.warningDark,
-      textHeading: PrimeColors.textHeading,
-      textDefault: PrimeColors.textDefault,
-      textSubtle1: PrimeColors.textSubtle1,
-      textSubtle2: PrimeColors.textSubtle2,
-      textDisabled: PrimeColors.textDisabled,
-      textLink: PrimeColors.textLink,
-      bgExtraLight: PrimeColors.bgExtraLight,
-      bgLight: PrimeColors.bgLight,
-      bgMedium: PrimeColors.bgMedium,
-      disabledDark: PrimeColors.disabledDark,
-      disabledLight: PrimeColors.disabledLight,
-      borderLight: PrimeColors.borderLight,
-      borderMedium: PrimeColors.borderMedium,
-      opacityLight: PrimeColors.opacityLight,
-      opacityMedium: PrimeColors.opacityMedium,
-      dangerDark: PrimeColors.dangerDark,
-      dangerLight: PrimeColors.dangerLight,
-      dangerMedium: PrimeColors.dangerMedium,
-      warningDark: PrimeColors.warningDark,
-      warningLight: PrimeColors.warningLight,
-      warningMedium: PrimeColors.warningMedium,
-      warningBright: PrimeColors.warningBright,
-      successDark: PrimeColors.successDark,
-      successLight: PrimeColors.successLight,
-      successMedium: PrimeColors.successMedium,
-      infoDark: PrimeColors.infoDark,
-      infoLight: PrimeColors.infoLight,
-      infoMedium: PrimeColors.infoMedium,
-      black: PrimeColors.black,
-      gray9: PrimeColors.gray9,
-      gray8: PrimeColors.gray8,
-      gray7: PrimeColors.gray7,
-      gray6: PrimeColors.gray6,
-      gray5: PrimeColors.gray5,
-      gray4: PrimeColors.gray4,
-      gray3: PrimeColors.gray3,
-      gray2: PrimeColors.gray2,
-      gray1: PrimeColors.gray1,
-      white: PrimeColors.white,
+      // Surface
+      surfaceBase: PrimeColors.gray0,
+      surfaceOffset: PrimeColors.gray1,
+      surfaceHighlight: PrimeColors.gray2,
+
+      // Typography
+      textPrimary: PrimeColors.gray9,
+      textSecondary: PrimeColors.gray8,
+      textTertiary: PrimeColors.gray7,
+      textPlaceholder: PrimeColors.gray6,
+
+      // Icons
+      iconPrimary: PrimeColors.gray9,
+      iconSecondary: PrimeColors.gray6,
+      iconDisabled: PrimeColors.gray5,
+
+      // Interactive
+      actionPrimaryBg: PrimeColors.gray9,
+      actionPrimaryFg: PrimeColors.gray0,
+      actionNeutralBg: PrimeColors.gray1,
+      borderSubtle: PrimeColors.borderSubtle,
+      inputText: PrimeColors.gray6,
+      inputFocus: PrimeColors.focusBlue,
+
+      // Status
+      statusDangerBg: PrimeColors.dangerBg,
+      statusDangerFg: PrimeColors.dangerFg,
+      statusInfoBg: PrimeColors.infoBg,
+      statusInfoFg: PrimeColors.infoFg,
+      statusSuccessFg: PrimeColors.successFg,
+      statusWarningFg: PrimeColors.warningFg,
     );
   }
 }

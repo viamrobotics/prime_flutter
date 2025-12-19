@@ -17,7 +17,7 @@ class LocationsScreen extends StatelessWidget {
             children: [
               Text('Acme Inc'), // needs to be bold
               const SizedBox(width: 2),
-              Icon(PrimeIcons.unfoldMoreHorizontal, size: 16, color: theme.colorScheme.gray6),
+              Icon(PrimeIcons.unfoldMoreHorizontal, size: 16, color: theme.colorScheme.textPlaceholder),
             ],
           ),
         ),
@@ -57,7 +57,7 @@ class LocationsScreen extends StatelessWidget {
 }
 
 class _LocationCard extends StatelessWidget {
-  const _LocationCard({super.key, required this.locationName, required this.locationCount, required this.onPressed});
+  const _LocationCard({required this.locationName, required this.locationCount, required this.onPressed});
 
   final String locationName;
   final String locationCount;
@@ -68,14 +68,14 @@ class _LocationCard extends StatelessWidget {
     final theme = PrimeTheme.of(context);
 
     return ListItem.card(
-      leading: Icon(PrimeIcons.domain, color: theme.colorScheme.disabledDark, size: 16),
+      leading: Icon(PrimeIcons.domain, size: 16),
       title: Text(locationName),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(locationCount, style: theme.textTheme.bodySmall.copyWith(color: theme.colorScheme.textSubtle2)),
+          Text(locationCount, style: theme.textTheme.bodySmall.copyWith(color: theme.colorScheme.textTertiary)),
           const SizedBox(width: 8),
-          Icon(PrimeIcons.chevronRight, size: 16, color: theme.colorScheme.textSubtle2),
+          Icon(PrimeIcons.chevronRight, size: 16, color: theme.colorScheme.textTertiary),
         ],
       ),
       onPressed: onPressed,

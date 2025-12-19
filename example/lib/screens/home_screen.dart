@@ -9,7 +9,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeScaffold(
-      appBar: PrimeAppBar(title: Text('Prime Flutter')),
+      appBar: PrimeAppBar(
+        title: Text('Prime Flutter'),
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(PrimePageRoute(builder: (_) => GlobalThemeEditor())),
+            child: Container(padding: EdgeInsets.all(8), child: Icon(PrimeIcons.pencilOutline, size: 24)),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(24, 24, 24, 36),
         child: Column(
@@ -23,6 +31,14 @@ class HomeScreen extends StatelessWidget {
               description: 'See example Locations screen',
               icon: PrimeIcons.viamLocalModule,
               screen: LocationsScreen(),
+            ),
+
+            _buildListItem(
+              context: context,
+              title: 'Theme Editor',
+              description: 'Create and export custom themes',
+              icon: PrimeIcons.pencilOutline, // Using pencil as a placeholder for edit
+              screen: GlobalThemeEditor(),
             ),
 
             SizedBox(height: 16),
@@ -126,29 +142,12 @@ class HomeScreen extends StatelessWidget {
     required Widget screen,
   }) {
     return ListItem.card(
-      leading: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(color: Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(8)),
-        child: Icon(icon, size: 24, color: Color(0xFF1976D2)),
-      ),
+      leading: Icon(icon),
       title: Text(title),
       subtitle: Text(description),
       trailing: Icon(PrimeIcons.chevronRight),
       onPressed: () {
-        Navigator.of(context).push(
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => screen,
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              const begin = Offset(1.0, 0.0);
-              const end = Offset.zero;
-              const curve = Curves.easeInOut;
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-              var offsetAnimation = animation.drive(tween);
-              return SlideTransition(position: offsetAnimation, child: child);
-            },
-          ),
-        );
+        Navigator.of(context).push(PrimePageRoute(builder: (_) => screen));
       },
     );
   }

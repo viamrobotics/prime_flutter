@@ -23,8 +23,8 @@ class AvatarScreen extends StatelessWidget {
             const Text('Custom Colors'),
             const SizedBox(height: 8),
             Avatar(
-              backgroundColor: PrimeTheme.of(context).colorScheme.primary,
-              foregroundColor: PrimeTheme.of(context).colorScheme.white,
+              backgroundColor: PrimeTheme.of(context).colorScheme.actionPrimaryBg,
+              foregroundColor: PrimeTheme.of(context).colorScheme.surfaceBase,
               child: const Text('P'),
             ),
           ],

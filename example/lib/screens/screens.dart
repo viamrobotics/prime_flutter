@@ -14,3 +14,6 @@ export 'widgets/bottom_sheet_screen.dart';
 export 'widgets/expansion_list_item_screen.dart';
 export 'widgets/filter_pill_screen.dart';
 export 'widgets/input_screen.dart';
+
+// tools
+export 'theme_editor/theme_editor_screen.dart';

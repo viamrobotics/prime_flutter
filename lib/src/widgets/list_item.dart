@@ -50,28 +50,34 @@ class _ListItemState extends State<ListItem> {
         Color? borderColor;
 
         if (isCard) {
-          backgroundColor = theme.colorScheme.bgExtraLight;
-          borderColor = theme.colorScheme.gray3;
+          backgroundColor = theme.colorScheme.surfaceOffset;
+          borderColor = theme.colorScheme.borderSubtle;
 
           if (isInteractive) {
             if (_isPressed) {
-              backgroundColor = theme.colorScheme.gray4;
+              backgroundColor = theme.colorScheme.surfaceHighlight; // darker state
             } else if (_isHovered) {
-              backgroundColor = theme.colorScheme.gray2;
+              backgroundColor = theme.colorScheme.surfaceHighlight;
             }
           }
         } else if (isInteractive) {
           if (_isPressed) {
-            backgroundColor = theme.colorScheme.gray4;
+            backgroundColor = theme.colorScheme.surfaceHighlight;
           } else if (_isHovered) {
-            backgroundColor = theme.colorScheme.opacityMedium;
+            backgroundColor = theme.colorScheme.surfaceOffset;
           }
         }
 
         Widget content = Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (widget.leading != null) ...[widget.leading!, const SizedBox(width: 16)],
+            if (widget.leading != null) ...[
+              IconTheme(
+                data: IconThemeData(color: isCard ? theme.colorScheme.iconSecondary : theme.colorScheme.iconPrimary, size: 20),
+                child: widget.leading!,
+              ),
+              const SizedBox(width: 16),
+            ],
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +87,7 @@ class _ListItemState extends State<ListItem> {
                     DefaultTextStyle(
                       style: theme.textTheme.bodyDefault.copyWith(
                         fontWeight: FontWeight.w500,
-                        color: theme.colorScheme.textDefault,
+                        color: theme.colorScheme.textPrimary,
                         height: 1,
                       ),
                       child: widget.title!,
@@ -89,7 +95,7 @@ class _ListItemState extends State<ListItem> {
                   if (widget.subtitle != null) ...[
                     const SizedBox(height: 4),
                     DefaultTextStyle(
-                      style: theme.textTheme.bodySmall.copyWith(color: theme.colorScheme.textSubtle1),
+                      style: theme.textTheme.bodySmall.copyWith(color: theme.colorScheme.textSecondary),
                       child: widget.subtitle!,
                     ),
                   ],

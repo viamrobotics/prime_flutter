@@ -36,7 +36,7 @@ class PrimeAppBar extends StatelessWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               behavior: HitTestBehavior.opaque,
-              child: SizedBox.square(dimension: 24, child: Icon(PrimeIcons.chevronLeft, size: 24, color: theme.colorScheme.textDisabled)),
+              child: SizedBox.square(dimension: 24, child: Icon(PrimeIcons.chevronLeft, size: 24, color: theme.colorScheme.iconSecondary)),
             ),
           );
         } else if (effectiveLeading == null && !canPop) {
@@ -45,8 +45,8 @@ class PrimeAppBar extends StatelessWidget {
 
         return Container(
           decoration: BoxDecoration(
-            color: theme.colorScheme.bgExtraLight,
-            border: Border(bottom: BorderSide(color: theme.colorScheme.borderLight)),
+            color: theme.colorScheme.surfaceOffset,
+            border: Border(bottom: BorderSide(color: theme.colorScheme.borderSubtle)),
           ),
           child: SafeArea(
             bottom: false,
@@ -60,7 +60,11 @@ class PrimeAppBar extends StatelessWidget {
                     alignment: Alignment.center,
                     children: [
                       if (effectiveLeading != null) Align(alignment: Alignment.centerLeft, child: effectiveLeading),
-                      if (title != null) DefaultTextStyle(style: theme.textTheme.title, child: title!),
+                      if (title != null)
+                        DefaultTextStyle(
+                          style: theme.textTheme.title.copyWith(color: theme.colorScheme.textPrimary),
+                          child: title!,
+                        ),
                       if (actions != null)
                         Align(
                           alignment: Alignment.centerRight,

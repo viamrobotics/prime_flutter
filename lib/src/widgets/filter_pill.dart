@@ -24,10 +24,10 @@ class FilterPill extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeTheme.consumer(
       builder: (context, theme) {
-        final selectedColor = color ?? theme.colorScheme.primary;
-        final backgroundColor = isSelected ? selectedColor : theme.colorScheme.bgExtraLight;
-        final borderColor = isSelected ? selectedColor : theme.colorScheme.borderLight;
-        final textColor = isSelected ? theme.colorScheme.white : theme.colorScheme.textDefault;
+        final selectedColor = color ?? theme.colorScheme.actionPrimaryBg;
+        final backgroundColor = isSelected ? selectedColor : theme.colorScheme.surfaceOffset;
+        final borderColor = isSelected ? selectedColor : theme.colorScheme.borderSubtle;
+        final textColor = isSelected ? theme.colorScheme.actionPrimaryFg : theme.colorScheme.textSecondary;
 
         return GestureDetector(
           onTap: onTap,

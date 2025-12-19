@@ -91,7 +91,7 @@ class BottomSheetScreen extends StatelessWidget {
                 BottomSheet.show(
                   context: context,
                   title: 'Sheet Title',
-                  backgroundColor: PrimeTheme.of(context).colorScheme.bgLight,
+                  backgroundColor: PrimeTheme.of(context).colorScheme.surfaceBase,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 24.0),
                     child: Text('This sheet has `bg-light` as its background color.'),

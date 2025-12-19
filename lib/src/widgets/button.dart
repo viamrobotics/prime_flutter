@@ -90,67 +90,68 @@ class _ButtonState extends State<Button> {
     );
   }
 
+  // TODO cp - 12/19/2025 - this feels very messy and there are magic colors. investigate how to clean up.
   ({Color backgroundColor, Color foregroundColor, Color? borderColor}) _getColors(PrimeColorScheme colorScheme) {
     if (widget.disabled) {
-      return (backgroundColor: colorScheme.gray2, foregroundColor: colorScheme.gray5, borderColor: null);
+      return (backgroundColor: colorScheme.surfaceHighlight, foregroundColor: colorScheme.textPlaceholder, borderColor: null);
     }
 
     switch (widget.variant) {
       case ButtonVariant.primary:
-        final base = colorScheme.primary;
+        final base = colorScheme.actionPrimaryBg;
         return (
           backgroundColor: _isPressed
               ? Color.lerp(base, const Color(0xFFFFFFFF), 0.4)! // Lighten by 40% on press
               : _isHovered
               ? Color.lerp(base, const Color(0xFFFFFFFF), 0.2)! // Lighten by 20% on hover
               : base,
-          foregroundColor: const Color(0xFFFFFFFF),
-          borderColor: null,
+          foregroundColor: colorScheme.actionPrimaryFg,
+          borderColor: colorScheme.borderSubtle,
         );
       case ButtonVariant.secondary:
         return (
           backgroundColor: _isPressed
-              ? colorScheme.gray2
+              ? colorScheme.surfaceHighlight
               : _isHovered
-              ? colorScheme.gray1
-              : colorScheme.bgExtraLight,
-          foregroundColor: colorScheme.gray9,
-          borderColor: colorScheme.gray3,
+              ? colorScheme.surfaceOffset
+              : colorScheme.actionNeutralBg,
+          foregroundColor: colorScheme.textPrimary,
+          borderColor: colorScheme.borderSubtle,
         );
       case ButtonVariant.ghost:
         return (
           backgroundColor: _isPressed
-              ? colorScheme.opacityMedium
+              ? colorScheme.surfaceHighlight
               : _isHovered
-              ? colorScheme.opacityLight
+              ? colorScheme.surfaceOffset
               : const Color(0x00000000),
-          foregroundColor: colorScheme.gray9, // Match secondary text color
+          foregroundColor: colorScheme.textPrimary, // Match secondary text color
           borderColor: null,
         );
       case ButtonVariant.danger:
-        final base = colorScheme.danger;
+        final base = colorScheme.statusDangerBg;
         return (
           backgroundColor: _isPressed
               ? Color.lerp(base, const Color(0xFF000000), 0.2)!
               : _isHovered
               ? Color.lerp(base, const Color(0xFFFFFFFF), 0.2)!
               : base,
-          foregroundColor: const Color(0xFFFFFFFF),
+          foregroundColor: colorScheme.statusDangerFg,
           borderColor: null,
         );
       case ButtonVariant.outlineDanger:
-        final base = colorScheme.dangerLight;
+        final base = const Color(0x00000000);
         return (
           backgroundColor: _isPressed
-              ? Color.lerp(base, colorScheme.danger, 0.2)!
+              ? colorScheme.statusDangerBg
               : _isHovered
-              ? Color.lerp(base, colorScheme.dangerMedium, 0.2)!
+              ? colorScheme.statusDangerBg.withValues(alpha: 0.5)
               : base,
-          foregroundColor: colorScheme.danger,
-          borderColor: colorScheme.dangerMedium,
+          foregroundColor: colorScheme.statusDangerFg,
+          borderColor: colorScheme.statusDangerFg,
         );
       case ButtonVariant.success:
-        final base = colorScheme.successDark;
+        final base = colorScheme.statusSuccessFg;
         return (
           backgroundColor: _isPressed
               ? Color.lerp(base, const Color(0xFF000000), 0.2)!

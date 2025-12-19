@@ -53,15 +53,15 @@ class Badge extends StatelessWidget {
   ({Color backgroundColor, Color foregroundColor}) _getColors(BadgeVariant variant, PrimeColorScheme colorScheme) {
     switch (variant) {
       case BadgeVariant.success:
-        return (backgroundColor: colorScheme.successLight, foregroundColor: colorScheme.successDark);
+        return (backgroundColor: colorScheme.statusSuccessFg.withValues(alpha: 0.1), foregroundColor: colorScheme.statusSuccessFg);
       case BadgeVariant.danger:
-        return (backgroundColor: colorScheme.dangerLight, foregroundColor: colorScheme.dangerDark);
+        return (backgroundColor: colorScheme.statusDangerBg, foregroundColor: colorScheme.statusDangerFg);
       case BadgeVariant.warning:
-        return (backgroundColor: colorScheme.warningLight, foregroundColor: colorScheme.warningDark);
+        return (backgroundColor: colorScheme.statusWarningFg.withValues(alpha: 0.1), foregroundColor: colorScheme.statusWarningFg);
       case BadgeVariant.info:
-        return (backgroundColor: colorScheme.infoLight, foregroundColor: colorScheme.infoDark);
+        return (backgroundColor: colorScheme.statusInfoBg, foregroundColor: colorScheme.statusInfoFg);
       case BadgeVariant.neutral:
-        return (backgroundColor: colorScheme.gray2, foregroundColor: colorScheme.gray8);
+        return (backgroundColor: colorScheme.surfaceHighlight, foregroundColor: colorScheme.textSecondary);
     }
   }
 }

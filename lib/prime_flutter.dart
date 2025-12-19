@@ -20,6 +20,7 @@ export 'src/widgets/list_item.dart';
 export 'src/widgets/navigation_bar.dart';
 export 'src/widgets/prime_app.dart';
 export 'src/widgets/prime_icons.dart';
+export 'src/widgets/prime_page_route.dart';
 export 'src/widgets/prime_scaffold.dart';
 export 'src/widgets/progress.dart';
 export 'src/widgets/tab_bar.dart';

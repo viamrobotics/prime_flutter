@@ -42,14 +42,14 @@ class TabBar extends StatelessWidget {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(color: isSelected ? theme.colorScheme.gray9 : const Color(0x00000000), width: 2),
+                            bottom: BorderSide(color: isSelected ? theme.colorScheme.textPrimary : const Color(0x00000000), width: 2),
                           ),
                         ),
                         child: Text(
                           item.toUpperCase(),
                           style: theme.textTheme.label.copyWith(
                             fontWeight: FontWeight.w400,
-                            color: isSelected ? theme.colorScheme.gray9 : theme.colorScheme.gray5,
+                            color: isSelected ? theme.colorScheme.textPrimary : theme.colorScheme.textTertiary,
                             letterSpacing: 1.0,
                           ),
                         ),
@@ -70,7 +70,7 @@ class TabBar extends StatelessWidget {
                       gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
-                        colors: [theme.colorScheme.bgExtraLight, theme.colorScheme.bgExtraLight.withAlpha(0)],
+                        colors: [theme.colorScheme.surfaceOffset, theme.colorScheme.surfaceOffset.withAlpha(0)],
                       ),
                     ),
                   ),
@@ -88,7 +88,7 @@ class TabBar extends StatelessWidget {
                       gradient: LinearGradient(
                         begin: Alignment.centerRight,
                         end: Alignment.centerLeft,
-                        colors: [theme.colorScheme.bgExtraLight, theme.colorScheme.bgExtraLight.withAlpha(0)],
+                        colors: [theme.colorScheme.surfaceOffset, theme.colorScheme.surfaceOffset.withAlpha(0)],
                       ),
                     ),
                   ),

@@ -19,6 +19,8 @@ class ExpansionListItem extends StatefulWidget {
   /// Whether the expansion list item should be expanded by default.
   final bool initiallyExpanded;
 
+  // TODO CP 12/16/2025 - need a `enabled` / `disabled` property
+
   /// A callback function to be called when the expansion list item is expanded or collapsed.
   final ValueChanged<bool>? onExpansionChanged;
 
@@ -90,12 +92,13 @@ class _ExpansionListItemState extends State<ExpansionListItem> with SingleTicker
     widget.onExpansionChanged?.call(_isExpanded);
   }
 
+  // TODO CP 12/9/2025 - look into using expansible https://main-api.flutter.dev/flutter/widgets/Expansible-class.html
   @override
   Widget build(BuildContext context) {
     return PrimeTheme.consumer(
       builder: (context, theme) {
-        final Color backgroundColor = widget._isCard ? theme.colorScheme.bgExtraLight : const Color(0x00000000);
-        final BoxBorder? border = widget._isCard ? Border.all(color: theme.colorScheme.borderLight) : null;
+        final Color backgroundColor = widget._isCard ? theme.colorScheme.surfaceOffset : const Color(0x00000000);
+        final BoxBorder? border = widget._isCard ? Border.all(color: theme.colorScheme.borderSubtle) : null;
         final BorderRadius? borderRadius = widget._isCard ? BorderRadius.circular(theme.cornerRadius) : null;
 
         return Container(
@@ -114,10 +117,19 @@ class _ExpansionListItemState extends State<ExpansionListItem> with SingleTicker
                       children: [
                         RotationTransition(
                           turns: _iconTurns,
-                          child: Icon(PrimeIcons.chevronRight, color: theme.colorScheme.textSubtle1, size: 20),
+                          child: Icon(PrimeIcons.chevronRight, color: theme.colorScheme.iconSecondary, size: 20),
                         ),
                         const SizedBox(width: 12),
-                        if (widget.leading != null) ...[widget.leading!, const SizedBox(width: 12)],
+                        if (widget.leading != null) ...[
+                          IconTheme(
+                            data: IconThemeData(
+                              color: widget._isCard ? theme.colorScheme.iconSecondary : theme.colorScheme.iconPrimary,
+                              size: 20,
+                            ),
+                            child: widget.leading!,
+                          ),
+                          const SizedBox(width: 12),
+                        ],
                         Expanded(
                           child: DefaultTextStyle(
                             style: theme.textTheme.bodyDefault.copyWith(fontWeight: FontWeight.w500),

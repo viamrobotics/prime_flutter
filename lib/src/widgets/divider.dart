@@ -10,7 +10,7 @@ class Divider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: PrimeTheme.of(context).colorScheme.borderLight)),
+        border: Border(top: BorderSide(color: PrimeTheme.of(context).colorScheme.borderSubtle)),
       ),
     );
   }

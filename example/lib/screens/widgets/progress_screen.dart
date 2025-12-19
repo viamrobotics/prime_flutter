@@ -36,7 +36,7 @@ class ProgressScreen extends StatelessWidget {
                   const SizedBox(width: 24),
                   Container(
                     padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: PrimeColors.black, borderRadius: BorderRadius.circular(8)),
+                    decoration: BoxDecoration(color: PrimeColors.gray9, borderRadius: BorderRadius.circular(8)),
                     child: const Progress(variant: ProgressVariant.light),
                   ),
                 ],
@@ -58,7 +58,7 @@ class ProgressScreen extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: PrimeColors.white,
+            color: PrimeColors.gray0,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: PrimeColors.gray2),
           ),

@@ -19,7 +19,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
         title: const Text('machine-123'),
         actions: [
           IconButton(
-            icon: Icon(PrimeIcons.dotsHorizontal, color: PrimeTheme.of(context).colorScheme.textDisabled),
+            icon: Icon(PrimeIcons.dotsHorizontal, color: PrimeTheme.of(context).colorScheme.iconDisabled),
             onPressed: () {},
           ),
         ],

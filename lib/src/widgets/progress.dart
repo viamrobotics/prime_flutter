@@ -42,7 +42,7 @@ class _ProgressState extends State<Progress> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.variant == ProgressVariant.light ? PrimeColors.white : PrimeColors.gray9;
+    final color = widget.variant == ProgressVariant.light ? PrimeColors.gray0 : PrimeColors.gray9;
 
     return SizedBox(
       width: widget.size,

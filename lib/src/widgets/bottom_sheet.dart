@@ -44,9 +44,9 @@ class BottomSheet extends StatelessWidget {
           padding: MediaQuery.of(context).viewInsets,
           child: Container(
             decoration: BoxDecoration(
-              color: backgroundColor ?? theme.colorScheme.bgExtraLight,
+              color: backgroundColor ?? theme.colorScheme.surfaceBase,
               borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-              boxShadow: [BoxShadow(color: const Color(0x1A000000), blurRadius: 10, offset: const Offset(0, -2))],
+              boxShadow: [BoxShadow(color: theme.colorScheme.borderSubtle, blurRadius: 10, offset: const Offset(0, -2))],
             ),
             child: SafeArea(
               child: Column(
@@ -58,13 +58,20 @@ class BottomSheet extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(vertical: 12),
                       width: 32,
                       height: 4,
-                      decoration: BoxDecoration(color: theme.colorScheme.gray3, borderRadius: BorderRadius.circular(2)),
+                      decoration: BoxDecoration(color: theme.colorScheme.borderSubtle, borderRadius: BorderRadius.circular(2)),
                     ),
                   ),
                   if (title != null)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-                      child: Text(title!, style: theme.textTheme.bodyDefault.copyWith(fontWeight: FontWeight.w600, fontSize: 18)),
+                      child: Text(
+                        title!,
+                        style: theme.textTheme.bodyDefault.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: theme.colorScheme.textPrimary,
+                        ),
+                      ),
                     ),
                   Flexible(child: isScrollable ? SingleChildScrollView(child: child) : child),
                 ],

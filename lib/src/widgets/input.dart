@@ -39,16 +39,16 @@ class Input extends StatelessWidget {
             onChanged: onChanged,
             onSubmitted: (_) => onSubmitted?.call(),
             autofocus: autofocus,
-            style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textDefault),
-            cursorColor: theme.colorScheme.infoDark,
+            style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.inputText),
+            cursorColor: theme.colorScheme.inputFocus,
             decoration: InputDecoration(
               hintText: placeholder,
-              hintStyle: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textSubtle2),
+              hintStyle: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textTertiary),
               prefixIcon: leading != null
                   ? Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: IconTheme(
-                        data: IconThemeData(color: theme.colorScheme.textSubtle2, size: 20),
+                        data: IconThemeData(color: theme.colorScheme.textTertiary, size: 20),
                         child: leading!,
                       ),
                     )
@@ -58,26 +58,26 @@ class Input extends StatelessWidget {
                   ? Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: IconTheme(
-                        data: IconThemeData(color: theme.colorScheme.textSubtle2, size: 20),
+                        data: IconThemeData(color: theme.colorScheme.textTertiary, size: 20),
                         child: trailing!,
                       ),
                     )
                   : null,
               suffixIconConstraints: const BoxConstraints(minWidth: 44, minHeight: 40),
               filled: true,
-              fillColor: theme.colorScheme.white,
+              fillColor: theme.colorScheme.surfaceBase,
               contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(theme.cornerRadius),
-                borderSide: BorderSide(color: theme.colorScheme.borderLight),
+                borderSide: BorderSide(color: theme.colorScheme.borderSubtle),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(theme.cornerRadius),
-                borderSide: BorderSide(color: theme.colorScheme.infoDark, width: 2),
+                borderSide: BorderSide(color: theme.colorScheme.inputFocus, width: 2),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(theme.cornerRadius),
-                borderSide: BorderSide(color: theme.colorScheme.danger),
+                borderSide: BorderSide(color: theme.colorScheme.statusDangerFg),
               ),
               focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(theme.cornerRadius)),
             ),

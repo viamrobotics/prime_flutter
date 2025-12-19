@@ -124,7 +124,7 @@ class _PrimeAppState extends State<PrimeApp> {
       return WidgetsApp.router(
         key: GlobalObjectKey(this),
         title: widget.title,
-        color: _theme.colorScheme.black,
+        color: _theme.colorScheme.actionPrimaryBg,
         textStyle: _theme.textTheme.bodyDefault,
         debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
         routeInformationProvider: widget.routeInformationProvider,
@@ -150,7 +150,7 @@ class _PrimeAppState extends State<PrimeApp> {
     return WidgetsApp(
       key: GlobalObjectKey(this),
       title: widget.title,
-      color: effectiveTheme.colorScheme.black,
+      color: effectiveTheme.colorScheme.actionPrimaryBg,
       textStyle: effectiveTheme.textTheme.bodyDefault,
       debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
       home: widget.home,

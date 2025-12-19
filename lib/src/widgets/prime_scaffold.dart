@@ -21,7 +21,7 @@ class PrimeScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeTheme.consumer(
       builder: (context, theme) {
-        final effectiveBackgroundColor = backgroundColor ?? theme.colorScheme.white;
+        final effectiveBackgroundColor = backgroundColor ?? theme.colorScheme.surfaceBase;
 
         return Container(
           color: effectiveBackgroundColor,

@@ -21,8 +21,8 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeTheme.consumer(
       builder: (context, theme) {
-        final effectiveBackgroundColor = backgroundColor ?? theme.colorScheme.bgMedium;
-        final effectiveForegroundColor = foregroundColor ?? theme.colorScheme.textDefault;
+        final effectiveBackgroundColor = backgroundColor ?? theme.colorScheme.surfaceHighlight;
+        final effectiveForegroundColor = foregroundColor ?? theme.colorScheme.textTertiary;
 
         return Container(
           width: size,

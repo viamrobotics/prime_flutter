@@ -21,8 +21,8 @@ class NavigationBar extends StatelessWidget {
         return Container(
           height: 60,
           decoration: BoxDecoration(
-            color: theme.colorScheme.bgExtraLight,
-            border: Border(top: BorderSide(color: theme.colorScheme.gray3, width: 1)),
+            color: theme.colorScheme.surfaceOffset,
+            border: Border(top: BorderSide(color: theme.colorScheme.borderSubtle, width: 1)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -71,8 +71,8 @@ class _NavBarItemRendererState extends State<_NavBarItemRenderer> {
     final colors = PrimeTheme.of(context).colorScheme;
     final typography = PrimeTheme.of(context).textTheme;
 
-    final iconColor = widget.isSelected ? colors.gray9 : colors.gray6;
-    final textColor = widget.isSelected ? colors.gray9 : colors.gray6;
+    final iconColor = widget.isSelected ? colors.iconPrimary : colors.iconSecondary;
+    final textColor = widget.isSelected ? colors.textPrimary : colors.textSecondary;
     final iconData = (widget.isSelected && widget.item.selectedIcon != null) ? widget.item.selectedIcon! : widget.item.icon;
 
     return MouseRegion(
@@ -80,7 +80,7 @@ class _NavBarItemRendererState extends State<_NavBarItemRenderer> {
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
       child: Container(
-        color: _isHovered ? colors.opacityLight : null,
+        color: _isHovered ? colors.surfaceHighlight : null,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
