@@ -130,4 +130,43 @@ class PrimeColorScheme {
       statusWarningDark: PrimeColors.warningDark,
     );
   }
+
+  // TODO improve dark theme
+  factory PrimeColorScheme.dark() {
+    return const PrimeColorScheme(
+      // Surface
+      surfaceBase: PrimeColors.gray9,
+      surfaceOffset: PrimeColors.gray8,
+      surfaceHighlight: PrimeColors.gray7,
+
+      // Typography
+      textPrimary: PrimeColors.gray0,
+      textSecondary: PrimeColors.gray2,
+      textTertiary: PrimeColors.gray5,
+      textPlaceholder: PrimeColors.gray6,
+
+      // Icons
+      iconPrimary: PrimeColors.gray0,
+      iconSecondary: PrimeColors.gray6,
+      iconDisabled: PrimeColors.gray5,
+
+      // Interactive
+      actionPrimaryBg: PrimeColors.gray0,
+      actionPrimaryFg: PrimeColors.gray9,
+      actionNeutralBg: PrimeColors.gray8,
+      borderSubtle: PrimeColors.gray8,
+      inputText: PrimeColors.gray6,
+      inputFocus: PrimeColors.focusBlue,
+
+      // Status
+      statusDangerLight: PrimeColors.dangerLight,
+      statusDangerDark: PrimeColors.dangerDark,
+      statusInfoLight: PrimeColors.infoLight,
+      statusInfoDark: PrimeColors.infoDark,
+      statusSuccessLight: PrimeColors.successLight,
+      statusSuccessDark: PrimeColors.successDark,
+      statusWarningLight: PrimeColors.warningLight,
+      statusWarningDark: PrimeColors.warningDark,
+    );
+  }
 }
