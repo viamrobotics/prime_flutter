@@ -106,12 +106,14 @@ class ThemeManager extends ChangeNotifier {
       'borderSubtle': s.borderSubtle.toARGB32(),
       'inputText': s.inputText.toARGB32(),
       'inputFocus': s.inputFocus.toARGB32(),
-      'statusDangerBg': s.statusDangerBg.toARGB32(),
-      'statusDangerFg': s.statusDangerFg.toARGB32(),
-      'statusInfoBg': s.statusInfoBg.toARGB32(),
-      'statusInfoFg': s.statusInfoFg.toARGB32(),
-      'statusSuccessFg': s.statusSuccessFg.toARGB32(),
-      'statusWarningFg': s.statusWarningFg.toARGB32(),
+      'statusDangerLight': s.statusDangerLight.toARGB32(),
+      'statusDangerDark': s.statusDangerDark.toARGB32(),
+      'statusInfoLight': s.statusInfoLight.toARGB32(),
+      'statusInfoDark': s.statusInfoDark.toARGB32(),
+      'statusSuccessLight': s.statusSuccessLight.toARGB32(),
+      'statusSuccessDark': s.statusSuccessDark.toARGB32(),
+      'statusWarningLight': s.statusWarningLight.toARGB32(),
+      'statusWarningDark': s.statusWarningDark.toARGB32(),
     };
   }
 
@@ -125,7 +127,6 @@ class ThemeManager extends ChangeNotifier {
 
     final defaults = PrimeColorScheme.light();
 
-    // TODO account for name changes here
     return PrimeColorScheme(
       surfaceBase: c('surfaceBase', defaults.surfaceBase),
       surfaceOffset: c('surfaceOffset', defaults.surfaceOffset),
@@ -143,12 +144,14 @@ class ThemeManager extends ChangeNotifier {
       borderSubtle: c('borderSubtle', defaults.borderSubtle),
       inputText: c('inputText', defaults.inputText),
       inputFocus: c('inputFocus', defaults.inputFocus),
-      statusDangerBg: c('statusDangerBg', defaults.statusDangerBg),
-      statusDangerFg: c('statusDangerFg', defaults.statusDangerFg),
-      statusInfoBg: c('statusInfoBg', defaults.statusInfoBg),
-      statusInfoFg: c('statusInfoFg', defaults.statusInfoFg),
-      statusSuccessFg: c('statusSuccessFg', defaults.statusSuccessFg),
-      statusWarningFg: c('statusWarningFg', defaults.statusWarningFg),
+      statusDangerLight: c('statusDangerLight', defaults.statusDangerLight),
+      statusDangerDark: c('statusDangerDark', defaults.statusDangerDark),
+      statusInfoLight: c('statusInfoLight', defaults.statusInfoLight),
+      statusInfoDark: c('statusInfoDark', defaults.statusInfoDark),
+      statusSuccessLight: c('statusSuccessLight', defaults.statusSuccessLight),
+      statusSuccessDark: c('statusSuccessDark', defaults.statusSuccessDark),
+      statusWarningLight: c('statusWarningLight', defaults.statusWarningLight),
+      statusWarningDark: c('statusWarningDark', defaults.statusWarningDark),
     );
   }
 

@@ -129,29 +129,29 @@ class _ButtonState extends State<Button> {
           borderColor: null,
         );
       case ButtonVariant.danger:
-        final base = colorScheme.statusDangerBg;
+        final base = colorScheme.statusDangerLight;
         return (
           backgroundColor: _isPressed
               ? Color.lerp(base, const Color(0xFF000000), 0.2)!
               : _isHovered
               ? Color.lerp(base, const Color(0xFFFFFFFF), 0.2)!
               : base,
-          foregroundColor: colorScheme.statusDangerFg,
+          foregroundColor: colorScheme.statusDangerDark,
           borderColor: null,
         );
       case ButtonVariant.outlineDanger:
         final base = const Color(0x00000000);
         return (
           backgroundColor: _isPressed
-              ? colorScheme.statusDangerBg
+              ? colorScheme.statusDangerLight
               : _isHovered
-              ? colorScheme.statusDangerBg.withValues(alpha: 0.5)
+              ? colorScheme.statusDangerLight.withValues(alpha: 0.5)
               : base,
-          foregroundColor: colorScheme.statusDangerFg,
-          borderColor: colorScheme.statusDangerFg,
+          foregroundColor: colorScheme.statusDangerDark,
+          borderColor: colorScheme.statusDangerDark,
         );
       case ButtonVariant.success:
-        final base = colorScheme.statusSuccessFg;
+        final base = colorScheme.statusSuccessDark;
         return (
           backgroundColor: _isPressed
               ? Color.lerp(base, const Color(0xFF000000), 0.2)!

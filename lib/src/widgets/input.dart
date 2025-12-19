@@ -77,7 +77,7 @@ class Input extends StatelessWidget {
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(theme.cornerRadius),
-                borderSide: BorderSide(color: theme.colorScheme.statusDangerFg),
+                borderSide: BorderSide(color: theme.colorScheme.statusDangerDark),
               ),
               focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(theme.cornerRadius)),
             ),

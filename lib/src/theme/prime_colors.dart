@@ -18,13 +18,14 @@ class PrimeColors {
   static const Color gray0 = Color(0xFFFFFFFF);
 
   // Status/Semantic Primitives
-  // TODO: prefer light / dark names isntead of Bg / Fg
-  static const Color dangerBg = Color(0xFFFCECEA);
-  static const Color dangerFg = Color(0xFFBE3536);
-  static const Color infoBg = Color(0xFFE1F3FF);
-  static const Color infoFg = Color(0xFF2E67D3);
-  static const Color successFg = Color(0xFF3D7D3F);
-  static const Color warningFg = Color(0xFFD97706);
+  static const Color dangerLight = Color(0xFFFCECEA);
+  static const Color dangerDark = Color(0xFFBE3536);
+  static const Color infoLight = Color(0xFFE1F3FF);
+  static const Color infoDark = Color(0xFF2E67D3);
+  static const Color successLight = Color(0xFFE0FAE3);
+  static const Color successDark = Color(0xFF3D7D3F);
+  static const Color warningLight = Color(0xFFFEF3E0);
+  static const Color warningDark = Color(0xFFD97706);
 
   // Hardcoded / Specific
   static const Color focusBlue = Color(0xFF007AFF);

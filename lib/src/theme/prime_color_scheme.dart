@@ -57,12 +57,14 @@ class PrimeColorScheme {
   final Color inputFocus;
 
   // --- Status (Feedback) ---
-  final Color statusDangerBg;
-  final Color statusDangerFg;
-  final Color statusInfoBg;
-  final Color statusInfoFg;
-  final Color statusSuccessFg;
-  final Color statusWarningFg;
+  final Color statusDangerLight;
+  final Color statusDangerDark;
+  final Color statusInfoLight;
+  final Color statusInfoDark;
+  final Color statusSuccessLight;
+  final Color statusSuccessDark;
+  final Color statusWarningLight;
+  final Color statusWarningDark;
 
   const PrimeColorScheme({
     required this.surfaceBase,
@@ -81,12 +83,14 @@ class PrimeColorScheme {
     required this.borderSubtle,
     required this.inputText,
     required this.inputFocus,
-    required this.statusDangerBg,
-    required this.statusDangerFg,
-    required this.statusInfoBg,
-    required this.statusInfoFg,
-    required this.statusSuccessFg,
-    required this.statusWarningFg,
+    required this.statusDangerLight,
+    required this.statusDangerDark,
+    required this.statusInfoLight,
+    required this.statusInfoDark,
+    required this.statusSuccessLight,
+    required this.statusSuccessDark,
+    required this.statusWarningLight,
+    required this.statusWarningDark,
   });
 
   factory PrimeColorScheme.light() {
@@ -116,12 +120,14 @@ class PrimeColorScheme {
       inputFocus: PrimeColors.focusBlue,
 
       // Status
-      statusDangerBg: PrimeColors.dangerBg,
-      statusDangerFg: PrimeColors.dangerFg,
-      statusInfoBg: PrimeColors.infoBg,
-      statusInfoFg: PrimeColors.infoFg,
-      statusSuccessFg: PrimeColors.successFg,
-      statusWarningFg: PrimeColors.warningFg,
+      statusDangerLight: PrimeColors.dangerLight,
+      statusDangerDark: PrimeColors.dangerDark,
+      statusInfoLight: PrimeColors.infoLight,
+      statusInfoDark: PrimeColors.infoDark,
+      statusSuccessLight: PrimeColors.successLight,
+      statusSuccessDark: PrimeColors.successDark,
+      statusWarningLight: PrimeColors.warningLight,
+      statusWarningDark: PrimeColors.warningDark,
     );
   }
 }
