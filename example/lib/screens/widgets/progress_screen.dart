@@ -32,12 +32,12 @@ class ProgressScreen extends StatelessWidget {
                 context,
                 title: 'Variants',
                 children: [
-                  const Progress(variant: ProgressVariant.dark),
+                  const Progress(), // Defaults to dark/iconPrimary
                   const SizedBox(width: 24),
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(color: PrimeColors.gray9, borderRadius: BorderRadius.circular(8)),
-                    child: const Progress(variant: ProgressVariant.light),
+                    child: const Progress(color: PrimeColors.gray0), // Explicit light color for dark background
                   ),
                 ],
               ),

@@ -2,21 +2,20 @@ import 'dart:math' as math;
 
 import 'package:flutter/widgets.dart';
 
-import '../theme/prime_colors.dart';
-
-enum ProgressVariant { light, dark }
+import '../theme/prime_theme.dart';
 
 /// A progress widget. Used to display a progress indicator.
 class Progress extends StatefulWidget {
   final double size;
 
-  /// The variant of the progress indicator. Light or dark.
-  final ProgressVariant variant;
+  /// The color of the progress indicator.
+  /// If null, it will fallback to [IconTheme] color, and then [PrimeTheme] iconPrimary.
+  final Color? color;
 
   /// The number of ticks to display in the progress indicator.
   final int tickCount;
 
-  const Progress({super.key, this.size = 16.0, this.variant = ProgressVariant.dark, this.tickCount = 8});
+  const Progress({super.key, this.size = 16.0, this.color, this.tickCount = 8});
 
   @override
   State<Progress> createState() => _ProgressState();
@@ -42,19 +41,23 @@ class _ProgressState extends State<Progress> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.variant == ProgressVariant.light ? PrimeColors.gray0 : PrimeColors.gray9;
+    return PrimeTheme.consumer(
+      builder: (context, theme) {
+        final color = widget.color ?? IconTheme.of(context).color ?? theme.colorScheme.iconPrimary;
 
-    return SizedBox(
-      width: widget.size,
-      height: widget.size,
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) {
-          return CustomPaint(
-            painter: _SpinnerPainter(color: color, tickCount: widget.tickCount, progress: _controller.value),
-          );
-        },
-      ),
+        return SizedBox(
+          width: widget.size,
+          height: widget.size,
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return CustomPaint(
+                painter: _SpinnerPainter(color: color, tickCount: widget.tickCount, progress: _controller.value),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
