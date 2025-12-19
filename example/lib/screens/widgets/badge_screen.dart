@@ -19,14 +19,16 @@ class BadgeScreen extends StatelessWidget {
                 children: [
                   const Text('Badges', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  const Text(
+                  // TODO cp 12/19/2025 - this is a reused example of secondary text. investigate using text theme for simplicity.
+                  Text(
                     'Badges are used to highlight important information or status.',
-                    style: TextStyle(fontSize: 16, color: Color(0xFF757575)),
+                    style: TextStyle(fontSize: 16, color: PrimeTheme.of(context).colorScheme.textSecondary),
                   ),
                   const SizedBox(height: 32),
 
                   // Status Examples
                   _buildSection(
+                    context,
                     title: 'Examples',
                     description: 'Common use cases for badges.',
                     child: Column(
@@ -77,6 +79,7 @@ class BadgeScreen extends StatelessWidget {
 
                   // Basic Variants
                   _buildSection(
+                    context,
                     title: 'Variants',
                     description: 'Badges come in different variants to convey different meanings.',
                     child: Wrap(
@@ -96,6 +99,7 @@ class BadgeScreen extends StatelessWidget {
 
                   // With Icons
                   _buildSection(
+                    context,
                     title: 'With Icons',
                     description: 'Badges can include icons for additional context.',
                     child: Wrap(
@@ -115,6 +119,7 @@ class BadgeScreen extends StatelessWidget {
 
                   // Show Background
                   _buildSection(
+                    context,
                     title: 'Show Background',
                     description: 'Badges can be configured to show or hide the background.',
                     child: Wrap(
@@ -153,17 +158,17 @@ class BadgeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSection({required String title, required String description, required Widget child}) {
+  Widget _buildSection(BuildContext context, {required String title, required String description, required Widget child}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
-        Text(description, style: const TextStyle(fontSize: 14, color: Color(0xFF757575))),
+        Text(description, style: TextStyle(fontSize: 14, color: PrimeTheme.of(context).colorScheme.textSecondary)),
         const SizedBox(height: 16),
         Container(
           padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(color: const Color(0xFFF5F5F5), borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(color: PrimeTheme.of(context).colorScheme.surfaceHighlight, borderRadius: BorderRadius.circular(8)),
           child: child,
         ),
       ],

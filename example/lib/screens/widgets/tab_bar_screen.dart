@@ -17,12 +17,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
     return PrimeScaffold(
       appBar: PrimeAppBar(
         title: const Text('machine-123'),
-        actions: [
-          IconButton(
-            icon: Icon(PrimeIcons.dotsHorizontal, color: PrimeTheme.of(context).colorScheme.iconDisabled),
-            onPressed: () {},
-          ),
-        ],
+        actions: [IconButton(icon: Icon(PrimeIcons.dotsHorizontal), onPressed: () {})],
         bottom: TabBar(
           items: const ['TAB 1', 'TAB 2', 'SCROLL EXAMPLE'],
           selectedIndex: _selectedIndex,

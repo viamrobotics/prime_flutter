@@ -15,14 +15,15 @@ class ButtonScreen extends StatelessWidget {
           children: [
             const Text('Buttons', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Buttons allow users to take actions, and make choices, with a single tap.',
-              style: TextStyle(fontSize: 16, color: Color(0xFF757575)),
+              style: TextStyle(fontSize: 16, color: PrimeTheme.of(context).colorScheme.textSecondary),
             ),
             const SizedBox(height: 32),
 
             // Variants
             _buildSection(
+              context,
               title: 'Variants',
               description: 'Buttons come in different variants for different levels of emphasis.',
               child: Wrap(
@@ -43,6 +44,7 @@ class ButtonScreen extends StatelessWidget {
 
             // Full width
             _buildSection(
+              context,
               title: 'Full Width',
               description: 'Buttons can be full width to span the width of the container. Set fullWidth to true.',
               child: Wrap(
@@ -59,6 +61,7 @@ class ButtonScreen extends StatelessWidget {
 
             // With Icons
             _buildSection(
+              context,
               title: 'With Icons',
               description: 'Buttons can include icons to provide more context.',
               child: Wrap(
@@ -88,6 +91,7 @@ class ButtonScreen extends StatelessWidget {
 
             // Loading State
             _buildSection(
+              context,
               title: 'Loading State',
               description: 'Buttons can be in a loading state to indicate progress.',
               child: Wrap(
@@ -101,6 +105,7 @@ class ButtonScreen extends StatelessWidget {
 
             // Disabled State
             _buildSection(
+              context,
               title: 'Disabled State',
               description: 'Buttons can be disabled to prevent interaction.',
               child: Wrap(
@@ -118,13 +123,13 @@ class ButtonScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSection({required String title, required String description, required Widget child}) {
+  Widget _buildSection(BuildContext context, {required String title, required String description, required Widget child}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
-        Text(description, style: const TextStyle(fontSize: 14, color: Color(0xFF757575))),
+        Text(description, style: TextStyle(fontSize: 14, color: PrimeTheme.of(context).colorScheme.textSecondary)),
         const SizedBox(height: 16),
         child,
       ],

@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
           spacing: 16,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Example Screens', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
+            Text('Example Screens', style: TextStyle(fontSize: 16, color: PrimeTheme.of(context).colorScheme.textSecondary)),
             _buildListItem(
               context: context,
               title: 'Locations',
@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             SizedBox(height: 16),
-            Text('Component Showcase', style: TextStyle(fontSize: 16, color: Color(0xFF757575))),
+            Text('Component Showcase', style: TextStyle(fontSize: 16, color: PrimeTheme.of(context).colorScheme.textSecondary)),
             _buildListItem(
               context: context,
               title: 'Icons',

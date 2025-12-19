@@ -74,7 +74,7 @@ class _LocationCard extends StatelessWidget {
         children: [
           Text(locationCount, style: theme.textTheme.bodySmall.copyWith(color: theme.colorScheme.textTertiary)),
           const SizedBox(width: 8),
-          Icon(PrimeIcons.chevronRight, size: 16, color: theme.colorScheme.textTertiary),
+          Icon(PrimeIcons.chevronRight, size: 16),
         ],
       ),
       onPressed: onPressed,
