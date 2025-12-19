@@ -12,7 +12,8 @@ class ThemeManager extends ChangeNotifier {
   static const String _currentThemeKey = 'prime_current_theme_name';
 
   // Map of Theme Name -> Theme Data
-  final Map<String, PrimeColorScheme> _savedThemes = {'Light': PrimeColorScheme.light(), 'Dark': PrimeColorScheme.light()};
+  final Map<String, PrimeColorScheme> _savedThemes = {'Light': PrimeColorScheme.light(), 'Dark': PrimeColorScheme.dark()};
+  static const Set<String> _protectedThemes = {'Light', 'Dark'};
 
   String _currentThemeName = 'Light';
   PrimeColorScheme _currentScheme = PrimeColorScheme.light();
@@ -20,6 +21,7 @@ class ThemeManager extends ChangeNotifier {
   PrimeColorScheme get currentScheme => _currentScheme;
   String get currentThemeName => _currentThemeName;
   List<String> get availableThemes => _savedThemes.keys.toList();
+  bool isProtected(String name) => _protectedThemes.contains(name);
 
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
@@ -65,10 +67,32 @@ class ThemeManager extends ChangeNotifier {
   }
 
   Future<void> saveTheme(String newName) async {
+    if (isProtected(newName)) {
+      throw Exception('Cannot overwrite protected theme: $newName');
+    }
     _savedThemes[newName] = _currentScheme;
     _currentThemeName = newName;
     await _persistAll();
     await _saveCurrentSelection();
+    notifyListeners();
+  }
+
+  Future<void> deleteTheme(String name) async {
+    if (isProtected(name)) {
+      throw Exception('Cannot delete protected theme: $name');
+    }
+    if (!_savedThemes.containsKey(name)) return;
+
+    _savedThemes.remove(name);
+
+    // If we deleted the current theme, switch to a safe default
+    if (_currentThemeName == name) {
+      _currentThemeName = 'Light';
+      _currentScheme = _savedThemes['Light']!;
+      await _saveCurrentSelection();
+    }
+
+    await _persistAll();
     notifyListeners();
   }
 

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' as material;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
@@ -50,31 +49,59 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
   Widget _buildThemeControls(PrimeTextTheme textTheme) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Theme: ', style: textTheme.bodyDefault.copyWith(fontWeight: FontWeight.bold)),
-          const SizedBox(width: 8),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: PrimeColors.borderSubtle),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: material.Material(
-              child: material.DropdownButton<String>(
-                value: _manager.currentThemeName,
-                underline: const SizedBox(),
-                items: _manager.availableThemes.map((t) => material.DropdownMenuItem(value: t, child: Text(t))).toList(),
-                onChanged: (val) {
-                  if (val != null) _manager.switchTheme(val);
-                },
-              ),
-            ),
+          Text('Theme Selector', style: textTheme.bodyDefault.copyWith(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          ExpansionListItem(
+            title: Text('Current Theme: ${_manager.currentThemeName}'),
+            children: [
+              ..._manager.availableThemes.map((name) {
+                final isSelected = name == _manager.currentThemeName;
+                final isProtected = _manager.isProtected(name);
+                return ListItem(
+                  leading: isSelected ? const Icon(PrimeIcons.check, size: 20) : const SizedBox(width: 20, height: 20),
+                  title: Text(name),
+                  onPressed: () => _manager.switchTheme(name),
+                  trailing: !isProtected
+                      ? GestureDetector(
+                          onTap: () => _confirmDelete(name),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            child: const Icon(PrimeIcons.trashCanOutline, size: 20, color: PrimeColors.dangerDark),
+                          ),
+                        )
+                      : null,
+                );
+              }),
+              Divider(),
+              ListItem(leading: const Icon(PrimeIcons.plus, size: 20), title: const Text('Create New Theme'), onPressed: _showSaveDialog),
+            ],
           ),
-          const Spacer(),
-          Button(label: 'Save Profile', variant: ButtonVariant.primary, onPressed: _showSaveDialog),
+          const SizedBox(height: 16),
+          Button(label: 'Save Changes', variant: ButtonVariant.primary, onPressed: _showSaveDialog),
         ],
       ),
+    );
+  }
+
+  void _confirmDelete(String themeName) {
+    _showCustomDialog(
+      title: 'Delete Theme?',
+      content: Text('Are you sure you want to delete "$themeName"? This cannot be undone.'),
+      actions: [
+        Button(label: 'Cancel', variant: ButtonVariant.secondary, onPressed: () => Navigator.pop(context)),
+        Button(
+          label: 'Delete',
+          variant: ButtonVariant.outlineDanger,
+          onPressed: () {
+            _manager.deleteTheme(themeName);
+            Navigator.pop(context);
+            _showToast('Theme deleted');
+          },
+        ),
+      ],
     );
   }
 
@@ -173,8 +200,13 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
         Button(
           label: 'Save',
           onPressed: () {
-            if (controller.text.isNotEmpty) {
-              _manager.saveTheme(controller.text);
+            final name = controller.text;
+            if (name.isNotEmpty) {
+              if (_manager.isProtected(name)) {
+                _showToast('Cannot overwrite protected theme "$name"');
+                return;
+              }
+              _manager.saveTheme(name);
               Navigator.pop(context);
               _showToast('Theme saved!');
             }
