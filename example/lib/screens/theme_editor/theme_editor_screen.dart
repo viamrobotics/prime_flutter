@@ -83,18 +83,42 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
       itemCount: fields.length,
       itemBuilder: (context, index) {
         final entry = fields.entries.elementAt(index);
+
+        // Check for matching PrimeColor
+        String? matchedName;
+        for (final colorEntry in _primeColorsMap.entries) {
+          if (colorEntry.value.toARGB32() == entry.value.toARGB32()) {
+            matchedName = colorEntry.key;
+            break;
+          }
+        }
+
+        final colorDisplay = matchedName != null
+            ? 'PrimeColors.$matchedName'
+            : entry.value.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase();
+
         return ListItem(
-          title: Text('${entry.key} - ${entry.value.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}'),
+          title: Text(entry.key),
           leading: const Icon(PrimeIcons.tools, size: 20),
           onPressed: () => _pickColor(entry.key, entry.value),
-          trailing: Container(
-            width: 20,
-            height: 20,
-            decoration: BoxDecoration(
-              color: entry.value,
-              border: Border.all(color: PrimeColors.borderSubtle),
-              borderRadius: BorderRadius.circular(4),
-            ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                colorDisplay,
+                style: const TextStyle(fontSize: 12, color: PrimeColors.gray7), // Subtle text
+              ),
+              const SizedBox(width: 8),
+              Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: entry.value,
+                  border: Border.all(color: PrimeColors.borderSubtle),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -103,7 +127,7 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
 
   void _pickColor(String name, Color currentColor) {
     _showCustomDialog(
-      title: 'Pick Color',
+      title: 'Pick Color: $name',
       content: _SimpleColorPicker(
         initialColor: currentColor,
         onColorChanged: (color) {
@@ -335,6 +359,17 @@ class _SimpleColorPickerState extends State<_SimpleColorPicker> {
 
   @override
   Widget build(BuildContext context) {
+    // Check if current color matches any PrimeColor
+    String? matchedName;
+    for (final entry in _primeColorsMap.entries) {
+      if (entry.value.toARGB32() == _color.toARGB32()) {
+        matchedName = entry.key;
+        break;
+      }
+    }
+
+    final dropdownText = matchedName != null ? 'PrimeColors.$matchedName' : 'Select from PrimeColors';
+
     return Column(
       children: [
         Container(width: 100, height: 50, color: _color, margin: const EdgeInsets.only(bottom: 16)),
@@ -354,7 +389,7 @@ class _SimpleColorPickerState extends State<_SimpleColorPicker> {
               children: [
                 const Icon(PrimeIcons.magnify, size: 16),
                 const SizedBox(width: 8),
-                Text(_showColorList ? 'Hide PrimeColors' : 'Select from PrimeColors', style: const TextStyle(fontSize: 14)),
+                Text(_showColorList ? 'Hide PrimeColors' : dropdownText, style: const TextStyle(fontSize: 14)),
                 const Spacer(),
                 Icon(_showColorList ? PrimeIcons.chevronUp : PrimeIcons.chevronDown, size: 16),
               ],
