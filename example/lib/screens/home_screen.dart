@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = PrimeTheme.of(context);
     return PrimeScaffold(
       appBar: PrimeAppBar(
         title: Text('Prime Flutter'),
@@ -24,7 +25,7 @@ class HomeScreen extends StatelessWidget {
           spacing: 16,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Example Screens', style: TextStyle(fontSize: 16, color: PrimeTheme.of(context).colorScheme.textSecondary)),
+            Text('Example Screens', style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textSecondary)),
             _buildListItem(
               context: context,
               title: 'Locations',
@@ -42,7 +43,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             SizedBox(height: 16),
-            Text('Component Showcase', style: TextStyle(fontSize: 16, color: PrimeTheme.of(context).colorScheme.textSecondary)),
+            Text('Component Showcase', style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textSecondary)),
             _buildListItem(
               context: context,
               title: 'Icons',

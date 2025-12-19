@@ -6,6 +6,7 @@ class BadgeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = PrimeTheme.of(context);
     return PrimeScaffold(
       appBar: const PrimeAppBar(title: Text('Badge')),
       body: Column(
@@ -17,12 +18,11 @@ class BadgeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Badges', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                  Text('Badges', style: theme.textTheme.heading.copyWith(fontSize: 32)),
                   const SizedBox(height: 8),
-                  // TODO cp 12/19/2025 - this is a reused example of secondary text. investigate using text theme for simplicity.
                   Text(
                     'Badges are used to highlight important information or status.',
-                    style: TextStyle(fontSize: 16, color: PrimeTheme.of(context).colorScheme.textSecondary),
+                    style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textSecondary),
                   ),
                   const SizedBox(height: 32),
 
@@ -34,12 +34,12 @@ class BadgeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildStatusRow('USER ROLES:', const [
+                        _buildStatusRow(context, 'USER ROLES:', const [
                           Badge(variant: BadgeVariant.info, child: Text('OWNER')),
                           Badge(variant: BadgeVariant.neutral, child: Text('OPERATOR')),
                         ]),
                         const SizedBox(height: 16),
-                        _buildStatusRow('CONNECTION STATUS:', const [
+                        _buildStatusRow(context, 'CONNECTION STATUS:', const [
                           Badge(
                             variant: BadgeVariant.success,
                             icon: Icon(PrimeIcons.broadcast),
@@ -60,7 +60,7 @@ class BadgeScreen extends StatelessWidget {
                           ),
                         ]),
                         const SizedBox(height: 16),
-                        _buildStatusRow('COMPONENT TYPE:', const [
+                        _buildStatusRow(context, 'COMPONENT TYPE:', const [
                           Badge(variant: BadgeVariant.neutral, child: Text('BOARD')),
                           Badge(variant: BadgeVariant.neutral, child: Text('SENSOR')),
                           Badge(variant: BadgeVariant.neutral, child: Text('ARM')),
@@ -159,27 +159,29 @@ class BadgeScreen extends StatelessWidget {
   }
 
   Widget _buildSection(BuildContext context, {required String title, required String description, required Widget child}) {
+    final theme = PrimeTheme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(title, style: theme.textTheme.heading),
         const SizedBox(height: 8),
-        Text(description, style: TextStyle(fontSize: 14, color: PrimeTheme.of(context).colorScheme.textSecondary)),
+        Text(description, style: theme.textTheme.bodySmall.copyWith(color: theme.colorScheme.textSecondary)),
         const SizedBox(height: 16),
         Container(
           padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(color: PrimeTheme.of(context).colorScheme.surfaceHighlight, borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(color: theme.colorScheme.surfaceOffset, borderRadius: BorderRadius.circular(theme.cornerRadius)),
           child: child,
         ),
       ],
     );
   }
 
-  Widget _buildStatusRow(String label, List<Badge> badges) {
+  Widget _buildStatusRow(BuildContext context, String label, List<Badge> badges) {
+    final theme = PrimeTheme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+        Text(label, style: theme.textTheme.bodySmall.copyWith(fontWeight: FontWeight.w500)),
         const SizedBox(height: 8),
         Wrap(spacing: 8, runSpacing: 8, children: badges),
       ],

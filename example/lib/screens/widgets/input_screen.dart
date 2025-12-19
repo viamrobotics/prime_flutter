@@ -6,6 +6,7 @@ class InputScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = PrimeTheme.of(context);
     return PrimeScaffold(
       appBar: const PrimeAppBar(title: Text('Input')),
       body: SingleChildScrollView(
@@ -15,19 +16,19 @@ class InputScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Basic Input', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text('Basic Input', style: theme.textTheme.title),
               const SizedBox(height: 8),
               const Input(placeholder: 'Enter text...'),
               const SizedBox(height: 24),
-              const Text('With Leading Icon', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text('With Leading Icon', style: theme.textTheme.title),
               const SizedBox(height: 8),
               const Input(placeholder: 'Search...', leading: Icon(PrimeIcons.magnify)),
               const SizedBox(height: 24),
-              const Text('With Trailing Icon', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text('With Trailing Icon', style: theme.textTheme.title),
               const SizedBox(height: 8),
               Input(placeholder: 'Enter password', obscureText: true, trailing: Icon(PrimeIcons.pencilOutline)),
               const SizedBox(height: 24),
-              const Text('Keyboard Type (Number)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text('Keyboard Type (Number)', style: theme.textTheme.title),
               const SizedBox(height: 8),
               const Input(placeholder: '12345', keyboardType: TextInputType.number),
             ],

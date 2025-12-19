@@ -14,6 +14,7 @@ class _FilterPillScreenState extends State<FilterPillScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = PrimeTheme.of(context);
     return PrimeScaffold(
       appBar: const PrimeAppBar(title: Text('Filter Pills')),
       body: SingleChildScrollView(
@@ -21,7 +22,7 @@ class _FilterPillScreenState extends State<FilterPillScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Single Selection', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text('Single Selection', style: theme.textTheme.title),
             const SizedBox(height: 16),
             Wrap(
               spacing: 8,
@@ -30,26 +31,26 @@ class _FilterPillScreenState extends State<FilterPillScreen> {
                 FilterPill(label: 'All', isSelected: _selectedFilter == 'All', onTap: () => setState(() => _selectedFilter = 'All')),
                 FilterPill(
                   label: 'Error',
-                  color: PrimeTheme.of(context).colorScheme.statusDangerDark,
+                  color: theme.colorScheme.statusDangerDark,
                   isSelected: _selectedFilter == 'Error',
                   onTap: () => setState(() => _selectedFilter = 'Error'),
                 ),
                 FilterPill(
                   label: 'Warning',
-                  color: PrimeTheme.of(context).colorScheme.statusWarningDark,
+                  color: theme.colorScheme.statusWarningDark,
                   isSelected: _selectedFilter == 'Warning',
                   onTap: () => setState(() => _selectedFilter = 'Warning'),
                 ),
                 FilterPill(
                   label: 'Info',
-                  color: PrimeTheme.of(context).colorScheme.statusInfoDark,
+                  color: theme.colorScheme.statusInfoDark,
                   isSelected: _selectedFilter == 'Info',
                   onTap: () => setState(() => _selectedFilter = 'Info'),
                 ),
               ],
             ),
             const SizedBox(height: 32),
-            const Text('Multiple Selection', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text('Multiple Selection', style: theme.textTheme.title),
             const SizedBox(height: 16),
             Wrap(
               spacing: 8,
@@ -57,26 +58,26 @@ class _FilterPillScreenState extends State<FilterPillScreen> {
               children: [
                 FilterPill(
                   label: 'Error',
-                  color: PrimeTheme.of(context).colorScheme.statusDangerDark,
+                  color: theme.colorScheme.statusDangerDark,
                   isSelected: _selectedTags.contains('Error'),
                   onTap: () => setState(() => _selectedTags.contains('Error') ? _selectedTags.remove('Error') : _selectedTags.add('Error')),
                 ),
                 FilterPill(
                   label: 'Warning',
-                  color: PrimeTheme.of(context).colorScheme.statusWarningDark,
+                  color: theme.colorScheme.statusWarningDark,
                   isSelected: _selectedTags.contains('Warning'),
                   onTap: () =>
                       setState(() => _selectedTags.contains('Warning') ? _selectedTags.remove('Warning') : _selectedTags.add('Warning')),
                 ),
                 FilterPill(
                   label: 'Info',
-                  color: PrimeTheme.of(context).colorScheme.statusInfoDark,
+                  color: theme.colorScheme.statusInfoDark,
                   isSelected: _selectedTags.contains('Info'),
                   onTap: () => setState(() => _selectedTags.contains('Info') ? _selectedTags.remove('Info') : _selectedTags.add('Info')),
                 ),
                 FilterPill(
                   label: 'Debug',
-                  color: PrimeTheme.of(context).colorScheme.statusSuccessDark,
+                  color: theme.colorScheme.statusSuccessDark,
                   isSelected: _selectedTags.contains('Debug'),
                   onTap: () => setState(() => _selectedTags.contains('Debug') ? _selectedTags.remove('Debug') : _selectedTags.add('Debug')),
                 ),

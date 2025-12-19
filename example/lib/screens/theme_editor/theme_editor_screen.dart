@@ -20,9 +20,10 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
       animation: _manager,
       builder: (context, child) {
         final scheme = _manager.currentScheme;
+        final previewTextTheme = PrimeTextTheme.withColorScheme(scheme);
         return PrimeTheme(
           // Ensure we are previewing what we are editing
-          data: PrimeThemeData(colorScheme: scheme, textTheme: PrimeTextTheme.base(), cornerRadius: 8.0),
+          data: PrimeThemeData(colorScheme: scheme, textTheme: previewTextTheme, cornerRadius: 8.0),
           child: PrimeScaffold(
             appBar: PrimeAppBar(
               title: const Text('Theme Editor'),
@@ -35,9 +36,9 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
             ),
             body: Column(
               children: [
-                _buildThemeControls(),
+                _buildThemeControls(previewTextTheme),
                 Divider(),
-                Expanded(child: _buildEditList(scheme)),
+                Expanded(child: _buildEditList(scheme, previewTextTheme)),
               ],
             ),
           ),
@@ -46,12 +47,12 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
     );
   }
 
-  Widget _buildThemeControls() {
+  Widget _buildThemeControls(PrimeTextTheme textTheme) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
-          Text('Theme: ', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Theme: ', style: textTheme.bodyDefault.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(width: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -77,7 +78,7 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
     );
   }
 
-  Widget _buildEditList(PrimeColorScheme scheme) {
+  Widget _buildEditList(PrimeColorScheme scheme, PrimeTextTheme textTheme) {
     final fields = _getFields(scheme);
     return ListView.builder(
       itemCount: fields.length,
@@ -106,7 +107,7 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
             children: [
               Text(
                 colorDisplay,
-                style: const TextStyle(fontSize: 12, color: PrimeColors.gray7), // Subtle text
+                style: textTheme.label.copyWith(color: scheme.textTertiary), // Subtle text
               ),
               const SizedBox(width: 8),
               Container(
@@ -140,12 +141,13 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
 
   void _export() {
     final code = _generateCode(_manager.currentScheme);
+    final theme = PrimeTheme.of(context);
     _showCustomDialog(
       title: 'Export Theme',
       content: SingleChildScrollView(
         child: Text(
           code,
-          style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: PrimeColors.gray9),
+          style: theme.textTheme.label.copyWith(fontFamily: 'monospace', color: theme.colorScheme.textPrimary),
         ),
       ),
       actions: [
@@ -230,7 +232,7 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(color: PrimeColors.gray9, borderRadius: BorderRadius.circular(8)),
-            child: Text(message, style: const TextStyle(color: PrimeColors.gray0)),
+            child: Text(message, style: PrimeTheme.of(context).textTheme.bodySmall.copyWith(color: PrimeColors.gray0)),
           ),
         ),
       ),
@@ -369,6 +371,7 @@ class _SimpleColorPickerState extends State<_SimpleColorPicker> {
     }
 
     final dropdownText = matchedName != null ? 'PrimeColors.$matchedName' : 'Select from PrimeColors';
+    final theme = PrimeTheme.of(context);
 
     return Column(
       children: [
@@ -389,7 +392,7 @@ class _SimpleColorPickerState extends State<_SimpleColorPicker> {
               children: [
                 const Icon(PrimeIcons.magnify, size: 16),
                 const SizedBox(width: 8),
-                Text(_showColorList ? 'Hide PrimeColors' : dropdownText, style: const TextStyle(fontSize: 14)),
+                Text(_showColorList ? 'Hide PrimeColors' : dropdownText, style: theme.textTheme.bodySmall),
                 const Spacer(),
                 Icon(_showColorList ? PrimeIcons.chevronUp : PrimeIcons.chevronDown, size: 16),
               ],
@@ -430,7 +433,7 @@ class _SimpleColorPickerState extends State<_SimpleColorPicker> {
                     child: Row(
                       children: [
                         Container(width: 20, height: 20, color: entry.value, margin: const EdgeInsets.only(right: 12)),
-                        Text(entry.key, style: const TextStyle(fontSize: 12)),
+                        Text(entry.key, style: theme.textTheme.label),
                       ],
                     ),
                   ),
@@ -470,7 +473,7 @@ class _SimpleColorPickerState extends State<_SimpleColorPicker> {
   Widget _buildChannelInput(String label, TextEditingController controller, Color Function(int) transform) {
     return Column(
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text(label, style: PrimeTheme.of(context).textTheme.bodyDefault.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 4),
         Input(
           controller: controller,

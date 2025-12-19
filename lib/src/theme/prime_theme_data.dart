@@ -9,6 +9,7 @@ class PrimeThemeData {
   const PrimeThemeData({required this.colorScheme, required this.textTheme, required this.cornerRadius});
 
   factory PrimeThemeData.light() {
-    return PrimeThemeData(colorScheme: PrimeColorScheme.light(), textTheme: PrimeTextTheme.base(), cornerRadius: 8.0);
+    final scheme = PrimeColorScheme.light();
+    return PrimeThemeData(colorScheme: scheme, textTheme: PrimeTextTheme.withColorScheme(scheme), cornerRadius: 8.0);
   }
 }

@@ -154,6 +154,7 @@ class IconsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = PrimeTheme.of(context);
     return PrimeScaffold(
       appBar: const PrimeAppBar(title: Text('Icons')),
       body: Column(
@@ -170,11 +171,11 @@ class IconsScreen extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(entry.value, size: 32, color: PrimeTheme.of(context).colorScheme.iconPrimary),
+                        Icon(entry.value, size: 32, color: theme.colorScheme.iconPrimary),
                         const SizedBox(height: 4),
                         Text(
                           entry.key,
-                          style: TextStyle(fontSize: 10, color: PrimeTheme.of(context).colorScheme.textSecondary),
+                          style: theme.textTheme.label.copyWith(fontSize: 10, color: theme.colorScheme.textSecondary),
                           textAlign: TextAlign.center,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,

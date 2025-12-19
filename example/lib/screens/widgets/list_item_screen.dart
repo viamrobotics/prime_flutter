@@ -6,6 +6,7 @@ class ListItemScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = PrimeTheme.of(context);
     return PrimeScaffold(
       appBar: const PrimeAppBar(title: Text('List Items')),
       body: SingleChildScrollView(
@@ -13,7 +14,7 @@ class ListItemScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Standard List Items', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('Standard List Items', style: theme.textTheme.title),
             const SizedBox(height: 16),
             const ListItem(title: Text('Simple Item')),
             const ListItem(leading: Icon(PrimeIcons.accountGroupOutline), title: Text('With Leading')),
@@ -35,7 +36,7 @@ class ListItemScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 32),
-            const Text('Card List Items', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('Card List Items', style: theme.textTheme.title),
             const SizedBox(height: 16),
             const ListItem.card(title: Text('Card Item')),
             const SizedBox(height: 8),

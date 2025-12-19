@@ -6,6 +6,8 @@ class ButtonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = PrimeTheme.of(context);
+
     return PrimeScaffold(
       appBar: PrimeAppBar(title: Text('Buttons')),
       body: SingleChildScrollView(
@@ -13,11 +15,11 @@ class ButtonScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Buttons', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+            Text('Buttons', style: theme.textTheme.heading.copyWith(fontSize: 32)),
             const SizedBox(height: 8),
             Text(
               'Buttons allow users to take actions, and make choices, with a single tap.',
-              style: TextStyle(fontSize: 16, color: PrimeTheme.of(context).colorScheme.textSecondary),
+              style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textSecondary),
             ),
             const SizedBox(height: 32),
 
@@ -124,12 +126,13 @@ class ButtonScreen extends StatelessWidget {
   }
 
   Widget _buildSection(BuildContext context, {required String title, required String description, required Widget child}) {
+    final theme = PrimeTheme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(title, style: theme.textTheme.heading),
         const SizedBox(height: 8),
-        Text(description, style: TextStyle(fontSize: 14, color: PrimeTheme.of(context).colorScheme.textSecondary)),
+        Text(description, style: theme.textTheme.bodySmall.copyWith(color: theme.colorScheme.textSecondary)),
         const SizedBox(height: 16),
         child,
       ],

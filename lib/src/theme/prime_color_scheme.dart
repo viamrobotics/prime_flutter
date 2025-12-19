@@ -4,11 +4,9 @@ import 'prime_colors.dart';
 class PrimeColorScheme {
   // --- Surface (Backgrounds) ---
   /// Scaffold background, Bottom sheet background
-  // TODO rename to background
   final Color surfaceBase;
 
   /// App bar, Filter pill section/unselected
-  // TODO rename to surface
   final Color surfaceOffset;
 
   /// Badge background, Avatar fill

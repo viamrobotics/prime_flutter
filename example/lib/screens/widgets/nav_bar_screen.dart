@@ -15,9 +15,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
   Widget build(BuildContext context) {
     return PrimeScaffold(
       appBar: const PrimeAppBar(title: Text('Navigation Bar')),
-      body: Center(
-        child: Text('Selected Index: $_selectedIndex', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-      ),
+      body: Center(child: Text('Selected Index: $_selectedIndex', style: PrimeTheme.of(context).textTheme.heading)),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: (index) => setState(() => _selectedIndex = index),
