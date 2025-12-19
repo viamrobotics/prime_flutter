@@ -132,7 +132,7 @@ class _ExpansionListItemState extends State<ExpansionListItem> with SingleTicker
                         ],
                         Expanded(
                           child: DefaultTextStyle(
-                            style: theme.textTheme.bodyDefault.copyWith(fontWeight: FontWeight.w500),
+                            style: theme.textTheme.bodyDefault.copyWith(fontWeight: FontWeight.w500, color: theme.colorScheme.textPrimary),
                             child: widget.title,
                           ),
                         ),
