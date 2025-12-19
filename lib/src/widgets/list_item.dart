@@ -102,7 +102,13 @@ class _ListItemState extends State<ListItem> {
                 ],
               ),
             ),
-            if (widget.trailing != null) ...[const SizedBox(width: 16), widget.trailing!],
+            if (widget.trailing != null) ...[
+              const SizedBox(width: 16),
+              IconTheme(
+                data: IconThemeData(color: isCard ? theme.colorScheme.iconSecondary : theme.colorScheme.iconPrimary, size: 20),
+                child: widget.trailing!,
+              ),
+            ],
           ],
         );
 

@@ -36,7 +36,7 @@ class PrimeAppBar extends StatelessWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               behavior: HitTestBehavior.opaque,
-              child: SizedBox.square(dimension: 24, child: Icon(PrimeIcons.chevronLeft, size: 24, color: theme.colorScheme.iconSecondary)),
+              child: SizedBox.square(dimension: 24, child: Icon(PrimeIcons.chevronLeft, size: 24)),
             ),
           );
         } else if (effectiveLeading == null && !canPop) {
@@ -59,7 +59,20 @@ class PrimeAppBar extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      if (effectiveLeading != null) Align(alignment: Alignment.centerLeft, child: effectiveLeading),
+                      if (effectiveLeading != null)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: IconTheme(
+                            data: IconThemeData(color: theme.colorScheme.iconSecondary, size: 24),
+                            child: DefaultTextStyle(
+                              style: theme.textTheme.bodyDefault.copyWith(
+                                color: theme.colorScheme.textPrimary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              child: effectiveLeading,
+                            ),
+                          ),
+                        ),
                       if (title != null)
                         DefaultTextStyle(
                           style: theme.textTheme.title.copyWith(color: theme.colorScheme.textPrimary),
@@ -68,7 +81,10 @@ class PrimeAppBar extends StatelessWidget {
                       if (actions != null)
                         Align(
                           alignment: Alignment.centerRight,
-                          child: Row(mainAxisSize: MainAxisSize.min, children: actions!),
+                          child: IconTheme(
+                            data: IconThemeData(color: theme.colorScheme.iconSecondary, size: 24),
+                            child: Row(mainAxisSize: MainAxisSize.min, spacing: 8, children: actions!),
+                          ),
                         ),
                     ],
                   ),

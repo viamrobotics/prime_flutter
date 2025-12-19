@@ -6,7 +6,6 @@ class LocationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = PrimeTheme.of(context);
     return PrimeScaffold(
       appBar: PrimeAppBar(
         leading: GestureDetector(
@@ -17,7 +16,7 @@ class LocationsScreen extends StatelessWidget {
             children: [
               Text('Acme Inc'), // needs to be bold
               const SizedBox(width: 2),
-              Icon(PrimeIcons.unfoldMoreHorizontal, size: 16, color: theme.colorScheme.textPlaceholder),
+              Icon(PrimeIcons.unfoldMoreHorizontal, size: 16),
             ],
           ),
         ),
