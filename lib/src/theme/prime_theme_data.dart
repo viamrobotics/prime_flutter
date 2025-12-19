@@ -12,4 +12,9 @@ class PrimeThemeData {
     final scheme = PrimeColorScheme.light();
     return PrimeThemeData(colorScheme: scheme, textTheme: PrimeTextTheme.withColorScheme(scheme), cornerRadius: 8.0);
   }
+
+  factory PrimeThemeData.dark() {
+    final scheme = PrimeColorScheme.dark();
+    return PrimeThemeData(colorScheme: scheme, textTheme: PrimeTextTheme.withColorScheme(scheme), cornerRadius: 8.0);
+  }
 }
