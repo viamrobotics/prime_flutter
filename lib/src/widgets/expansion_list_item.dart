@@ -19,8 +19,6 @@ class ExpansionListItem extends StatefulWidget {
   /// Whether the expansion list item should be expanded by default.
   final bool initiallyExpanded;
 
-  // TODO CP 12/16/2025 - need a `enabled` / `disabled` property
-
   /// A callback function to be called when the expansion list item is expanded or collapsed.
   final ValueChanged<bool>? onExpansionChanged;
 
@@ -53,46 +51,38 @@ class ExpansionListItem extends StatefulWidget {
   State<ExpansionListItem> createState() => _ExpansionListItemState();
 }
 
-class _ExpansionListItemState extends State<ExpansionListItem> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _iconTurns;
-  late Animation<double> _heightFactor;
-
-  bool _isExpanded = false;
+class _ExpansionListItemState extends State<ExpansionListItem> {
+  late ExpansibleController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
-    _heightFactor = _controller.drive(CurveTween(curve: Curves.easeIn));
-    _iconTurns = _controller.drive(Tween<double>(begin: 0.0, end: 0.25).chain(CurveTween(curve: Curves.easeIn)));
-
-    _isExpanded = PageStorage.of(context).readState(context) as bool? ?? widget.initiallyExpanded;
-    if (_isExpanded) {
-      _controller.value = 1.0;
+    _controller = ExpansibleController();
+    if (widget.initiallyExpanded) {
+      _controller.expand();
     }
+    _controller.addListener(_handleExpansionChange);
   }
 
   @override
   void dispose() {
+    _controller.removeListener(_handleExpansionChange);
     _controller.dispose();
     super.dispose();
   }
 
-  void _handleTap() {
-    setState(() {
-      _isExpanded = !_isExpanded;
-      if (_isExpanded) {
-        _controller.forward();
-      } else {
-        _controller.reverse();
-      }
-      PageStorage.of(context).writeState(context, _isExpanded);
-    });
-    widget.onExpansionChanged?.call(_isExpanded);
+  void _handleExpansionChange() {
+    widget.onExpansionChanged?.call(_controller.isExpanded);
   }
 
-  // TODO CP 12/9/2025 - look into using expansible https://main-api.flutter.dev/flutter/widgets/Expansible-class.html
+  void _handleTap() {
+    if (_controller.isExpanded) {
+      _controller.collapse();
+    } else {
+      _controller.expand();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PrimeTheme.consumer(
@@ -103,10 +93,10 @@ class _ExpansionListItemState extends State<ExpansionListItem> with SingleTicker
 
         return Container(
           decoration: BoxDecoration(color: backgroundColor, border: border, borderRadius: borderRadius),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
+          child: Expansible(
+            controller: _controller,
+            headerBuilder: (context, animation) {
+              return GestureDetector(
                 onTap: _handleTap,
                 behavior: HitTestBehavior.opaque,
                 child: MouseRegion(
@@ -116,7 +106,7 @@ class _ExpansionListItemState extends State<ExpansionListItem> with SingleTicker
                     child: Row(
                       children: [
                         RotationTransition(
-                          turns: _iconTurns,
+                          turns: Tween<double>(begin: 0.0, end: 0.25).animate(animation),
                           child: Icon(PrimeIcons.chevronRight, color: theme.colorScheme.iconSecondary, size: 20),
                         ),
                         const SizedBox(width: 12),
@@ -141,18 +131,14 @@ class _ExpansionListItemState extends State<ExpansionListItem> with SingleTicker
                     ),
                   ),
                 ),
-              ),
-              ClipRect(
-                child: SizeTransition(
-                  sizeFactor: _heightFactor,
-                  axisAlignment: -1.0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: widget.children),
-                  ),
-                ),
-              ),
-            ],
+              );
+            },
+            bodyBuilder: (context, animation) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: widget.children),
+              );
+            },
           ),
         );
       },
