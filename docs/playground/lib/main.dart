@@ -3,6 +3,7 @@ import 'package:prime_flutter/prime_flutter.dart';
 import 'screens/avatar_page.dart';
 import 'screens/badge_page.dart';
 import 'screens/button_page.dart';
+import 'screens/divider_page.dart';
 import 'screens/icon_page.dart';
 
 void main() async {
@@ -37,6 +38,12 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = PlaygroundButtonStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => PlaygroundButtonStyle.primary);
           return PrimePageRoute(builder: (_) => ButtonPage(style: style));
+        }
+
+        if (uri.path == '/divider') {
+          final styleStr = uri.queryParameters['style'];
+          final style = DividerPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => DividerPageStyle.defaultStyle);
+          return PrimePageRoute(builder: (_) => DividerPage(style: style));
         }
 
         if (uri.path == '/icon') {

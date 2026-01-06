@@ -1,0 +1,33 @@
+---
+title: Divider
+description: Divider component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Dividers separate content within a layout.
+
+## Basic Usage
+
+The divider renders a thin horizontal line.
+
+<Preview src="divider?style=defaultStyle" height="200px">
+
+```dart
+Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text('Item 1'),
+    SizedBox(height: 8),
+    Divider(),
+    SizedBox(height: 8),
+    Text('Item 2'),
+    SizedBox(height: 8),
+    Divider(),
+    SizedBox(height: 8),
+    Text('Item 3'),
+  ],
+)
+```
+
+</Preview>
