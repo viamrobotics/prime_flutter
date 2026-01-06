@@ -6,7 +6,7 @@ import '../theme/prime_theme.dart';
 /// Typically used in the [PrimeScaffold] in the [PrimeAppBar.bottom] property.
 class TabBar extends StatelessWidget {
   /// The list of tabs to display in the tab bar.
-  final List<String> items;
+  final List<Widget> items;
 
   /// The currently selected tab index.
   final int selectedIndex;
@@ -45,13 +45,13 @@ class TabBar extends StatelessWidget {
                             bottom: BorderSide(color: isSelected ? theme.colorScheme.textPrimary : const Color(0x00000000), width: 2),
                           ),
                         ),
-                        child: Text(
-                          item.toUpperCase(),
+                        child: DefaultTextStyle(
                           style: theme.textTheme.label.copyWith(
                             fontWeight: FontWeight.w400,
                             color: isSelected ? theme.colorScheme.textPrimary : theme.colorScheme.textTertiary,
                             letterSpacing: 1.0,
                           ),
+                          child: item,
                         ),
                       ),
                     ),

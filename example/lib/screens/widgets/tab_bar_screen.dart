@@ -19,7 +19,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
         title: const Text('machine-123'),
         actions: [IconButton(icon: Icon(PrimeIcons.dotsHorizontal), onPressed: () {})],
         bottom: TabBar(
-          items: const ['TAB 1', 'TAB 2', 'SCROLL EXAMPLE'],
+          items: const [Text('TAB 1'), Text('TAB 2'), Text('SCROLL EXAMPLE')],
           selectedIndex: _selectedIndex,
           onDestinationSelected: (index) => setState(() => _selectedIndex = index),
         ),
@@ -36,7 +36,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
                   const SizedBox(height: 16),
                   const Text('This is a scrollable tab bar example'),
                   TabBar(
-                    items: const ['CONTROL', 'LOGS', 'SETTINGS', 'ALERTS', 'HISTORY', 'DIAGNOSTICS'],
+                    items: const [Text('CONTROL'), Text('LOGS'), Text('SETTINGS'), Text('ALERTS'), Text('HISTORY'), Text('DIAGNOSTICS')],
                     selectedIndex: _scrollableTabBarIndex,
                     onDestinationSelected: (index) => setState(() => _scrollableTabBarIndex = index),
                   ),
