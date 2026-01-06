@@ -28,21 +28,21 @@ class _FilterPillScreenState extends State<FilterPillScreen> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                FilterPill(label: 'All', isSelected: _selectedFilter == 'All', onTap: () => setState(() => _selectedFilter = 'All')),
+                FilterPill(label: Text('All'), isSelected: _selectedFilter == 'All', onTap: () => setState(() => _selectedFilter = 'All')),
                 FilterPill(
-                  label: 'Error',
+                  label: Text('Error'),
                   color: theme.colorScheme.statusDangerDark,
                   isSelected: _selectedFilter == 'Error',
                   onTap: () => setState(() => _selectedFilter = 'Error'),
                 ),
                 FilterPill(
-                  label: 'Warning',
+                  label: Text('Warning'),
                   color: theme.colorScheme.statusWarningDark,
                   isSelected: _selectedFilter == 'Warning',
                   onTap: () => setState(() => _selectedFilter = 'Warning'),
                 ),
                 FilterPill(
-                  label: 'Info',
+                  label: Text('Info'),
                   color: theme.colorScheme.statusInfoDark,
                   isSelected: _selectedFilter == 'Info',
                   onTap: () => setState(() => _selectedFilter = 'Info'),
@@ -57,32 +57,32 @@ class _FilterPillScreenState extends State<FilterPillScreen> {
               runSpacing: 8,
               children: [
                 FilterPill(
-                  label: 'Error',
+                  label: Text('Error'),
                   color: theme.colorScheme.statusDangerDark,
                   isSelected: _selectedTags.contains('Error'),
                   onTap: () => setState(() => _selectedTags.contains('Error') ? _selectedTags.remove('Error') : _selectedTags.add('Error')),
                 ),
                 FilterPill(
-                  label: 'Warning',
+                  label: Text('Warning'),
                   color: theme.colorScheme.statusWarningDark,
                   isSelected: _selectedTags.contains('Warning'),
                   onTap: () =>
                       setState(() => _selectedTags.contains('Warning') ? _selectedTags.remove('Warning') : _selectedTags.add('Warning')),
                 ),
                 FilterPill(
-                  label: 'Info',
+                  label: Text('Info'),
                   color: theme.colorScheme.statusInfoDark,
                   isSelected: _selectedTags.contains('Info'),
                   onTap: () => setState(() => _selectedTags.contains('Info') ? _selectedTags.remove('Info') : _selectedTags.add('Info')),
                 ),
                 FilterPill(
-                  label: 'Debug',
+                  label: Text('Debug'),
                   color: theme.colorScheme.statusSuccessDark,
                   isSelected: _selectedTags.contains('Debug'),
                   onTap: () => setState(() => _selectedTags.contains('Debug') ? _selectedTags.remove('Debug') : _selectedTags.add('Debug')),
                 ),
                 FilterPill(
-                  label: 'Overflow',
+                  label: Text('Overflow'),
                   color: Color.fromARGB(255, 208, 53, 229),
                   isSelected: _selectedTags.contains('Overflow'),
                   onTap: () =>

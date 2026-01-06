@@ -4,7 +4,7 @@ import '../../prime_flutter.dart';
 /// A filter pill widget. Used to filter data.
 class FilterPill extends StatelessWidget {
   /// The label of the filter pill.
-  final String label;
+  final Widget? label;
 
   /// Whether the filter pill is selected.
   final bool isSelected;
@@ -18,7 +18,7 @@ class FilterPill extends StatelessWidget {
   /// The leading widget of the filter pill. A widget to be displayed before the label.
   final Widget? leading;
 
-  const FilterPill({super.key, required this.label, this.isSelected = false, this.onTap, this.color, this.leading});
+  const FilterPill({super.key, this.label, this.isSelected = false, this.onTap, this.color, this.leading});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,9 @@ class FilterPill extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (leading != null) ...[leading!, const SizedBox(width: 8)],
-                Text(
-                  label,
+                DefaultTextStyle(
                   style: theme.textTheme.bodyDefault.copyWith(color: textColor, fontWeight: FontWeight.w500),
+                  child: label ?? const SizedBox.shrink(),
                 ),
               ],
             ),
