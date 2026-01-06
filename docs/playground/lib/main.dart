@@ -6,6 +6,7 @@ import 'screens/badge_page.dart';
 import 'screens/button_page.dart';
 import 'screens/divider_page.dart';
 import 'screens/expansion_list_item_page.dart';
+import 'screens/filter_pill_page.dart';
 import 'screens/icon_page.dart';
 
 void main() async {
@@ -37,6 +38,12 @@ class DocsApp extends StatelessWidget {
             orElse: () => ExpansionListItemPageStyle.standard,
           );
           return PrimePageRoute(builder: (_) => ExpansionListItemPage(style: style));
+        }
+
+        if (uri.path == '/filter-pill') {
+          final styleStr = uri.queryParameters['style'];
+          final style = FilterPillPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => FilterPillPageStyle.basic);
+          return PrimePageRoute(builder: (_) => FilterPillPage(style: style));
         }
 
         if (uri.path == '/input') {

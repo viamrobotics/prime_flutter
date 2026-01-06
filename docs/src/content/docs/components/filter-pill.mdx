@@ -1,0 +1,55 @@
+---
+title: Filter Pill
+description: Filter Pill component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Filter pills are used to filter content or selections.
+
+## Basic
+
+A basic filter pill with a label.
+
+<Preview src="filter-pill?style=basic" height="150px">
+
+```dart
+FilterPill(
+  label: Text('Filter'),
+  onTap: () {},
+)
+```
+
+</Preview>
+
+## Selected
+
+A filter pill in a selected state.
+
+<Preview src="filter-pill?style=selected" height="150px">
+
+```dart
+FilterPill(
+  label: Text('Selected'),
+  isSelected: true,
+  onTap: () {},
+)
+```
+
+</Preview>
+
+## With Leading Icon
+
+A filter pill with a leading icon.
+
+<Preview src="filter-pill?style=withLeading" height="150px">
+
+```dart
+FilterPill(
+  label: Text('With Icon'),
+  leading: Icon(PrimeIcons.viamFlutter, size: 16),
+  onTap: () {},
+)
+```
+
+</Preview>
