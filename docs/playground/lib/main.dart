@@ -11,6 +11,7 @@ import 'screens/icon_page.dart';
 import 'screens/input_page.dart';
 import 'screens/list_item_page.dart';
 import 'screens/navigation_bar_page.dart';
+import 'screens/progress_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,6 +66,12 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = NavigationBarPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => NavigationBarPageStyle.basic);
           return PrimePageRoute(builder: (_) => NavigationBarPage(style: style));
+        }
+
+        if (uri.path == '/progress') {
+          final styleStr = uri.queryParameters['style'];
+          final style = ProgressPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => ProgressPageStyle.basic);
+          return PrimePageRoute(builder: (_) => ProgressPage(style: style));
         }
 
         if (uri.path == '/avatar') {
