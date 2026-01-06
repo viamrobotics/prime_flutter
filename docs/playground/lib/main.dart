@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'; // Change to material for MaterialPageRoute? Or use PageRouteBuilder. PrimeApp might expect widgets app concepts.
 import 'package:prime_flutter/prime_flutter.dart';
 import 'screens/avatar_page.dart';
+import 'screens/badge_page.dart';
 import 'screens/button_page.dart';
 import 'screens/icon_page.dart';
 
@@ -24,6 +25,12 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = AvatarPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => AvatarPageStyle.initials);
           return PrimePageRoute(builder: (_) => AvatarPage(style: style));
+        }
+
+        if (uri.path == '/badge') {
+          final styleStr = uri.queryParameters['style'];
+          final style = BadgePageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => BadgePageStyle.defaultStyle);
+          return PrimePageRoute(builder: (_) => BadgePage(style: style));
         }
 
         if (uri.path == '/button') {

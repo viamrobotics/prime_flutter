@@ -1,0 +1,74 @@
+---
+title: Badge
+description: Badge component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Badges are used to label items with status or type.
+
+## Basic Usage
+
+The default badge is neutral and has a background.
+
+<Preview src="badge?style=defaultStyle" height="200px">
+
+```dart
+Badge(
+  child: Text('Neutral'),
+)
+```
+
+</Preview>
+
+## Variants
+
+Badges support several semantic variants: `neutral`, `success`, `warning`, `danger`, and `info`.
+
+<Preview src="badge?style=variants" height="200px">
+
+```dart
+Wrap(
+  spacing: 8,
+  runSpacing: 8,
+  children: [
+    Badge(variant: BadgeVariant.neutral, child: Text('Neutral')),
+    Badge(variant: BadgeVariant.success, child: Text('Success')),
+    Badge(variant: BadgeVariant.warning, child: Text('Warning')),
+    Badge(variant: BadgeVariant.danger, child: Text('Danger')),
+    Badge(variant: BadgeVariant.info, child: Text('Info')),
+  ],
+)
+```
+
+</Preview>
+
+## Content
+
+You can add an icon to the badge using the `icon` property.
+
+<Preview src="badge?style=withIcon" height="200px">
+
+```dart
+Badge(
+  icon: Icon(PrimeIcons.viamFlutter),
+  child: Text('Badge with Icon'),
+)
+```
+
+</Preview>
+
+## Appearance
+
+You can remove the background by setting `showBackground` to `false`.
+
+<Preview src="badge?style=noBackground" height="200px">
+
+```dart
+Badge(
+  showBackground: false,
+  child: Text('No Background'),
+)
+```
+
+</Preview>
