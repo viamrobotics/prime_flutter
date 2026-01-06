@@ -10,6 +10,7 @@ import 'screens/filter_pill_page.dart';
 import 'screens/icon_page.dart';
 import 'screens/input_page.dart';
 import 'screens/list_item_page.dart';
+import 'screens/navigation_bar_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +59,12 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = ListItemPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => ListItemPageStyle.standard);
           return PrimePageRoute(builder: (_) => ListItemPage(style: style));
+        }
+
+        if (uri.path == '/navigation-bar') {
+          final styleStr = uri.queryParameters['style'];
+          final style = NavigationBarPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => NavigationBarPageStyle.basic);
+          return PrimePageRoute(builder: (_) => NavigationBarPage(style: style));
         }
 
         if (uri.path == '/avatar') {
