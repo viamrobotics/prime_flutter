@@ -45,10 +45,10 @@ class LocationsScreen extends StatelessWidget {
         selectedIndex: 1,
         onDestinationSelected: (_) {},
         items: [
-          NavigationBarItemData(icon: PrimeIcons.linkedin, label: 'Favorites'),
-          NavigationBarItemData(icon: PrimeIcons.domain, label: 'Locations'),
-          NavigationBarItemData(icon: PrimeIcons.monitorDashboard, label: 'Teleop'),
-          NavigationBarItemData(icon: PrimeIcons.robotOutline, label: 'Try Viam'),
+          NavigationBarItemData(icon: PrimeIcons.linkedin, label: const Text('Favorites')),
+          NavigationBarItemData(icon: PrimeIcons.domain, label: const Text('Locations')),
+          NavigationBarItemData(icon: PrimeIcons.monitorDashboard, label: const Text('Teleop')),
+          NavigationBarItemData(icon: PrimeIcons.robotOutline, label: const Text('Try Viam')),
         ],
       ),
     );

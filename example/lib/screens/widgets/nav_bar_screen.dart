@@ -20,10 +20,10 @@ class _NavBarScreenState extends State<NavBarScreen> {
         selectedIndex: _selectedIndex,
         onDestinationSelected: (index) => setState(() => _selectedIndex = index),
         items: const [
-          NavigationBarItemData(icon: PrimeIcons.alert, label: 'Favorites'),
-          NavigationBarItemData(icon: PrimeIcons.domain, label: 'Locations'),
-          NavigationBarItemData(icon: PrimeIcons.gridOrthographic, label: 'Teleop'),
-          NavigationBarItemData(selectedIcon: PrimeIcons.alert, icon: PrimeIcons.alertOutline, label: 'Selected Icons'),
+          NavigationBarItemData(icon: PrimeIcons.alert, label: Text('Favorites')),
+          NavigationBarItemData(icon: PrimeIcons.domain, label: Text('Locations')),
+          NavigationBarItemData(icon: PrimeIcons.gridOrthographic, label: Text('Teleop')),
+          NavigationBarItemData(selectedIcon: PrimeIcons.alert, icon: PrimeIcons.alertOutline, label: Text('Selected Icons')),
         ],
       ),
     );

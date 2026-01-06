@@ -47,10 +47,10 @@ class NavigationBar extends StatelessWidget {
 
 class NavigationBarItemData {
   final IconData icon;
-  final String label;
+  final Widget? label;
   final IconData? selectedIcon;
 
-  const NavigationBarItemData({required this.icon, required this.label, this.selectedIcon});
+  const NavigationBarItemData({required this.icon, this.label, this.selectedIcon});
 }
 
 class _NavBarItemRenderer extends StatefulWidget {
@@ -86,13 +86,13 @@ class _NavBarItemRendererState extends State<_NavBarItemRenderer> {
           children: [
             Icon(iconData, color: iconColor, size: 24),
             const SizedBox(height: 2),
-            Text(
-              widget.item.label,
+            DefaultTextStyle(
               style: typography.bodySmall.copyWith(
                 fontSize: 12,
                 color: textColor,
                 fontWeight: widget.isSelected ? FontWeight.w600 : FontWeight.w500,
               ),
+              child: widget.item.label ?? const SizedBox.shrink(),
             ),
           ],
         ),
