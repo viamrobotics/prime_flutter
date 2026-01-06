@@ -39,6 +39,11 @@ class DocsApp extends StatelessWidget {
           return PrimePageRoute(builder: (_) => ExpansionListItemPage(style: style));
         }
 
+        if (uri.path == '/input') {
+          final styleStr = uri.queryParameters['style'];
+          final style = InputPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => InputPageStyle.basic);
+          return PrimePageRoute(builder: (_) => InputPage(style: style));
+        }
         if (uri.path == '/avatar') {
           final styleStr = uri.queryParameters['style'];
           final style = AvatarPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => AvatarPageStyle.initials);
