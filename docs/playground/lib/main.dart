@@ -12,6 +12,7 @@ import 'screens/input_page.dart';
 import 'screens/list_item_page.dart';
 import 'screens/navigation_bar_page.dart';
 import 'screens/progress_page.dart';
+import 'screens/tab_bar_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,6 +73,12 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = ProgressPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => ProgressPageStyle.basic);
           return PrimePageRoute(builder: (_) => ProgressPage(style: style));
+        }
+
+        if (uri.path == '/tab-bar') {
+          final styleStr = uri.queryParameters['style'];
+          final style = TabBarPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => TabBarPageStyle.basic);
+          return PrimePageRoute(builder: (_) => TabBarPage(style: style));
         }
 
         if (uri.path == '/avatar') {
