@@ -14,7 +14,7 @@ class BottomSheetScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Button(
-              label: 'Simple Sheet',
+              label: const Text('Simple Sheet'),
               onPressed: () {
                 BottomSheet.show(
                   context: context,
@@ -24,22 +24,22 @@ class BottomSheetScreen extends StatelessWidget {
             ),
 
             Button(
-              label: 'Sheet with Title',
+              label: const Text('Sheet with Title'),
               onPressed: () {
                 BottomSheet.show(
                   context: context,
-                  title: 'Sheet Title',
+                  title: const Text('Sheet Title'),
                   child: Padding(padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 24.0), child: Text('This sheet has a title.')),
                 );
               },
             ),
 
             Button(
-              label: 'Scrolling List Sheet',
+              label: const Text('Scrolling List Sheet'),
               onPressed: () {
                 BottomSheet.show(
                   context: context,
-                  title: 'Sheet Title',
+                  title: const Text('Sheet Title'),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -86,11 +86,11 @@ class BottomSheetScreen extends StatelessWidget {
             ),
 
             Button(
-              label: 'Alternate Color',
+              label: const Text('Alternate Color'),
               onPressed: () {
                 BottomSheet.show(
                   context: context,
-                  title: 'Sheet Title',
+                  title: const Text('Sheet Title'),
                   backgroundColor: PrimeTheme.of(context).colorScheme.surfaceBase,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 24.0),

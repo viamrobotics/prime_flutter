@@ -10,7 +10,7 @@ class BottomSheet extends StatelessWidget {
   final Widget child;
 
   /// The title widget to display in the bottom sheet. A helper widget for commonly styled bottom sheet titles.
-  final String? title;
+  final Widget? title;
 
   /// The background color of the bottom sheet. Defaults to [PrimeColorScheme.bgExtraLight].
   final Color? backgroundColor;
@@ -23,7 +23,7 @@ class BottomSheet extends StatelessWidget {
   static Future<T?> show<T>({
     required BuildContext context,
     required Widget child,
-    String? title,
+    Widget? title,
     Color? backgroundColor,
     bool isScrollable = true,
   }) {
@@ -64,13 +64,13 @@ class BottomSheet extends StatelessWidget {
                   if (title != null)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-                      child: Text(
-                        title!,
+                      child: DefaultTextStyle(
                         style: theme.textTheme.bodyDefault.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
                           color: theme.colorScheme.textPrimary,
                         ),
+                        child: title!,
                       ),
                     ),
                   Flexible(child: isScrollable ? SingleChildScrollView(child: child) : child),
