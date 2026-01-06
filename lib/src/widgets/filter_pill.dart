@@ -25,7 +25,7 @@ class FilterPill extends StatelessWidget {
     return PrimeTheme.consumer(
       builder: (context, theme) {
         final selectedColor = color ?? theme.colorScheme.actionPrimaryBg;
-        final backgroundColor = isSelected ? selectedColor : theme.colorScheme.surfaceOffset;
+        final backgroundColor = isSelected ? selectedColor : theme.colorScheme.surfaceBase;
         final borderColor = isSelected ? selectedColor : theme.colorScheme.borderSubtle;
         final textColor = isSelected ? theme.colorScheme.actionPrimaryFg : theme.colorScheme.textSecondary;
 
