@@ -1,0 +1,92 @@
+---
+title: Button
+description: Button component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Buttons initiate actions.
+
+## Primary
+
+<Preview src="button?style=primary" height="200px">
+
+```dart
+Button(
+  label: const Text('Primary'),
+  onPressed: () {},
+  variant: ButtonVariant.primary,
+)
+```
+
+</Preview>
+
+## Secondary
+
+<Preview src="button?style=secondary" height="200px">
+
+```dart
+Button(
+  label: const Text('Secondary'),
+  onPressed: () {},
+  variant: ButtonVariant.secondary,
+)
+```
+
+</Preview>
+
+## Ghost
+
+<Preview src="button?style=ghost" height="200px">
+
+```dart
+Button(
+  label: const Text('Ghost'),
+  onPressed: () {},
+  variant: ButtonVariant.ghost,
+)
+```
+
+</Preview>
+
+## Destructive
+
+<Preview src="button?style=destructive" height="200px">
+
+```dart
+Button(
+  label: const Text('Destructive'),
+  onPressed: () {},
+  variant: ButtonVariant.danger,
+)
+```
+
+</Preview>
+
+## Outline Destructive
+
+<Preview src="button?style=outlineDestructive" height="200px">
+
+```dart
+Button(
+  label: const Text('Outline Destructive'),
+  onPressed: () {},
+  variant: ButtonVariant.outlineDanger,
+)
+```
+
+</Preview>
+
+## Disabled
+
+<Preview src="button?style=disabled" height="200px">
+
+```dart
+Button(
+  child: const Text('Disabled'),
+  onPressed: null,
+  disabled: true,
+)
+```
+
+</Preview>

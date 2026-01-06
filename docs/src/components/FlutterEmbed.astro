@@ -1,0 +1,48 @@
+---
+interface Props {
+  // The route path for the specific widget in the Flutter app.
+  // Example: "button", "input", etc.
+  widget: string;
+  // Optional height for the iframe.
+  height?: string;
+  // Optional width for the iframe. Defaults to 100%.
+  width?: string;
+  // Optional title for accessibility.
+  title?: string;
+}
+
+const { widget, height = "400px", width = "100%", title = "Flutter Component" } = Astro.props;
+
+// We assume the Flutter app is built into the 'flutter' directory in public.
+// The main_docs.dart uses hash routing (default for Flutter web).
+const src = `/flutter/index.html#/${widget}`;
+---
+
+<div class="flutter-embed-container">
+  <iframe
+    src={src}
+    width={width}
+    height={height}
+    title={title}
+    class="flutter-iframe"
+    loading="lazy"
+  ></iframe>
+</div>
+
+<style>
+  .flutter-embed-container {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    background-color: var(--sl-color-black);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: var(--sl-shadow-md);
+  }
+
+  .flutter-iframe {
+    border: none;
+    display: block;
+    width: 100%;
+    background-color: transparent; 
+  }
+</style>
