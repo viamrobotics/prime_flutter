@@ -14,32 +14,44 @@ class ListItemPage extends StatelessWidget {
       body: Center(
         child: SizedBox(
           width: 350,
-          child: switch (style) {
-            ListItemPageStyle.standard => const ListItem(
-              title: Text('List Item'),
-              subtitle: Text('Supporting text goes here'),
-              leading: Icon(PrimeIcons.viamFlutter),
-              trailing: Icon(PrimeIcons.chevronRight),
+          child: Container(
+            decoration: BoxDecoration(
+              color: PrimeTheme.of(context).colorScheme.surfaceBase,
+              border: Border.all(color: PrimeTheme.of(context).colorScheme.borderSubtle),
+              borderRadius: BorderRadius.circular(4),
             ),
-            ListItemPageStyle.threeLine => const ListItem(
-              title: Text('Three-line Item'),
-              subtitle: Text('Secondary text\nTertiary text'),
-              isThreeLine: true,
-              leading: Icon(PrimeIcons.viamFlutter),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                switch (style) {
+                  ListItemPageStyle.standard => const ListItem(
+                    title: Text('List Item'),
+                    subtitle: Text('Supporting text goes here'),
+                    leading: Icon(PrimeIcons.viamFlutter),
+                    trailing: Icon(PrimeIcons.chevronRight),
+                  ),
+                  ListItemPageStyle.threeLine => const ListItem(
+                    title: Text('Three-line Item'),
+                    subtitle: Text('Secondary text\nTertiary text'),
+                    isThreeLine: true,
+                    leading: Icon(PrimeIcons.viamFlutter),
+                  ),
+                  ListItemPageStyle.card => ListItem.card(
+                    title: const Text('Card List Item'),
+                    subtitle: const Text('This item looks like a card'),
+                    leading: const Icon(PrimeIcons.viamFlutter),
+                    onPressed: () {},
+                  ),
+                  ListItemPageStyle.interactive => ListItem(
+                    title: const Text('Interactive Item'),
+                    subtitle: const Text('Tap, hover, or focus me'),
+                    onPressed: () {},
+                    trailing: const Icon(PrimeIcons.chevronRight),
+                  ),
+                },
+              ],
             ),
-            ListItemPageStyle.card => ListItem.card(
-              title: const Text('Card List Item'),
-              subtitle: const Text('This item looks like a card'),
-              leading: const Icon(PrimeIcons.viamFlutter),
-              onPressed: () {},
-            ),
-            ListItemPageStyle.interactive => ListItem(
-              title: const Text('Interactive Item'),
-              subtitle: const Text('Tap, hover, or focus me'),
-              onPressed: () {},
-              trailing: const Icon(PrimeIcons.chevronRight),
-            ),
-          },
+          ),
         ),
       ),
     );
