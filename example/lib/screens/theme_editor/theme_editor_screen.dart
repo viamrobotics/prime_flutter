@@ -80,7 +80,7 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
             ],
           ),
           const SizedBox(height: 16),
-          Button(label: 'Save Changes', variant: ButtonVariant.primary, onPressed: _showSaveDialog),
+          Button(label: const Text('Save Changes'), variant: ButtonVariant.primary, onPressed: _showSaveDialog),
         ],
       ),
     );
@@ -91,9 +91,9 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
       title: 'Delete Theme?',
       content: Text('Are you sure you want to delete "$themeName"? This cannot be undone.'),
       actions: [
-        Button(label: 'Cancel', variant: ButtonVariant.secondary, onPressed: () => Navigator.pop(context)),
+        Button(label: const Text('Cancel'), variant: ButtonVariant.secondary, onPressed: () => Navigator.pop(context)),
         Button(
-          label: 'Delete',
+          label: const Text('Delete'),
           variant: ButtonVariant.outlineDanger,
           onPressed: () {
             _manager.deleteTheme(themeName);
@@ -162,7 +162,7 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
           _manager.updateColor(name, color);
         },
       ),
-      actions: [Button(label: 'Done', onPressed: () => Navigator.of(context).pop())],
+      actions: [Button(label: const Text('Done'), onPressed: () => Navigator.of(context).pop())],
     );
   }
 
@@ -179,13 +179,13 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
       ),
       actions: [
         Button(
-          label: 'Copy',
+          label: const Text('Copy'),
           onPressed: () {
             Clipboard.setData(ClipboardData(text: code));
             _showToast('Copied to clipboard');
           },
         ),
-        Button(label: 'Close', variant: ButtonVariant.secondary, onPressed: () => Navigator.of(context).pop()),
+        Button(label: const Text('Close'), variant: ButtonVariant.secondary, onPressed: () => Navigator.of(context).pop()),
       ],
     );
   }
@@ -196,9 +196,9 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
       title: 'Save Theme As',
       content: Input(controller: controller, placeholder: 'Theme Name'),
       actions: [
-        Button(label: 'Cancel', variant: ButtonVariant.secondary, onPressed: () => Navigator.pop(context)),
+        Button(label: const Text('Cancel'), variant: ButtonVariant.secondary, onPressed: () => Navigator.pop(context)),
         Button(
-          label: 'Save',
+          label: const Text('Save'),
           onPressed: () {
             final name = controller.text;
             if (name.isNotEmpty) {

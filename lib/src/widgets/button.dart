@@ -7,7 +7,7 @@ enum ButtonVariant { primary, secondary, ghost, danger, outlineDanger, success }
 
 /// A button widget. With different variants for different use cases.
 class Button extends StatefulWidget {
-  final String label;
+  final Widget? label;
   final VoidCallback? onPressed;
   final ButtonVariant variant;
   final Widget? icon;
@@ -16,7 +16,7 @@ class Button extends StatefulWidget {
 
   const Button({
     super.key,
-    required this.label,
+    this.label,
     this.onPressed,
     this.variant = ButtonVariant.secondary,
     this.icon,
@@ -74,12 +74,12 @@ class _ButtonState extends State<Button> {
                       data: IconThemeData(size: 18, color: colors.foregroundColor),
                       child: widget.icon!,
                     ),
-                    if (widget.label.isNotEmpty) const SizedBox(width: 6),
+                    if (widget.label != null) const SizedBox(width: 6),
                   ],
-                  if (widget.label.isNotEmpty)
-                    Text(
-                      widget.label,
+                  if (widget.label != null)
+                    DefaultTextStyle(
                       style: theme.textTheme.bodyDefault.copyWith(color: colors.foregroundColor, fontWeight: FontWeight.w600, height: 1.0),
+                      child: widget.label!,
                     ),
                 ],
               ),
