@@ -53,3 +53,86 @@ FilterPill(
 ```
 
 </Preview>
+
+## Single Selection
+
+Example of managing single selection state.
+
+<Preview src="filter-pill?style=singleSelection" height="150px">
+
+```dart
+// Helper stateful widget for implementation details
+class SingleSelectionExample extends StatefulWidget {
+  @override
+  State<SingleSelectionExample> createState() => _SingleSelectionExampleState();
+}
+
+class _SingleSelectionExampleState extends State<SingleSelectionExample> {
+  String _selectedFilter = 'All';
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        FilterPill(
+          label: Text('All'), 
+          isSelected: _selectedFilter == 'All', 
+          onTap: () => setState(() => _selectedFilter = 'All')
+        ),
+        FilterPill(
+          label: Text('Error'),
+          color: theme.colorScheme.statusDangerDark,
+          isSelected: _selectedFilter == 'Error',
+          onTap: () => setState(() => _selectedFilter = 'Error'),
+        ),
+        // ... more items
+      ],
+    );
+  }
+}
+```
+
+</Preview>
+
+## Multi Selection
+
+Example of managing multiple selection state (tags).
+
+<Preview src="filter-pill?style=multiSelection" height="150px">
+
+```dart
+// Helper stateful widget for implementation details
+class MultiSelectionExample extends StatefulWidget {
+  @override
+  State<MultiSelectionExample> createState() => _MultiSelectionExampleState();
+}
+
+class _MultiSelectionExampleState extends State<MultiSelectionExample> {
+  final Set<String> _selectedTags = {'Error', 'Warning'};
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        FilterPill(
+          label: Text('Error'),
+          color: theme.colorScheme.statusDangerDark,
+          isSelected: _selectedTags.contains('Error'),
+          onTap: () => setState(() => 
+            _selectedTags.contains('Error') 
+              ? _selectedTags.remove('Error') 
+              : _selectedTags.add('Error')
+          ),
+        ),
+        // ... more items
+      ],
+    );
+  }
+}
+```
+
+</Preview>
