@@ -30,7 +30,7 @@ class ExpansionListItemScreen extends StatelessWidget {
                   children: [
                     Text('Content with trailing badge.'),
                     SizedBox(height: 8),
-                    Button(label: 'Action', variant: ButtonVariant.primary, onPressed: () {}),
+                    Button(label: const Text('Action'), variant: ButtonVariant.primary, onPressed: () {}),
                   ],
                 ),
                 Divider(),
@@ -60,7 +60,7 @@ class ExpansionListItemScreen extends StatelessWidget {
                     children: [
                       Text('Content with trailing badge.'),
                       SizedBox(height: 8),
-                      Button(label: 'Action', onPressed: () {}),
+                      Button(label: const Text('Action'), onPressed: () {}),
                     ],
                   ),
                   ExpansionListItem.card(

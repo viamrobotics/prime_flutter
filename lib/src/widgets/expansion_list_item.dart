@@ -5,7 +5,7 @@ import 'prime_icons.dart';
 /// A widget users can tap to show or hide a list of children.
 class ExpansionListItem extends StatefulWidget {
   /// The title of the expansion list item.
-  final Widget title;
+  final Widget? title;
 
   /// The widget to show before the title, on the left.
   final Widget? leading;
@@ -28,7 +28,7 @@ class ExpansionListItem extends StatefulWidget {
   /// Creates an expansion list item.
   const ExpansionListItem({
     super.key,
-    required this.title,
+    this.title,
     this.leading,
     this.trailing,
     this.children = const <Widget>[],
@@ -39,7 +39,7 @@ class ExpansionListItem extends StatefulWidget {
   /// Creates an expansion list item that is displayed as a card.
   const ExpansionListItem.card({
     super.key,
-    required this.title,
+    this.title,
     this.leading,
     this.trailing,
     this.children = const <Widget>[],
@@ -123,7 +123,7 @@ class _ExpansionListItemState extends State<ExpansionListItem> {
                         Expanded(
                           child: DefaultTextStyle(
                             style: theme.textTheme.bodyDefault.copyWith(fontWeight: FontWeight.w500, color: theme.colorScheme.textPrimary),
-                            child: widget.title,
+                            child: widget.title ?? const SizedBox.shrink(),
                           ),
                         ),
                         if (widget.trailing != null) ...[const SizedBox(width: 12), widget.trailing!],
