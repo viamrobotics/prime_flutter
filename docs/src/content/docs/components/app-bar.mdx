@@ -1,0 +1,66 @@
+---
+title: App Bar
+description: App Bar component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+The `PrimeAppBar` is used to display the title, leading widget (e.g. back button), actions, and bottom widgets (e.g. TabBar).
+
+## Basic Usage
+
+A simple app bar with a title and a leading icon.
+
+<Preview src="app-bar?style=basic">
+
+```dart
+PrimeAppBar(
+  title: Text('Basic AppBar'),
+  leading: Icon(PrimeIcons.viamFlutter),
+)
+```
+
+</Preview>
+
+## With Actions
+
+You can add action buttons to the right side of the app bar.
+
+<Preview src="app-bar?style=withActions">
+
+```dart
+PrimeAppBar(
+  title: Text('With Actions'),
+  leading: Icon(PrimeIcons.viamFlutter),
+  actions: [
+    Icon(PrimeIcons.viamFlutter),
+    Icon(PrimeIcons.viamFlutter),
+  ],
+)
+```
+
+</Preview>
+
+## With Bottom Widget
+
+You can display a widget at the bottom of the app bar, such as a `TabBar`.
+
+<Preview src="app-bar?style=withBottom" height="150px">
+
+```dart
+PrimeAppBar(
+  title: Text('With Bottom'),
+  leading: Icon(PrimeIcons.menu),
+  bottom: TabBar(
+    selectedIndex: 0,
+    onDestinationSelected: (_) {},
+    items: [
+      Text('Tab 1'),
+      Text('Tab 2'),
+      Text('Tab 3'),
+    ],
+  ),
+)
+```
+
+</Preview>
