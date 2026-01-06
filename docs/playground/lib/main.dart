@@ -8,6 +8,7 @@ import 'screens/divider_page.dart';
 import 'screens/expansion_list_item_page.dart';
 import 'screens/filter_pill_page.dart';
 import 'screens/icon_page.dart';
+import 'screens/input_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
