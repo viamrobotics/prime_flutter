@@ -9,6 +9,7 @@ import 'screens/expansion_list_item_page.dart';
 import 'screens/filter_pill_page.dart';
 import 'screens/icon_page.dart';
 import 'screens/input_page.dart';
+import 'screens/list_item_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +53,13 @@ class DocsApp extends StatelessWidget {
           final style = InputPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => InputPageStyle.basic);
           return PrimePageRoute(builder: (_) => InputPage(style: style));
         }
+
+        if (uri.path == '/list-item') {
+          final styleStr = uri.queryParameters['style'];
+          final style = ListItemPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => ListItemPageStyle.standard);
+          return PrimePageRoute(builder: (_) => ListItemPage(style: style));
+        }
+
         if (uri.path == '/avatar') {
           final styleStr = uri.queryParameters['style'];
           final style = AvatarPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => AvatarPageStyle.initials);
