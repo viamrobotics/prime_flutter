@@ -4,8 +4,8 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://viamrobotics.github.io',
-	base: '/prime_flutter',
+	site: 'https://design-mobile.viam.com',
+	base: '/',
 	integrations: [
 		starlight({
 			title: 'PRIME Flutter Docs',
