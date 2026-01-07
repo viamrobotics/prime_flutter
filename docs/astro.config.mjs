@@ -10,7 +10,7 @@ export default defineConfig({
 		starlight({
 			title: 'PRIME Flutter Docs',
 			customCss: ['./src/styles/custom.css'],
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/viamrobotics/prime_flutter' }], // Updated href logic guess
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/viamrobotics/prime_flutter' }],
 			sidebar: [
 				{
 					label: 'Getting Started',
@@ -26,3 +26,4 @@ export default defineConfig({
 		}),
 	],
 });
+
