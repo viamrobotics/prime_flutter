@@ -1,5 +1,6 @@
 # build output
 dist/
+public/flutter/
 # generated types
 .astro/
 
