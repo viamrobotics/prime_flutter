@@ -1,0 +1,40 @@
+name: Release to Pub.dev
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publish:
+    name: Publish to Pub.dev
+    runs-on: ubuntu-latest
+    # 👇 This permissions block is the ONLY thing that matters
+    permissions:
+      id-token: write 
+      contents: read
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # 👇 I added this debug step. If you don't see this in your logs,
+      # you are still running the old file!
+      - name: Debug OIDC Token
+        run: |
+          if [ -z "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
+            echo "❌ ERROR: OIDC Token is MISSING. Check YAML permissions."
+          else
+            echo "✅ SUCCESS: OIDC Token detected."
+          fi
+
+      - name: Publish Package
+        run: flutter pub publish --force

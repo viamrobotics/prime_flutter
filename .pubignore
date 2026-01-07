@@ -1,0 +1,9 @@
+# Ignore the website folder entirely
+website/
+
+# Ignore any node artifacts if they ever reappear in root
+node_modules/
+package.json
+package-lock.json
+build/
+.astro/

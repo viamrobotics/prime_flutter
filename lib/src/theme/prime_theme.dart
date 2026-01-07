@@ -7,16 +7,12 @@ class PrimeTheme extends InheritedWidget {
   const PrimeTheme({super.key, required this.data, required super.child});
 
   static PrimeThemeData of(BuildContext context) {
-    final PrimeTheme? result = context
-        .dependOnInheritedWidgetOfExactType<PrimeTheme>();
+    final PrimeTheme? result = context.dependOnInheritedWidgetOfExactType<PrimeTheme>();
     assert(result != null, 'No PrimeTheme found in context');
     return result!.data;
   }
 
-  static Widget consumer({
-    required Widget Function(BuildContext context, PrimeThemeData theme)
-    builder,
-  }) {
+  static Widget consumer({required Widget Function(BuildContext context, PrimeThemeData theme) builder}) {
     return Builder(
       builder: (context) {
         final theme = PrimeTheme.of(context);

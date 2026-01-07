@@ -1,3 +1,6 @@
+## 0.2.3
+* added ghost button disabled state
+
 ## 0.2.0
 
 * **BREAKING**: `Button`'s `label` parameter is now a `Widget?` instead of a `String`.

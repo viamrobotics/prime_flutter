@@ -1,0 +1,54 @@
+---
+title: Tab Bar
+description: Tab Bar component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Tab bars allow navigation between different views. They are typically used within an `AppBar`.
+
+## Basic Usage
+
+A tab bar integrated into an app bar.
+
+<Preview src="tab-bar?style=basic" height="250px">
+
+```dart
+// Stateful wrapper to manage selection state
+class TabBarExample extends StatefulWidget {
+  @override
+  State<TabBarExample> createState() => _TabBarExampleState();
+}
+
+class _TabBarExampleState extends State<TabBarExample> {
+  int _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        PrimeAppBar(
+          title: Text('My App'),
+          leading: Icon(PrimeIcons.viamFlutter),
+          bottom: TabBar(
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: (index) => setState(() => _selectedIndex = index),
+            items: [
+              Text('Tab 1'),
+              Text('Tab 2'),
+              Text('Tab 3'),
+            ],
+          ),
+        ),
+        Container(
+          height: 150,
+          color: PrimeTheme.of(context).colorScheme.surfaceBase,
+          child: Center(child: Text('Content for tab $_selectedIndex')),
+        ),
+      ],
+    );
+  }
+}
+```
+
+</Preview>

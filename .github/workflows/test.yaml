@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: [self-hosted, x64]
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/cirruslabs/flutter:stable
 

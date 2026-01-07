@@ -1,0 +1,58 @@
+---
+title: Avatar
+description: Avatar component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Avatars are used to represent users or entities. They can display text (initials), icons, or images.
+
+## Initials
+
+The most common use case is displaying a user's initials.
+
+<Preview src="avatar?style=initials" height="200px">
+
+```dart
+Avatar(
+  child: Text('CP'),
+)
+```
+
+</Preview>
+
+## Icon
+
+You can also display icons within an avatar.
+
+<Preview src="avatar?style=icon" height="200px">
+
+```dart
+Avatar(
+  child: Icon(PrimeIcons.viamFlutter, size: 20),
+)
+```
+
+</Preview>
+
+## Sizes
+
+Avatars can be sized using the `size` property. The default size is 32.0.
+
+<Preview src="avatar?style=sizes" height="200px">
+
+```dart
+Row(
+  children: [
+    Avatar(size: 24, child: Text('XS')),
+    SizedBox(width: 16),
+    Avatar(size: 32, child: Text('SM')),
+    SizedBox(width: 16),
+    Avatar(size: 48, child: Text('MD')),
+    SizedBox(width: 16),
+    Avatar(size: 64, child: Text('LG')),
+  ],
+)
+```
+
+</Preview>

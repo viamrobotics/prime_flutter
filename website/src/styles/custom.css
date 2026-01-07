@@ -1,0 +1,44 @@
+:root {
+	--sl-font: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--sl-color-accent-low: #1a1a1a;
+	--sl-color-accent: #333333;
+	--sl-color-accent-high: #ffffff;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #eeeeee;
+	--sl-color-gray-2: #c9c9c9;
+	--sl-color-gray-3: #888888;
+	--sl-color-gray-4: #555555;
+	--sl-color-gray-5: #333333;
+	--sl-color-gray-6: #1a1a1a;
+	--sl-color-black: #000000;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--sl-color-gray-6); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sl-color-gray-4); 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sl-color-gray-3); 
+}
+
+/* Layout adjustments */
+.main-frame {
+    padding-top: 2rem;
+}
+
+/* Sidebar adjustments */
+.sidebar-content {
+    font-size: 0.9rem;
+}
+
+summary {
+    font-weight: 500; 
+}
