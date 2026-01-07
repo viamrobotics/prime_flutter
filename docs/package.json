@@ -8,7 +8,7 @@
     "build": "npm run build:flutter && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "build:flutter": "cd playground && flutter build web --output ../public/flutter --base-href /flutter/"
+    "build:flutter": "cd playground && flutter build web --output ../public/flutter --base-href /prime_flutter/flutter/"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.37.2",

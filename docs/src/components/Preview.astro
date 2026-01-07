@@ -14,7 +14,11 @@ interface Props {
 const { src, height = "400px", width = "100%", title = "Preview" } = Astro.props;
 
 // We assume the Flutter app is built into the 'flutter' directory in public.
-const flutterSrc = `/flutter/index.html#/${src}`;
+// Adjust for base path (e.g., /prime_flutter)
+const base = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL;
+// Ensure no double slash if base ends with /
+const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+const flutterSrc = `${cleanBase}/flutter/index.html#/${src}`;
 ---
 
 <div class="preview-container">
