@@ -3,6 +3,7 @@ description: "Pretty Rad Interactive Modular Elements. A collection of UI elemen
 version: 0.2.1
 homepage: https://github.com/viamrobotics/prime_flutter
 repository: https://github.com/viamrobotics/prime_flutter
+documentation: https://design-mobile.viam.com
 
 environment:
   sdk: ^3.10.0
