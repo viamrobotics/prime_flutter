@@ -90,3 +90,61 @@ Button(
 ```
 
 </Preview>
+
+## Success
+
+<Preview src="button?style=success" height="200px">
+
+```dart
+Button(
+  label: const Text('Success'),
+  onPressed: () {},
+  variant: ButtonVariant.success,
+)
+```
+
+</Preview>
+
+## Full Width
+
+<Preview src="button?style=fullWidth" height="200px">
+
+```dart
+Button(
+  label: const Text('Full Width'),
+  onPressed: () {},
+  variant: ButtonVariant.primary,
+  fullWidth: true,
+)
+```
+
+</Preview>
+
+## With Icon
+
+<Preview src="button?style=withIcon" height="200px">
+
+```dart
+Button(
+  label: const Text('With Icon'),
+  icon: const Icon(PrimeIcons.plus),
+  onPressed: () {},
+  variant: ButtonVariant.primary,
+)
+```
+
+</Preview>
+
+## Loading
+
+<Preview src="button?style=loading" height="200px">
+
+```dart
+Button(
+  label: const Text('Loading...'),
+  icon: const Progress(),
+  onPressed: null,
+)
+```
+
+</Preview>

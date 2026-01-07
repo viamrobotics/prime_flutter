@@ -8,8 +8,10 @@ enum PlaygroundButtonStyle {
   outlineDestructive, // Maps to outlineDanger
   ghost,
   disabled, // We can treat disabled as a style for demo purposes or handle separate logic
-  small,
-  large,
+  success,
+  fullWidth,
+  withIcon,
+  loading,
 }
 
 class ButtonPage extends StatelessWidget {
@@ -32,11 +34,20 @@ class ButtonPage extends StatelessWidget {
           ),
           PlaygroundButtonStyle.ghost => Button(label: const Text('Ghost'), onPressed: () {}, variant: ButtonVariant.ghost),
           PlaygroundButtonStyle.disabled => const Button(label: Text('Disabled'), onPressed: null, disabled: true),
-          // Assuming Button doesn't support explicit sizes yet based on previous steps,
-          // but if it did, this is where we'd put it.
-          // For now, I'll just render default.
-          PlaygroundButtonStyle.small => Button(label: const Text('Small (Default)'), onPressed: () {}),
-          PlaygroundButtonStyle.large => Button(label: const Text('Large (Default)'), onPressed: () {}),
+          PlaygroundButtonStyle.success => Button(label: const Text('Success'), onPressed: () {}, variant: ButtonVariant.success),
+          PlaygroundButtonStyle.fullWidth => Button(
+            label: const Text('Full Width'),
+            onPressed: () {},
+            variant: ButtonVariant.primary,
+            fullWidth: true,
+          ),
+          PlaygroundButtonStyle.withIcon => Button(
+            label: const Text('With Icon'),
+            icon: const Icon(PrimeIcons.plus),
+            onPressed: () {},
+            variant: ButtonVariant.primary,
+          ),
+          PlaygroundButtonStyle.loading => Button(label: const Text('Loading...'), icon: const Progress(), onPressed: null),
         },
       ),
     );

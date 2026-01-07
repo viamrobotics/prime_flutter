@@ -6,6 +6,74 @@ import '../theme/prime_theme.dart';
 enum ButtonVariant { primary, secondary, ghost, danger, outlineDanger, success }
 
 /// A button widget. With different variants for different use cases.
+///
+/// The [Button] widget provides a clickable element that can be configured with
+/// different variants, icons, and states.
+///
+/// ## Variants
+///
+/// The [Button] comes in several variants:
+/// - [ButtonVariant.primary]: For the main action on a screen.
+/// - [ButtonVariant.secondary]: For alternative actions.
+/// - [ButtonVariant.ghost]: For less prominent actions.
+/// - [ButtonVariant.danger]: For destructive actions.
+/// - [ButtonVariant.outlineDanger]: For less prominent destructive actions.
+/// - [ButtonVariant.success]: For positive actions.
+///
+/// ## Examples
+///
+/// ### Basic Usage
+///
+/// ```dart
+/// Button(
+///   label: const Text('Click Me'),
+///   onPressed: () {
+///     print('Button clicked');
+///   },
+/// )
+/// ```
+///
+/// ### With Icon
+///
+/// ```dart
+/// Button(
+///   label: const Text('Add Item'),
+///   icon: const Icon(PrimeIcons.plus),
+///   onPressed: () {},
+///   variant: ButtonVariant.primary,
+/// )
+/// ```
+///
+/// ### Full Width
+///
+/// ```dart
+/// Button(
+///   label: const Text('Submit'),
+///   fullWidth: true,
+///   onPressed: () {},
+///   variant: ButtonVariant.primary,
+/// )
+/// ```
+///
+/// ### Disabled State
+///
+/// ```dart
+/// Button(
+///   label: const Text('Disabled'),
+///   disabled: true,
+///   onPressed: () {},
+/// )
+/// ```
+///
+/// ### Loading State
+///
+/// ```dart
+/// Button(
+///   label: const Text('Loading...'),
+///   icon: const Progress(),
+///   onPressed: null,
+/// )
+/// ```
 class Button extends StatefulWidget {
   final Widget? label;
   final VoidCallback? onPressed;
@@ -92,12 +160,15 @@ class _ButtonState extends State<Button> {
 
   // TODO cp - 12/19/2025 - this feels very messy and there are magic colors. investigate how to clean up.
   ({Color backgroundColor, Color foregroundColor, Color? borderColor}) _getColors(PrimeColorScheme colorScheme) {
-    if (widget.disabled) {
-      return (backgroundColor: colorScheme.surfaceHighlight, foregroundColor: colorScheme.textPlaceholder, borderColor: null);
-    }
+    final defaultDisabled = (
+      backgroundColor: colorScheme.surfaceHighlight,
+      foregroundColor: colorScheme.textPlaceholder,
+      borderColor: null,
+    );
 
     switch (widget.variant) {
       case ButtonVariant.primary:
+        if (widget.disabled) return defaultDisabled;
         final base = colorScheme.actionPrimaryBg;
         return (
           backgroundColor: _isPressed
@@ -109,6 +180,7 @@ class _ButtonState extends State<Button> {
           borderColor: colorScheme.borderSubtle,
         );
       case ButtonVariant.secondary:
+        if (widget.disabled) return defaultDisabled;
         return (
           backgroundColor: _isPressed
               ? colorScheme.surfaceHighlight
@@ -119,6 +191,9 @@ class _ButtonState extends State<Button> {
           borderColor: colorScheme.borderSubtle,
         );
       case ButtonVariant.ghost:
+        if (widget.disabled) {
+          return (backgroundColor: const Color(0x00000000), foregroundColor: colorScheme.textPlaceholder, borderColor: null);
+        }
         return (
           backgroundColor: _isPressed
               ? colorScheme.surfaceHighlight
@@ -129,6 +204,7 @@ class _ButtonState extends State<Button> {
           borderColor: null,
         );
       case ButtonVariant.danger:
+        if (widget.disabled) return defaultDisabled;
         final base = colorScheme.statusDangerLight;
         return (
           backgroundColor: _isPressed
@@ -140,6 +216,7 @@ class _ButtonState extends State<Button> {
           borderColor: null,
         );
       case ButtonVariant.outlineDanger:
+        if (widget.disabled) return defaultDisabled;
         final base = const Color(0x00000000);
         return (
           backgroundColor: _isPressed
@@ -151,6 +228,7 @@ class _ButtonState extends State<Button> {
           borderColor: colorScheme.statusDangerDark,
         );
       case ButtonVariant.success:
+        if (widget.disabled) return defaultDisabled;
         final base = colorScheme.statusSuccessDark;
         return (
           backgroundColor: _isPressed
