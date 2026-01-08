@@ -28,7 +28,7 @@ class Badge extends StatelessWidget {
         final colors = _getColors(variant, theme.colorScheme);
 
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: showBackground ? EdgeInsets.symmetric(horizontal: 8, vertical: 4) : null,
           decoration: showBackground ? BoxDecoration(color: colors.backgroundColor, borderRadius: BorderRadius.circular(4)) : null,
           child: Row(
             mainAxisSize: MainAxisSize.min,
