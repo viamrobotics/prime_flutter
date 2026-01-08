@@ -1,4 +1,4 @@
-## 0.2.3
+## 0.2.4
 * added ghost button disabled state
 
 ## 0.2.0

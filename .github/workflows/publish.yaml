@@ -9,11 +9,6 @@ jobs:
   publish:
     name: Publish to Pub.dev
     runs-on: ubuntu-latest
-    # 👇 This permissions block is the ONLY thing that matters
-    permissions:
-      id-token: write 
-      contents: read
-    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -26,15 +21,13 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      # 👇 I added this debug step. If you don't see this in your logs,
-      # you are still running the old file!
-      - name: Debug OIDC Token
+      # 👇 THIS IS THE FIX. It writes the key you just found to the disk.
+      - name: Create Credentials File
         run: |
-          if [ -z "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
-            echo "❌ ERROR: OIDC Token is MISSING. Check YAML permissions."
-          else
-            echo "✅ SUCCESS: OIDC Token detected."
-          fi
+          mkdir -p ~/.pub-cache
+          cat <<EOF > ~/.pub-cache/credentials.json
+          ${{ secrets.PUB_CREDENTIALS }}
+          EOF
 
       - name: Publish Package
         run: flutter pub publish --force
