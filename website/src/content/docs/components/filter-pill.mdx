@@ -54,6 +54,21 @@ FilterPill(
 
 </Preview>
 
+## Icon Label
+
+A filter pill with an icon as the label.
+
+<Preview src="filter-pill?style=iconLabel" height="150px">
+
+```dart
+FilterPill(
+  label: Icon(PrimeIcons.magnify, size: 20),
+  onTap: () {},
+)
+```
+
+</Preview>
+
 ## Single Selection
 
 Example of managing single selection state.
@@ -86,6 +101,12 @@ class _SingleSelectionExampleState extends State<SingleSelectionExample> {
           color: theme.colorScheme.statusDangerDark,
           isSelected: _selectedFilter == 'Error',
           onTap: () => setState(() => _selectedFilter = 'Error'),
+        ),
+        FilterPill(
+          label: Icon(PrimeIcons.magnify),
+          color: theme.colorScheme.statusInfoDark,
+          isSelected: _selectedFilter == 'Search',
+          onTap: () => setState(() => _selectedFilter = 'Search'),
         ),
         // ... more items
       ],

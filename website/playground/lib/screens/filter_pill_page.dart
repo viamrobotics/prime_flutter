@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
-enum FilterPillPageStyle { basic, selected, withLeading, singleSelection, multiSelection }
+enum FilterPillPageStyle { basic, selected, withLeading, iconLabel, singleSelection, multiSelection }
 
 class FilterPillPage extends StatelessWidget {
   final FilterPillPageStyle style;
@@ -20,6 +20,7 @@ class FilterPillPage extends StatelessWidget {
             leading: const Icon(PrimeIcons.viamFlutter, size: 16),
             onTap: () {},
           ),
+          FilterPillPageStyle.iconLabel => FilterPill(label: const Icon(PrimeIcons.magnify, size: 20), onTap: () {}),
           FilterPillPageStyle.singleSelection => const _SingleSelectionExample(),
           FilterPillPageStyle.multiSelection => const _MultiSelectionExample(),
         },
@@ -63,6 +64,12 @@ class _SingleSelectionExampleState extends State<_SingleSelectionExample> {
           color: theme.colorScheme.statusInfoDark,
           isSelected: _selectedFilter == 'Info',
           onTap: () => setState(() => _selectedFilter = 'Info'),
+        ),
+        FilterPill(
+          label: const Icon(PrimeIcons.magnify),
+          color: theme.colorScheme.statusInfoDark,
+          isSelected: _selectedFilter == 'Search',
+          onTap: () => setState(() => _selectedFilter = 'Search'),
         ),
       ],
     );
