@@ -1,39 +1,21 @@
-name: Release to Pub.dev
+name: Publish to pub.dev
 
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+      - "v[0-9]+.[0-9]+.[0-9]+*"
 
 jobs:
   publish:
-    name: Publish to Pub.dev
-    runs-on: ubuntu-latest
+    if: github.repository_owner == 'viamrobotics'
+    runs-on: buildjet-2vcpu-ubuntu-2204
+    permissions:
+      id-token: write # Required for authentication using OIDC
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          
-      - name: Install Dependencies
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+      - uses: dart-lang/setup-dart@v1
+      - name: Install dependencies
         run: flutter pub get
-
-      # 👇 FIXED: We use a local folder and force ENV variables
-      - name: Create Credentials File
-        run: |
-          # Create a local folder in the workspace
-          mkdir -p $GITHUB_WORKSPACE/pub_cache
-          
-          # Write the secret to credentials.json in that folder
-          cat <<EOF > $GITHUB_WORKSPACE/pub_cache/credentials.json
-          ${{ secrets.PUB_CREDENTIALS }}
-          EOF
-        
-      - name: Publish Package
-        # 👇 We explicitly tell Flutter to use our local folder as the cache
-        env:
-          PUB_CACHE: ${{ github.workspace }}/pub_cache
-        run: flutter pub publish --force
+      - name: Publish
+        run: dart pub publish --force
