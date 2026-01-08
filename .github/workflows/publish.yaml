@@ -21,13 +21,19 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      # 👇 THIS IS THE FIX. It writes the key you just found to the disk.
+      # 👇 FIXED: We use a local folder and force ENV variables
       - name: Create Credentials File
         run: |
-          mkdir -p ~/.pub-cache
-          cat <<EOF > ~/.pub-cache/credentials.json
+          # Create a local folder in the workspace
+          mkdir -p $GITHUB_WORKSPACE/pub_cache
+          
+          # Write the secret to credentials.json in that folder
+          cat <<EOF > $GITHUB_WORKSPACE/pub_cache/credentials.json
           ${{ secrets.PUB_CREDENTIALS }}
           EOF
-
+        
       - name: Publish Package
+        # 👇 We explicitly tell Flutter to use our local folder as the cache
+        env:
+          PUB_CACHE: ${{ github.workspace }}/pub_cache
         run: flutter pub publish --force
