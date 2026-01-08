@@ -113,7 +113,7 @@ class _ListItemState extends State<ListItem> {
         );
 
         // Add padding
-        content = Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15), child: content);
+        content = Padding(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12), child: content);
 
         // Decoration
         if (isCard || isInteractive) {
