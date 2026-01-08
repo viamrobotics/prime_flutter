@@ -29,25 +29,28 @@ class FilterPill extends StatelessWidget {
         final borderColor = isSelected ? selectedColor : theme.colorScheme.borderSubtle;
         final textColor = isSelected ? theme.colorScheme.actionPrimaryFg : theme.colorScheme.textSecondary;
 
-        return GestureDetector(
-          onTap: onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              border: Border.all(color: borderColor),
-              borderRadius: BorderRadius.circular(100), // Stadium shape
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (leading != null) ...[leading!, const SizedBox(width: 8)],
-                DefaultTextStyle(
-                  style: theme.textTheme.bodyDefault.copyWith(color: textColor, fontWeight: FontWeight.w500),
-                  child: label ?? const SizedBox.shrink(),
-                ),
-              ],
+        return IconTheme(
+          data: IconThemeData(color: textColor),
+          child: GestureDetector(
+            onTap: onTap,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                border: Border.all(color: borderColor),
+                borderRadius: BorderRadius.circular(100), // Stadium shape
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (leading != null) ...[leading!, const SizedBox(width: 8)],
+                  DefaultTextStyle(
+                    style: theme.textTheme.bodyDefault.copyWith(color: textColor, fontWeight: FontWeight.w500),
+                    child: label ?? const SizedBox.shrink(),
+                  ),
+                ],
+              ),
             ),
           ),
         );

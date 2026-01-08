@@ -47,6 +47,12 @@ class _FilterPillScreenState extends State<FilterPillScreen> {
                   isSelected: _selectedFilter == 'Info',
                   onTap: () => setState(() => _selectedFilter = 'Info'),
                 ),
+                FilterPill(
+                  label: Icon(PrimeIcons.magnify),
+                  color: theme.colorScheme.statusInfoDark,
+                  isSelected: _selectedFilter == 'Search',
+                  onTap: () => setState(() => _selectedFilter = 'Search'),
+                ),
               ],
             ),
             const SizedBox(height: 32),
