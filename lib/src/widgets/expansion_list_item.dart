@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
-import '../theme/prime_theme.dart';
-import 'prime_icons.dart';
+import '../../prime_flutter.dart';
 
 /// A widget users can tap to show or hide a list of children.
 class ExpansionListItem extends StatefulWidget {
@@ -87,55 +86,78 @@ class _ExpansionListItemState extends State<ExpansionListItem> {
   Widget build(BuildContext context) {
     return PrimeTheme.consumer(
       builder: (context, theme) {
+        // final Color backgroundColor = const Color.fromARGB(255, 255, 18, 18);
         final Color backgroundColor = widget._isCard ? theme.colorScheme.surfaceOffset : const Color(0x00000000);
         final BoxBorder? border = widget._isCard ? Border.all(color: theme.colorScheme.borderSubtle) : null;
         final BorderRadius? borderRadius = widget._isCard ? BorderRadius.circular(theme.cornerRadius) : null;
+        final BorderRadius? topBorderRadius = widget._isCard
+            ? BorderRadius.only(topLeft: Radius.circular(theme.cornerRadius), topRight: Radius.circular(theme.cornerRadius))
+            : null;
 
         return Container(
-          decoration: BoxDecoration(color: backgroundColor, border: border, borderRadius: borderRadius),
+          decoration: BoxDecoration(border: border, borderRadius: borderRadius),
           child: Expansible(
             controller: _controller,
             headerBuilder: (context, animation) {
-              return GestureDetector(
-                onTap: _handleTap,
-                behavior: HitTestBehavior.opaque,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Row(
-                      children: [
-                        RotationTransition(
-                          turns: Tween<double>(begin: 0.0, end: 0.25).animate(animation),
-                          child: Icon(PrimeIcons.chevronRight, color: theme.colorScheme.iconSecondary, size: 20),
-                        ),
-                        const SizedBox(width: 12),
-                        if (widget.leading != null) ...[
-                          IconTheme(
-                            data: IconThemeData(
-                              color: widget._isCard ? theme.colorScheme.iconSecondary : theme.colorScheme.iconPrimary,
-                              size: 20,
+              return Column(
+                children: [
+                  AnimatedBuilder(
+                    animation: animation,
+                    builder: (context, child) {
+                      final borderRadiusTween = BorderRadiusTween(begin: borderRadius, end: topBorderRadius);
+                      final borderSideColor = Color.lerp(const Color(0x00000000), theme.colorScheme.borderSubtle, animation.value)!;
+                      return GestureDetector(
+                        onTap: _handleTap,
+                        behavior: HitTestBehavior.opaque,
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: backgroundColor,
+                              borderRadius: borderRadiusTween.evaluate(animation),
+                              border: Border(bottom: BorderSide(color: borderSideColor)),
                             ),
-                            child: widget.leading!,
-                          ),
-                          const SizedBox(width: 12),
-                        ],
-                        Expanded(
-                          child: DefaultTextStyle(
-                            style: theme.textTheme.bodyDefault.copyWith(fontWeight: FontWeight.w500, color: theme.colorScheme.textPrimary),
-                            child: widget.title ?? const SizedBox.shrink(),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            child: Row(
+                              children: [
+                                RotationTransition(
+                                  turns: Tween<double>(begin: 0.0, end: 0.25).animate(animation),
+                                  child: Icon(PrimeIcons.chevronRight, color: theme.colorScheme.iconSecondary, size: 20),
+                                ),
+                                const SizedBox(width: 12),
+                                if (widget.leading != null) ...[
+                                  IconTheme(
+                                    data: IconThemeData(
+                                      color: widget._isCard ? theme.colorScheme.iconSecondary : theme.colorScheme.iconPrimary,
+                                      size: 20,
+                                    ),
+                                    child: widget.leading!,
+                                  ),
+                                  const SizedBox(width: 12),
+                                ],
+                                Expanded(
+                                  child: DefaultTextStyle(
+                                    style: theme.textTheme.bodyDefault.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      color: theme.colorScheme.textPrimary,
+                                    ),
+                                    child: widget.title ?? const SizedBox.shrink(),
+                                  ),
+                                ),
+                                if (widget.trailing != null) ...[const SizedBox(width: 12), widget.trailing!],
+                              ],
+                            ),
                           ),
                         ),
-                        if (widget.trailing != null) ...[const SizedBox(width: 12), widget.trailing!],
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                ),
+                ],
               );
             },
             bodyBuilder: (context, animation) {
               return Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: widget.children),
               );
             },
