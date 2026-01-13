@@ -129,7 +129,7 @@ class _IconCardState extends State<_IconCard> {
                   ? PrimeTheme.of(context).colorScheme.surfaceHighlight
                   : Colors.transparent, // Transparent when not hovered for cleaner look
               borderRadius: BorderRadius.circular(4),
-              border: _hovering ? Border.all(color: PrimeTheme.of(context).colorScheme.borderSubtle.withOpacity(0.5)) : null,
+              border: _hovering ? Border.all(color: PrimeTheme.of(context).colorScheme.borderSubtle.withValues(alpha: 0.5)) : null,
             ),
             child: Icon(widget.icon, size: 24, color: PrimeTheme.of(context).colorScheme.iconPrimary),
           ),
