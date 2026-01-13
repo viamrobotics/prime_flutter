@@ -1,3 +1,8 @@
+## 0.2.9
+
+* Added `Slider` widget (formerly `PrimeSlider`) with custom colors, ranges, and divisions.
+* Added `Slider` documentation to website.
+
 ## 0.2.4
 * added ghost button disabled state
 

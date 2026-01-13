@@ -1,0 +1,77 @@
+---
+title: Slider
+description: Slider component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Sliders allow users to make selections from a range of values.
+
+## Default
+
+<Preview src="slider?variant=default" height="200px">
+
+```dart
+Slider(
+  value: 0.5,
+  onChanged: (value) {
+    // Handle change
+  },
+)
+```
+
+</Preview>
+
+## Custom Range
+
+<Preview src="slider?variant=range" height="200px">
+
+```dart
+Slider(
+  value: 50.0,
+  min: 0.0,
+  max: 100.0,
+  onChanged: (value) {
+    // Handle change
+  },
+)
+```
+
+</Preview>
+
+## Discrete Divisions
+
+<Preview src="slider?variant=discrete" height="200px">
+
+```dart
+Slider(
+  value: 0.2,
+  divisions: 5,
+  onChanged: (value) {
+    // Handle change
+  },
+)
+```
+
+</Preview>
+
+## Custom Colors
+
+<Preview src="slider?variant=custom" height="200px">
+
+```dart
+Slider(
+  value: 0.6,
+  divisions: 5,
+  activeTrackColor: Colors.purple,
+  inactiveTrackColor: Colors.purple.withOpacity(0.2),
+  thumbColor: Colors.purple,
+  activeTickColor: Colors.white,
+  inactiveTickColor: Colors.purple.withOpacity(0.5),
+  onChanged: (value) {
+    // Handle change
+  },
+)
+```
+
+</Preview>

@@ -13,6 +13,7 @@ import 'screens/list_item_page.dart';
 import 'screens/navigation_bar_page.dart';
 import 'screens/progress_page.dart';
 import 'screens/tab_bar_page.dart';
+import 'screens/slider_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -109,6 +110,11 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = IconPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => IconPageStyle.example);
           return PrimePageRoute(builder: (_) => IconPage(style: style));
+        }
+
+        if (uri.path == '/slider') {
+          final variant = uri.queryParameters['variant'];
+          return PrimePageRoute(builder: (_) => SliderPage(variant: variant));
         }
 
         return PrimePageRoute(builder: (_) => const Center(child: Text('Select a component')));

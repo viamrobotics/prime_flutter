@@ -15,20 +15,49 @@ This directory contains the documentation site for Prime Flutter, built with [As
     ```
     The site will be available at http://localhost:4321.
 
-## Embedding Flutter Widgets
+## Adding a New Component
 
-The documentation uses an `iframe` approach to embed live Flutter widgets.
-This requires the Flutter example app to be running and accessible.
+To add documentation for a new component with interactive playgrounds, follow these steps:
 
-### Setup Flutter App for Embedding
+### 1. Create Playground Page (`website/playground/lib/screens/`)
+Create a new file (e.g., `my_component_page.dart`) in the playground app. This page should accept customizable parameters (via query params) to showcase different states of your widget.
 
-1.  The Flutter app needs to be served as a web app.
-2.  It works best if the Flutter app supports **hash routing** or specific routes for each widget (e.g., `/#/button`).
-3.  Update `src/components/FlutterEmbed.astro` if your Flutter app URL differs from `http://localhost:8080`.
+```dart
+class MyComponentPage extends StatelessWidget {
+  final String? variant;
+  const MyComponentPage({super.key, this.variant});
 
-### Workflow
+  @override
+  Widget build(BuildContext context) {
+    // Render widget based on variant
+  }
+}
+```
 
-1.  Run Flutter app: `cd ../example && flutter run -d web-server --web-port 8080`
-2.  Run Docs app: `npm run dev`
-3.  Edit `.mdx` files in `src/content/docs/` to add new pages.
-4.  Use `<FlutterEmbed widget="route_name" />` to embed a widget.
+### 2. Register Route (`website/playground/lib/main.dart`)
+Add a new route check in `onGenerateRoute` to handle your component's path.
+
+```dart
+if (uri.path == '/my-component') {
+  final variant = uri.queryParameters['variant'];
+  return PrimePageRoute(builder: (_) => MyComponentPage(variant: variant));
+}
+```
+
+### 3. Add Documentation Page (`website/src/content/docs/components/`)
+Create an `.mdx` file (e.g., `my-component.mdx`). Use the `<Preview>` component to embed the playground.
+
+```mdx
+import Preview from '../../../components/Preview.astro';
+
+<Preview src="my-component?variant=default" height="200px">
+
+```dart
+// Code snippet showing how to use the widget
+```
+
+</Preview>
+```
+
+### 4. Verify
+Run `npm run dev` to see your changes locally. The preview iframe points to the `website/playground` app build.

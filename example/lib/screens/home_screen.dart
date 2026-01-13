@@ -128,6 +128,13 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.cardTextOutline,
               screen: const InputScreen(),
             ),
+            _buildListItem(
+              context: context,
+              title: 'Slider',
+              description: 'Selection controls',
+              icon: PrimeIcons.selectionDrag,
+              screen: const SliderScreen(),
+            ),
             // Add more showcase cards here as you develop widgets
           ],
         ),
