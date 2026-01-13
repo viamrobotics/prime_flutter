@@ -31,9 +31,7 @@ class _SliderScreenState extends State<SliderScreen> {
               _buildSection(
                 context,
                 title: 'Default',
-                children: [
-                  Slider(value: _value1, onChanged: (v) => setState(() => _value1 = v)),
-                ],
+                children: [Slider(value: _value1, onChanged: (v) => setState(() => _value1 = v))],
               ),
               const SizedBox(height: 32),
               _buildSection(
