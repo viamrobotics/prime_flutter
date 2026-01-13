@@ -1,7 +1,10 @@
+## 0.2.10
+
+* Added `onChangedEnd` callback to `Slider` widget.
+
 ## 0.2.9
 
-* Added `Slider` widget (formerly `PrimeSlider`) with custom colors, ranges, and divisions.
-* Added `Slider` documentation to website.
+* Added `Slider` widget with custom colors, ranges, and divisions.
 
 ## 0.2.4
 * added ghost button disabled state
