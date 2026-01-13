@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 import 'screens/home_screen.dart';
-import 'screens/widgets/slider_screen.dart';
 
 import 'screens/theme_editor/theme_manager.dart';
 
