@@ -30,7 +30,9 @@ class _SliderScreenState extends State<SliderScreen> {
               _buildSection(
                 context,
                 title: 'Default',
-                children: [Slider(value: _value1, onChanged: (v) => setState(() => _value1 = v))],
+                children: [
+                  Slider(value: _value1, onChanged: (v) => setState(() => _value1 = v), onChangeEnd: (v) => print('Final value: $v')),
+                ],
               ),
               const SizedBox(height: 32),
               _buildSection(
@@ -67,7 +69,12 @@ class _SliderScreenState extends State<SliderScreen> {
                 children: [
                   Text('5 Divisions (0.0 to 1.0): ${_discreteValue.toStringAsFixed(2)}'),
                   const SizedBox(height: 8),
-                  Slider(value: _discreteValue, divisions: 5, onChanged: (v) => setState(() => _discreteValue = v)),
+                  Slider(
+                    value: _discreteValue,
+                    divisions: 5,
+                    onChanged: (v) => setState(() => _discreteValue = v),
+                    onChangeEnd: (v) => print('Discrete slider ended at: $v'),
+                  ),
                 ],
               ),
               const SizedBox(height: 32),

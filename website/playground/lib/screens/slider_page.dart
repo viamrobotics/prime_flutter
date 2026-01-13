@@ -65,7 +65,7 @@ class _SliderPageState extends State<SliderPage> {
           children: [
             Text('Value: ${_value.toStringAsFixed(2)}'),
             const SizedBox(height: 8),
-            Slider(value: _value, onChanged: (v) => setState(() => _value = v)),
+            Slider(value: _value, onChanged: (v) => setState(() => _value = v), onChangeEnd: (v) => print('Slider ended at: $v')),
           ],
         );
         break;
