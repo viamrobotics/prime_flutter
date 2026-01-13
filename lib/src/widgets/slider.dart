@@ -8,6 +8,7 @@ class Slider extends StatelessWidget {
   final double max;
   final int? divisions;
   final ValueChanged<double> onChanged;
+  final ValueChanged<double>? onChangeEnd;
 
   // Color overrides
   final Color? activeTrackColor;
@@ -20,6 +21,7 @@ class Slider extends StatelessWidget {
     super.key,
     required this.value,
     required this.onChanged,
+    this.onChangeEnd,
     this.min = 0.0,
     this.max = 1.0,
     this.divisions,
@@ -70,6 +72,10 @@ class Slider extends StatelessWidget {
               final newValue = clampedDragValue * (max - min) + min;
               onChanged(newValue);
             },
+            onHorizontalDragEnd: (details) {
+              // Notify that the user has finished dragging
+              onChangeEnd?.call(value);
+            },
             onTapDown: (details) {
               final tapValue = (details.localPosition.dx - thumbRadius) / availableWidth;
               var clampedTapValue = tapValue.clamp(0.0, 1.0);
@@ -80,6 +86,10 @@ class Slider extends StatelessWidget {
 
               final newValue = clampedTapValue * (max - min) + min;
               onChanged(newValue);
+            },
+            onTapUp: (details) {
+              // Notify that the user has finished tapping
+              onChangeEnd?.call(value);
             },
             child: Container(
               height: 40,

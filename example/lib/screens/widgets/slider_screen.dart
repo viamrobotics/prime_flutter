@@ -16,6 +16,7 @@ class _SliderScreenState extends State<SliderScreen> {
   double _rangeValue2 = 25.0;
   double _discreteValue = 0.2;
   double _customColorValue = 0.6;
+  double _releaseValue = 0.4;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +90,20 @@ class _SliderScreenState extends State<SliderScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 32),
+              _buildSection(
+                context,
+                title: 'Handle Release',
+                children: [
+                  Text('Value: ${_releaseValue.toStringAsFixed(2)}'),
+                  const SizedBox(height: 8),
+                  Slider(
+                    value: _releaseValue,
+                    onChanged: (v) => setState(() => _releaseValue = v),
+                    onChangeEnd: (_) => setState(() => _releaseValue = 0.4),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -112,56 +127,6 @@ class _SliderScreenState extends State<SliderScreen> {
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: children),
         ),
       ],
-    );
-  }
-}
-
-class SliderPlayground extends StatefulWidget {
-  final String? variant;
-  const SliderPlayground({super.key, this.variant});
-
-  @override
-  State<SliderPlayground> createState() => _SliderPlaygroundState();
-}
-
-class _SliderPlaygroundState extends State<SliderPlayground> {
-  double _value = 0.5;
-  double _rangeValue = 50.0;
-  double _discreteValue = 0.2;
-  double _customColorValue = 0.6;
-
-  @override
-  Widget build(BuildContext context) {
-    Widget content;
-    switch (widget.variant) {
-      case 'range':
-        content = Slider(value: _rangeValue, min: 0, max: 100, onChanged: (v) => setState(() => _rangeValue = v));
-        break;
-      case 'discrete':
-        content = Slider(value: _discreteValue, divisions: 5, onChanged: (v) => setState(() => _discreteValue = v));
-        break;
-      case 'custom':
-        content = Slider(
-          value: _customColorValue,
-          divisions: 5,
-          activeTrackColor: Colors.purple,
-          inactiveTrackColor: Colors.purple.withOpacity(0.2),
-          thumbColor: Colors.purple,
-          activeTickColor: Colors.white,
-          inactiveTickColor: Colors.purple.withOpacity(0.5),
-          onChanged: (v) => setState(() => _customColorValue = v),
-        );
-        break;
-      case 'default':
-      default:
-        content = Slider(value: _value, onChanged: (v) => setState(() => _value = v));
-        break;
-    }
-
-    return PrimeScaffold(
-      body: Center(
-        child: Padding(padding: const EdgeInsets.all(24.0), child: content),
-      ),
     );
   }
 }

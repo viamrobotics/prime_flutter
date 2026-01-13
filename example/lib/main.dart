@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 import 'screens/home_screen.dart';
-import 'screens/widgets/slider_screen.dart';
 
 import 'screens/theme_editor/theme_manager.dart';
 
@@ -23,14 +22,6 @@ class MyApp extends StatelessWidget {
           title: 'Prime Flutter Example',
           theme: PrimeThemeData(colorScheme: ThemeManager().currentScheme, textTheme: PrimeTextTheme.base(), cornerRadius: 8.0),
           home: const HomeScreen(),
-          onGenerateRoute: (settings) {
-            final uri = Uri.parse(settings.name ?? '');
-            if (uri.pathSegments.firstOrNull == 'slider') {
-              final variant = uri.queryParameters['variant'];
-              return PrimePageRoute(builder: (_) => SliderPlayground(variant: variant));
-            }
-            return null;
-          },
         );
       },
     );
