@@ -75,3 +75,21 @@ Slider(
 ```
 
 </Preview>
+
+## Handling Release
+
+<Preview src="slider?variant=handleRelease" height="200px">
+
+```dart
+Slider(
+  value: 0.2,
+  divisions: 5,
+  onChanged: (value) {
+    // Handle change
+  },
+  onChangeEnd: (value) {
+    // Called when user releases the slider
+  },
+)
+```
+</Preview>

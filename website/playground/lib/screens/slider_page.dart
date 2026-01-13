@@ -14,6 +14,7 @@ class _SliderPageState extends State<SliderPage> {
   double _rangeValue = 50.0;
   double _discreteValue = 0.2;
   double _customColorValue = 0.6;
+  double _releaseValue = 0.4;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,22 @@ class _SliderPageState extends State<SliderPage> {
           ],
         );
         break;
+      case 'handleRelease':
+        content = Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Value: ${_releaseValue.toStringAsFixed(2)}'),
+            const SizedBox(height: 8),
+            Slider(
+              value: _releaseValue,
+              onChanged: (v) => setState(() => _releaseValue = v),
+              onChangeEnd: (_) => setState(() => _releaseValue = 0.4),
+            ),
+            const SizedBox(height: 16),
+            const Text('Drag the slider and release to reset', style: TextStyle(color: PrimeColors.gray7, fontSize: 14)),
+          ],
+        );
+        break;
       case 'default':
       default:
         content = Column(
@@ -65,7 +82,7 @@ class _SliderPageState extends State<SliderPage> {
           children: [
             Text('Value: ${_value.toStringAsFixed(2)}'),
             const SizedBox(height: 8),
-            Slider(value: _value, onChanged: (v) => setState(() => _value = v), onChangeEnd: (v) => print('Slider ended at: $v')),
+            Slider(value: _value, onChanged: (v) => setState(() => _value = v)),
           ],
         );
         break;

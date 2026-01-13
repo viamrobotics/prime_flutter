@@ -16,6 +16,7 @@ class _SliderScreenState extends State<SliderScreen> {
   double _rangeValue2 = 25.0;
   double _discreteValue = 0.2;
   double _customColorValue = 0.6;
+  double _releaseValue = 0.4;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +94,20 @@ class _SliderScreenState extends State<SliderScreen> {
                     activeTickColor: Colors.white,
                     inactiveTickColor: Colors.purple.withOpacity(0.5),
                     onChanged: (v) => setState(() => _customColorValue = v),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+              _buildSection(
+                context,
+                title: 'Handle Release',
+                children: [
+                  Text('Value: ${_releaseValue.toStringAsFixed(2)}'),
+                  const SizedBox(height: 8),
+                  Slider(
+                    value: _releaseValue,
+                    onChanged: (v) => setState(() => _releaseValue = v),
+                    onChangeEnd: (_) => setState(() => _releaseValue = 0.4),
                   ),
                 ],
               ),
