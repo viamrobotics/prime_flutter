@@ -39,7 +39,7 @@ class FilterPill extends StatelessWidget {
               onTap: onTap,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   border: Border.all(color: borderColor),
@@ -50,7 +50,7 @@ class FilterPill extends StatelessWidget {
                   children: [
                     if (leading != null) ...[leading!, const SizedBox(width: 8)],
                     DefaultTextStyle(
-                      style: theme.textTheme.bodyDefault.copyWith(color: textColor, fontWeight: FontWeight.w500),
+                      style: theme.textTheme.bodyDefault.copyWith(color: textColor, fontWeight: FontWeight.w500, height: 1),
                       child: label ?? const SizedBox.shrink(),
                     ),
                   ],
