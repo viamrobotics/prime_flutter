@@ -135,6 +135,14 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.selectionDrag,
               screen: const SliderScreen(),
             ),
+            _buildListItem(
+              context: context,
+              title: 'Segmented Button',
+              description: 'Toggle button sets',
+              icon: PrimeIcons.viamComponent,
+              screen: const SegmentedButtonScreen(),
+            ),
+
             // Add more showcase cards here as you develop widgets
           ],
         ),
