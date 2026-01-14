@@ -9,7 +9,6 @@ class FilterPillScreen extends StatefulWidget {
 }
 
 class _FilterPillScreenState extends State<FilterPillScreen> {
-  final Set<String> _selectedTags = {'Error', 'Warning'};
   Set<String> _selectedGroup = {'Red', 'Green'};
   Set<String> _selectedSearch = {'Search'};
 
