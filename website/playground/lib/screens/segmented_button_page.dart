@@ -94,7 +94,7 @@ class _SegmentedButtonPageState extends State<SegmentedButtonPage> {
   Widget _buildMultiFont() {
     return Center(
       child: SegmentedButton<String>(
-        segments: {'Code': _buildMonoLabel('Code'), 'Build': _buildMonoLabel('Build'), 'Test': _buildMonoLabel('Test')},
+        segments: {'Code': _buildMonoLabel('CODE'), 'Build': _buildMonoLabel('BUILD'), 'Test': _buildMonoLabel('TEST')},
         selected: _fontSelected,
         onSelectionChanged: (newSelection) {
           setState(() {
