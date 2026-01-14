@@ -9,8 +9,8 @@ class FilterPillScreen extends StatefulWidget {
 }
 
 class _FilterPillScreenState extends State<FilterPillScreen> {
-  String _selectedFilter = 'All';
-  final Set<String> _selectedTags = {'Error', 'Warning'};
+  Set<String> _selectedGroup = {'Red', 'Green'};
+  Set<String> _selectedSearch = {'Search'};
 
   @override
   Widget build(BuildContext context) {
@@ -22,77 +22,68 @@ class _FilterPillScreenState extends State<FilterPillScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Single Selection', style: theme.textTheme.title),
+            Text('Filter Group - default colors', style: theme.textTheme.title),
             const SizedBox(height: 16),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                FilterPill(label: Text('All'), isSelected: _selectedFilter == 'All', onTap: () => setState(() => _selectedFilter = 'All')),
-                FilterPill(
-                  label: Text('Error'),
-                  color: theme.colorScheme.statusDangerDark,
-                  isSelected: _selectedFilter == 'Error',
-                  onTap: () => setState(() => _selectedFilter = 'Error'),
-                ),
-                FilterPill(
-                  label: Text('Warning'),
-                  color: theme.colorScheme.statusWarningDark,
-                  isSelected: _selectedFilter == 'Warning',
-                  onTap: () => setState(() => _selectedFilter = 'Warning'),
-                ),
-                FilterPill(
-                  label: Text('Info'),
-                  color: theme.colorScheme.statusInfoDark,
-                  isSelected: _selectedFilter == 'Info',
-                  onTap: () => setState(() => _selectedFilter = 'Info'),
-                ),
-                FilterPill(
-                  label: Icon(PrimeIcons.magnify),
-                  color: theme.colorScheme.statusInfoDark,
-                  isSelected: _selectedFilter == 'Search',
-                  onTap: () => setState(() => _selectedFilter = 'Search'),
-                ),
+            FilterGroup<String>(
+              items: [
+                FilterItem(value: 'Arm', label: const Text('Arm')),
+                FilterItem(value: 'Base', label: const Text('Base')),
+                FilterItem(value: 'Board', label: const Text('Board')),
+                FilterItem(value: 'Sensor', label: const Text('Sensor')),
+                const FilterItem(value: 'Servo', label: Text('Servo')),
               ],
+              selected: _selectedGroup,
+              onSelectionChanged: (newSelection) {
+                setState(() {
+                  _selectedGroup = newSelection;
+                });
+              },
             ),
             const SizedBox(height: 32),
-            Text('Multiple Selection', style: theme.textTheme.title),
+            Text('Filter Group - custom colors', style: theme.textTheme.title),
             const SizedBox(height: 16),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
+            FilterGroup<String>(
+              items: [
+                FilterItem(value: 'Red', label: const Text('Red'), activeColor: theme.colorScheme.statusDangerDark),
+                FilterItem(value: 'Orange', label: const Text('Orange'), activeColor: theme.colorScheme.statusWarningDark),
+                FilterItem(value: 'Green', label: const Text('Green'), activeColor: theme.colorScheme.statusSuccessDark),
+                FilterItem(value: 'Blue', label: const Text('Blue'), activeColor: theme.colorScheme.statusInfoDark),
+                const FilterItem(value: 'Purple', label: Text('Purple'), activeColor: Color(0xFF9C27B0)),
+              ],
+              selected: _selectedGroup,
+              onSelectionChanged: (newSelection) {
+                setState(() {
+                  _selectedGroup = newSelection;
+                });
+              },
+            ),
+            const SizedBox(height: 32),
+            Text('Filter Group - prepend with custom Filter Pill', style: theme.textTheme.title),
+            const SizedBox(height: 16),
+            Row(
               children: [
                 FilterPill(
-                  label: Text('Error'),
-                  color: theme.colorScheme.statusDangerDark,
-                  isSelected: _selectedTags.contains('Error'),
-                  onTap: () => setState(() => _selectedTags.contains('Error') ? _selectedTags.remove('Error') : _selectedTags.add('Error')),
-                ),
-                FilterPill(
-                  label: Text('Warning'),
-                  color: theme.colorScheme.statusWarningDark,
-                  isSelected: _selectedTags.contains('Warning'),
+                  label: const Icon(PrimeIcons.magnify),
+                  isSelected: _selectedSearch.contains('Search'),
+                  // give this pill custom funcitonality, such as search or making a bottom sheet appear.
                   onTap: () =>
-                      setState(() => _selectedTags.contains('Warning') ? _selectedTags.remove('Warning') : _selectedTags.add('Warning')),
+                      setState(() => _selectedSearch.contains('Search') ? _selectedSearch.remove('Search') : _selectedSearch.add('Search')),
                 ),
-                FilterPill(
-                  label: Text('Info'),
-                  color: theme.colorScheme.statusInfoDark,
-                  isSelected: _selectedTags.contains('Info'),
-                  onTap: () => setState(() => _selectedTags.contains('Info') ? _selectedTags.remove('Info') : _selectedTags.add('Info')),
-                ),
-                FilterPill(
-                  label: Text('Debug'),
-                  color: theme.colorScheme.statusSuccessDark,
-                  isSelected: _selectedTags.contains('Debug'),
-                  onTap: () => setState(() => _selectedTags.contains('Debug') ? _selectedTags.remove('Debug') : _selectedTags.add('Debug')),
-                ),
-                FilterPill(
-                  label: Text('Overflow'),
-                  color: Color.fromARGB(255, 208, 53, 229),
-                  isSelected: _selectedTags.contains('Overflow'),
-                  onTap: () =>
-                      setState(() => _selectedTags.contains('Overflow') ? _selectedTags.remove('Overflow') : _selectedTags.add('Overflow')),
+                const SizedBox(width: 8),
+                FilterGroup<String>(
+                  items: [
+                    FilterItem(value: 'Arm', label: const Text('Arm')),
+                    FilterItem(value: 'Base', label: const Text('Base')),
+                    FilterItem(value: 'Board', label: const Text('Board')),
+                    FilterItem(value: 'Sensor', label: const Text('Sensor')),
+                    FilterItem(value: 'Servo', label: Text('Servo')),
+                  ],
+                  selected: _selectedSearch,
+                  onSelectionChanged: (newSelection) {
+                    setState(() {
+                      _selectedSearch = newSelection;
+                    });
+                  },
                 ),
               ],
             ),

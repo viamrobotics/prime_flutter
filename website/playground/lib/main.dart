@@ -49,7 +49,7 @@ class DocsApp extends StatelessWidget {
 
         if (uri.path == '/filter-pill') {
           final styleStr = uri.queryParameters['style'];
-          final style = FilterPillPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => FilterPillPageStyle.basic);
+          final style = FilterPillPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => FilterPillPageStyle.basicToggle);
           return PrimePageRoute(builder: (_) => FilterPillPage(style: style));
         }
 

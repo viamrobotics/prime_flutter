@@ -7,109 +7,41 @@ import Preview from '../../../components/Preview.astro';
 
 Filter pills are used to filter content or selections.
 
-## Basic
+## Filter Group
 
-A basic filter pill with a label.
+The `FilterGroup` widget manages a set of filter options, supporting multi-selection and individual item colors.
 
-<Preview src="filter-pill?style=basic" height="150px">
+### Default Colors
 
-```dart
-FilterPill(
-  label: Text('Filter'),
-  onTap: () {},
-)
-```
+By default, the `FilterGroup` uses the theme's default colors.
 
-</Preview>
-
-## Selected
-
-A filter pill in a selected state.
-
-<Preview src="filter-pill?style=selected" height="150px">
+<Preview src="filter-pill?style=filterGroupDefault" height="200px">
 
 ```dart
-FilterPill(
-  label: Text('Selected'),
-  isSelected: true,
-  onTap: () {},
-)
-```
-
-</Preview>
-
-## With Leading Icon
-
-A filter pill with a leading icon.
-
-<Preview src="filter-pill?style=withLeading" height="150px">
-
-```dart
-FilterPill(
-  label: Text('With Icon'),
-  leading: Icon(PrimeIcons.viamFlutter, size: 16),
-  onTap: () {},
-)
-```
-
-</Preview>
-
-## Icon Label
-
-A filter pill with an icon as the label.
-
-<Preview src="filter-pill?style=iconLabel" height="150px">
-
-```dart
-FilterPill(
-  label: Icon(PrimeIcons.magnify, size: 20),
-  onTap: () {},
-)
-```
-
-</Preview>
-
-## Single Selection
-
-Example of managing single selection state.
-
-<Preview src="filter-pill?style=singleSelection" height="150px">
-
-```dart
-// Helper stateful widget for implementation details
-class SingleSelectionExample extends StatefulWidget {
+class FilterGroupDefaultExample extends StatefulWidget {
   @override
-  State<SingleSelectionExample> createState() => _SingleSelectionExampleState();
+  State<FilterGroupDefaultExample> createState() => _FilterGroupDefaultExampleState();
 }
 
-class _SingleSelectionExampleState extends State<SingleSelectionExample> {
-  String _selectedFilter = 'All';
+class _FilterGroupDefaultExampleState extends State<FilterGroupDefaultExample> {
+  Set<String> _selectedGroup = {'Red', 'Green'};
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        FilterPill(
-          label: Text('All'), 
-          isSelected: _selectedFilter == 'All', 
-          onTap: () => setState(() => _selectedFilter = 'All')
-        ),
-        FilterPill(
-          label: Text('Error'),
-          color: theme.colorScheme.statusDangerDark,
-          isSelected: _selectedFilter == 'Error',
-          onTap: () => setState(() => _selectedFilter = 'Error'),
-        ),
-        FilterPill(
-          label: Icon(PrimeIcons.magnify),
-          color: theme.colorScheme.statusInfoDark,
-          isSelected: _selectedFilter == 'Search',
-          onTap: () => setState(() => _selectedFilter = 'Search'),
-        ),
-        // ... more items
+    return FilterGroup<String>(
+      items: [
+        FilterItem(value: 'Arm', label: const Text('Arm')),
+        FilterItem(value: 'Base', label: const Text('Base')),
+        FilterItem(value: 'Board', label: const Text('Board')),
+        FilterItem(value: 'Sensor', label: const Text('Sensor')),
+        const FilterItem(value: 'Servo', label: Text('Servo')),
       ],
+      selected: _selectedGroup,
+      onSelectionChanged: (newSelection) {
+        setState(() {
+          _selectedGroup = newSelection;
+        });
+      },
     );
   }
 }
@@ -117,39 +49,158 @@ class _SingleSelectionExampleState extends State<SingleSelectionExample> {
 
 </Preview>
 
-## Multi Selection
+### Custom Colors
 
-Example of managing multiple selection state (tags).
+You can customize the color of each item by setting the `activeColor` property on the `FilterItem`.
 
-<Preview src="filter-pill?style=multiSelection" height="150px">
+<Preview src="filter-pill?style=filterGroupCustom" height="200px">
 
 ```dart
-// Helper stateful widget for implementation details
-class MultiSelectionExample extends StatefulWidget {
+class FilterGroupCustomExample extends StatefulWidget {
   @override
-  State<MultiSelectionExample> createState() => _MultiSelectionExampleState();
+  State<FilterGroupCustomExample> createState() => _FilterGroupCustomExampleState();
 }
 
-class _MultiSelectionExampleState extends State<MultiSelectionExample> {
-  final Set<String> _selectedTags = {'Error', 'Warning'};
+class _FilterGroupCustomExampleState extends State<FilterGroupCustomExample> {
+  Set<String> _selectedGroup = {'Red', 'Green'};
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+    final theme = PrimeTheme.of(context);
+    return FilterGroup<String>(
+      items: [
+        FilterItem(value: 'Red', label: const Text('Red'), activeColor: theme.colorScheme.statusDangerDark),
+        FilterItem(value: 'Orange', label: const Text('Orange'), activeColor: theme.colorScheme.statusWarningDark),
+        FilterItem(value: 'Green', label: const Text('Green'), activeColor: theme.colorScheme.statusSuccessDark),
+        FilterItem(value: 'Blue', label: const Text('Blue'), activeColor: theme.colorScheme.statusInfoDark),
+        const FilterItem(value: 'Purple', label: Text('Purple'), activeColor: Color(0xFF9C27B0)),
+      ],
+      selected: _selectedGroup,
+      onSelectionChanged: (newSelection) {
+        setState(() {
+          _selectedGroup = newSelection;
+        });
+      },
+    );
+  }
+}
+```
+
+</Preview>
+
+### Composite
+
+You can compose a `FilterGroup` with standalone `FilterPill` widgets to create complex toolbars. For example, you can add a search button next to the filters.
+
+<Preview src="filter-pill?style=filterGroupComposite" height="200px">
+
+```dart
+class FilterGroupCompositeExample extends StatefulWidget {
+  @override
+  State<FilterGroupCompositeExample> createState() => _FilterGroupCompositeExampleState();
+}
+
+class _FilterGroupCompositeExampleState extends State<FilterGroupCompositeExample> {
+  Set<String> _selectedSearch = {'Search'};
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          FilterPill(
+            label: const Icon(PrimeIcons.magnify),
+            isSelected: _selectedSearch.contains('Search'),
+            // give this pill custom funcitonality, such as search or making a bottom sheet appear.
+            onTap: () => setState(() => _selectedSearch.contains('Search') ? _selectedSearch.remove('Search') : _selectedSearch.add('Search')),
+          ),
+          const SizedBox(width: 8),
+          FilterGroup<String>(
+            items: [
+              FilterItem(value: 'Arm', label: const Text('Arm')),
+              FilterItem(value: 'Base', label: const Text('Base')),
+              FilterItem(value: 'Board', label: const Text('Board')),
+              FilterItem(value: 'Sensor', label: const Text('Sensor')),
+              FilterItem(value: 'Servo', label: Text('Servo')),
+            ],
+            selected: _selectedSearch,
+            onSelectionChanged: (newSelection) {
+              setState(() {
+                _selectedSearch = newSelection;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+</Preview>
+
+
+## Basic
+
+A basic filter pill. Tap to toggle selection state.
+
+<Preview src="filter-pill?style=basicToggle" height="150px">
+
+```dart
+class BasicToggleExample extends StatefulWidget {
+  @override
+  State<BasicToggleExample> createState() => _BasicToggleExampleState();
+}
+
+class _BasicToggleExampleState extends State<BasicToggleExample> {
+  bool _isSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return FilterPill(
+      label: Text('Example'),
+      isSelected: _isSelected,
+      onTap: () => setState(() => _isSelected = !_isSelected),
+    );
+  }
+}
+```
+
+</Preview>
+
+## With Icon
+
+Filter pills can include leading icons or be icon-only.
+
+<Preview src="filter-pill?style=iconToggle" height="150px">
+
+```dart
+class IconToggleExample extends StatefulWidget {
+  @override
+  State<IconToggleExample> createState() => _IconToggleExampleState();
+}
+
+class _IconToggleExampleState extends State<IconToggleExample> {
+  bool _isSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 16,
       children: [
         FilterPill(
-          label: Text('Error'),
-          color: theme.colorScheme.statusDangerDark,
-          isSelected: _selectedTags.contains('Error'),
-          onTap: () => setState(() => 
-            _selectedTags.contains('Error') 
-              ? _selectedTags.remove('Error') 
-              : _selectedTags.add('Error')
-          ),
+          label: const Text('With Icon'),
+          leading: const Icon(PrimeIcons.viamFlutter, size: 16),
+          isSelected: _isSelected,
+          onTap: () => setState(() => _isSelected = !_isSelected),
         ),
-        // ... more items
+        FilterPill(
+          label: const Icon(PrimeIcons.magnify, size: 20),
+          isSelected: _isSelected,
+          onTap: () => setState(() => _isSelected = !_isSelected),
+        ),
       ],
     );
   }
