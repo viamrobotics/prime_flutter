@@ -1,3 +1,6 @@
+## 0.2.11
+* Added `SegmentedButton` widget.
+
 ## 0.2.10
 
 * Added `onChangedEnd` callback to `Slider` widget.

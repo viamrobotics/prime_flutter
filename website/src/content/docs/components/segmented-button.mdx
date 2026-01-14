@@ -1,0 +1,158 @@
+---
+title: Segmented Button
+description: A segmented button widget that allows users to select one or multiple options from a set.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+The `SegmentedButton` widget allows users to select one or multiple options from a set of options.
+
+## Examples
+
+### Single Select
+
+By default, the `SegmentedButton` allows for a single selection.
+
+<Preview src="segmented-button?variant=basic" height="200px">
+
+```dart
+Set<String> _selected = {'Daily'};
+
+SegmentedButton<String>(
+  segments: const {
+    'Daily': Text('Daily'),
+    'Weekly': Text('Weekly'),
+    'Monthly': Text('Monthly'),
+  },
+  selected: _selected,
+  onSelectionChanged: (newSelection) {
+    setState(() {
+      _selected = newSelection;
+    });
+  },
+)
+```
+
+</Preview>
+
+### Multi Select
+
+You can enable multi-select mode by setting `multiSelect` to `true`.
+
+<Preview src="segmented-button?variant=multi" height="200px">
+
+```dart
+Set<String> _selected = {'Mon', 'Wed'};
+
+SegmentedButton<String>(
+  segments: const {
+    'Mon': Text('M'),
+    'Tue': Text('T'),
+    'Wed': Text('W'),
+    'Thu': Text('T'),
+    'Fri': Text('F'),
+  },
+  selected: _selected,
+  multiSelect: true,
+  allowEmpty: true,
+  onSelectionChanged: (newSelection) {
+    setState(() {
+      _selected = newSelection;
+    });
+  },
+)
+```
+
+</Preview>
+
+### With Icons
+
+Segments can contain any widget, including icons.
+
+<Preview src="segmented-button?variant=icons" height="200px">
+
+```dart
+Widget _buildIconLabel(IconData icon, String label) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(icon, size: 16),
+      const SizedBox(width: 8),
+      Text(label),
+    ],
+  );
+}
+
+Set<String> _selected = {'M'};
+
+SegmentedButton<String>(
+  segments: {
+    'First': _buildIconLabel(PrimeIcons.chevronLeft, 'First'),
+    'Center': _buildIconLabel(PrimeIcons.minus, 'Center'),
+    'Last': _buildIconLabel(PrimeIcons.chevronRight, 'Last'),
+  },
+  selected: _selected,
+  onSelectionChanged: (newSelection) {
+    setState(() {
+      _selected = newSelection;
+    });
+  },
+)
+```
+
+</Preview>
+
+### Custom Font
+
+You can customize the font style by wrapping the text in a `Builder` and applying a specific style, such as `PrimeTheme.of(context).textTheme.label` for a monospace look.
+
+<Preview src="segmented-button?variant=font" height="200px">
+
+```dart
+Widget _buildMonoLabel(String label) {
+  return Builder(
+    builder: (context) {
+      final style = PrimeTheme.of(context).textTheme.label;
+      return Text(
+        label,
+        // Use textTheme.label properties but allow inheriting weight/color from parent
+        style: TextStyle(
+          fontFamily: style.fontFamily,
+          package: 'prime_flutter',
+          fontSize: style.fontSize,
+          height: style.height,
+          letterSpacing: style.letterSpacing,
+        ),
+      );
+    },
+  );
+}
+
+Set<String> _selected = {'Code'};
+
+SegmentedButton<String>(
+  segments: {
+    'Code': _buildMonoLabel('Code'),
+    'Build': _buildMonoLabel('Build'),
+    'Test': _buildMonoLabel('Test'),
+  },
+  selected: _selected,
+  onSelectionChanged: (newSelection) {
+    setState(() {
+      _selected = newSelection;
+    });
+  },
+)
+```
+
+</Preview>
+
+## Properties
+
+| Property | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `segments` | `Map<T, Widget>` | Required | A map of widgets to display as segments. |
+| `selected` | `Set<T>` | Required | The set of currently selected values. |
+| `onSelectionChanged` | `ValueChanged<Set<T>>?` | `null` | Called when the selection changes. |
+| `multiSelect` | `bool` | `false` | Whether multiple segments can be selected. |
+| `allowEmpty` | `bool` | `false` | Whether the selection can be empty. |

@@ -14,6 +14,7 @@ import 'screens/navigation_bar_page.dart';
 import 'screens/progress_page.dart';
 import 'screens/tab_bar_page.dart';
 import 'screens/slider_page.dart';
+import 'screens/segmented_button_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -115,6 +116,11 @@ class DocsApp extends StatelessWidget {
         if (uri.path == '/slider') {
           final variant = uri.queryParameters['variant'];
           return PrimePageRoute(builder: (_) => SliderPage(variant: variant));
+        }
+
+        if (uri.path == '/segmented-button') {
+          final variant = uri.queryParameters['variant'];
+          return PrimePageRoute(builder: (_) => SegmentedButtonPage(variant: variant));
         }
 
         return PrimePageRoute(builder: (_) => const Center(child: Text('Select a component')));

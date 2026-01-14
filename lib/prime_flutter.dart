@@ -24,4 +24,5 @@ export 'src/widgets/prime_page_route.dart';
 export 'src/widgets/prime_scaffold.dart';
 export 'src/widgets/progress.dart';
 export 'src/widgets/slider.dart';
+export 'src/widgets/segmented_button.dart';
 export 'src/widgets/tab_bar.dart';
