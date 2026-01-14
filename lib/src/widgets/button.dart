@@ -178,7 +178,7 @@ class _ButtonState extends State<Button> {
 
       // Primary buttons should be fully black
       if (widget.variant == ButtonVariant.primary) {
-        return Color.fromARGB(255, 0, 0, 0);
+        return const Color(0xFF000000);
       }
 
       // Outline danger buttons should be dark red
@@ -199,7 +199,7 @@ class _ButtonState extends State<Button> {
 
       // Primary buttons should be fully black (same as withHover for primary)
       if (widget.variant == ButtonVariant.primary) {
-        return Color.fromARGB(255, 0, 0, 0);
+        return const Color(0xFF000000);
       }
 
       // Outline danger buttons should be dark red
