@@ -49,7 +49,6 @@ class FilterGroup<T> extends StatelessWidget {
     // If item.activeColor is null, FilterPill uses theme default.
     // If item.activeColor is set, FilterPill uses it when selected.
 
-    // ignore: deprecated_member_use_from_same_package
     return FilterPill(
       label: item.label,
       leading: item.leading,
