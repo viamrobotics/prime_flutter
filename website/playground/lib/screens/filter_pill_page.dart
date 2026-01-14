@@ -1,7 +1,8 @@
+// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
-enum FilterPillPageStyle { basic, selected, withLeading, iconLabel, singleSelection, multiSelection }
+enum FilterPillPageStyle { basicToggle, iconToggle, filterGroupDefault, filterGroupCustom, filterGroupComposite }
 
 class FilterPillPage extends StatelessWidget {
   final FilterPillPageStyle style;
@@ -13,111 +14,167 @@ class FilterPillPage extends StatelessWidget {
     return PrimeScaffold(
       body: Center(
         child: switch (style) {
-          FilterPillPageStyle.basic => FilterPill(label: const Text('Filter'), onTap: () {}),
-          FilterPillPageStyle.selected => FilterPill(label: const Text('Selected'), isSelected: true, onTap: () {}),
-          FilterPillPageStyle.withLeading => FilterPill(
-            label: const Text('With Icon'),
-            leading: const Icon(PrimeIcons.viamFlutter, size: 16),
-            onTap: () {},
-          ),
-          FilterPillPageStyle.iconLabel => FilterPill(label: const Icon(PrimeIcons.magnify, size: 20), onTap: () {}),
-          FilterPillPageStyle.singleSelection => const _SingleSelectionExample(),
-          FilterPillPageStyle.multiSelection => const _MultiSelectionExample(),
+          FilterPillPageStyle.basicToggle => const _BasicToggleExample(),
+          FilterPillPageStyle.iconToggle => const _IconToggleExample(),
+          FilterPillPageStyle.filterGroupDefault => const _FilterGroupDefaultExample(),
+          FilterPillPageStyle.filterGroupCustom => const _FilterGroupCustomExample(),
+          FilterPillPageStyle.filterGroupComposite => const _FilterGroupCompositeExample(),
         },
       ),
     );
   }
 }
 
-class _SingleSelectionExample extends StatefulWidget {
-  const _SingleSelectionExample();
+class _BasicToggleExample extends StatefulWidget {
+  const _BasicToggleExample();
 
   @override
-  State<_SingleSelectionExample> createState() => _SingleSelectionExampleState();
+  State<_BasicToggleExample> createState() => _BasicToggleExampleState();
 }
 
-class _SingleSelectionExampleState extends State<_SingleSelectionExample> {
-  String _selectedFilter = 'All';
+class _BasicToggleExampleState extends State<_BasicToggleExample> {
+  bool _isSelected = false;
 
   @override
   Widget build(BuildContext context) {
-    final theme = PrimeTheme.of(context);
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+    return FilterPill(label: Text('Example'), isSelected: _isSelected, onTap: () => setState(() => _isSelected = !_isSelected));
+  }
+}
+
+class _IconToggleExample extends StatefulWidget {
+  const _IconToggleExample();
+
+  @override
+  State<_IconToggleExample> createState() => _IconToggleExampleState();
+}
+
+class _IconToggleExampleState extends State<_IconToggleExample> {
+  bool _isSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 16,
       children: [
-        FilterPill(label: const Text('All'), isSelected: _selectedFilter == 'All', onTap: () => setState(() => _selectedFilter = 'All')),
         FilterPill(
-          label: const Text('Error'),
-          color: theme.colorScheme.statusDangerDark,
-          isSelected: _selectedFilter == 'Error',
-          onTap: () => setState(() => _selectedFilter = 'Error'),
+          label: const Text('With Icon'),
+          leading: const Icon(PrimeIcons.viamFlutter, size: 16),
+          isSelected: _isSelected,
+          onTap: () => setState(() => _isSelected = !_isSelected),
         ),
         FilterPill(
-          label: const Text('Warning'),
-          color: theme.colorScheme.statusWarningDark,
-          isSelected: _selectedFilter == 'Warning',
-          onTap: () => setState(() => _selectedFilter = 'Warning'),
-        ),
-        FilterPill(
-          label: const Text('Info'),
-          color: theme.colorScheme.statusInfoDark,
-          isSelected: _selectedFilter == 'Info',
-          onTap: () => setState(() => _selectedFilter = 'Info'),
-        ),
-        FilterPill(
-          label: const Icon(PrimeIcons.magnify),
-          color: theme.colorScheme.statusInfoDark,
-          isSelected: _selectedFilter == 'Search',
-          onTap: () => setState(() => _selectedFilter = 'Search'),
+          label: const Icon(PrimeIcons.magnify, size: 20),
+          isSelected: _isSelected,
+          onTap: () => setState(() => _isSelected = !_isSelected),
         ),
       ],
     );
   }
 }
 
-class _MultiSelectionExample extends StatefulWidget {
-  const _MultiSelectionExample();
+class _FilterGroupDefaultExample extends StatefulWidget {
+  const _FilterGroupDefaultExample();
 
   @override
-  State<_MultiSelectionExample> createState() => _MultiSelectionExampleState();
+  State<_FilterGroupDefaultExample> createState() => _FilterGroupDefaultExampleState();
 }
 
-class _MultiSelectionExampleState extends State<_MultiSelectionExample> {
-  final Set<String> _selectedTags = {'Error', 'Warning'};
+class _FilterGroupDefaultExampleState extends State<_FilterGroupDefaultExample> {
+  Set<String> _selectedGroup = {'Red', 'Green'};
+
+  @override
+  Widget build(BuildContext context) {
+    return FilterGroup<String>(
+      items: [
+        FilterItem(value: 'Arm', label: const Text('Arm')),
+        FilterItem(value: 'Base', label: const Text('Base')),
+        FilterItem(value: 'Board', label: const Text('Board')),
+        FilterItem(value: 'Sensor', label: const Text('Sensor')),
+        const FilterItem(value: 'Servo', label: Text('Servo')),
+      ],
+      selected: _selectedGroup,
+      onSelectionChanged: (newSelection) {
+        setState(() {
+          _selectedGroup = newSelection;
+        });
+      },
+    );
+  }
+}
+
+class _FilterGroupCustomExample extends StatefulWidget {
+  const _FilterGroupCustomExample();
+
+  @override
+  State<_FilterGroupCustomExample> createState() => _FilterGroupCustomExampleState();
+}
+
+class _FilterGroupCustomExampleState extends State<_FilterGroupCustomExample> {
+  Set<String> _selectedGroup = {'Red', 'Green'};
 
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        FilterPill(
-          label: const Text('Error'),
-          color: theme.colorScheme.statusDangerDark,
-          isSelected: _selectedTags.contains('Error'),
-          onTap: () => setState(() => _selectedTags.contains('Error') ? _selectedTags.remove('Error') : _selectedTags.add('Error')),
-        ),
-        FilterPill(
-          label: const Text('Warning'),
-          color: theme.colorScheme.statusWarningDark,
-          isSelected: _selectedTags.contains('Warning'),
-          onTap: () => setState(() => _selectedTags.contains('Warning') ? _selectedTags.remove('Warning') : _selectedTags.add('Warning')),
-        ),
-        FilterPill(
-          label: const Text('Info'),
-          color: theme.colorScheme.statusInfoDark,
-          isSelected: _selectedTags.contains('Info'),
-          onTap: () => setState(() => _selectedTags.contains('Info') ? _selectedTags.remove('Info') : _selectedTags.add('Info')),
-        ),
-        FilterPill(
-          label: const Text('Debug'),
-          color: theme.colorScheme.statusSuccessDark,
-          isSelected: _selectedTags.contains('Debug'),
-          onTap: () => setState(() => _selectedTags.contains('Debug') ? _selectedTags.remove('Debug') : _selectedTags.add('Debug')),
-        ),
+    return FilterGroup<String>(
+      items: [
+        FilterItem(value: 'Red', label: const Text('Red'), activeColor: theme.colorScheme.statusDangerDark),
+        FilterItem(value: 'Orange', label: const Text('Orange'), activeColor: theme.colorScheme.statusWarningDark),
+        FilterItem(value: 'Green', label: const Text('Green'), activeColor: theme.colorScheme.statusSuccessDark),
+        FilterItem(value: 'Blue', label: const Text('Blue'), activeColor: theme.colorScheme.statusInfoDark),
+        const FilterItem(value: 'Purple', label: Text('Purple'), activeColor: Color(0xFF9C27B0)),
       ],
+      selected: _selectedGroup,
+      onSelectionChanged: (newSelection) {
+        setState(() {
+          _selectedGroup = newSelection;
+        });
+      },
+    );
+  }
+}
+
+class _FilterGroupCompositeExample extends StatefulWidget {
+  const _FilterGroupCompositeExample();
+
+  @override
+  State<_FilterGroupCompositeExample> createState() => _FilterGroupCompositeExampleState();
+}
+
+class _FilterGroupCompositeExampleState extends State<_FilterGroupCompositeExample> {
+  Set<String> _selectedSearch = {'Search'};
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          FilterPill(
+            label: const Icon(PrimeIcons.magnify),
+            isSelected: _selectedSearch.contains('Search'),
+            // give this pill custom funcitonality, such as search or making a bottom sheet appear.
+            onTap: () =>
+                setState(() => _selectedSearch.contains('Search') ? _selectedSearch.remove('Search') : _selectedSearch.add('Search')),
+          ),
+          const SizedBox(width: 8),
+          FilterGroup<String>(
+            items: [
+              FilterItem(value: 'Arm', label: const Text('Arm')),
+              FilterItem(value: 'Base', label: const Text('Base')),
+              FilterItem(value: 'Board', label: const Text('Board')),
+              FilterItem(value: 'Sensor', label: const Text('Sensor')),
+              FilterItem(value: 'Servo', label: Text('Servo')),
+            ],
+            selected: _selectedSearch,
+            onSelectionChanged: (newSelection) {
+              setState(() {
+                _selectedSearch = newSelection;
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 }
