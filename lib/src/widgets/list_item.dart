@@ -112,8 +112,20 @@ class _ListItemState extends State<ListItem> {
           ],
         );
 
-        // Add padding
-        content = Padding(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12), child: content);
+        double minHeight = 48; //default
+
+        if (isCard) {
+          minHeight = 54;
+          if (widget.subtitle != null) {
+            minHeight = 66;
+          }
+        }
+
+        // Add padding and min height
+        content = Container(
+          constraints: BoxConstraints(minHeight: minHeight),
+          child: Padding(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12), child: content),
+        );
 
         // Decoration
         if (isCard || isInteractive) {
