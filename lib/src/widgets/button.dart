@@ -148,11 +148,7 @@ class _ButtonState extends State<Button> {
                     ],
                     if (widget.label != null)
                       DefaultTextStyle(
-                        style: theme.textTheme.bodyDefault.copyWith(
-                          color: colors.foregroundColor,
-                          fontWeight: FontWeight.w600,
-                          height: 1.0,
-                        ),
+                        style: theme.textTheme.bodyDefault.copyWith(color: colors.foregroundColor, height: 1.0),
                         child: widget.label!,
                       ),
                   ],
