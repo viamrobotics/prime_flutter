@@ -141,7 +141,7 @@ class _ButtonState extends State<Button> {
                   children: [
                     if (widget.icon != null) ...[
                       IconTheme(
-                        data: IconThemeData(size: 18, color: colors.foregroundColor),
+                        data: IconThemeData(size: 18, color: colors.iconColor),
                         child: widget.icon!,
                       ),
                       if (widget.label != null) const SizedBox(width: 6),
@@ -161,10 +161,11 @@ class _ButtonState extends State<Button> {
     );
   }
 
-  ({Color backgroundColor, Color foregroundColor, Color? borderColor}) _getColors(PrimeColorScheme colorScheme) {
+  ({Color backgroundColor, Color foregroundColor, Color iconColor, Color? borderColor}) _getColors(PrimeColorScheme colorScheme) {
     final defaultDisabled = (
       backgroundColor: colorScheme.surfaceHighlight,
       foregroundColor: colorScheme.textPlaceholder,
+      iconColor: colorScheme.iconDisabled,
       borderColor: null,
     );
 
@@ -216,14 +217,29 @@ class _ButtonState extends State<Button> {
       case ButtonVariant.primary:
         if (widget.disabled) return defaultDisabled;
         final base = colorScheme.actionPrimaryBg;
-        return (backgroundColor: resolve(base), foregroundColor: colorScheme.actionPrimaryFg, borderColor: colorScheme.borderSubtle);
+        return (
+          backgroundColor: resolve(base),
+          foregroundColor: colorScheme.actionPrimaryFg,
+          iconColor: colorScheme.actionPrimaryFg,
+          borderColor: colorScheme.borderSubtle,
+        );
       case ButtonVariant.secondary:
         if (widget.disabled) return defaultDisabled;
         final base = colorScheme.actionNeutralBg;
-        return (backgroundColor: resolve(base), foregroundColor: colorScheme.textPrimary, borderColor: colorScheme.borderSubtle);
+        return (
+          backgroundColor: resolve(base),
+          foregroundColor: colorScheme.textPrimary,
+          iconColor: colorScheme.textTertiary,
+          borderColor: colorScheme.borderSubtle,
+        );
       case ButtonVariant.ghost:
         if (widget.disabled) {
-          return (backgroundColor: const Color(0x00000000), foregroundColor: colorScheme.textPlaceholder, borderColor: null);
+          return (
+            backgroundColor: const Color(0x00000000),
+            foregroundColor: colorScheme.textPlaceholder,
+            iconColor: colorScheme.textPlaceholder,
+            borderColor: null,
+          );
         }
         // Ghost starts transparent.
         // Hover: transparent + 10% black = 10% black.
@@ -231,20 +247,36 @@ class _ButtonState extends State<Button> {
         return (
           backgroundColor: resolve(const Color(0x00000000)),
           foregroundColor: colorScheme.textPrimary, // Match secondary text color
+          iconColor: colorScheme.textTertiary,
           borderColor: null,
         );
       case ButtonVariant.danger:
         if (widget.disabled) return defaultDisabled;
         final base = colorScheme.statusDangerDark;
-        return (backgroundColor: resolve(base), foregroundColor: colorScheme.actionPrimaryFg, borderColor: null);
+        return (
+          backgroundColor: resolve(base),
+          foregroundColor: colorScheme.actionPrimaryFg,
+          iconColor: colorScheme.actionPrimaryFg,
+          borderColor: null,
+        );
       case ButtonVariant.outlineDanger:
         if (widget.disabled) return defaultDisabled;
         final base = colorScheme.statusDangerLight;
-        return (backgroundColor: resolve(base), foregroundColor: colorScheme.statusDangerDark, borderColor: colorScheme.statusDangerDark);
+        return (
+          backgroundColor: resolve(base),
+          foregroundColor: colorScheme.statusDangerDark,
+          iconColor: colorScheme.statusDangerDark,
+          borderColor: colorScheme.statusDangerDark,
+        );
       case ButtonVariant.success:
         if (widget.disabled) return defaultDisabled;
         final base = colorScheme.statusSuccessDark;
-        return (backgroundColor: resolve(base), foregroundColor: const Color(0xFFFFFFFF), borderColor: null);
+        return (
+          backgroundColor: resolve(base),
+          foregroundColor: const Color(0xFFFFFFFF),
+          iconColor: const Color(0xFFFFFFFF),
+          borderColor: null,
+        );
     }
   }
 }

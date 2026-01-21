@@ -130,9 +130,24 @@ class ButtonScreen extends StatelessWidget {
                 spacing: 16,
                 runSpacing: 16,
                 children: [
-                  const Button(label: Text('Disabled Primary'), disabled: true, variant: ButtonVariant.primary),
-                  const Button(label: Text('Disabled Secondary'), disabled: true, variant: ButtonVariant.secondary),
-                  const Button(label: Text('Disabled Ghost'), disabled: true, variant: ButtonVariant.ghost),
+                  const Button(
+                    label: Text('Disabled Primary'),
+                    disabled: true,
+                    variant: ButtonVariant.primary,
+                    icon: Icon(PrimeIcons.trashCanOutline),
+                  ),
+                  const Button(
+                    label: Text('Disabled Secondary'),
+                    disabled: true,
+                    variant: ButtonVariant.secondary,
+                    icon: Icon(PrimeIcons.trashCanOutline),
+                  ),
+                  const Button(
+                    label: Text('Disabled Ghost'),
+                    disabled: true,
+                    variant: ButtonVariant.ghost,
+                    icon: Icon(PrimeIcons.trashCanOutline),
+                  ),
                 ],
               ),
             ),
