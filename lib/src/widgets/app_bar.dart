@@ -3,7 +3,7 @@ import '../theme/prime_theme.dart';
 import 'prime_icons.dart';
 
 /// A simple app bar widget that can be used to display a title, leading, actions, and bottom widgets.
-class PrimeAppBar extends StatelessWidget {
+class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// The title widget to display in the app bar.
   final Widget? title;
 
@@ -16,9 +16,12 @@ class PrimeAppBar extends StatelessWidget {
   /// The bottom widget to display in the app bar. Will be automatically aligned to the bottom.
   ///
   /// Typically used to display a [PrimeTabBar].
-  final Widget? bottom;
+  final PreferredSizeWidget? bottom;
 
   const PrimeAppBar({super.key, this.title, this.leading, this.actions, this.bottom});
+
+  @override
+  Size get preferredSize => Size.fromHeight(48 + (bottom?.preferredSize.height ?? 0));
 
   @override
   Widget build(BuildContext context) {

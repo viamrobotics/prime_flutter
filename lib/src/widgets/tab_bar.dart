@@ -4,7 +4,7 @@ import '../theme/prime_theme.dart';
 /// A tab bar widget. Used to display a tab bar. Scrolls horizontally if there are too many tabs.
 ///
 /// Typically used in the [PrimeScaffold] in the [PrimeAppBar.bottom] property.
-class TabBar extends StatelessWidget {
+class TabBar extends StatelessWidget implements PreferredSizeWidget {
   /// The list of tabs to display in the tab bar.
   final List<Widget> items;
 
@@ -15,6 +15,9 @@ class TabBar extends StatelessWidget {
   final ValueChanged<int> onDestinationSelected;
 
   const TabBar({super.key, required this.items, required this.selectedIndex, required this.onDestinationSelected});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(44);
 
   @override
   Widget build(BuildContext context) {

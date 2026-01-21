@@ -7,7 +7,7 @@ class PrimeScaffold extends StatelessWidget {
   final Widget body;
 
   /// The app bar of the scaffold.
-  final Widget? appBar;
+  final PreferredSizeWidget? appBar;
 
   /// The bottom navigation bar of the scaffold.
   final Widget? bottomNavigationBar;
