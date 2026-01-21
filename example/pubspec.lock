@@ -219,7 +219,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.2.11"
+    version: "0.2.12"
   shared_preferences:
     dependency: "direct main"
     description:
