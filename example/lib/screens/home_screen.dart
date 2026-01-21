@@ -142,6 +142,13 @@ class HomeScreen extends StatelessWidget {
               icon: PrimeIcons.viamComponent,
               screen: const SegmentedButtonScreen(),
             ),
+            _buildListItem(
+              context: context,
+              title: 'Toast',
+              description: 'Floating notifications',
+              icon: PrimeIcons.alert,
+              screen: const ToastScreen(),
+            ),
 
             // Add more showcase cards here as you develop widgets
           ],

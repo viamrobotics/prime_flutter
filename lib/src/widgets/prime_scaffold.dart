@@ -22,18 +22,42 @@ class PrimeScaffold extends StatelessWidget {
     return PrimeTheme.consumer(
       builder: (context, theme) {
         final effectiveBackgroundColor = backgroundColor ?? theme.colorScheme.surfaceBase;
+        double bottomOffset = 0;
+        if (bottomNavigationBar != null) {
+          if (bottomNavigationBar is PreferredSizeWidget) {
+            bottomOffset = (bottomNavigationBar as PreferredSizeWidget).preferredSize.height;
+          } else {
+            bottomOffset = 60; // Fallback for standard height
+          }
+        }
 
-        return Container(
-          color: effectiveBackgroundColor,
-          child: Column(
-            children: [
-              if (appBar != null) appBar!,
-              Expanded(child: SafeArea(top: false, bottom: false, child: body)),
-              if (bottomNavigationBar != null) SafeArea(top: false, child: bottomNavigationBar!),
-            ],
+        return PrimeLayoutData(
+          bottomOffset: bottomOffset,
+          child: Container(
+            color: effectiveBackgroundColor,
+            child: Column(
+              children: [
+                if (appBar != null) appBar!,
+                Expanded(child: SafeArea(top: false, bottom: false, child: body)),
+                if (bottomNavigationBar != null) SafeArea(top: false, child: bottomNavigationBar!),
+              ],
+            ),
           ),
         );
       },
     );
   }
+}
+
+class PrimeLayoutData extends InheritedWidget {
+  final double bottomOffset;
+
+  const PrimeLayoutData({super.key, required this.bottomOffset, required super.child});
+
+  static PrimeLayoutData? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<PrimeLayoutData>();
+  }
+
+  @override
+  bool updateShouldNotify(PrimeLayoutData oldWidget) => bottomOffset != oldWidget.bottomOffset;
 }

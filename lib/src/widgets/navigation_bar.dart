@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import '../theme/prime_theme.dart';
 
 /// A navigation bar widget. Used to navigate between different destinations.
-class NavigationBar extends StatelessWidget {
+class NavigationBar extends StatelessWidget implements PreferredSizeWidget {
   /// The index of the currently selected destination.
   final int selectedIndex;
 
@@ -13,6 +13,9 @@ class NavigationBar extends StatelessWidget {
   final List<NavigationBarItemData> items;
 
   const NavigationBar({super.key, required this.selectedIndex, required this.onDestinationSelected, required this.items});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(60);
 
   @override
   Widget build(BuildContext context) {

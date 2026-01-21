@@ -27,3 +27,4 @@ export 'src/widgets/progress.dart';
 export 'src/widgets/segmented_button.dart';
 export 'src/widgets/slider.dart';
 export 'src/widgets/tab_bar.dart';
+export 'src/widgets/toast.dart';

@@ -26,20 +26,50 @@ class LocationsScreen extends StatelessWidget {
           const Avatar(child: Text('NH')),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          spacing: 16,
-          children: [
-            Input(placeholder: 'Search locations', leading: Icon(PrimeIcons.magnify)),
-            _LocationCard(locationName: 'My Location 1', locationCount: '42', onPressed: () {}),
-            _LocationCard(locationName: 'My Location 2', locationCount: '5', onPressed: () {}),
-            _LocationCard(locationName: 'My Location 3', locationCount: '8', onPressed: () {}),
-            _LocationCard(locationName: 'My Location 4', locationCount: '15', onPressed: () {}),
-            _LocationCard(locationName: 'My Location 5', locationCount: '5', onPressed: () {}),
-            _LocationCard(locationName: 'My Location 6', locationCount: '5', onPressed: () {}),
-          ],
-        ),
+      body: Builder(
+        builder: (context) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                spacing: 16,
+                children: [
+                  Input(placeholder: 'Search locations', leading: Icon(PrimeIcons.magnify)),
+                  _LocationCard(
+                    locationName: 'My Location 1',
+                    locationCount: '42',
+                    onPressed: () => Toast.show(context, message: 'Location 1'),
+                  ),
+                  _LocationCard(
+                    locationName: 'My Location 2',
+                    locationCount: '5',
+                    onPressed: () => Toast.show(context, message: 'Location 2'),
+                  ),
+                  _LocationCard(
+                    locationName: 'My Location 3',
+                    locationCount: '8',
+                    onPressed: () => Toast.show(context, message: 'Location 3'),
+                  ),
+                  _LocationCard(
+                    locationName: 'My Location 4',
+                    locationCount: '15',
+                    onPressed: () => Toast.show(context, message: 'Location 4'),
+                  ),
+                  _LocationCard(
+                    locationName: 'My Location 5',
+                    locationCount: '5',
+                    onPressed: () => Toast.show(context, message: 'Location 5'),
+                  ),
+                  _LocationCard(
+                    locationName: 'My Location 6',
+                    locationCount: '5',
+                    onPressed: () => Toast.show(context, message: 'Location 6'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: 1,

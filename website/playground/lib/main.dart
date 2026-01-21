@@ -15,6 +15,7 @@ import 'screens/progress_page.dart';
 import 'screens/tab_bar_page.dart';
 import 'screens/slider_page.dart';
 import 'screens/segmented_button_page.dart';
+import 'screens/toast_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -121,6 +122,21 @@ class DocsApp extends StatelessWidget {
         if (uri.path == '/segmented-button') {
           final variant = uri.queryParameters['variant'];
           return PrimePageRoute(builder: (_) => SegmentedButtonPage(variant: variant));
+        }
+
+        if (uri.path == '/toast') {
+          final variantStr = uri.queryParameters['variant'];
+          final showAction = uri.queryParameters['showAction'] == 'true';
+          final message = uri.queryParameters['message'] ?? 'Toast message';
+
+          ToastVariant variant = ToastVariant.neutral;
+          if (variantStr != null) {
+            variant = ToastVariant.values.firstWhere((e) => e.name == variantStr, orElse: () => ToastVariant.neutral);
+          }
+
+          return PrimePageRoute(
+            builder: (_) => ToastPage(variant: variant, showAction: showAction, message: message),
+          );
         }
 
         return PrimePageRoute(builder: (_) => const Center(child: Text('Select a component')));

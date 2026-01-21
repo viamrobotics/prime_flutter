@@ -1,0 +1,163 @@
+---
+title: Toast
+description: Notifications to provide brief feedback about an operation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Toasts are used to provide brief feedback about an operation through a message at the bottom of the screen. They are ephemeral and automatically dismiss after a set duration.
+
+## Usage
+
+To show a toast, use the static `PrimeToast.show` method. You do not need a `ScaffoldMessenger` or ancestor `Scaffold`.
+
+```dart
+PrimeToast.show(context, message: 'Operation successful');
+```
+
+## Variants
+
+### Neutral
+
+<Preview src="toast?variant=neutral" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Neutral message',
+  variant: PrimeToastVariant.neutral,
+);
+```
+</Preview>
+
+With action:
+
+<Preview src="toast?variant=neutral&showAction=true&message=Neutral%20message" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Neutral message',
+  variant: PrimeToastVariant.neutral,
+  action: Button(
+    variant: ButtonVariant.ghost,
+    label: const Text('ACTION'),
+    onPressed: () {},
+  ),
+);
+```
+</Preview>
+
+### Success
+
+<Preview src="toast?variant=success" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Success message',
+  variant: PrimeToastVariant.success,
+);
+```
+</Preview>
+
+With action:
+
+<Preview src="toast?variant=success&showAction=true&message=Success%20message" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Success message',
+  variant: PrimeToastVariant.success,
+  action: Button(
+    variant: ButtonVariant.ghost,
+    label: const Text('UNDO'),
+    onPressed: () {},
+  ),
+);
+```
+</Preview>
+
+### Info
+
+<Preview src="toast?variant=info" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Info message',
+  variant: PrimeToastVariant.info,
+);
+```
+</Preview>
+
+With action:
+
+<Preview src="toast?variant=info&showAction=true&message=Info%20message" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Info message',
+  variant: PrimeToastVariant.info,
+  action: Button(
+    variant: ButtonVariant.ghost,
+    label: const Text('VIEW'),
+    onPressed: () {},
+  ),
+);
+```
+</Preview>
+
+### Warning
+
+<Preview src="toast?variant=warning" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Warning message',
+  variant: PrimeToastVariant.warning,
+);
+```
+</Preview>
+
+With action:
+
+<Preview src="toast?variant=warning&showAction=true&message=Warning%20message" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Warning message',
+  variant: PrimeToastVariant.warning,
+  action: Button(
+    variant: ButtonVariant.ghost,
+    label: const Text('RETRY'),
+    onPressed: () {},
+  ),
+);
+```
+</Preview>
+
+### Danger
+
+<Preview src="toast?variant=danger" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Danger message',
+  variant: PrimeToastVariant.danger,
+);
+```
+</Preview>
+
+With action:
+
+<Preview src="toast?variant=danger&showAction=true&message=Danger%20message" height="100px">
+```dart
+PrimeToast.show(
+  context,
+  message: 'Danger message',
+  variant: PrimeToastVariant.danger,
+  action: Button(
+    variant: ButtonVariant.ghost,
+    label: const Text('RETRY'),
+    onPressed: () {},
+  ),
+);
+```
+</Preview>

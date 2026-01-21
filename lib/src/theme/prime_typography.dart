@@ -8,7 +8,7 @@ class PrimeTypography {
 
   static const TextStyle title = TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: PrimeColors.gray9, height: .8);
 
-  static const TextStyle bodyDefault = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: PrimeColors.gray9, height: 1.5);
+  static const TextStyle bodyDefault = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: PrimeColors.gray9);
 
   static const TextStyle bodySmall = TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: PrimeColors.gray9, height: 1.5);
 
