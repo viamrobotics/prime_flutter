@@ -50,7 +50,7 @@ class ListItemScreen extends StatelessWidget {
               leading: const Icon(PrimeIcons.alert),
               title: const Text('Interactive Card'),
               subtitle: const Text('Hover and click me'),
-              trailing: const Icon(PrimeIcons.chevronRight),
+              trailing: Row(spacing: 8, children: [const Text('12'), const Icon(PrimeIcons.chevronRight)]),
               onPressed: () {
                 print('Card clicked');
               },

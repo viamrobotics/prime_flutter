@@ -104,9 +104,15 @@ class _ListItemState extends State<ListItem> {
             ),
             if (widget.trailing != null) ...[
               const SizedBox(width: 16),
-              IconTheme(
-                data: IconThemeData(color: isCard ? theme.colorScheme.iconSecondary : theme.colorScheme.iconPrimary, size: 20),
-                child: widget.trailing!,
+              DefaultTextStyle(
+                style: theme.textTheme.bodyDefault.copyWith(
+                  color: isCard ? theme.colorScheme.textPlaceholder : theme.colorScheme.textTertiary,
+                  height: 1.25,
+                ),
+                child: IconTheme(
+                  data: IconThemeData(color: isCard ? theme.colorScheme.iconDisabled : theme.colorScheme.iconSecondary, size: 20),
+                  child: widget.trailing!,
+                ),
               ),
             ],
           ],
