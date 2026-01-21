@@ -42,6 +42,7 @@ class Input extends StatelessWidget {
             style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.inputText),
             cursorColor: theme.colorScheme.inputFocus,
             decoration: InputDecoration(
+              isDense: true,
               hintText: placeholder,
               hintStyle: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textTertiary),
               prefixIcon: leading != null
@@ -66,7 +67,7 @@ class Input extends StatelessWidget {
               suffixIconConstraints: const BoxConstraints(minWidth: 44, minHeight: 40),
               filled: true,
               fillColor: theme.colorScheme.surfaceBase,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(theme.cornerRadius),
                 borderSide: BorderSide(color: theme.colorScheme.borderSubtle),
