@@ -1,3 +1,7 @@
+## 0.2.14
+* Added `PrimeDropdown` widget for single-select from a list.
+* Added `PrimeMultiDropdown` widget for multi-select from a list.
+
 ## 0.2.11
 * Added `SegmentedButton` widget.
 

@@ -1,0 +1,92 @@
+---
+title: Dropdown
+description: Dropdown component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Dropdowns for choosing one or multiple values from a list. [PrimeDropdown] is single-select; [PrimeMultiDropdown] allows multiple selections. Styled to match other Prime form controls.
+
+## Basic
+
+<Preview src="dropdown?style=basic" height="320px">
+
+```dart
+PrimeDropdown<String>(
+  value: selected,
+  placeholder: 'Select a fruit',
+  items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
+  onChanged: (v) => setState(() => selected = v),
+)
+```
+
+</Preview>
+
+## Custom labels
+
+Use `itemBuilder` to control how each option is displayed. The selected value is unchanged; only the label is custom.
+
+<Preview src="dropdown?style=customLabels" height="320px">
+
+```dart
+PrimeDropdown<String>(
+  value: selected,
+  placeholder: 'Choose one',
+  items: options,
+  itemBuilder: (s) => Text(s.toUpperCase()),
+  onChanged: (v) => setState(() => selected = v),
+)
+```
+
+</Preview>
+
+## Multiselect
+
+Choose multiple values. Tap options to toggle; tap outside to close.
+
+<Preview src="dropdown?style=multiselect" height="320px">
+
+```dart
+PrimeMultiDropdown<String>(
+  value: selected,
+  placeholder: 'Select fruits',
+  items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
+  onChanged: (v) => setState(() => selected = v),
+)
+```
+
+</Preview>
+
+## Near bottom of screen
+
+When there isn’t enough space below, the menu opens above the trigger. This preview has the dropdown at the bottom so you can see it open upward.
+
+<Preview src="dropdown?style=basicAtBottom" height="320px">
+
+```dart
+// Same PrimeDropdown — when placed near the bottom it opens upward
+PrimeDropdown<String>(
+  value: selected,
+  placeholder: 'Select a fruit',
+  items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
+  onChanged: (v) => setState(() => selected = v),
+)
+```
+
+</Preview>
+
+## Disabled
+
+<Preview src="dropdown?style=disabled" height="150px">
+
+```dart
+PrimeDropdown<String>(
+  value: 'Apple',
+  placeholder: 'Disabled',
+  items: options,
+  onChanged: null,
+  disabled: true,
+)
+```
+
+</Preview>

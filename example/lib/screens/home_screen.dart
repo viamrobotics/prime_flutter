@@ -130,6 +130,13 @@ class HomeScreen extends StatelessWidget {
             ),
             _buildListItem(
               context: context,
+              title: 'Dropdown',
+              description: 'Single-select dropdown',
+              icon: PrimeIcons.chevronDown,
+              screen: const DropdownScreen(),
+            ),
+            _buildListItem(
+              context: context,
               title: 'Slider',
               description: 'Selection controls',
               icon: PrimeIcons.selectionDrag,

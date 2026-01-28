@@ -5,6 +5,7 @@ import 'screens/avatar_page.dart';
 import 'screens/badge_page.dart';
 import 'screens/button_page.dart';
 import 'screens/divider_page.dart';
+import 'screens/dropdown_page.dart';
 import 'screens/expansion_list_item_page.dart';
 import 'screens/filter_pill_page.dart';
 import 'screens/icon_page.dart';
@@ -106,6 +107,15 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = DividerPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => DividerPageStyle.defaultStyle);
           return PrimePageRoute(builder: (_) => DividerPage(style: style));
+        }
+
+        if (uri.path == '/dropdown') {
+          final styleStr = uri.queryParameters['style'];
+          final style = DropdownPageStyle.values.firstWhere(
+            (e) => e.name == styleStr,
+            orElse: () => DropdownPageStyle.basic,
+          );
+          return PrimePageRoute(builder: (_) => DropdownPage(style: style));
         }
 
         if (uri.path == '/icon') {
