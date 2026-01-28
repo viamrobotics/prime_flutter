@@ -1,0 +1,57 @@
+---
+title: Dropdown
+description: Dropdown component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+Single-select dropdown for choosing one value from a list. Styled to match other Prime form controls.
+
+## Basic
+
+<Preview src="dropdown?style=basic" height="320px">
+
+```dart
+PrimeDropdown<String>(
+  value: selected,
+  placeholder: 'Select a fruit',
+  items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
+  onChanged: (v) => setState(() => selected = v),
+)
+```
+
+</Preview>
+
+## Custom labels
+
+Use `itemBuilder` to control how each option is displayed. The selected value is unchanged; only the label is custom.
+
+<Preview src="dropdown?style=customLabels" height="320px">
+
+```dart
+PrimeDropdown<String>(
+  value: selected,
+  placeholder: 'Choose one',
+  items: options,
+  itemBuilder: (s) => Text(s.toUpperCase()),
+  onChanged: (v) => setState(() => selected = v),
+)
+```
+
+</Preview>
+
+## Disabled
+
+<Preview src="dropdown?style=disabled" height="150px">
+
+```dart
+PrimeDropdown<String>(
+  value: 'Apple',
+  placeholder: 'Disabled',
+  items: options,
+  onChanged: null,
+  disabled: true,
+)
+```
+
+</Preview>
