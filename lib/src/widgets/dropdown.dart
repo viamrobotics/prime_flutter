@@ -1,6 +1,5 @@
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart' show Material, MaterialType;
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_theme.dart';
@@ -72,6 +71,14 @@ class _PrimeDropdownState<T> extends State<PrimeDropdown<T>> {
     final triggerBox = _triggerKey.currentContext?.findRenderObject() as RenderBox?;
     if (triggerBox == null || !triggerBox.hasSize) return;
 
+    const itemHeight = 44.0;
+    const maxListHeight = 280.0;
+    final listHeight = (widget.items.length * itemHeight).clamp(0.0, maxListHeight);
+    final triggerOrigin = triggerBox.localToGlobal(Offset.zero);
+    final viewportHeight = MediaQuery.sizeOf(context).height;
+    final spaceBelow = viewportHeight - (triggerOrigin.dy + triggerBox.size.height);
+    final openUpward = spaceBelow < listHeight + 4;
+
     _overlayEntry = OverlayEntry(
       builder: (overlayContext) => _DropdownOverlay<T>(
         layerLink: _layerLink,
@@ -81,6 +88,7 @@ class _PrimeDropdownState<T> extends State<PrimeDropdown<T>> {
         value: widget.value,
         items: widget.items,
         itemBuilder: widget.itemBuilder,
+        openUpward: openUpward,
         onSelected: (v) {
           _close();
           widget.onChanged?.call(v);
@@ -159,6 +167,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final T? value;
   final List<T> items;
   final Widget Function(T)? itemBuilder;
+  final bool openUpward;
   final ValueChanged<T?> onSelected;
   final VoidCallback onDismiss;
 
@@ -170,6 +179,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.value,
     required this.items,
     required this.itemBuilder,
+    required this.openUpward,
     required this.onSelected,
     required this.onDismiss,
   });
@@ -195,35 +205,34 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
           child: CompositedTransformFollower(
             link: widget.layerLink,
             showWhenUnlinked: false,
-            offset: Offset(0, widget.triggerSize.height + 4),
-            child: Material(
-              type: MaterialType.transparency,
-              child: Container(
-                constraints: BoxConstraints(maxHeight: listHeight),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceBase,
-                  borderRadius: BorderRadius.circular(theme.cornerRadius),
-                  border: Border.all(color: theme.colorScheme.borderSubtle),
-                  boxShadow: [BoxShadow(color: ui.Color.fromARGB(38, 0, 0, 0), blurRadius: 12, offset: const Offset(0, 4))],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(theme.cornerRadius),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: widget.items.length,
-                    itemBuilder: (context, index) {
-                      final item = widget.items[index];
-                      final isSelected = item == widget.value;
-                      return _DropdownItem<T>(
-                        item: item,
-                        theme: theme,
-                        isSelected: isSelected,
-                        itemBuilder: widget.itemBuilder,
-                        onTap: () => widget.onSelected(item),
-                      );
-                    },
-                  ),
+            offset: widget.openUpward
+                ? Offset(0, -listHeight - 4)
+                : Offset(0, widget.triggerSize.height + 4),
+            child: Container(
+              constraints: BoxConstraints(maxHeight: listHeight),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceBase,
+                borderRadius: BorderRadius.circular(theme.cornerRadius),
+                border: Border.all(color: theme.colorScheme.borderSubtle),
+                boxShadow: [BoxShadow(color: ui.Color.fromARGB(38, 0, 0, 0), blurRadius: 12, offset: const Offset(0, 4))],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(theme.cornerRadius),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: widget.items.length,
+                  itemBuilder: (context, index) {
+                    final item = widget.items[index];
+                    final isSelected = item == widget.value;
+                    return _DropdownItem<T>(
+                      item: item,
+                      theme: theme,
+                      isSelected: isSelected,
+                      itemBuilder: widget.itemBuilder,
+                      onTap: () => widget.onSelected(item),
+                    );
+                  },
                 ),
               ),
             ),
@@ -349,6 +358,14 @@ class _PrimeMultiDropdownState<T> extends State<PrimeMultiDropdown<T>> {
     final triggerBox = _triggerKey.currentContext?.findRenderObject() as RenderBox?;
     if (triggerBox == null || !triggerBox.hasSize) return;
 
+    const itemHeight = 44.0;
+    const maxListHeight = 280.0;
+    final listHeight = (widget.items.length * itemHeight).clamp(0.0, maxListHeight);
+    final triggerOrigin = triggerBox.localToGlobal(Offset.zero);
+    final viewportHeight = MediaQuery.sizeOf(context).height;
+    final spaceBelow = viewportHeight - (triggerOrigin.dy + triggerBox.size.height);
+    final openUpward = spaceBelow < listHeight + 4;
+
     _overlayEntry = OverlayEntry(
       builder: (overlayContext) => _MultiDropdownOverlay<T>(
         layerLink: _layerLink,
@@ -357,6 +374,7 @@ class _PrimeMultiDropdownState<T> extends State<PrimeMultiDropdown<T>> {
         value: List<T>.from(widget.value),
         items: widget.items,
         itemBuilder: widget.itemBuilder,
+        openUpward: openUpward,
         onChanged: (v) {
           widget.onChanged?.call(v);
           if (mounted) setState(() {});
@@ -447,6 +465,7 @@ class _MultiDropdownOverlay<T> extends StatefulWidget {
   final List<T> value;
   final List<T> items;
   final Widget Function(T)? itemBuilder;
+  final bool openUpward;
   final ValueChanged<List<T>> onChanged;
   final VoidCallback onDismiss;
 
@@ -457,6 +476,7 @@ class _MultiDropdownOverlay<T> extends StatefulWidget {
     required this.value,
     required this.items,
     required this.itemBuilder,
+    required this.openUpward,
     required this.onChanged,
     required this.onDismiss,
   });
@@ -501,35 +521,34 @@ class _MultiDropdownOverlayState<T> extends State<_MultiDropdownOverlay<T>> {
           child: CompositedTransformFollower(
             link: widget.layerLink,
             showWhenUnlinked: false,
-            offset: Offset(0, widget.triggerSize.height + 4),
-            child: Material(
-              type: MaterialType.transparency,
-              child: Container(
-                constraints: BoxConstraints(maxHeight: listHeight),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceBase,
-                  borderRadius: BorderRadius.circular(theme.cornerRadius),
-                  border: Border.all(color: theme.colorScheme.borderSubtle),
-                  boxShadow: [BoxShadow(color: ui.Color.fromARGB(38, 0, 0, 0), blurRadius: 12, offset: const Offset(0, 4))],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(theme.cornerRadius),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: widget.items.length,
-                    itemBuilder: (context, index) {
-                      final item = widget.items[index];
-                      final isSelected = _selection.contains(item);
-                      return _MultiDropdownItem<T>(
-                        item: item,
-                        theme: theme,
-                        isSelected: isSelected,
-                        itemBuilder: widget.itemBuilder,
-                        onTap: () => _toggle(item),
-                      );
-                    },
-                  ),
+            offset: widget.openUpward
+                ? Offset(0, -listHeight - 4)
+                : Offset(0, widget.triggerSize.height + 4),
+            child: Container(
+              constraints: BoxConstraints(maxHeight: listHeight),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceBase,
+                borderRadius: BorderRadius.circular(theme.cornerRadius),
+                border: Border.all(color: theme.colorScheme.borderSubtle),
+                boxShadow: [BoxShadow(color: ui.Color.fromARGB(38, 0, 0, 0), blurRadius: 12, offset: const Offset(0, 4))],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(theme.cornerRadius),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: widget.items.length,
+                  itemBuilder: (context, index) {
+                    final item = widget.items[index];
+                    final isSelected = _selection.contains(item);
+                    return _MultiDropdownItem<T>(
+                      item: item,
+                      theme: theme,
+                      isSelected: isSelected,
+                      itemBuilder: widget.itemBuilder,
+                      onTap: () => _toggle(item),
+                    );
+                  },
                 ),
               ),
             ),

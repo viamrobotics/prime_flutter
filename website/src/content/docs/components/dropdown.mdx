@@ -57,6 +57,24 @@ PrimeMultiDropdown<String>(
 
 </Preview>
 
+## Near bottom of screen
+
+When there isn’t enough space below, the menu opens above the trigger. This preview has the dropdown at the bottom so you can see it open upward.
+
+<Preview src="dropdown?style=basicAtBottom" height="320px">
+
+```dart
+// Same PrimeDropdown — when placed near the bottom it opens upward
+PrimeDropdown<String>(
+  value: selected,
+  placeholder: 'Select a fruit',
+  items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
+  onChanged: (v) => setState(() => selected = v),
+)
+```
+
+</Preview>
+
 ## Disabled
 
 <Preview src="dropdown?style=disabled" height="150px">
