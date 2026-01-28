@@ -111,7 +111,10 @@ class DocsApp extends StatelessWidget {
 
         if (uri.path == '/dropdown') {
           final styleStr = uri.queryParameters['style'];
-          final style = DropdownPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => DropdownPageStyle.basic);
+          final style = DropdownPageStyle.values.firstWhere(
+            (e) => e.name == styleStr,
+            orElse: () => DropdownPageStyle.basic,
+          );
           return PrimePageRoute(builder: (_) => DropdownPage(style: style));
         }
 

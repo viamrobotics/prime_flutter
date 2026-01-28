@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
-enum DropdownPageStyle { basic, customLabels, disabled }
+enum DropdownPageStyle { basic, customLabels, multiselect, disabled }
 
 const List<String> _options = ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'];
 
@@ -16,6 +16,7 @@ class DropdownPage extends StatefulWidget {
 
 class _DropdownPageState extends State<DropdownPage> {
   String? _value;
+  List<String> _multiValue = [];
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,12 @@ class _DropdownPageState extends State<DropdownPage> {
                 items: _options,
                 itemBuilder: (s) => Text(s.toUpperCase()),
                 onChanged: (v) => setState(() => _value = v),
+              ),
+            DropdownPageStyle.multiselect => PrimeMultiDropdown<String>(
+                value: _multiValue,
+                placeholder: 'Select fruits',
+                items: _options,
+                onChanged: (v) => setState(() => _multiValue = v),
               ),
             DropdownPageStyle.disabled => PrimeDropdown<String>(
                 value: 'Apple',

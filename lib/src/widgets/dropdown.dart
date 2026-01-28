@@ -124,31 +124,22 @@ class _PrimeDropdownState<T> extends State<PrimeDropdown<T>> {
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surfaceBase,
                   borderRadius: BorderRadius.circular(theme.cornerRadius),
-                  border: Border.all(
-                    color: isOpen ? theme.colorScheme.inputFocus : theme.colorScheme.borderSubtle,
-                    width: isOpen ? 2 : 1,
-                  ),
+                  border: Border.all(color: isOpen ? theme.colorScheme.inputFocus : theme.colorScheme.borderSubtle, width: isOpen ? 2 : 1),
                 ),
                 child: Row(
                   children: [
                     Expanded(
                       child: DefaultTextStyle(
                         style: theme.textTheme.bodyDefault.copyWith(
-                          color: hasValue ? theme.colorScheme.inputText : theme.colorScheme.textTertiary,
+                          color: hasValue ? theme.colorScheme.textPrimary : theme.colorScheme.textTertiary,
                           height: 1.25,
                         ),
                         child: hasValue
-                            ? (widget.itemBuilder != null
-                                ? widget.itemBuilder!(widget.value as T)
-                                : Text('${widget.value}'))
+                            ? (widget.itemBuilder != null ? widget.itemBuilder!(widget.value as T) : Text('${widget.value}'))
                             : Text(widget.placeholder ?? ''),
                       ),
                     ),
-                    Icon(
-                      PrimeIcons.chevronDown,
-                      size: 20,
-                      color: theme.colorScheme.textTertiary,
-                    ),
+                    Icon(PrimeIcons.chevronDown, size: 20, color: theme.colorScheme.textTertiary),
                   ],
                 ),
               ),
@@ -198,11 +189,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
 
     return Stack(
       children: [
-        GestureDetector(
-          onTap: widget.onDismiss,
-          behavior: HitTestBehavior.opaque,
-          child: const SizedBox.expand(),
-        ),
+        GestureDetector(onTap: widget.onDismiss, behavior: HitTestBehavior.opaque, child: const SizedBox.expand()),
         Positioned(
           width: widget.triggerSize.width,
           child: CompositedTransformFollower(
@@ -217,13 +204,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                   color: theme.colorScheme.surfaceBase,
                   borderRadius: BorderRadius.circular(theme.cornerRadius),
                   border: Border.all(color: theme.colorScheme.borderSubtle),
-                  boxShadow: [
-                    BoxShadow(
-                      color: ui.Color.fromARGB(38, 0, 0, 0),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: ui.Color.fromARGB(38, 0, 0, 0), blurRadius: 12, offset: const Offset(0, 4))],
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(theme.cornerRadius),
@@ -260,13 +241,7 @@ class _DropdownItem<T> extends StatefulWidget {
   final Widget Function(T)? itemBuilder;
   final VoidCallback onTap;
 
-  const _DropdownItem({
-    required this.item,
-    required this.theme,
-    required this.isSelected,
-    required this.itemBuilder,
-    required this.onTap,
-  });
+  const _DropdownItem({required this.item, required this.theme, required this.isSelected, required this.itemBuilder, required this.onTap});
 
   @override
   State<_DropdownItem<T>> createState() => _DropdownItemState<T>();
@@ -279,9 +254,7 @@ class _DropdownItemState<T> extends State<_DropdownItem<T>> {
   Widget build(BuildContext context) {
     final theme = widget.theme;
     final colors = theme.colorScheme;
-    final bg = widget.isSelected
-        ? colors.actionPrimaryBg
-        : (_hovered ? colors.surfaceHighlight : colors.surfaceBase);
+    final bg = widget.isSelected ? colors.actionPrimaryBg : (_hovered ? colors.surfaceHighlight : colors.surfaceBase);
     final fg = widget.isSelected ? colors.actionPrimaryFg : colors.textPrimary;
 
     return MouseRegion(
@@ -298,9 +271,337 @@ class _DropdownItemState<T> extends State<_DropdownItem<T>> {
           alignment: Alignment.centerLeft,
           child: DefaultTextStyle(
             style: theme.textTheme.bodyDefault.copyWith(color: fg, height: 1.25),
-            child: widget.itemBuilder != null
-                ? widget.itemBuilder!(widget.item)
-                : Text('${widget.item}'),
+            child: widget.itemBuilder != null ? widget.itemBuilder!(widget.item) : Text('${widget.item}'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// --- Multi-select dropdown ---
+
+/// A dropdown that lets the user choose multiple values from a list.
+///
+/// Styled like [PrimeDropdown]. The trigger shows the selected count or labels.
+/// Tap an option to toggle; tap outside to close.
+///
+/// Example:
+///
+/// ```dart
+/// PrimeMultiDropdown<String>(
+///   value: selected,
+///   placeholder: 'Select fruits',
+///   items: ['Apple', 'Banana', 'Orange'],
+///   onChanged: (v) => setState(() => selected = v),
+/// )
+/// ```
+class PrimeMultiDropdown<T> extends StatefulWidget {
+  /// Currently selected values.
+  final List<T> value;
+
+  /// All selectable options.
+  final List<T> items;
+
+  /// Called when the selection changes.
+  final ValueChanged<List<T>>? onChanged;
+
+  /// Hint text when [value] is empty.
+  final String? placeholder;
+
+  /// Optional builder for each option. Defaults to [Object.toString].
+  final Widget Function(T)? itemBuilder;
+
+  /// Max number of selected labels to show in the trigger before summing as "N selected".
+  final int maxVisibleLabels;
+
+  /// Whether the dropdown is disabled.
+  final bool disabled;
+
+  const PrimeMultiDropdown({
+    super.key,
+    this.value = const [],
+    required this.items,
+    this.onChanged,
+    this.placeholder,
+    this.itemBuilder,
+    this.maxVisibleLabels = 3,
+    this.disabled = false,
+  });
+
+  @override
+  State<PrimeMultiDropdown<T>> createState() => _PrimeMultiDropdownState<T>();
+}
+
+class _PrimeMultiDropdownState<T> extends State<PrimeMultiDropdown<T>> {
+  final GlobalKey _triggerKey = GlobalKey();
+  OverlayEntry? _overlayEntry;
+  final LayerLink _layerLink = LayerLink();
+
+  void _open() {
+    if (widget.disabled || widget.items.isEmpty) return;
+    if (_overlayEntry != null) return;
+
+    final overlay = Overlay.maybeOf(context);
+    if (overlay == null) return;
+
+    final theme = PrimeTheme.of(context);
+    final triggerBox = _triggerKey.currentContext?.findRenderObject() as RenderBox?;
+    if (triggerBox == null || !triggerBox.hasSize) return;
+
+    _overlayEntry = OverlayEntry(
+      builder: (overlayContext) => _MultiDropdownOverlay<T>(
+        layerLink: _layerLink,
+        triggerSize: triggerBox.size,
+        theme: theme,
+        value: List<T>.from(widget.value),
+        items: widget.items,
+        itemBuilder: widget.itemBuilder,
+        onChanged: (v) {
+          widget.onChanged?.call(v);
+          if (mounted) setState(() {});
+        },
+        onDismiss: _close,
+      ),
+    );
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _close() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _close();
+    super.dispose();
+  }
+
+  Widget _triggerContent(PrimeThemeData theme) {
+    final selected = widget.value;
+    if (selected.isEmpty) {
+      return Text(widget.placeholder ?? '');
+    }
+    if (widget.itemBuilder != null) {
+      return Text('${selected.length} selected');
+    }
+    final n = widget.maxVisibleLabels;
+    if (selected.length <= n) {
+      return Text(selected.map((t) => '$t').join(', '), overflow: TextOverflow.ellipsis);
+    }
+    return Text('${selected.length} selected');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PrimeTheme.consumer(
+      builder: (context, theme) {
+        final isOpen = _overlayEntry != null;
+        final hasValue = widget.value.isNotEmpty;
+
+        return CompositedTransformTarget(
+          link: _layerLink,
+          child: GestureDetector(
+            onTap: widget.disabled ? null : _open,
+            behavior: HitTestBehavior.opaque,
+            child: MouseRegion(
+              cursor: widget.disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+              child: Container(
+                key: _triggerKey,
+                height: 44,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surfaceBase,
+                  borderRadius: BorderRadius.circular(theme.cornerRadius),
+                  border: Border.all(color: isOpen ? theme.colorScheme.inputFocus : theme.colorScheme.borderSubtle, width: isOpen ? 2 : 1),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: DefaultTextStyle(
+                        style: theme.textTheme.bodyDefault.copyWith(
+                          color: hasValue ? theme.colorScheme.textPrimary : theme.colorScheme.textTertiary,
+                          height: 1.25,
+                        ),
+                        child: _triggerContent(theme),
+                      ),
+                    ),
+                    Icon(PrimeIcons.chevronDown, size: 20, color: theme.colorScheme.textTertiary),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _MultiDropdownOverlay<T> extends StatefulWidget {
+  final LayerLink layerLink;
+  final Size triggerSize;
+  final PrimeThemeData theme;
+  final List<T> value;
+  final List<T> items;
+  final Widget Function(T)? itemBuilder;
+  final ValueChanged<List<T>> onChanged;
+  final VoidCallback onDismiss;
+
+  const _MultiDropdownOverlay({
+    required this.layerLink,
+    required this.triggerSize,
+    required this.theme,
+    required this.value,
+    required this.items,
+    required this.itemBuilder,
+    required this.onChanged,
+    required this.onDismiss,
+  });
+
+  @override
+  State<_MultiDropdownOverlay<T>> createState() => _MultiDropdownOverlayState<T>();
+}
+
+class _MultiDropdownOverlayState<T> extends State<_MultiDropdownOverlay<T>> {
+  static const double _maxHeight = 280;
+  static const double _itemHeight = 44;
+
+  late List<T> _selection;
+
+  @override
+  void initState() {
+    super.initState();
+    _selection = List<T>.from(widget.value);
+  }
+
+  void _toggle(T item) {
+    setState(() {
+      if (_selection.contains(item)) {
+        _selection.remove(item);
+      } else {
+        _selection.add(item);
+      }
+      widget.onChanged(List<T>.from(_selection));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = widget.theme;
+    final listHeight = (widget.items.length * _itemHeight).clamp(0.0, _maxHeight);
+
+    return Stack(
+      children: [
+        GestureDetector(onTap: widget.onDismiss, behavior: HitTestBehavior.opaque, child: const SizedBox.expand()),
+        Positioned(
+          width: widget.triggerSize.width,
+          child: CompositedTransformFollower(
+            link: widget.layerLink,
+            showWhenUnlinked: false,
+            offset: Offset(0, widget.triggerSize.height + 4),
+            child: Material(
+              type: MaterialType.transparency,
+              child: Container(
+                constraints: BoxConstraints(maxHeight: listHeight),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surfaceBase,
+                  borderRadius: BorderRadius.circular(theme.cornerRadius),
+                  border: Border.all(color: theme.colorScheme.borderSubtle),
+                  boxShadow: [BoxShadow(color: ui.Color.fromARGB(38, 0, 0, 0), blurRadius: 12, offset: const Offset(0, 4))],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(theme.cornerRadius),
+                  child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    itemCount: widget.items.length,
+                    itemBuilder: (context, index) {
+                      final item = widget.items[index];
+                      final isSelected = _selection.contains(item);
+                      return _MultiDropdownItem<T>(
+                        item: item,
+                        theme: theme,
+                        isSelected: isSelected,
+                        itemBuilder: widget.itemBuilder,
+                        onTap: () => _toggle(item),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _MultiDropdownItem<T> extends StatefulWidget {
+  final T item;
+  final PrimeThemeData theme;
+  final bool isSelected;
+  final Widget Function(T)? itemBuilder;
+  final VoidCallback onTap;
+
+  const _MultiDropdownItem({
+    required this.item,
+    required this.theme,
+    required this.isSelected,
+    required this.itemBuilder,
+    required this.onTap,
+  });
+
+  @override
+  State<_MultiDropdownItem<T>> createState() => _MultiDropdownItemState<T>();
+}
+
+class _MultiDropdownItemState<T> extends State<_MultiDropdownItem<T>> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = widget.theme;
+    final colors = theme.colorScheme;
+    final bg = _hovered ? colors.surfaceHighlight : colors.surfaceBase;
+    final fg = colors.textPrimary;
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          height: _MultiDropdownOverlayState._itemHeight,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          color: bg,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 20,
+                height: 20,
+                child: widget.isSelected
+                    ? Icon(PrimeIcons.checkboxMarked, size: 20, color: colors.actionPrimaryBg)
+                    : DecoratedBox(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: colors.borderSubtle),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: DefaultTextStyle(
+                  style: theme.textTheme.bodyDefault.copyWith(color: fg, height: 1.25),
+                  child: widget.itemBuilder != null ? widget.itemBuilder!(widget.item) : Text('${widget.item}'),
+                ),
+              ),
+            ],
           ),
         ),
       ),

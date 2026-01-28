@@ -11,6 +11,7 @@ class DropdownScreen extends StatefulWidget {
 class _DropdownScreenState extends State<DropdownScreen> {
   String? _fruit;
   String? _customLabel;
+  List<String> _multi = [];
 
   static const List<String> _fruits = ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'];
 
@@ -41,6 +42,15 @@ class _DropdownScreenState extends State<DropdownScreen> {
               items: _fruits,
               itemBuilder: (s) => Text('${s.toUpperCase()}'),
               onChanged: (v) => setState(() => _customLabel = v),
+            ),
+            const SizedBox(height: 24),
+            Text('Multiselect', style: theme.textTheme.title),
+            const SizedBox(height: 8),
+            PrimeMultiDropdown<String>(
+              value: _multi,
+              placeholder: 'Select fruits',
+              items: _fruits,
+              onChanged: (v) => setState(() => _multi = v),
             ),
             const SizedBox(height: 24),
             Text('Disabled', style: theme.textTheme.title),

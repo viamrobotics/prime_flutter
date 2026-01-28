@@ -5,7 +5,7 @@ description: Dropdown component documentation.
 
 import Preview from '../../../components/Preview.astro';
 
-Single-select dropdown for choosing one value from a list. Styled to match other Prime form controls.
+Dropdowns for choosing one or multiple values from a list. [PrimeDropdown] is single-select; [PrimeMultiDropdown] allows multiple selections. Styled to match other Prime form controls.
 
 ## Basic
 
@@ -34,6 +34,23 @@ PrimeDropdown<String>(
   placeholder: 'Choose one',
   items: options,
   itemBuilder: (s) => Text(s.toUpperCase()),
+  onChanged: (v) => setState(() => selected = v),
+)
+```
+
+</Preview>
+
+## Multiselect
+
+Choose multiple values. Tap options to toggle; tap outside to close.
+
+<Preview src="dropdown?style=multiselect" height="320px">
+
+```dart
+PrimeMultiDropdown<String>(
+  value: selected,
+  placeholder: 'Select fruits',
+  items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
   onChanged: (v) => setState(() => selected = v),
 )
 ```
