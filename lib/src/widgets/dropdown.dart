@@ -205,9 +205,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
           child: CompositedTransformFollower(
             link: widget.layerLink,
             showWhenUnlinked: false,
-            offset: widget.openUpward
-                ? Offset(0, -listHeight - 4)
-                : Offset(0, widget.triggerSize.height + 4),
+            offset: widget.openUpward ? Offset(0, -listHeight - 4) : Offset(0, widget.triggerSize.height + 4),
             child: Container(
               constraints: BoxConstraints(maxHeight: listHeight),
               decoration: BoxDecoration(
@@ -521,9 +519,7 @@ class _MultiDropdownOverlayState<T> extends State<_MultiDropdownOverlay<T>> {
           child: CompositedTransformFollower(
             link: widget.layerLink,
             showWhenUnlinked: false,
-            offset: widget.openUpward
-                ? Offset(0, -listHeight - 4)
-                : Offset(0, widget.triggerSize.height + 4),
+            offset: widget.openUpward ? Offset(0, -listHeight - 4) : Offset(0, widget.triggerSize.height + 4),
             child: Container(
               constraints: BoxConstraints(maxHeight: listHeight),
               decoration: BoxDecoration(
