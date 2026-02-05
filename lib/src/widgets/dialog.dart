@@ -19,11 +19,7 @@ class PrimeDialogAction<T> {
   /// Button variant. Defaults to [ButtonVariant.secondary].
   final ButtonVariant variant;
 
-  const PrimeDialogAction({
-    required this.label,
-    this.value,
-    this.variant = ButtonVariant.secondary,
-  });
+  const PrimeDialogAction({required this.label, this.value, this.variant = ButtonVariant.secondary});
 }
 
 /// A dialog popup that can show a title, content, and optional actions.
@@ -141,13 +137,7 @@ class _PrimeDialogOverlay<T> extends StatelessWidget {
                     color: colors.surfaceBase,
                     borderRadius: BorderRadius.circular(theme.cornerRadius),
                     border: Border.all(color: colors.borderSubtle),
-                    boxShadow: [
-                      BoxShadow(
-                        color: ui.Color.fromARGB(38, 0, 0, 0),
-                        blurRadius: 24,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
+                    boxShadow: [BoxShadow(color: ui.Color.fromARGB(38, 0, 0, 0), blurRadius: 24, offset: const Offset(0, 8))],
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
