@@ -4,6 +4,7 @@ import 'screens/app_bar_page.dart';
 import 'screens/avatar_page.dart';
 import 'screens/badge_page.dart';
 import 'screens/button_page.dart';
+import 'screens/dialog_page.dart';
 import 'screens/divider_page.dart';
 import 'screens/dropdown_page.dart';
 import 'screens/expansion_list_item_page.dart';
@@ -108,6 +109,10 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = DividerPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => DividerPageStyle.defaultStyle);
           return PrimePageRoute(builder: (_) => DividerPage(style: style));
+        }
+
+        if (uri.path == '/dialog') {
+          return PrimePageRoute(builder: (_) => const DialogPage());
         }
 
         if (uri.path == '/dropdown') {
