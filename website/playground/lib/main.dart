@@ -16,6 +16,7 @@ import 'screens/progress_page.dart';
 import 'screens/tab_bar_page.dart';
 import 'screens/slider_page.dart';
 import 'screens/segmented_button_page.dart';
+import 'screens/switch_page.dart';
 import 'screens/toast_page.dart';
 
 void main() async {
@@ -132,6 +133,12 @@ class DocsApp extends StatelessWidget {
         if (uri.path == '/segmented-button') {
           final variant = uri.queryParameters['variant'];
           return PrimePageRoute(builder: (_) => SegmentedButtonPage(variant: variant));
+        }
+
+        if (uri.path == '/switch') {
+          final styleStr = uri.queryParameters['style'];
+          final style = SwitchPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => SwitchPageStyle.basic);
+          return PrimePageRoute(builder: (_) => SwitchPage(style: style));
         }
 
         if (uri.path == '/toast') {

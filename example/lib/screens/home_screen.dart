@@ -144,6 +144,13 @@ class HomeScreen extends StatelessWidget {
             ),
             _buildListItem(
               context: context,
+              title: 'Switch Toggle',
+              description: 'Boolean selection',
+              icon: PrimeIcons.toggleSwitchOutline,
+              screen: const SwitchScreen(),
+            ),
+            _buildListItem(
+              context: context,
               title: 'Segmented Button',
               description: 'Toggle button sets',
               icon: PrimeIcons.viamComponent,

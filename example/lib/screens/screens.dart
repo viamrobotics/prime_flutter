@@ -17,6 +17,7 @@ export 'widgets/filter_pill_screen.dart';
 export 'widgets/input_screen.dart';
 export 'widgets/slider_screen.dart';
 export 'widgets/segmented_button_screen.dart';
+export 'widgets/switch_screen.dart';
 export 'widgets/toast_screen.dart';
 
 // tools

@@ -1,0 +1,35 @@
+---
+title: Switch Toggle
+description: Switch Toggle component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+A switch toggle allows users to toggle a boolean state on or off.
+
+## Basic
+
+<Preview src="switch?style=basic" height="150px">
+
+```dart
+SwitchToggle(
+  value: _value,
+  onChanged: (v) => setState(() => _value = v),
+)
+```
+
+</Preview>
+
+## Disabled
+
+<Preview src="switch?style=disabled" height="150px">
+
+```dart
+SwitchToggle(
+  value: _value,
+  disabled: true,
+  onChanged: (v) => setState(() => _value = v),
+)
+```
+
+</Preview>
