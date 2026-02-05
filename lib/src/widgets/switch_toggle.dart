@@ -21,14 +21,7 @@ class SwitchToggle extends StatelessWidget {
   /// Custom color for the track when the switch is off.
   final Color? inactiveColor;
 
-  const SwitchToggle({
-    super.key,
-    required this.value,
-    this.onChanged,
-    this.disabled = false,
-    this.activeColor,
-    this.inactiveColor,
-  });
+  const SwitchToggle({super.key, required this.value, this.onChanged, this.disabled = false, this.activeColor, this.inactiveColor});
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +65,7 @@ class SwitchToggle extends StatelessWidget {
               decoration: BoxDecoration(
                 color: trackColor,
                 borderRadius: BorderRadius.circular(cornerRadius),
-                border: Border.all(
-                  color: value ? trackColor : colors.borderSubtle,
-                  width: 1,
-                ),
+                border: Border.all(color: value ? trackColor : colors.borderSubtle, width: 1),
               ),
               child: Stack(
                 children: [
@@ -89,13 +79,7 @@ class SwitchToggle extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: knobColor,
                         borderRadius: BorderRadius.circular(cornerRadius - 2),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0x1F000000),
-                            blurRadius: 1,
-                            offset: const Offset(0, 1),
-                          ),
-                        ],
+                        boxShadow: [BoxShadow(color: const Color(0x1F000000), blurRadius: 1, offset: const Offset(0, 1))],
                       ),
                     ),
                   ),
