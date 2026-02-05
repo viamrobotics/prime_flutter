@@ -1,0 +1,28 @@
+---
+title: Dialog
+description: Dialog popup component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+A dialog is a modal popup with an optional title, content, and action buttons. Use [PrimeDialog.show] to display it; the returned [Future] completes when the dialog is dismissed.
+
+## Basic
+
+<Preview src="dialog" height="200px">
+
+```dart
+PrimeDialog.show<bool>(
+  context: context,
+  title: const Text('Confirm'),
+  child: const Text('Are you sure you want to continue?'),
+  actions: [
+    PrimeDialogAction<bool>(label: const Text('Cancel'), value: false),
+    PrimeDialogAction<bool>(label: const Text('OK'), value: true, variant: ButtonVariant.primary),
+  ],
+);
+```
+
+</Preview>
+
+Tap outside or the close icon to dismiss (returns null). [barrierDismissible] defaults to true.

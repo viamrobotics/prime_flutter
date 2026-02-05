@@ -130,6 +130,13 @@ class HomeScreen extends StatelessWidget {
             ),
             _buildListItem(
               context: context,
+              title: 'Dialog',
+              description: 'Modal dialog popup',
+              icon: PrimeIcons.alertOutline,
+              screen: const DialogScreen(),
+            ),
+            _buildListItem(
+              context: context,
               title: 'Dropdown',
               description: 'Single-select dropdown',
               icon: PrimeIcons.chevronDown,

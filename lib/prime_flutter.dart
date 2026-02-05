@@ -12,6 +12,7 @@ export 'src/widgets/avatar.dart';
 export 'src/widgets/badge.dart';
 export 'src/widgets/bottom_sheet.dart';
 export 'src/widgets/button.dart';
+export 'src/widgets/dialog.dart';
 export 'src/widgets/divider.dart';
 export 'src/widgets/dropdown.dart';
 export 'src/widgets/expansion_list_item.dart';
