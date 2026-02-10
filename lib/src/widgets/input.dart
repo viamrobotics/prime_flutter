@@ -12,6 +12,7 @@ class Input extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback? onSubmitted;
   final bool autofocus;
+  final bool? autocorrect;
 
   const Input({
     super.key,
@@ -24,6 +25,7 @@ class Input extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.autofocus = false,
+    this.autocorrect,
   });
 
   @override
@@ -39,6 +41,7 @@ class Input extends StatelessWidget {
             onChanged: onChanged,
             onSubmitted: (_) => onSubmitted?.call(),
             autofocus: autofocus,
+            autocorrect: autocorrect,
             style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.inputText),
             cursorColor: theme.colorScheme.inputFocus,
             decoration: InputDecoration(
