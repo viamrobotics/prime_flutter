@@ -1,3 +1,6 @@
+## 0.2.16
+* Allocate extra space for app bar.
+
 ## 0.2.15
 * Add dialog
 * Add switch
