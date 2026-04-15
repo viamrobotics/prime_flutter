@@ -21,7 +21,8 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const PrimeAppBar({super.key, this.title, this.leading, this.actions, this.bottom});
 
   @override
-  Size get preferredSize => Size.fromHeight(48 + (bottom?.preferredSize.height ?? 0));
+  // +1 accounts for the 1px bottom border, which insets the Container's layout size.
+  Size get preferredSize => Size.fromHeight(48 + (bottom?.preferredSize.height ?? 0) + 1);
 
   @override
   Widget build(BuildContext context) {
