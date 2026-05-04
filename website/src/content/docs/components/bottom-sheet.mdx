@@ -1,0 +1,91 @@
+---
+title: Bottom Sheet
+description: Modal sheet that slides up from the bottom of the screen.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+A bottom sheet is a modal panel that slides up from the bottom of the screen. Use [BottomSheet.show] to display one; the returned [Future] completes when the sheet is dismissed. Tap outside or drag down to dismiss.
+
+## Basic
+
+<Preview src="bottom-sheet?style=basic" height="300px">
+
+```dart
+BottomSheet.show(
+  context: context,
+  child: const Padding(
+    padding: EdgeInsets.fromLTRB(20, 12, 20, 24),
+    child: Text('This is a simple bottom sheet.'),
+  ),
+);
+```
+
+</Preview>
+
+## With title
+
+Pass a `title` widget for a styled header above the content.
+
+<Preview src="bottom-sheet?style=withTitle" height="300px">
+
+```dart
+BottomSheet.show(
+  context: context,
+  title: const Text('Sheet Title'),
+  child: const Padding(
+    padding: EdgeInsets.fromLTRB(20, 12, 20, 24),
+    child: Text('This sheet has a title.'),
+  ),
+);
+```
+
+</Preview>
+
+## Scrollable content
+
+Content scrolls automatically when it overflows. Set `isScrollable: false` to opt out (for example, when the child manages its own scrolling).
+
+<Preview src="bottom-sheet?style=scrollable" height="300px">
+
+```dart
+BottomSheet.show(
+  context: context,
+  title: const Text('Options'),
+  child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      for (int i = 1; i <= 12; i++) ...[
+        ListItem(
+          title: Text('Option $i'),
+          leading: const Icon(PrimeIcons.robotOutline),
+          onPressed: () {},
+        ),
+        const Divider(),
+      ],
+    ],
+  ),
+);
+```
+
+</Preview>
+
+## Custom background color
+
+Override the default surface color with `backgroundColor`.
+
+<Preview src="bottom-sheet?style=alternateColor" height="300px">
+
+```dart
+BottomSheet.show(
+  context: context,
+  title: const Text('Sheet Title'),
+  backgroundColor: PrimeTheme.of(context).colorScheme.surfaceBase,
+  child: const Padding(
+    padding: EdgeInsets.fromLTRB(20, 12, 20, 24),
+    child: Text('This sheet uses an alternate background color.'),
+  ),
+);
+```
+
+</Preview>

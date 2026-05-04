@@ -3,6 +3,7 @@ import 'package:prime_flutter/prime_flutter.dart';
 import 'screens/app_bar_page.dart';
 import 'screens/avatar_page.dart';
 import 'screens/badge_page.dart';
+import 'screens/bottom_sheet_page.dart';
 import 'screens/button_page.dart';
 import 'screens/dialog_page.dart';
 import 'screens/divider_page.dart';
@@ -113,6 +114,15 @@ class DocsApp extends StatelessWidget {
 
         if (uri.path == '/dialog') {
           return PrimePageRoute(builder: (_) => const DialogPage());
+        }
+
+        if (uri.path == '/bottom-sheet') {
+          final styleStr = uri.queryParameters['style'];
+          final style = BottomSheetPageStyle.values.firstWhere(
+            (e) => e.name == styleStr,
+            orElse: () => BottomSheetPageStyle.basic,
+          );
+          return PrimePageRoute(builder: (_) => BottomSheetPage(style: style));
         }
 
         if (uri.path == '/dropdown') {
