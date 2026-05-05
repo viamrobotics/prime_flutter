@@ -35,11 +35,7 @@ class ListItemGroup extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: radius,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: rows,
-            ),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.min, children: rows),
           ),
         );
       },
