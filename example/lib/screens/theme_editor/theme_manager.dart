@@ -118,6 +118,7 @@ class ThemeManager extends ChangeNotifier {
     return {
       'surfaceBase': s.surfaceBase.toARGB32(),
       'surfaceOffset': s.surfaceOffset.toARGB32(),
+      'surfaceHover': s.surfaceHover.toARGB32(),
       'surfaceHighlight': s.surfaceHighlight.toARGB32(),
       'textPrimary': s.textPrimary.toARGB32(),
       'textSecondary': s.textSecondary.toARGB32(),
@@ -156,6 +157,7 @@ class ThemeManager extends ChangeNotifier {
     return PrimeColorScheme(
       surfaceBase: c('surfaceBase', defaults.surfaceBase),
       surfaceOffset: c('surfaceOffset', defaults.surfaceOffset),
+      surfaceHover: c('surfaceHover', defaults.surfaceHover),
       surfaceHighlight: c('surfaceHighlight', defaults.surfaceHighlight),
       textPrimary: c('textPrimary', defaults.textPrimary),
       textSecondary: c('textSecondary', defaults.textSecondary),

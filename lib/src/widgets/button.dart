@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_color_scheme.dart';
+import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 
 enum ButtonVariant { primary, secondary, ghost, danger, outlineDanger, success }
@@ -173,9 +174,9 @@ class _ButtonState extends State<Button> {
     Color withHover(Color base) {
       if (!_isHovered) return base;
 
-      // Primary buttons should be fully black
+      // Primary buttons step toward pure black: gray9 → gray9_5 (hover) → black (press)
       if (widget.variant == ButtonVariant.primary) {
-        return const Color(0xFF000000);
+        return PrimeColors.gray9_5;
       }
 
       // Outline danger buttons should be dark red
@@ -194,9 +195,9 @@ class _ButtonState extends State<Button> {
     Color withPress(Color base) {
       if (!_isPressed) return base;
 
-      // Primary buttons should be fully black (same as withHover for primary)
+      // Primary press goes to pure black (final phase after gray9_5 hover)
       if (widget.variant == ButtonVariant.primary) {
-        return const Color(0xFF000000);
+        return PrimeColors.black;
       }
 
       // Outline danger buttons should be dark red

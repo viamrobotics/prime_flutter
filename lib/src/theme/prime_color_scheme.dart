@@ -9,7 +9,10 @@ class PrimeColorScheme {
   /// App bar, Filter pill section/unselected
   final Color surfaceOffset;
 
-  /// Badge background, Avatar fill
+  /// Hover state for interactive surfaces (between offset and highlight)
+  final Color surfaceHover;
+
+  /// Badge background, Avatar fill, pressed state
   final Color surfaceHighlight;
 
   // --- Typography (Content) ---
@@ -67,6 +70,7 @@ class PrimeColorScheme {
   const PrimeColorScheme({
     required this.surfaceBase,
     required this.surfaceOffset,
+    required this.surfaceHover,
     required this.surfaceHighlight,
     required this.textPrimary,
     required this.textSecondary,
@@ -96,6 +100,7 @@ class PrimeColorScheme {
       // Surface
       surfaceBase: PrimeColors.gray0,
       surfaceOffset: PrimeColors.gray1,
+      surfaceHover: PrimeColors.gray1_5,
       surfaceHighlight: PrimeColors.gray2,
 
       // Typography
@@ -105,7 +110,7 @@ class PrimeColorScheme {
       textPlaceholder: PrimeColors.gray6,
 
       // Icons
-      iconPrimary: PrimeColors.gray6,
+      iconPrimary: PrimeColors.gray9,
       iconSecondary: PrimeColors.gray6,
       iconDisabled: PrimeColors.gray5,
 
@@ -135,6 +140,7 @@ class PrimeColorScheme {
       // Surface
       surfaceBase: PrimeColors.gray9,
       surfaceOffset: PrimeColors.gray8,
+      surfaceHover: PrimeColors.gray7_5,
       surfaceHighlight: PrimeColors.gray7,
 
       // Typography

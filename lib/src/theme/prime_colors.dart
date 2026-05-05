@@ -8,12 +8,16 @@ class PrimeColors {
   // --- Primitives ---
 
   // Grayscale
+  static const Color black = Color(0xFF000000);
+  static const Color gray9_5 = Color(0xFF131414);
   static const Color gray9 = Color(0xFF282829);
   static const Color gray8 = Color(0xFF4E4F52);
+  static const Color gray7_5 = Color(0xFF646569);
   static const Color gray7 = Color(0xFF7A7C80);
   static const Color gray6 = Color(0xFF9C9CA4);
   static const Color gray5 = Color(0xFFC5C6CC);
   static const Color gray2 = Color(0xFFEDEEF0);
+  static const Color gray1_5 = Color(0xFFF1F1F4);
   static const Color gray1 = Color(0xFFFBFBFC);
   static const Color gray0 = Color(0xFFFFFFFF);
 

@@ -55,16 +55,18 @@ class _ListItemState extends State<ListItem> {
 
           if (isInteractive) {
             if (_isPressed) {
-              backgroundColor = theme.colorScheme.surfaceHighlight; // darker state
-            } else if (_isHovered) {
               backgroundColor = theme.colorScheme.surfaceHighlight;
+            } else if (_isHovered) {
+              backgroundColor = theme.colorScheme.surfaceHover;
             }
           }
         } else if (isInteractive) {
           if (_isPressed) {
             backgroundColor = theme.colorScheme.surfaceHighlight;
           } else if (_isHovered) {
-            backgroundColor = theme.colorScheme.surfaceOffset;
+            backgroundColor = theme.colorScheme.surfaceHover;
+          } else {
+            backgroundColor = theme.colorScheme.surfaceHover.withAlpha(0);
           }
         }
 
@@ -73,7 +75,7 @@ class _ListItemState extends State<ListItem> {
           children: [
             if (widget.leading != null) ...[
               IconTheme(
-                data: IconThemeData(color: isCard ? theme.colorScheme.iconSecondary : theme.colorScheme.iconPrimary, size: 20),
+                data: IconThemeData(color: theme.colorScheme.iconSecondary, size: 20),
                 child: widget.leading!,
               ),
               const SizedBox(width: 16),

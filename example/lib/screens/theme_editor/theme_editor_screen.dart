@@ -280,6 +280,7 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
     return {
       'surfaceBase': s.surfaceBase,
       'surfaceOffset': s.surfaceOffset,
+      'surfaceHover': s.surfaceHover,
       'surfaceHighlight': s.surfaceHighlight,
       'textPrimary': s.textPrimary,
       'textSecondary': s.textSecondary,
@@ -319,6 +320,7 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
 PrimeColorScheme(
   surfaceBase: ${getColorString(s.surfaceBase)},
   surfaceOffset: ${getColorString(s.surfaceOffset)},
+  surfaceHover: ${getColorString(s.surfaceHover)},
   surfaceHighlight: ${getColorString(s.surfaceHighlight)},
   textPrimary: ${getColorString(s.textPrimary)},
   textSecondary: ${getColorString(s.textSecondary)},
@@ -522,12 +524,16 @@ class _SimpleColorPickerState extends State<_SimpleColorPicker> {
 }
 
 const Map<String, Color> _primeColorsMap = {
+  'black': PrimeColors.black,
+  'gray9_5': PrimeColors.gray9_5,
   'gray9': PrimeColors.gray9,
   'gray8': PrimeColors.gray8,
+  'gray7_5': PrimeColors.gray7_5,
   'gray7': PrimeColors.gray7,
   'gray6': PrimeColors.gray6,
   'gray5': PrimeColors.gray5,
   'gray2': PrimeColors.gray2,
+  'gray1_5': PrimeColors.gray1_5,
   'gray1': PrimeColors.gray1,
   'gray0': PrimeColors.gray0,
   'dangerLight': PrimeColors.dangerLight,
