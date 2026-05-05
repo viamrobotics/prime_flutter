@@ -1,3 +1,12 @@
+## 0.2.17
+* Added `ListItemGroup` widget.
+* Added `surfaceHover` token to `PrimeColorScheme` for a light → medium → dark progression on hover/press states. **BREAKING** for code that constructs `PrimeColorScheme` directly — `surfaceHover` is now required.
+* Reworked interactive color animation on `ListItem` and `Button`:
+  * `ListItem` hover/press now step through `surfaceOffset` → `surfaceHover` → `surfaceHighlight` instead of jumping directly to the press color.
+  * Fixed mid-tween dark flash on the standard `ListItem` variant (caused by interpolating from transparent black).
+  * Primary `Button` now darkens through three phases (`gray9` → `gray9_5` → pure black) to match Prime web's primary action.
+* Added grayscale primitives `gray1_5`, `gray7_5`, `gray9_5`, and `black` to `PrimeColors`.
+
 ## 0.2.16
 * Allocate extra space for app bar.
 
