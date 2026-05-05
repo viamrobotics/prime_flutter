@@ -105,7 +105,7 @@ class PrimeColorScheme {
       textPlaceholder: PrimeColors.gray6,
 
       // Icons
-      iconPrimary: PrimeColors.gray9,
+      iconPrimary: PrimeColors.gray6,
       iconSecondary: PrimeColors.gray6,
       iconDisabled: PrimeColors.gray5,
 
