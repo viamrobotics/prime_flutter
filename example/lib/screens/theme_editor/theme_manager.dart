@@ -32,6 +32,7 @@ class ThemeManager extends ChangeNotifier {
       try {
         final Map<String, dynamic> decoded = jsonDecode(savedData);
         decoded.forEach((key, value) {
+          if (isProtected(key)) return;
           if (value is Map<String, dynamic>) {
             _savedThemes[key] = _deserializeScheme(value);
           }
@@ -100,6 +101,7 @@ class ThemeManager extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final Map<String, dynamic> encoded = {};
     _savedThemes.forEach((key, value) {
+      if (isProtected(key)) return;
       encoded[key] = _serializeScheme(value);
     });
     await prefs.setString(_storageKey, jsonEncode(encoded));
