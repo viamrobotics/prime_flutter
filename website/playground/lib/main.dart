@@ -13,6 +13,7 @@ import 'screens/filter_pill_page.dart';
 import 'screens/icon_page.dart';
 import 'screens/input_page.dart';
 import 'screens/list_item_page.dart';
+import 'screens/list_item_group_page.dart';
 import 'screens/navigation_bar_page.dart';
 import 'screens/progress_page.dart';
 import 'screens/tab_bar_page.dart';
@@ -68,6 +69,15 @@ class DocsApp extends StatelessWidget {
           final styleStr = uri.queryParameters['style'];
           final style = ListItemPageStyle.values.firstWhere((e) => e.name == styleStr, orElse: () => ListItemPageStyle.standard);
           return PrimePageRoute(builder: (_) => ListItemPage(style: style));
+        }
+
+        if (uri.path == '/list-item-group') {
+          final styleStr = uri.queryParameters['style'];
+          final style = ListItemGroupPageStyle.values.firstWhere(
+            (e) => e.name == styleStr,
+            orElse: () => ListItemGroupPageStyle.basic,
+          );
+          return PrimePageRoute(builder: (_) => ListItemGroupPage(style: style));
         }
 
         if (uri.path == '/navigation-bar') {

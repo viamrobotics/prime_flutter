@@ -81,6 +81,13 @@ class HomeScreen extends StatelessWidget {
             ),
             _buildListItem(
               context: context,
+              title: 'List Item Group',
+              description: 'Stacked rows in a single card',
+              icon: PrimeIcons.menu,
+              screen: const ListItemGroupScreen(),
+            ),
+            _buildListItem(
+              context: context,
               title: 'Navigation Bar',
               description: 'Bottom navigation bar',
               icon: PrimeIcons.cursorMove,

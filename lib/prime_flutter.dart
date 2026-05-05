@@ -20,6 +20,7 @@ export 'src/widgets/filter_group.dart';
 export 'src/widgets/filter_pill.dart';
 export 'src/widgets/input.dart';
 export 'src/widgets/list_item.dart';
+export 'src/widgets/list_item_group.dart';
 export 'src/widgets/navigation_bar.dart';
 export 'src/widgets/prime_app.dart';
 export 'src/widgets/prime_icons.dart';

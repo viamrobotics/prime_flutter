@@ -1,0 +1,68 @@
+---
+title: List Item Group
+description: List Item Group component documentation.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+A `ListItemGroup` wraps multiple rows in a single bordered card with hairline dividers between them. Use it for "button section" patterns where several actions share one card — for example, a sheet offering "Take photo" and "Upload from camera roll".
+
+Pass standard `ListItem`s as children — the group provides the card chrome (background, border, rounded corners). Using `ListItem.card` children would produce double chrome.
+
+## Basic
+
+A two-row group of tappable actions.
+
+<Preview src="list-item-group?style=basic" height="200px">
+
+```dart
+ListItemGroup(
+  children: [
+    ListItem(
+      leading: Icon(PrimeIcons.cameraOutline),
+      title: Text('Take and upload image'),
+      onPressed: () {},
+    ),
+    ListItem(
+      leading: Icon(PrimeIcons.upload),
+      title: Text('Upload images from camera roll'),
+      onPressed: () {},
+    ),
+  ],
+)
+```
+
+</Preview>
+
+## With Trailing
+
+Each row can include a trailing widget — useful for navigation chevrons.
+
+<Preview src="list-item-group?style=withTrailing" height="250px">
+
+```dart
+ListItemGroup(
+  children: [
+    ListItem(
+      leading: Icon(PrimeIcons.cog),
+      title: Text('Settings'),
+      trailing: Icon(PrimeIcons.chevronRight),
+      onPressed: () {},
+    ),
+    ListItem(
+      leading: Icon(PrimeIcons.accountGroupOutline),
+      title: Text('Team'),
+      trailing: Icon(PrimeIcons.chevronRight),
+      onPressed: () {},
+    ),
+    ListItem(
+      leading: Icon(PrimeIcons.article),
+      title: Text('Documents'),
+      trailing: Icon(PrimeIcons.chevronRight),
+      onPressed: () {},
+    ),
+  ],
+)
+```
+
+</Preview>

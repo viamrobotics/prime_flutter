@@ -7,6 +7,7 @@ export 'widgets/button_screen.dart';
 export 'widgets/icons_screen.dart';
 export 'widgets/progress_screen.dart';
 export 'widgets/list_item_screen.dart';
+export 'widgets/list_item_group_screen.dart';
 export 'widgets/nav_bar_screen.dart';
 export 'widgets/tab_bar_screen.dart';
 export 'widgets/avatar_screen.dart';
