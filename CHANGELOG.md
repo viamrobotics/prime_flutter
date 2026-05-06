@@ -1,3 +1,6 @@
+## 0.2.19
+* Add defaultTextStyle to Toast text so it avoids yellow udnerline
+
 ## 0.2.18
 * Added `centerTitle` parameter to `PrimeAppBar`. Defaults to `true`. When `false`, leading + title + actions lay out in a `Row` with the title in `Expanded` for clean overflow, and the leading slot is no longer icon-width-constrained.
 * Added `onPressed` callback to `Avatar`. When provided, the avatar becomes interactive — it darkens on hover (10% black scrim) and press (20% black scrim) and shows a click cursor on web/desktop.

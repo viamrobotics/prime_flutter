@@ -93,27 +93,28 @@ class Toast extends StatelessWidget {
             borderRadius: BorderRadius.circular(theme.cornerRadius),
             border: Border.all(color: theme.colorScheme.borderSubtle),
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: action != null ? 4 : 12),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(iconData, color: iconColor, size: 20),
-                const SizedBox(width: 12),
-                Flexible(
-                  child: Text(message, style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textPrimary)),
-                ),
-                if (action != null) ...[const SizedBox(width: 16), action!],
-                const SizedBox(width: 12),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: onClose,
-                    child: Icon(PrimeIcons.close, color: theme.colorScheme.iconSecondary, size: 16),
+          child: DefaultTextStyle(
+            style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textPrimary),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: action != null ? 4 : 12),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(iconData, color: iconColor, size: 20),
+                  const SizedBox(width: 12),
+                  Flexible(child: Text(message)),
+                  if (action != null) ...[const SizedBox(width: 16), action!],
+                  const SizedBox(width: 12),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: onClose,
+                      child: Icon(PrimeIcons.close, color: theme.colorScheme.iconSecondary, size: 16),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
