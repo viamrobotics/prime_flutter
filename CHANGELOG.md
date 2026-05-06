@@ -1,3 +1,6 @@
+## 0.2.18
+* Added `centerTitle` parameter to `PrimeAppBar`. Defaults to `true`. When `false`, leading + title + actions lay out in a `Row` with the title in `Expanded` for clean overflow, and the leading slot is no longer icon-width-constrained.
+
 ## 0.2.17
 * Added `ListItemGroup` widget.
 * Added `surfaceHover` token to `PrimeColorScheme` for a light → medium → dark progression on hover/press states. **BREAKING** for code that constructs `PrimeColorScheme` directly — `surfaceHover` is now required.
