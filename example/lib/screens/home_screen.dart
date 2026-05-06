@@ -46,6 +46,13 @@ class HomeScreen extends StatelessWidget {
             Text('Component Showcase', style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textSecondary)),
             _buildListItem(
               context: context,
+              title: 'App Bar',
+              description: 'Top app bars with centered or left-aligned titles',
+              icon: PrimeIcons.viamFlutter,
+              screen: const AppBarScreen(),
+            ),
+            _buildListItem(
+              context: context,
               title: 'Icons',
               description: 'Browse all available PrimeIcons',
               icon: PrimeIcons.alert,

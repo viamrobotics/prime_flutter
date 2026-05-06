@@ -2,6 +2,7 @@
 export 'examples/locations_screen.dart';
 
 // widgets
+export 'widgets/app_bar_screen.dart';
 export 'widgets/badge_screen.dart';
 export 'widgets/button_screen.dart';
 export 'widgets/icons_screen.dart';

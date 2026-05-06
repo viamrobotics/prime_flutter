@@ -64,3 +64,26 @@ PrimeAppBar(
 ```
 
 </Preview>
+
+## Left-aligned Title
+
+By default, the title is centered and stacked over the leading and actions slots — best for short, fixed titles. Pass `centerTitle: false` to switch to a horizontal `Row` layout: leading + title + actions sit side by side, the title takes remaining space and ellipses cleanly against the actions, and the leading slot is no longer constrained to icon width (use it for an org switcher, breadcrumb, etc.).
+
+<Preview src="app-bar?style=leftAligned">
+
+```dart
+PrimeAppBar(
+  centerTitle: false,
+  leading: Icon(PrimeIcons.menu),
+  title: Text(
+    'A long left-aligned title',
+    overflow: TextOverflow.ellipsis,
+  ),
+  actions: [
+    Icon(PrimeIcons.viamFlutter),
+    Icon(PrimeIcons.viamFlutter),
+  ],
+)
+```
+
+</Preview>

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide TabBar;
 import 'package:prime_flutter/prime_flutter.dart';
 
-enum AppBarPageStyle { basic, withActions, withBottom }
+enum AppBarPageStyle { basic, withActions, withBottom, leftAligned }
 
 class AppBarPage extends StatelessWidget {
   final AppBarPageStyle style;
@@ -35,6 +35,12 @@ class AppBarPage extends StatelessWidget {
                       onDestinationSelected: (_) {},
                       items: const [Text('Tab 1'), Text('Tab 2'), Text('Tab 3')],
                     ),
+                  ),
+                  AppBarPageStyle.leftAligned => const PrimeAppBar(
+                    centerTitle: false,
+                    leading: Icon(PrimeIcons.menu),
+                    title: Text('A long left-aligned title', overflow: TextOverflow.ellipsis),
+                    actions: [Icon(PrimeIcons.viamFlutter), Icon(PrimeIcons.viamFlutter)],
                   ),
                 },
                 Container(
