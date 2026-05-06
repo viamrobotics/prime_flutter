@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
-enum AvatarPageStyle { initials, icon, sizes }
+enum AvatarPageStyle { initials, icon, sizes, interactive }
 
 class AvatarPage extends StatelessWidget {
   final AvatarPageStyle style;
@@ -27,6 +27,7 @@ class AvatarPage extends StatelessWidget {
               Avatar(size: 64, child: Text('LG')),
             ],
           ),
+          AvatarPageStyle.interactive => Avatar(child: const Text('CP'), onPressed: () {}),
         },
       ),
     );
