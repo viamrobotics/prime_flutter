@@ -32,19 +32,11 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// constrained to icon width — pass anything (e.g. an org switcher).
   final bool centerTitle;
 
-  const PrimeAppBar({
-    super.key,
-    this.title,
-    this.leading,
-    this.actions,
-    this.bottom,
-    this.centerTitle = true,
-  });
+  const PrimeAppBar({super.key, this.title, this.leading, this.actions, this.bottom, this.centerTitle = true});
 
   @override
   // +1 accounts for the 1px bottom border, which insets the Container's layout size.
-  Size get preferredSize =>
-      Size.fromHeight(48 + (bottom?.preferredSize.height ?? 0) + 1);
+  Size get preferredSize => Size.fromHeight(48 + (bottom?.preferredSize.height ?? 0) + 1);
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +54,7 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               behavior: HitTestBehavior.opaque,
-              child: SizedBox.square(
-                dimension: 24,
-                child: Icon(PrimeIcons.chevronLeft, size: 24),
-              ),
+              child: SizedBox.square(dimension: 24, child: Icon(PrimeIcons.chevronLeft, size: 24)),
             ),
           );
         } else if (effectiveLeading == null && !canPop) {
@@ -75,9 +64,7 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
         return Container(
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceOffset,
-            border: Border(
-              bottom: BorderSide(color: theme.colorScheme.borderSubtle),
-            ),
+            border: Border(bottom: BorderSide(color: theme.colorScheme.borderSubtle)),
           ),
           child: SafeArea(
             bottom: false,
@@ -87,9 +74,7 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Container(
                   height: 48,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: centerTitle
-                      ? _buildStackLayout(theme, effectiveLeading)
-                      : _buildRowLayout(theme, effectiveLeading),
+                  child: centerTitle ? _buildStackLayout(theme, effectiveLeading) : _buildRowLayout(theme, effectiveLeading),
                 ),
                 if (bottom != null) bottom!,
               ],
@@ -108,39 +93,24 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: IconTheme(
-              data: IconThemeData(
-                color: theme.colorScheme.iconSecondary,
-                size: 24,
-              ),
+              data: IconThemeData(color: theme.colorScheme.iconSecondary, size: 24),
               child: DefaultTextStyle(
-                style: theme.textTheme.bodyDefault.copyWith(
-                  color: theme.colorScheme.textPrimary,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textPrimary, fontWeight: FontWeight.w600),
                 child: effectiveLeading,
               ),
             ),
           ),
         if (title != null)
           DefaultTextStyle(
-            style: theme.textTheme.title.copyWith(
-              color: theme.colorScheme.textPrimary,
-            ),
+            style: theme.textTheme.title.copyWith(color: theme.colorScheme.textPrimary),
             child: title!,
           ),
         if (actions != null)
           Align(
             alignment: Alignment.centerRight,
             child: IconTheme(
-              data: IconThemeData(
-                color: theme.colorScheme.iconSecondary,
-                size: 24,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                spacing: 8,
-                children: actions!,
-              ),
+              data: IconThemeData(color: theme.colorScheme.iconSecondary, size: 24),
+              child: Row(mainAxisSize: MainAxisSize.min, spacing: 8, children: actions!),
             ),
           ),
       ],
@@ -152,15 +122,9 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
       children: [
         if (effectiveLeading != null) ...[
           IconTheme(
-            data: IconThemeData(
-              color: theme.colorScheme.iconSecondary,
-              size: 24,
-            ),
+            data: IconThemeData(color: theme.colorScheme.iconSecondary, size: 24),
             child: DefaultTextStyle(
-              style: theme.textTheme.bodyDefault.copyWith(
-                color: theme.colorScheme.textPrimary,
-                fontWeight: FontWeight.w600,
-              ),
+              style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.textPrimary, fontWeight: FontWeight.w600),
               child: effectiveLeading,
             ),
           ),
@@ -169,9 +133,7 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
         if (title != null)
           Expanded(
             child: DefaultTextStyle(
-              style: theme.textTheme.title.copyWith(
-                color: theme.colorScheme.textPrimary,
-              ),
+              style: theme.textTheme.title.copyWith(color: theme.colorScheme.textPrimary),
               child: title!,
             ),
           )
@@ -179,15 +141,8 @@ class PrimeAppBar extends StatelessWidget implements PreferredSizeWidget {
           const Spacer(),
         if (actions != null)
           IconTheme(
-            data: IconThemeData(
-              color: theme.colorScheme.iconSecondary,
-              size: 24,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              spacing: 8,
-              children: actions!,
-            ),
+            data: IconThemeData(color: theme.colorScheme.iconSecondary, size: 24),
+            child: Row(mainAxisSize: MainAxisSize.min, spacing: 8, children: actions!),
           ),
       ],
     );

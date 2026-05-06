@@ -22,14 +22,7 @@ class Avatar extends StatefulWidget {
   /// hover and press animations.
   final VoidCallback? onPressed;
 
-  const Avatar({
-    super.key,
-    required this.child,
-    this.size = 32.0,
-    this.backgroundColor,
-    this.foregroundColor,
-    this.onPressed,
-  });
+  const Avatar({super.key, required this.child, this.size = 32.0, this.backgroundColor, this.foregroundColor, this.onPressed});
 
   @override
   State<Avatar> createState() => _AvatarState();
