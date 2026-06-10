@@ -119,7 +119,7 @@ class PrimeColorScheme {
       actionPrimaryFg: PrimeColors.gray0,
       actionNeutralBg: PrimeColors.gray1,
       borderSubtle: PrimeColors.borderSubtle,
-      inputText: PrimeColors.gray6,
+      inputText: PrimeColors.gray9,
       inputFocus: PrimeColors.focusBlue,
 
       // Status
@@ -159,7 +159,7 @@ class PrimeColorScheme {
       actionPrimaryFg: PrimeColors.gray9,
       actionNeutralBg: PrimeColors.gray8,
       borderSubtle: PrimeColors.gray8,
-      inputText: PrimeColors.gray6,
+      inputText: PrimeColors.gray9,
       inputFocus: PrimeColors.focusBlue,
 
       // Status
