@@ -11,8 +11,8 @@
     "build:flutter": "cd playground && flutter build web --output ../public/flutter --base-href /flutter/"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.37.2",
-    "astro": "^5.6.1",
-    "sharp": "^0.34.2"
+    "@astrojs/starlight": "^0.41.4",
+    "astro": "^7.1.3",
+    "sharp": "^0.35.3"
   }
 }
