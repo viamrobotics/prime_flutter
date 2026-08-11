@@ -9,6 +9,7 @@ class Input extends StatelessWidget {
   final Widget? trailing;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onSubmitted;
   final bool autofocus;
@@ -22,6 +23,7 @@ class Input extends StatelessWidget {
     this.trailing,
     this.obscureText = false,
     this.keyboardType,
+    this.textInputAction,
     this.onChanged,
     this.onSubmitted,
     this.autofocus = false,
@@ -38,6 +40,7 @@ class Input extends StatelessWidget {
             controller: controller,
             obscureText: obscureText,
             keyboardType: keyboardType,
+            textInputAction: textInputAction,
             onChanged: onChanged,
             onSubmitted: (_) => onSubmitted?.call(),
             autofocus: autofocus,

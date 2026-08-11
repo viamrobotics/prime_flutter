@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 class InputScreen extends StatelessWidget {
@@ -18,15 +19,20 @@ class InputScreen extends StatelessWidget {
             children: [
               Text('Basic Input', style: theme.textTheme.title),
               const SizedBox(height: 8),
-              const Input(placeholder: 'Enter text...'),
+              const Input(placeholder: 'Enter text...', textInputAction: TextInputAction.next),
               const SizedBox(height: 24),
               Text('With Leading Icon', style: theme.textTheme.title),
               const SizedBox(height: 8),
-              const Input(placeholder: 'Search...', leading: Icon(PrimeIcons.magnify)),
+              const Input(placeholder: 'Search...', leading: Icon(PrimeIcons.magnify), textInputAction: TextInputAction.search),
               const SizedBox(height: 24),
               Text('With Trailing Icon', style: theme.textTheme.title),
               const SizedBox(height: 8),
-              Input(placeholder: 'Enter password', obscureText: true, trailing: Icon(PrimeIcons.pencilOutline)),
+              Input(
+                placeholder: 'Enter password',
+                obscureText: true,
+                trailing: Icon(PrimeIcons.pencilOutline),
+                textInputAction: TextInputAction.done,
+              ),
               const SizedBox(height: 24),
               Text('Keyboard Type (Number)', style: theme.textTheme.title),
               const SizedBox(height: 8),
