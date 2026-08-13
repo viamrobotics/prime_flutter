@@ -1,3 +1,6 @@
+## 0.2.23
+* Added `autofillHints` and `focusNode` to `Input`, so a form can participate in platform password autofill and chain focus between fields.
+
 ## 0.2.19
 * Add defaultTextStyle to Toast text so it avoids yellow udnerline
 

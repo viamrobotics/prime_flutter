@@ -14,6 +14,8 @@ class Input extends StatelessWidget {
   final VoidCallback? onSubmitted;
   final bool autofocus;
   final bool? autocorrect;
+  final FocusNode? focusNode;
+  final Iterable<String>? autofillHints;
 
   const Input({
     super.key,
@@ -28,6 +30,8 @@ class Input extends StatelessWidget {
     this.onSubmitted,
     this.autofocus = false,
     this.autocorrect,
+    this.focusNode,
+    this.autofillHints,
   });
 
   @override
@@ -45,6 +49,8 @@ class Input extends StatelessWidget {
             onSubmitted: (_) => onSubmitted?.call(),
             autofocus: autofocus,
             autocorrect: autocorrect,
+            focusNode: focusNode,
+            autofillHints: autofillHints,
             style: theme.textTheme.bodyDefault.copyWith(color: theme.colorScheme.inputText),
             cursorColor: theme.colorScheme.inputFocus,
             decoration: InputDecoration(
