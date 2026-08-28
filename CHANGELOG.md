@@ -1,3 +1,6 @@
+## 0.2.24
+* Fixed `Button` press feedback being invisible on a quick tap. Press-and-hold is unchanged.
+
 ## 0.2.23
 * Added `autofillHints` and `focusNode` to `Input`, so a form can participate in platform password autofill and chain focus between fields.
 * Added `textInputAction` to `Input`, for setting the keyboard's action button (e.g. next, done, search).

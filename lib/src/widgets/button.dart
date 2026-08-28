@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_color_scheme.dart';
@@ -98,8 +100,27 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
+  /// How long the pressed state lingers after release, so a quick tap is still visible.
+  static const Duration _pressLinger = Duration(milliseconds: 60);
+
+  /// The pressed state appears immediately; only the return to rest animates.
+  static const Duration _pressInDuration = Duration.zero;
+  static const Duration _pressOutDuration = Duration(milliseconds: 100);
+
   bool _isHovered = false;
   bool _isPressed = false;
+  int _pressCount = 0;
+
+  void _handlePressStart() {
+    _pressCount++;
+    setState(() => _isPressed = true);
+  }
+
+  Future<void> _handlePressEnd() async {
+    final press = _pressCount;
+    await Future<void>.delayed(_pressLinger);
+    if (mounted && press == _pressCount) setState(() => _isPressed = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,20 +136,20 @@ class _ButtonState extends State<Button> {
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTapDown: (_) {
-              if (!widget.disabled) setState(() => _isPressed = true);
+              if (!widget.disabled) _handlePressStart();
             },
             onTapUp: (_) {
-              if (!widget.disabled) setState(() => _isPressed = false);
+              if (!widget.disabled) _handlePressEnd();
             },
             onTapCancel: () {
-              if (!widget.disabled) setState(() => _isPressed = false);
+              if (!widget.disabled) _handlePressEnd();
             },
             onTap: widget.disabled ? null : widget.onPressed,
             child: SizedBox(
               height: 44.0,
               child: AnimatedContainer(
                 width: widget.fullWidth ? double.infinity : null,
-                duration: const Duration(milliseconds: 200),
+                duration: _isPressed ? _pressInDuration : _pressOutDuration,
                 curve: Curves.easeInOut,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
