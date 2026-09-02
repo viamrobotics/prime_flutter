@@ -21,6 +21,14 @@ class ExpansionListItem extends StatefulWidget {
   /// A callback function to be called when the expansion list item is expanded or collapsed.
   final ValueChanged<bool>? onExpansionChanged;
 
+  /// Padding around [children] when the item is expanded.
+  ///
+  /// Defaults to [defaultChildrenPadding]. Pass a smaller value when the children
+  /// need the horizontal space, such as a dense row of controls.
+  final EdgeInsetsGeometry childrenPadding;
+
+  static const EdgeInsetsGeometry defaultChildrenPadding = EdgeInsets.symmetric(vertical: 12, horizontal: 16);
+
   /// Whether the expansion list item should be displayed as a card.
   final bool _isCard;
 
@@ -33,6 +41,7 @@ class ExpansionListItem extends StatefulWidget {
     this.children = const <Widget>[],
     this.initiallyExpanded = false,
     this.onExpansionChanged,
+    this.childrenPadding = defaultChildrenPadding,
   }) : _isCard = false;
 
   /// Creates an expansion list item that is displayed as a card.
@@ -44,6 +53,7 @@ class ExpansionListItem extends StatefulWidget {
     this.children = const <Widget>[],
     this.initiallyExpanded = false,
     this.onExpansionChanged,
+    this.childrenPadding = defaultChildrenPadding,
   }) : _isCard = true;
 
   @override
@@ -157,7 +167,7 @@ class _ExpansionListItemState extends State<ExpansionListItem> {
             },
             bodyBuilder: (context, animation) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding: widget.childrenPadding,
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: widget.children),
               );
             },

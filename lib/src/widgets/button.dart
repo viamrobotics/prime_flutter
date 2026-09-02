@@ -85,6 +85,14 @@ class Button extends StatefulWidget {
   final bool disabled;
   final bool fullWidth;
 
+  /// Padding between the button's border and its [icon] and [label].
+  ///
+  /// Defaults to [defaultPadding]. Pass a smaller value for dense layouts where
+  /// several buttons share a row.
+  final EdgeInsetsGeometry padding;
+
+  static const EdgeInsetsGeometry defaultPadding = EdgeInsets.symmetric(horizontal: 16);
+
   const Button({
     super.key,
     this.label,
@@ -93,6 +101,7 @@ class Button extends StatefulWidget {
     this.icon,
     this.disabled = false,
     this.fullWidth = false,
+    this.padding = defaultPadding,
   });
 
   @override
@@ -151,7 +160,7 @@ class _ButtonState extends State<Button> {
                 width: widget.fullWidth ? double.infinity : null,
                 duration: _isPressed ? _pressInDuration : _pressOutDuration,
                 curve: Curves.easeInOut,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: widget.padding,
                 decoration: BoxDecoration(
                   color: colors.backgroundColor,
                   borderRadius: BorderRadius.circular(cornerRadius),
