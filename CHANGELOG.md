@@ -1,3 +1,7 @@
+## 0.2.25
+* Added `padding` to `Button`, for dense layouts where several buttons share a row. Defaults to `Button.defaultPadding`, so existing buttons are unchanged.
+* Added `childrenPadding` to `ExpansionListItem`, so expanded children can reclaim horizontal space. Defaults to `ExpansionListItem.defaultChildrenPadding`.
+
 ## 0.2.24
 * Fixed `Button` press feedback being invisible on a quick tap. Press-and-hold is unchanged.
 
