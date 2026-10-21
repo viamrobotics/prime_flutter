@@ -1,3 +1,6 @@
+## 0.2.26
+* Added `resizeToAvoidBottomInset` to `PrimeScaffold`, defaulting to `true`. The body now shrinks to stay above the on-screen keyboard, so focused text fields in a scrollable body scroll into view instead of being hidden behind it. The bottom navigation bar stays under the keyboard. Pass `false` to keep the old behavior.
+
 ## 0.2.25
 * Added `padding` to `Button`, for dense layouts where several buttons share a row. Defaults to `Button.defaultPadding`, so existing buttons are unchanged.
 * Added `childrenPadding` to `ExpansionListItem`, so expanded children can reclaim horizontal space. Defaults to `ExpansionListItem.defaultChildrenPadding`.
