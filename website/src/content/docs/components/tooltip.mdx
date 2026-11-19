@@ -1,0 +1,37 @@
+---
+title: Tooltip
+description: Contextual hints and the anchored-popup primitive.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Tooltip` describes an element on mouse hover, keyboard focus, or long press.
+
+## Usage
+
+Pass `message` for text or `description` for rich content. `visibility` forces the tooltip on or off, and `hoverDelay` delays it for the mouse.
+
+<Preview src="demo?name=tooltip" height="200px">
+
+```dart
+Tooltip(
+  message: 'Copy to clipboard',
+  child: Icon(PrimeIcons.contentCopy),
+)
+```
+
+</Preview>
+
+## Floating
+
+`Floating` is the primitive behind every tooltip, menu and popover: it anchors a popup to its child in the nearest overlay, flips it when there is no room, and reports presses outside.
+
+```dart
+Floating(
+  visible: isOpen,
+  placement: FloatingPlacement.bottomStart,
+  onTapOutside: () => setState(() => isOpen = false),
+  floatingBuilder: (context) => const MyPanel(),
+  child: const Text('Anchor'),
+)
+```

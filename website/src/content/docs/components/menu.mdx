@@ -1,0 +1,131 @@
+---
+title: Menu
+description: Menus, menubars, context menus, and popovers.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Menu` opens a list of actions from a trigger and closes itself after an item runs.
+
+## Menu
+
+Compose it from `MenuItem`, `MenuCheckboxItem`, `MenuRadioGroup` with `MenuRadioItem`, `MenuGroup`, `MenuSub`, and `MenuSeparator`.
+
+<Preview src="demo?name=menu" height="420px">
+
+```dart
+Menu(
+  trigger: const Button(label: Text('View')),
+  items: [
+    MenuItem(icon: PrimeIcons.refresh, shortcut: '⌘R', onTap: refresh, child: const Text('Refresh')),
+    MenuCheckboxItem(checked: showHidden, onChanged: setShowHidden, child: const Text('Show hidden')),
+    const MenuSeparator(),
+    MenuRadioGroup<String>(
+      value: density,
+      onChanged: setDensity,
+      heading: const Text('Density'),
+      children: const [
+        MenuRadioItem(value: 'comfortable', child: Text('Comfortable')),
+        MenuRadioItem(value: 'compact', child: Text('Compact')),
+      ],
+    ),
+    MenuSub(items: [MenuItem(onTap: exportCsv, child: const Text('CSV'))], child: const Text('Export as')),
+    MenuItem(variant: MenuItemVariant.danger, onTap: delete, child: const Text('Delete')),
+  ],
+)
+```
+
+</Preview>
+
+## Menubar
+
+A horizontal bar of menus. While one is open, hovering another trigger switches to it.
+
+<Preview src="demo?name=menubar" height="240px">
+
+```dart
+Menubar(
+  menus: [
+    MenubarMenu(label: const Text('File'), items: [MenuItem(shortcut: '⌘O', onTap: open, child: const Text('Open'))]),
+    MenubarMenu(label: const Text('Edit'), items: [MenuItem(shortcut: '⌘Z', onTap: undo, child: const Text('Undo'))]),
+  ],
+)
+```
+
+</Preview>
+
+## Context menu region
+
+Opens a menu at the pointer on a right click or a long press.
+
+<Preview src="demo?name=context-menu-region" height="280px">
+
+```dart
+ContextMenuRegion(
+  items: [MenuItem(onTap: copy, child: const Text('Copy'))],
+  child: const Text('Right-click or long-press here'),
+)
+```
+
+</Preview>
+
+## Floating menu
+
+`FloatingMenu` is the controlled variant: you own `isOpen`, and items are `ContextMenuItem`s that do not close the menu on their own.
+
+<Preview src="demo?name=floating-menu" height="240px">
+
+```dart
+FloatingMenu(
+  isOpen: isOpen,
+  onChange: (open) => setState(() => isOpen = open),
+  control: const Icon(PrimeIcons.dotsHorizontal),
+  items: [
+    ContextMenuItem(onTap: rename, child: const Text('Rename')),
+    const ContextMenuSeparator(),
+    ContextMenuItem(variant: ContextMenuItemVariant.danger, onTap: delete, child: const Text('Delete')),
+  ],
+)
+```
+
+</Preview>
+
+## Popover
+
+A floating panel of arbitrary content. The builder receives a `close` callback.
+
+<Preview src="demo?name=popover" height="280px">
+
+```dart
+Popover(
+  trigger: const Button(label: Text('Share')),
+  contentBuilder: (context, close) => Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const Text('Anyone with the link can view this machine.'),
+      Button(label: const Text('Copy link'), onPressed: close),
+    ],
+  ),
+)
+```
+
+</Preview>
+
+## Nav dropdown
+
+`NavDropdown` switches between destinations, such as the pages of a section on a narrow screen.
+
+<Preview src="demo?name=nav-dropdown" height="300px">
+
+```dart
+NavDropdown<String>(
+  selected: currentPath,
+  onSelected: (path) => router.go(path),
+  options: const [
+    NavOption(label: 'Overview', value: '/overview'),
+    NavOption(label: 'Logs', value: '/logs', description: 'Live and historical'),
+  ],
+)
+```
+
+</Preview>

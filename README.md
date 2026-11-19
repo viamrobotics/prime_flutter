@@ -24,6 +24,20 @@ Prime Flutter provides a set of polished, reusable widgets that adhere to a cons
 -   **FilterPill**: Selectable chips for filtering content.
 -   **Progress**: Circular progress indicators.
 -   **PrimeScaffold**: A scaffold wrapper that integrates seamlessly with the Prime theme.
+-   **PrimeBanner**, **SiteBanner**, **NotificationContainer** / **Notify**: Inline alerts, app-wide banners, and stacked notifications.
+-   **IconButton**, **FloatingMenu**, **ContextMenu**, **NavDropdown**: Icon-only actions and anchored menus.
+-   **Tooltip**, **Floating**: Hover/long-press hints and the anchored-popup primitive behind every menu.
+-   **Pill**, **StatusPill**, **Kbd**, **InlineCode**, **CodeSnippet**: Compact tokens and read-only code.
+-   **Label**, **NumericInput**, **SliderInput**, **RangeInput**, **VectorInput**, **Radio**: Form controls.
+-   **SearchableSelect**, **Multiselect**, **RelativeTimePicker**: Searchable pickers and a relative/absolute time field.
+-   **Breadcrumbs**, **NavigationBreadcrumb**, **Expandable**, **Takeover**: Navigation aids, disclosures, and full-screen flows.
+-   **PrimeTable**, **DataGrid**: A simple table with row variants, and a sortable grid with a sticky header.
+-   **Field**, **Hint**, **Checkbox**, **Textarea**, **DatePicker**, **StatusDot**: More form parts and indicators.
+-   **Menu**, **Menubar**, **ContextMenuRegion**, **Popover**, **Collapsible**, **Modal**: Self-closing menus, popovers, disclosures, and modals.
+-   **Panel**, **Folder**, **NumberField**, **PointField**, **SliderField**: Dense controls for tool panels.
+-   **CodeEditor**: A code editor with syntax highlighting, a line-number gutter, and a diff view.
+-   **Panes**, **SplitPane**: Resizable split-pane layouts driven by a layout tree, with tabbed stacks.
+-   **TreeView**: An expandable, selectable tree with keyboard navigation.
 
 ## Getting started
 

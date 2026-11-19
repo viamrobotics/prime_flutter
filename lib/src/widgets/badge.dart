@@ -1,9 +1,26 @@
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_color_scheme.dart';
+import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
+import 'progress.dart';
 
-enum BadgeVariant { success, danger, warning, info, neutral }
+enum BadgeVariant {
+  success,
+  danger,
+  warning,
+  info,
+  neutral,
+
+  /// Work that has not started or finished, in purple.
+  pending,
+
+  /// Work under way: info colors with a spinner in place of the icon.
+  progress,
+
+  /// A muted, bordered badge for an inactive state.
+  inactive,
+}
 
 /// A simple Badge widget. Used for labeling items with status or type.
 class Badge extends StatelessWidget {
@@ -29,16 +46,26 @@ class Badge extends StatelessWidget {
 
         return Container(
           padding: showBackground ? EdgeInsets.symmetric(horizontal: 8, vertical: 4) : null,
-          decoration: showBackground ? BoxDecoration(color: colors.backgroundColor, borderRadius: BorderRadius.circular(4)) : null,
+          decoration: showBackground
+              ? BoxDecoration(
+                  color: colors.backgroundColor,
+                  borderRadius: BorderRadius.circular(4),
+                  border: variant == BadgeVariant.inactive ? Border.all(color: theme.colorScheme.borderSubtle) : null,
+                )
+              : null,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (icon != null)
+              if (variant == BadgeVariant.progress) ...[
+                Progress(size: 14, color: colors.foregroundColor),
+                const SizedBox(width: 8),
+              ] else if (icon != null) ...[
                 IconTheme(
                   data: IconThemeData(size: 18, color: colors.foregroundColor),
                   child: icon!,
                 ),
-              if (icon != null) const SizedBox(width: 8),
+                const SizedBox(width: 8),
+              ],
               DefaultTextStyle(
                 style: theme.textTheme.label.copyWith(color: colors.foregroundColor),
                 child: child ?? const SizedBox.shrink(),
@@ -62,6 +89,12 @@ class Badge extends StatelessWidget {
         return (backgroundColor: colorScheme.statusInfoLight, foregroundColor: colorScheme.statusInfoDark);
       case BadgeVariant.neutral:
         return (backgroundColor: colorScheme.surfaceHighlight, foregroundColor: colorScheme.textSecondary);
+      case BadgeVariant.pending:
+        return (backgroundColor: PrimeColors.pendingLight, foregroundColor: PrimeColors.pendingDark);
+      case BadgeVariant.progress:
+        return (backgroundColor: colorScheme.statusInfoLight, foregroundColor: colorScheme.statusInfoDark);
+      case BadgeVariant.inactive:
+        return (backgroundColor: colorScheme.surfaceOffset, foregroundColor: colorScheme.textPrimary);
     }
   }
 }

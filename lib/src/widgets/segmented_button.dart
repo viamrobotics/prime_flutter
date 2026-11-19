@@ -31,7 +31,11 @@ class SegmentedButton<T> extends StatelessWidget {
     this.onSelectionChanged,
     this.multiSelect = false,
     this.allowEmpty = false,
+    this.disabled = false,
   });
+
+  /// Whether the whole control rejects taps.
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +70,7 @@ class SegmentedButton<T> extends StatelessWidget {
   }
 
   void _handleTap(T value) {
-    if (onSelectionChanged == null) return;
+    if (onSelectionChanged == null || disabled) return;
 
     final newSelected = Set<T>.from(selected);
 

@@ -1,0 +1,43 @@
+---
+title: Tree View
+description: An expandable, selectable tree.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`TreeView` renders a tree of expandable, selectable rows. It never inspects a node directly: accessor functions describe your node type, so any shape works.
+
+## Usage
+
+Leave `expanded` or `selected` null to let the tree manage that state, or pass them with their callbacks to control it. `branchClick` decides whether tapping a branch toggles it, selects it, or both.
+
+<Preview src="demo?name=tree-view" height="300px">
+
+```dart
+TreeView<FileNode>(
+  nodes: files,
+  nodeToValue: (file) => file.path,
+  nodeToString: (file) => file.name,
+  nodeToChildren: (file) => file.children,
+  expanded: expanded,
+  onExpandedChanged: (next) => setState(() => expanded = next),
+  selected: selected,
+  onSelectedChanged: (next) => setState(() => selected = next),
+)
+```
+
+</Preview>
+
+## Keyboard
+
+Up and Down move focus, Right expands or enters a branch, Left collapses or moves to the parent, Home and End jump, Enter and Space activate, `*` expands every sibling, and typing a character jumps to the next match.
+
+```dart
+TreeView<FileNode>(
+  // ...
+  selectionMode: TreeSelectionMode.multiple,
+  branchClick: TreeBranchClick.toggle,
+  showIndentGuides: true,
+  nodeBuilder: (context, file, state) => Row(children: [Icon(file.icon), Text(file.name)]),
+)
+```

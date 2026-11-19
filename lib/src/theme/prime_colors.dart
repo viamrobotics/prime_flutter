@@ -31,6 +31,16 @@ class PrimeColors {
   static const Color warningLight = Color(0xFFFEF3E0);
   static const Color warningDark = Color(0xFFD97706);
 
+  // Status mid-tones (borders on status surfaces) and bright accents
+  static const Color dangerMedium = Color(0xFFEDC0BF);
+  static const Color infoMedium = Color(0xFFB6D1F4);
+  static const Color successMedium = Color(0xFFB9DCBC);
+  static const Color warningMedium = Color(0xFFE9C89D);
+  static const Color warningBright = Color(0xFFEFA300);
+  static const Color pendingLight = Color(0xFFF5EBFF);
+  static const Color pendingMedium = Color(0xFFD3C1F6);
+  static const Color pendingDark = Color(0xFF7C2FCA);
+
   // Hardcoded / Specific
   static const Color focusBlue = Color(0xFF007AFF);
   static const Color borderSubtle = Color(0x14000000);

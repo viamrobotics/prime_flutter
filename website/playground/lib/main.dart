@@ -5,6 +5,7 @@ import 'screens/avatar_page.dart';
 import 'screens/badge_page.dart';
 import 'screens/bottom_sheet_page.dart';
 import 'screens/button_page.dart';
+import 'screens/demo_page.dart';
 import 'screens/dialog_page.dart';
 import 'screens/divider_page.dart';
 import 'screens/dropdown_page.dart';
@@ -37,6 +38,10 @@ class DocsApp extends StatelessWidget {
       theme: PrimeThemeData(colorScheme: PrimeColorScheme.light(), textTheme: PrimeTextTheme.base(), cornerRadius: 8.0),
       onGenerateRoute: (settings) {
         final uri = Uri.parse(settings.name ?? '/');
+
+        if (uri.path == '/demo') {
+          return PrimePageRoute(builder: (_) => DemoPage(name: uri.queryParameters['name'] ?? ''));
+        }
 
         if (uri.path == '/app-bar') {
           final styleStr = uri.queryParameters['style'];

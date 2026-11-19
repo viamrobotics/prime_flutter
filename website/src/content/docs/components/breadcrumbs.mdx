@@ -1,0 +1,70 @@
+---
+title: Breadcrumbs
+description: Breadcrumb trails and disclosures.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Breadcrumbs` is a compact, non-interactive trail showing where an item sits in a hierarchy.
+
+## Breadcrumbs
+
+Pass the parts outermost first.
+
+<Preview src="demo?name=breadcrumbs" height="160px">
+
+```dart
+Breadcrumbs(crumbs: ['Dessert', 'Cookie', 'Chocolate chip'])
+```
+
+</Preview>
+
+## Navigation breadcrumb
+
+Tappable navigation built from links, a current page, separators, and an ellipsis.
+
+<Preview src="demo?name=navigation-breadcrumb" height="160px">
+
+```dart
+NavigationBreadcrumb(
+  children: [
+    NavigationBreadcrumbLink(onTap: goHome, child: const Text('Fleet')),
+    const NavigationBreadcrumbSeparator(),
+    const NavigationBreadcrumbEllipsis(),
+    const NavigationBreadcrumbSeparator(),
+    const NavigationBreadcrumbPage(child: Text('arm-1')),
+  ],
+)
+```
+
+</Preview>
+
+## Expandable
+
+An unstyled disclosure: you build the trigger, and the content animates open.
+
+<Preview src="demo?name=expandable" height="200px">
+
+```dart
+Expandable(
+  triggerBuilder: (context, isOpen) => Text(isOpen ? 'Hide' : 'Show'),
+  content: const Text('More detail'),
+)
+```
+
+</Preview>
+
+## Collapsible
+
+A styled disclosure with a title and a chevron.
+
+<Preview src="demo?name=collapsible" height="200px">
+
+```dart
+Collapsible(
+  title: const Text('Advanced'),
+  child: const Text('More settings'),
+)
+```
+
+</Preview>

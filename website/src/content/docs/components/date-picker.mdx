@@ -1,0 +1,56 @@
+---
+title: Date Picker
+description: Date and relative time pickers.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`DatePicker` is a date field with a calendar popup. Dates are typed and shown as `MM/DD/YYYY`.
+
+## Date picker
+
+Limit the selectable days with `min`, `max`, or `isDateUnavailable`.
+
+<Preview src="demo?name=date-picker" height="420px">
+
+```dart
+DatePicker(
+  value: date,
+  max: DateTime.now(),
+  onChanged: (next) => setState(() => date = next),
+)
+```
+
+</Preview>
+
+## Date range picker
+
+`DateRangePicker` holds a start and an end day in one field, with a range calendar. The first pick sets the start and the second the end; picking the end before the start swaps them. A `DateRange` with only one end set is not yet complete.
+
+<Preview src="demo?name=date-range-picker" height="420px">
+
+```dart
+DateRangePicker(
+  value: period,
+  max: DateTime.now(),
+  onChanged: (next) => setState(() => period = next),
+)
+```
+
+</Preview>
+
+## Relative time picker
+
+Accepts a relative expression such as `now-15m` or an absolute `MM/DD/YYYY HH:mm:ss` timestamp. `onChanged` reports the type, the text, and the resolved `DateTime`; `onApply` fires when Enter commits a change.
+
+<Preview src="demo?name=relative-time-picker" height="420px">
+
+```dart
+RelativeTimePicker(
+  value: start,
+  onChanged: (time) => setState(() => start = time.value),
+  onApply: runQuery,
+)
+```
+
+</Preview>
