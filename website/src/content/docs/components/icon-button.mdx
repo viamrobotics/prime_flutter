@@ -1,0 +1,34 @@
+---
+title: Icon Button
+description: An icon-only button.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`IconButton` is an icon-only action. Give it a `label`: it becomes the accessible name and the tooltip.
+
+## Variants
+
+`primary`, `secondary`, `ghost`, `ghostOutline`, `danger`, `dangerFilled`, and `dark`. `size` is `medium` (36px) or `large` (44px), and `loading` swaps the icon for a spinner.
+
+<Preview src="demo?name=icon-button" height="200px">
+
+```dart
+IconButton(
+  icon: const Icon(PrimeIcons.trashCanOutline),
+  label: 'Delete',
+  variant: IconButtonVariant.danger,
+  onPressed: delete,
+)
+```
+
+</Preview>
+
+## With Material
+
+`IconButton` shares its name with Material's. In a file that imports both libraries, hide one of them.
+
+```dart
+import 'package:flutter/material.dart' hide IconButton, Tooltip, Radio, Checkbox;
+import 'package:prime_flutter/prime_flutter.dart';
+```

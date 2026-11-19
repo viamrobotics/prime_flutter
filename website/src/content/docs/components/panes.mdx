@@ -1,0 +1,121 @@
+---
+title: Panes
+description: Resizable split-pane layouts.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Panes` lays out resizable panes from a binary layout tree. You own the tree: `Panes` reports each change through `onLayoutChanged` and you feed the new root back in.
+
+## Layout tree
+
+A `SplitNode` divides its area between two children, a `PaneNode` is a leaf carrying your data, and a `StackNode` puts several panes behind tabs. Drag a divider to resize.
+
+<Preview src="demo?name=panes" height="380px">
+
+```dart
+LayoutNode<String>? layout = const SplitNode(
+  id: 'root',
+  direction: SplitDirection.row,
+  ratio: 0.35,
+  first: PaneNode(id: 'files', data: 'Files'),
+  second: StackNode(
+    id: 'bottom',
+    activeId: 'logs',
+    panes: [PaneNode(id: 'logs', data: 'Logs'), PaneNode(id: 'problems', data: 'Problems')],
+  ),
+);
+
+Panes<String>(
+  layout: layout,
+  onLayoutChanged: (next) => setState(() => layout = next),
+  paneLabel: (pane) => pane.data,
+  paneBuilder: (context, pane, state) => Center(child: Text(pane.data)),
+)
+```
+
+</Preview>
+
+## Rearranging
+
+Drag a tab, or a `PaneDragTrigger` placed around a pane's header, onto another pane. An edge splits that pane, the middle swaps the two (or stacks them with `centerDrop: PaneCenterDrop.stack`), and a tab strip adds the pane to that stack. Set `reorderable: false` to turn dragging off.
+
+```dart
+paneBuilder: (context, pane, state) => Column(
+  children: [
+    PaneDragTrigger(child: Header(title: pane.data)),
+    Expanded(child: Body(pane)),
+  ],
+)
+```
+
+## Move mode and floating windows
+
+`PaneMoveTrigger` toggles move mode, which rearranges panes without dragging: the arrow keys walk across the other panes and their regions, Tab steps through every destination, Enter or Space places the pane, and Escape cancels. A tap on a destination places it too.
+
+A `FloatNode` draws panes in windows over the rest of the layout. Drag a window's title bar to move it, its corner to resize it, and press it to bring it to the front. Create one with `floatPane` or `floatStack`; manage it with `setFloatRect`, `raiseFloat`, and `removeFloat`. Moving a floated pane back onto the layout docks it.
+
+<Preview src="demo?name=panes-rearrange" height="420px">
+
+```dart
+layout = floatPane(
+  layout,
+  'logs',
+  const FloatRect(x: 220, y: 120, width: 240, height: 150),
+  'logs-window',
+  'floats',
+);
+
+paneBuilder: (context, pane, state) => Column(
+  children: [
+    Row(children: [
+      Expanded(child: PaneDragTrigger(child: Text(pane.data))),
+      PaneMoveTrigger(child: const Icon(PrimeIcons.cursorMove)),
+    ]),
+    Expanded(child: Body(pane, floating: state.isFloating)),
+  ],
+)
+```
+
+</Preview>
+
+Pass `floatBuilder` to draw your own window chrome. It receives the entry, the content, and `FloatWindowControls`, whose `dragHandle` and `resizeHandle` wrap the parts that move and resize the window.
+
+```dart
+floatBuilder: (context, entry, controls, content) => Column(
+  children: [
+    controls.dragHandle(child: MyTitleBar(onClose: controls.close)),
+    Expanded(child: content),
+  ],
+)
+```
+
+## Tree operations
+
+Rearrange panes from code. Every operation returns a new root and leaves the old one untouched.
+
+```dart
+layout = movePane(layout, 'logs', 'files', SplitDirection.column, SplitKey.second, 'new-split');
+layout = swapPanes(layout, 'files', 'editor');
+layout = stackPanes(layout, 'editor', 'logs', 'new-stack');
+layout = removePane(layout, 'problems');
+layout = addPaneToUpperRight(layout, const PaneNode(id: 'chat', data: 'Chat'), 'chat-split');
+```
+
+## Split pane
+
+`SplitPane` is the two-child primitive, for a fixed layout without a tree.
+
+<Preview src="demo?name=split-pane" height="260px">
+
+```dart
+SplitPane(
+  direction: SplitDirection.row,
+  ratio: ratio,
+  onRatioChanged: (next) => setState(() => ratio = next),
+  first: const FileTree(),
+  second: const Editor(),
+)
+```
+
+</Preview>

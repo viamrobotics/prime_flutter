@@ -1,0 +1,49 @@
+---
+title: Takeover
+description: Full-screen takeovers and modals.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Takeover` is a full-screen surface for flows that need the whole screen, such as a setup wizard.
+
+## Takeover
+
+Show it with `Takeover.show`. `TakeoverClose` pops the route.
+
+<Preview src="demo?name=takeover" height="360px">
+
+```dart
+Takeover.show<void>(
+  context: context,
+  builder: (context) => const Takeover(
+    header: TakeoverHeader(children: [
+      Expanded(child: TakeoverTitle(child: Text('Setup wizard'))),
+      TakeoverClose(),
+    ]),
+    child: Center(child: Text('Your content here')),
+  ),
+);
+```
+
+</Preview>
+
+## Modal
+
+`Modal` takes custom action widgets and a size `variant`. It exists for parity with Prime for the web, where it is deprecated; prefer `PrimeDialog` for new code.
+
+<Preview src="demo?name=modal" height="360px">
+
+```dart
+Modal.show<void>(
+  context: context,
+  title: const Text('Print a statement?'),
+  message: const Text('This writes a line to the console.'),
+  actionsBuilder: (context) => [
+    Button(label: const Text('Cancel'), onPressed: () => Navigator.of(context).pop()),
+    Button(label: const Text('Print'), variant: ButtonVariant.primary, onPressed: print),
+  ],
+);
+```
+
+</Preview>

@@ -1,0 +1,97 @@
+---
+title: Banner
+description: Inline alerts, app-wide banners, and notifications.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`PrimeBanner` is an inline alert that reports status. It is named `PrimeBanner` because `flutter/widgets` already has a `Banner`.
+
+## Variants
+
+Five variants: `info`, `warning`, `danger`, `success`, and `pending`. Set `loading` to swap the icon for a spinner.
+
+<Preview src="demo?name=banner" height="520px">
+
+```dart
+PrimeBanner(
+  variant: BannerVariant.warning,
+  title: Text('A warning banner'),
+  subtitle: Text('With a subtitle.'),
+)
+```
+
+</Preview>
+
+## Outlined appearance
+
+`appearance: BannerAppearance.outlined` draws the banner as a plain card with the icon in a tinted chip, matching the current web `prime-ui` banner. Without a `title` it is a compact one-liner.
+
+<Preview src="demo?name=banner-outlined" height="260px">
+
+```dart
+PrimeBanner(
+  appearance: BannerAppearance.outlined,
+  title: const Text('Module deprecated'),
+  subtitle: const Text('my-camera uses a module that is no longer maintained.'),
+  onClose: dismiss,
+)
+```
+
+</Preview>
+
+## Actions and details
+
+Add `action` or `actionEmphasize` for a follow-up, `expandableDetails` for content behind a disclosure, and `onClose` for a dismiss button.
+
+<Preview src="demo?name=banner-actions" height="280px">
+
+```dart
+PrimeBanner(
+  variant: BannerVariant.warning,
+  title: const Text('Credentials expire soon'),
+  subtitle: const Text('Rotate the API key before Friday.'),
+  actionEmphasize: Button(label: const Text('Open settings'), onPressed: openSettings),
+  expandableDetails: const Text('Key ending in 4f2a expires in 3 days.'),
+  onClose: dismiss,
+)
+```
+
+</Preview>
+
+## Site banner
+
+`SiteBanner` spans the full width for app-level messages. The `announcement` variant takes a badge and styled text segments.
+
+<Preview src="demo?name=site-banner" height="300px">
+
+```dart
+SiteBanner(
+  variant: SiteBannerVariant.info,
+  value: 'Scheduled maintenance tonight at 10pm ET',
+  onDismiss: dismiss,
+)
+```
+
+</Preview>
+
+## Notifications
+
+Wrap your app in a `NotificationContainer`, then push notifications with `Notify.of(context)`. Each one counts down on its accent bar and pauses while hovered or held. Pass `persist: true` to keep one up until you dismiss it through the returned handle.
+
+<Preview src="demo?name=notification" height="320px">
+
+```dart
+PrimeApp(
+  builder: (context, child) => NotificationContainer(child: child!),
+  home: const HomeScreen(),
+)
+
+Notify.of(context).success('Saved', message: 'Your changes are live.');
+
+final pending = Notify.of(context).pending('Uploading', persist: true);
+await upload();
+pending.dismiss();
+```
+
+</Preview>

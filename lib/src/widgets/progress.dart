@@ -4,6 +4,15 @@ import 'package:flutter/widgets.dart';
 
 import '../theme/prime_theme.dart';
 
+/// The look of a [Progress] indicator.
+enum ProgressVariant {
+  /// A ring of ticks that light up in turn.
+  spinner,
+
+  /// A single braille glyph cycling through its frames, for inline text.
+  dots,
+}
+
 /// A progress widget. Used to display a progress indicator.
 class Progress extends StatefulWidget {
   final double size;
@@ -15,7 +24,9 @@ class Progress extends StatefulWidget {
   /// The number of ticks to display in the progress indicator.
   final int tickCount;
 
-  const Progress({super.key, this.size = 16.0, this.color, this.tickCount = 8});
+  final ProgressVariant variant;
+
+  const Progress({super.key, this.size = 16.0, this.color, this.tickCount = 8, this.variant = ProgressVariant.spinner});
 
   @override
   State<Progress> createState() => _ProgressState();
@@ -44,6 +55,28 @@ class _ProgressState extends State<Progress> with SingleTickerProviderStateMixin
     return PrimeTheme.consumer(
       builder: (context, theme) {
         final color = widget.color ?? IconTheme.of(context).color ?? theme.colorScheme.iconPrimary;
+
+        if (widget.variant == ProgressVariant.dots) {
+          const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+          return Semantics(
+            label: 'Loading',
+            child: ExcludeSemantics(
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) => Text(
+                  frames[(_controller.value * frames.length).floor() % frames.length],
+                  style: theme.textTheme.label.copyWith(
+                    fontSize: widget.size * 0.75,
+                    height: 1,
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.w400,
+                    color: color,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
 
         return SizedBox(
           width: widget.size,

@@ -1,0 +1,96 @@
+---
+title: Field
+description: Labels, hints, checkboxes, radios, and text areas.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Field` groups a label, a control, and hints, and shares `required`, `disabled`, and `state` with them.
+
+## Field
+
+`Label`, `Input`, `Textarea`, `Checkbox`, and `Hint` inside a `Field` read its values. A value set on a part directly still wins.
+
+<Preview src="demo?name=field" height="240px">
+
+```dart
+Field(
+  required: true,
+  state: InputState.error,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    spacing: 4,
+    children: [
+      Label(label: Text('Email')),
+      Input(placeholder: 'you@example.com'),
+      Hint(child: Text('Enter a valid address.')),
+    ],
+  ),
+)
+```
+
+</Preview>
+
+## Label
+
+`Label` can also wrap its control directly. `position` puts it on top or to the left, and `detail` adds muted text.
+
+<Preview src="demo?name=label" height="340px">
+
+```dart
+Label(
+  label: const Text('Name'),
+  required: true,
+  child: Input(placeholder: 'Machine name'),
+)
+```
+
+</Preview>
+
+## Checkbox
+
+Supports an `indeterminate` state. Tapping the label toggles it.
+
+<Preview src="demo?name=checkbox" height="240px">
+
+```dart
+Checkbox(
+  checked: accepted,
+  onChanged: (value) => setState(() => accepted = value),
+  label: const Text('Accept the terms'),
+)
+```
+
+</Preview>
+
+## Radio
+
+One choice from a set. Options take a `description`, an `icon`, and `content` that shows while selected.
+
+<Preview src="demo?name=radio" height="280px">
+
+```dart
+Radio<String>(
+  legend: const Text('Sync frequency'),
+  selected: frequency,
+  onChanged: (value) => setState(() => frequency = value),
+  options: const [
+    RadioOption(label: 'Daily', value: 'daily', description: 'Every day at midnight'),
+    RadioOption(label: 'Weekly', value: 'weekly'),
+  ],
+)
+```
+
+</Preview>
+
+## Textarea
+
+A multi-line input that starts at `rows` lines and grows with its content, up to `maxRows`.
+
+<Preview src="demo?name=textarea" height="220px">
+
+```dart
+Textarea(placeholder: 'Anything else we should know?', rows: 3)
+```
+
+</Preview>

@@ -1,0 +1,32 @@
+---
+title: Controls
+description: Dense controls for tool panels.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+A family of compact controls for inspectors and tool panels.
+
+## Panel
+
+`Panel` is the container, `Folder` a collapsible group, `NumberField` a compact number whose label scrubs the value when dragged, `PointField` a vector, and `SliderField` a slider with a numeric readout. `ControlRow` labels any other control.
+
+<Preview src="demo?name=controls" height="380px">
+
+```dart
+Panel(
+  title: 'Camera',
+  children: [
+    NumberField(label: 'FOV', min: 10, max: 120, value: fov, onChanged: setFov),
+    PointField(label: 'Position', step: 0.1, value: position, onChanged: setPosition),
+    Folder(
+      title: 'Lighting',
+      children: [
+        SliderField(label: 'Intensity', min: 0, max: 1, step: 0.01, value: intensity, onChanged: setIntensity),
+      ],
+    ),
+  ],
+)
+```
+
+</Preview>

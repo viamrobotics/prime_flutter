@@ -1,0 +1,63 @@
+---
+title: Searchable Select
+description: Searchable single and multiple selects.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`SearchableSelect` is a text field that searches and selects from a list of options.
+
+## Searchable select
+
+With `exclusive: true` only listed options can be committed; otherwise any typed text is accepted. `sort` controls whether non-matching options are kept.
+
+<Preview src="demo?name=searchable-select" height="380px">
+
+```dart
+SearchableSelect(
+  options: SelectOption.fromStrings(['Arm', 'Base', 'Camera']),
+  value: component,
+  exclusive: true,
+  onChanged: (value) => setState(() => component = value),
+)
+```
+
+</Preview>
+
+## Multiselect
+
+Chooses several options, shown as removable pills above the field.
+
+<Preview src="demo?name=multiselect" height="420px">
+
+```dart
+Multiselect(
+  options: SelectOption.fromStrings(['Arm', 'Base', 'Camera']),
+  selected: components,
+  clearable: true,
+  onChanged: (values) => setState(() => components = values),
+)
+```
+
+</Preview>
+
+## Combobox
+
+`Combobox` filters a list of options as the user types and selects one of them, by value of any type. Only listed options can be chosen. `allowDeselect` lets picking the selected option clear it, and `onQueryChanged` reports what has been typed since the list opened.
+
+<Preview src="demo?name=combobox" height="360px">
+
+```dart
+Combobox<String>(
+  items: const [
+    ComboboxItem(value: 'camera', label: 'Camera'),
+    ComboboxItem(value: 'motor', label: 'Motor'),
+  ],
+  value: resource,
+  placeholder: 'Search resource types',
+  emptyText: 'No matching resource type',
+  onChanged: (next) => setState(() => resource = next),
+)
+```
+
+</Preview>

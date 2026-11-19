@@ -1,0 +1,76 @@
+---
+title: Table
+description: Tables and data grids.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`PrimeTable` is a simple data table with a header row. It is named `PrimeTable` because `flutter/widgets` already has a `Table`.
+
+## Table
+
+Row variants communicate state: `success`, `error`, and `disabled`.
+
+<Preview src="demo?name=table" height="280px">
+
+```dart
+PrimeTable(
+  columnWidths: const {0: FlexColumnWidth(2)},
+  header: const [Text('Machine'), Text('Status')],
+  rows: const [
+    PrimeTableRow(cells: [Text('rover'), Text('Live')]),
+    PrimeTableRow(cells: [Text('arm-2'), Text('Offline')], variant: TableRowVariant.error),
+  ],
+)
+```
+
+</Preview>
+
+## Data grid
+
+`DataGrid` adds a sticky header, sortable columns, and virtualized rows. Tap a header to cycle ascending, descending, and unsorted. With a `height` the body scrolls under the header.
+
+<Preview src="demo?name=data-grid" height="320px">
+
+```dart
+DataGrid<Machine>(
+  height: 240,
+  rows: machines,
+  initialSort: const DataGridSort('name'),
+  onRowTap: open,
+  columns: [
+    DataGridColumn(id: 'name', header: const Text('Machine'), value: (m) => m.name, flex: 2),
+    DataGridColumn(id: 'parts', header: const Text('Parts'), value: (m) => m.parts, alignment: Alignment.centerRight),
+  ],
+)
+```
+
+</Preview>
+
+## AG Grid table
+
+`AGGridTable` takes the `columnDefs`, `rowData`, and `height` of the web component.
+
+On the web it is the real AG Grid: when the `agGrid` global is on the page, or `scriptUrl` says where to load it from, the grid is created with `agGrid.createGrid` in a platform view and `gridOptions` passes straight through, so AG Grid's own options apply. The package loads nothing on its own; without the global and without a `scriptUrl` it draws the native grid.
+
+On iOS, Android, and desktop there is no browser to run AG Grid in, so the same column definitions, value getters, sorting, and row variants are drawn natively by `DataGrid`, and `gridOptions` has no effect. `cellRenderer` builds Flutter widgets, which the real grid's cells cannot host; there those cells show the value as text.
+
+<Preview src="demo?name=ag-grid" height="380px">
+
+```dart
+AGGridTable<Map<String, Object?>>(
+  height: 300,
+  scriptUrl: 'https://cdn.jsdelivr.net/npm/ag-grid-community@33.0.3/dist/ag-grid-community.min.js',
+  gridOptions: const {'pagination': true, 'paginationPageSize': 20},
+  columnDefs: const [
+    ColDef(field: 'name', headerName: 'Machine', flex: 2),
+    ColDef(field: 'parts', headerName: 'Parts'),
+  ],
+  rowData: const [
+    {'name': 'rover', 'parts': 3},
+    {'name': 'arm-2', 'parts': 12, 'variant': 'error'},
+  ],
+)
+```
+
+</Preview>

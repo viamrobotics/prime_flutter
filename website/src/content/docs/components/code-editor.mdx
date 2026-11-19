@@ -1,0 +1,93 @@
+---
+title: Code Editor
+description: A code editor with syntax highlighting and a diff view.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`CodeEditor` edits code with syntax highlighting, a line-number gutter, and a diff view. It grows with its content; give it a bounded height and it fills that height and scrolls instead.
+
+## Usage
+
+`language` is one of `go`, `javascript`, `json`, `python`, `sql`, and `typescript`; omit it for plain text. Also available: `readOnly`, `disabled`, `invalid`, `placeholder`, `wrapLines`, and `lineNumbers`.
+
+<Preview src="demo?name=code-editor" height="260px">
+
+```dart
+CodeEditor(
+  semanticLabel: 'Config',
+  language: CodeEditorLanguage.json,
+  value: config,
+  onChanged: (next) => setState(() => config = next),
+)
+```
+
+</Preview>
+
+## Search and folding
+
+Ctrl/Cmd+F opens a search bar with find, replace, and replace all. A match inside a folded block opens that block; other folds stay closed. Blocks fold from the markers in the gutter, or from the keyboard with Ctrl/Cmd+Shift+[ and Ctrl/Cmd+Shift+]. Brackets fold in every language, and indented blocks fold in Python and plain text. `onChanged` always reports the whole document, folded regions included. Turn either off with `searchable: false` or `foldable: false`.
+
+<Preview src="demo?name=code-editor-fold" height="320px">
+
+```dart
+CodeEditor(
+  semanticLabel: 'Config',
+  language: CodeEditorLanguage.json,
+  value: config,
+  onChanged: (next) => setState(() => config = next),
+)
+```
+
+</Preview>
+
+## Diff
+
+Set `original` to open the diff view of `original` against `value`. It stays editable: deleted lines show in place, read-only, and the diff updates as you type. It is read-only when `readOnly` is set or there is no `onChanged`. `collapseUnchanged` folds each long unchanged run behind a chip that expands on tap, and the folds stay put while you type.
+
+<Preview src="demo?name=code-editor-diff" height="280px">
+
+```dart
+CodeEditor(
+  language: CodeEditorLanguage.json,
+  original: savedConfig,
+  value: config,
+  onChanged: (next) => setState(() => config = next),
+)
+```
+
+</Preview>
+
+## Split diff
+
+`diff: CodeEditorDiff.split` puts the original beside the current value.
+
+<Preview src="demo?name=code-editor-split" height="260px">
+
+```dart
+CodeEditor(
+  language: CodeEditorLanguage.json,
+  original: savedConfig,
+  value: config,
+  diff: CodeEditorDiff.split,
+)
+```
+
+</Preview>
+
+## Code snippet
+
+`CodeSnippet` is a read-only block with a copy button, and `InlineCode` is a fragment inside a sentence. Neither highlights syntax.
+
+<Preview src="demo?name=code-snippet" height="240px">
+
+```dart
+CodeSnippet(
+  caption: const Text('Install the server, then start it.'),
+  code: 'viam-server -config /etc/viam.json',
+)
+
+InlineCode('viam-server')
+```
+
+</Preview>

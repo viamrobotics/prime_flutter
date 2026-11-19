@@ -21,7 +21,24 @@ class SwitchToggle extends StatelessWidget {
   /// Custom color for the track when the switch is off.
   final Color? inactiveColor;
 
-  const SwitchToggle({super.key, required this.value, this.onChanged, this.disabled = false, this.activeColor, this.inactiveColor});
+  /// Shows the state as text beside the switch.
+  final bool annotated;
+
+  /// The annotation while on and while off.
+  final String onText;
+  final String offText;
+
+  const SwitchToggle({
+    super.key,
+    required this.value,
+    this.onChanged,
+    this.disabled = false,
+    this.activeColor,
+    this.inactiveColor,
+    this.annotated = false,
+    this.onText = 'On',
+    this.offText = 'Off',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +68,7 @@ class SwitchToggle extends StatelessWidget {
           knobColor = knobColor.withValues(alpha: 0.5);
         }
 
-        return MouseRegion(
+        final Widget toggle = MouseRegion(
           cursor: isInteractive ? SystemMouseCursors.click : SystemMouseCursors.basic,
           child: GestureDetector(
             onTap: isInteractive ? () => onChanged!(!value) : null,
@@ -87,6 +104,18 @@ class SwitchToggle extends StatelessWidget {
               ),
             ),
           ),
+        );
+        if (!annotated) return toggle;
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            toggle,
+            const SizedBox(width: 8),
+            Text(
+              value ? onText : offText,
+              style: theme.textTheme.bodySmall.copyWith(height: 1.2, color: disabled ? colors.textPlaceholder : colors.textPrimary),
+            ),
+          ],
         );
       },
     );

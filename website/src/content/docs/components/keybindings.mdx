@@ -1,0 +1,41 @@
+---
+title: Keybindings
+description: Keyboard shortcuts with a shared registry.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Keybindings` owns a registry of keyboard shortcuts for everything below it and the one listener that runs them. `Hotkey` declares a shortcut for as long as it is mounted.
+
+## Usage
+
+A `Keybinding` names a key (`k`, `enter`, `arrowup`) plus optional `shift` and `mod`, where Mod is Command on Apple devices and Control elsewhere. Repeats and Alt presses are ignored, and an unmodified press typed into a text field belongs to the field.
+
+<Preview src="demo?name=keybindings" height="260px">
+
+```dart
+Keybindings(
+  child: Hotkey(
+    binding: const Keybinding(id: 'save', description: 'Save', group: 'File', key: 's', mod: true),
+    onInvoke: save,
+    when: () => hasChanges,
+    child: const Editor(),
+  ),
+)
+```
+
+</Preview>
+
+## Listing shortcuts
+
+`Keybindings.of(context).bindings` lists every shortcut present. Print one with `formatKeybinding`, or render a `Kbd` per key with `keybindingParts`.
+
+```dart
+for (final binding in Keybindings.of(context).bindings)
+  Row(children: [
+    KbdGroup(children: [for (final part in keybindingParts(binding)) Kbd(child: Text(part))]),
+    Text(binding.description),
+  ])
+
+formatKeybinding(binding); // ⌘S on Apple devices, Ctrl+S elsewhere
+```

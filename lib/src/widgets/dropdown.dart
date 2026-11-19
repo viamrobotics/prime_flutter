@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import '../theme/prime_theme.dart';
 import '../theme/prime_theme_data.dart';
+import 'input.dart';
 import 'prime_icons.dart';
 
 /// A dropdown widget that lets the user choose a single value from a list.
@@ -49,7 +50,11 @@ class PrimeDropdown<T> extends StatefulWidget {
     this.placeholder,
     this.itemBuilder,
     this.disabled = false,
+    this.state = InputState.none,
   });
+
+  /// The validation state: `warn` and `error` recolor the border.
+  final InputState state;
 
   @override
   State<PrimeDropdown<T>> createState() => _PrimeDropdownState<T>();
@@ -107,7 +112,9 @@ class _PrimeDropdownState<T> extends State<PrimeDropdown<T>> {
 
   @override
   void dispose() {
-    _close();
+    // Not _close(): it calls setState, which asserts once the element is gone.
+    _overlayEntry?.remove();
+    _overlayEntry = null;
     super.dispose();
   }
 
@@ -132,7 +139,14 @@ class _PrimeDropdownState<T> extends State<PrimeDropdown<T>> {
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surfaceBase,
                   borderRadius: BorderRadius.circular(theme.cornerRadius),
-                  border: Border.all(color: isOpen ? theme.colorScheme.inputFocus : theme.colorScheme.borderSubtle, width: isOpen ? 2 : 1),
+                  border: Border.all(
+                    color: switch (widget.state) {
+                      InputState.error => theme.colorScheme.statusDangerDark,
+                      InputState.warn => theme.colorScheme.statusWarningDark,
+                      _ => isOpen ? theme.colorScheme.inputFocus : theme.colorScheme.borderSubtle,
+                    },
+                    width: isOpen ? 2 : 1,
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -391,7 +405,9 @@ class _PrimeMultiDropdownState<T> extends State<PrimeMultiDropdown<T>> {
 
   @override
   void dispose() {
-    _close();
+    // Not _close(): it calls setState, which asserts once the element is gone.
+    _overlayEntry?.remove();
+    _overlayEntry = null;
     super.dispose();
   }
 

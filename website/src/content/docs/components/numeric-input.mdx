@@ -1,0 +1,65 @@
+---
+title: Numeric Input
+description: Number fields, sliders, ranges, and vectors.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`NumericInput` is a text field for numbers. It filters keystrokes to digits and clamps to `min` and `max` when the edit is committed.
+
+## Numeric input
+
+`type` is `number` or `integer`.
+
+<Preview src="demo?name=numeric-input" height="180px">
+
+```dart
+NumericInput(
+  type: NumericInputType.integer,
+  value: count,
+  min: 0,
+  max: 10,
+  onChanged: (value) => setState(() => count = value),
+)
+```
+
+</Preview>
+
+## Slider input
+
+A numeric input with a drag handle on its leading edge: drag sideways to scrub by `step`.
+
+<Preview src="demo?name=slider-input" height="180px">
+
+```dart
+SliderInput(value: speed, min: 0, max: 1, step: 0.1, onChanged: setSpeed)
+```
+
+</Preview>
+
+## Range input
+
+A number field paired with a slider, for values with a known range.
+
+<Preview src="demo?name=range-input" height="200px">
+
+```dart
+RangeInput(value: volume, max: 100, step: 10, suffix: '%', onChanged: setVolume)
+```
+
+</Preview>
+
+## Vector input
+
+A row of labelled slider inputs for a vector such as x/y/z.
+
+<Preview src="demo?name=vector-input" height="200px">
+
+```dart
+VectorInput(
+  values: {'x': 0, 'y': 1.5, 'z': -2},
+  onChanged: (values) => setState(() => position = values),
+)
+```
+
+</Preview>

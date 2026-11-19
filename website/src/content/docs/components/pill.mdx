@@ -1,0 +1,59 @@
+---
+title: Pill
+description: Pills, status pills, status dots, and keyboard hints.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Pill` is a compact token for one item of a list. For a selectable filter chip, use `FilterPill`.
+
+## Pill
+
+Removable by default. An `icon` gives it an outlined look, and `variant` is `base`, `dark`, `info`, or `warning`.
+
+<Preview src="demo?name=pill" height="200px">
+
+```dart
+Pill(value: 'Chocolate chip', onRemove: (value) => remove(value))
+```
+
+</Preview>
+
+## Status pill
+
+A small uppercase status with a colored dot. `loading` replaces the dot with a spinner.
+
+<Preview src="demo?name=status-pill" height="200px">
+
+```dart
+StatusPill(label: 'Live', variant: StatusPillVariant.success, tooltip: 'Connected 2 minutes ago')
+```
+
+</Preview>
+
+## Status dot
+
+An 8px dot for a state. `variant` is `solid` or `hollow`, and `working` shows a spinner in the state color. `label` is its accessible name.
+
+<Preview src="demo?name=status-dot" height="160px">
+
+```dart
+StatusDot(state: StatusDotState.success, label: 'Online')
+```
+
+</Preview>
+
+## Kbd
+
+Keyboard shortcut indicators. Group several with `KbdGroup`.
+
+<Preview src="demo?name=kbd" height="160px">
+
+```dart
+KbdGroup(children: [
+  Kbd(child: Icon(PrimeIcons.appleKeyboardCommand)),
+  Kbd(child: Text('S')),
+])
+```
+
+</Preview>
