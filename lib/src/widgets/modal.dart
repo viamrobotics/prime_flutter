@@ -128,11 +128,7 @@ class Modal extends StatelessWidget {
             child: message!,
           ),
         ],
-        if (child != null) ...[
-          const SizedBox(height: 8),
-          isFull ? Expanded(child: child!) : child!,
-        ] else if (isFull)
-          const Spacer(),
+        if (child != null) ...[const SizedBox(height: 8), isFull ? Expanded(child: child!) : child!] else if (isFull) const Spacer(),
         if (actions.isNotEmpty) ...[
           const SizedBox(height: 24),
           Wrap(alignment: WrapAlignment.end, spacing: 8, runSpacing: 8, children: actions),

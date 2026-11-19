@@ -82,7 +82,9 @@ class TakeoverHeader extends StatelessWidget {
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.borderSubtle))),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: c.borderSubtle)),
+      ),
       child: Row(children: children),
     );
   }

@@ -67,7 +67,16 @@ class CodeSnippet extends StatefulWidget {
   /// Called after a copy attempt.
   final void Function(bool succeeded, String message)? onCopy;
 
-  const CodeSnippet({super.key, required this.code, this.spans, this.language, this.caption, this.showCopyButton = true, this.wrapLines = false, this.onCopy});
+  const CodeSnippet({
+    super.key,
+    required this.code,
+    this.spans,
+    this.language,
+    this.caption,
+    this.showCopyButton = true,
+    this.wrapLines = false,
+    this.onCopy,
+  });
 
   @override
   State<CodeSnippet> createState() => _CodeSnippetState();
@@ -111,7 +120,10 @@ class _CodeSnippetState extends State<CodeSnippet> {
     );
 
     final text = Text.rich(
-      widget.spans ?? TextSpan(children: highlightCode(widget.code, widget.language, theme)), style: codeStyle, softWrap: widget.wrapLines);
+      widget.spans ?? TextSpan(children: highlightCode(widget.code, widget.language, theme)),
+      style: codeStyle,
+      softWrap: widget.wrapLines,
+    );
     final (icon, label) = switch (_copyState) {
       _CopyState.copy => (PrimeIcons.contentCopy, 'Copy'),
       _CopyState.copied => (PrimeIcons.check, 'Copied'),

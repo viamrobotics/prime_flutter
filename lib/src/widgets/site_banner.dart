@@ -101,7 +101,10 @@ class SiteBanner extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (hasHeading)
-                    Text(heading!, style: theme.textTheme.bodySmall.copyWith(fontWeight: FontWeight.w600, color: PrimeColors.gray9)),
+                    Text(
+                      heading!,
+                      style: theme.textTheme.bodySmall.copyWith(fontWeight: FontWeight.w600, color: PrimeColors.gray9),
+                    ),
                   if (value != null)
                     GestureDetector(
                       onTap: onTap,
@@ -227,7 +230,10 @@ class SiteBanner extends StatelessWidget {
     }
     switch (segment.style) {
       case SiteBannerSegmentStyle.strong:
-        return Text(segment.text, style: base.copyWith(fontWeight: FontWeight.w700, color: PrimeColors.gray0));
+        return Text(
+          segment.text,
+          style: base.copyWith(fontWeight: FontWeight.w700, color: PrimeColors.gray0),
+        );
       case SiteBannerSegmentStyle.subtle:
         return Text(segment.text, style: base.copyWith(color: PrimeColors.gray7));
       case SiteBannerSegmentStyle.normal:

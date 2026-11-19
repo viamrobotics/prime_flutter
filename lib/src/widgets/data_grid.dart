@@ -259,14 +259,23 @@ class _DataGridState<T> extends State<DataGrid<T>> {
         ? (widget.emptyBuilder?.call(context) ??
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: Center(child: Text('No rows to show', style: theme.textTheme.bodySmall.copyWith(color: c.textTertiary))),
+                child: Center(
+                  child: Text('No rows to show', style: theme.textTheme.bodySmall.copyWith(color: c.textTertiary)),
+                ),
               ))
         : null;
 
     final Widget body;
     if (widget.height != null) {
       body = Expanded(
-        child: empty ?? ListView.builder(padding: EdgeInsets.zero, itemExtent: widget.rowHeight, itemCount: rows.length, itemBuilder: (context, index) => _buildRow(context, rows[index])),
+        child:
+            empty ??
+            ListView.builder(
+              padding: EdgeInsets.zero,
+              itemExtent: widget.rowHeight,
+              itemCount: rows.length,
+              itemBuilder: (context, index) => _buildRow(context, rows[index]),
+            ),
       );
     } else {
       body = empty ?? Column(mainAxisSize: MainAxisSize.min, children: [for (final row in rows) _buildRow(context, row)]);
@@ -281,7 +290,11 @@ class _DataGridState<T> extends State<DataGrid<T>> {
       ),
       child: ClipRRect(
         borderRadius: radius,
-        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [_buildHeader(context), body]),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [_buildHeader(context), body],
+        ),
       ),
     );
   }
@@ -463,9 +476,11 @@ class AGGridTable<T> extends StatelessWidget {
         scriptUrl: scriptUrl,
         styleUrls: styleUrls,
         themeClass: themeClass,
-        onRowClicked: onRowClicked == null ? null : (index) {
-          if (index >= 0 && index < rowData.length) onRowClicked!(rowData[index]);
-        },
+        onRowClicked: onRowClicked == null
+            ? null
+            : (index) {
+                if (index >= 0 && index < rowData.length) onRowClicked!(rowData[index]);
+              },
         fallback: native,
       ),
     );

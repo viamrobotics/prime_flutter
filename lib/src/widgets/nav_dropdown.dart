@@ -110,7 +110,11 @@ class _NavDropdownState<T> extends State<NavDropdown<T>> {
           TextSpan(
             text: option.label,
             children: [
-              if (option.detail != null) TextSpan(text: ' (${option.detail})', style: TextStyle(color: c.textPlaceholder)),
+              if (option.detail != null)
+                TextSpan(
+                  text: ' (${option.detail})',
+                  style: TextStyle(color: c.textPlaceholder),
+                ),
             ],
           ),
           maxLines: 1,

@@ -166,7 +166,9 @@ class _PrimeBannerState extends State<PrimeBanner> {
                 height: 28,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(color: style.background, borderRadius: BorderRadius.circular(4)),
-                child: loading ? Progress(size: 16, color: style.accent) : Icon(style.icon ?? PrimeIcons.informationOutline, size: 18, color: style.accent),
+                child: loading
+                    ? Progress(size: 16, color: style.accent)
+                    : Icon(style.icon ?? PrimeIcons.informationOutline, size: 18, color: style.accent),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -174,11 +176,22 @@ class _PrimeBannerState extends State<PrimeBanner> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (widget.title != null) DefaultTextStyle(style: titleStyle.copyWith(color: c.textPrimary), child: widget.title!),
-                    if (widget.subtitle != null) DefaultTextStyle(style: bodyStyle.copyWith(color: c.textSecondary), child: widget.subtitle!),
+                    if (widget.title != null)
+                      DefaultTextStyle(
+                        style: titleStyle.copyWith(color: c.textPrimary),
+                        child: widget.title!,
+                      ),
+                    if (widget.subtitle != null)
+                      DefaultTextStyle(
+                        style: bodyStyle.copyWith(color: c.textSecondary),
+                        child: widget.subtitle!,
+                      ),
                     if (widget.action != null) ...[
                       const SizedBox(height: 8),
-                      DefaultTextStyle(style: bodyStyle.copyWith(fontWeight: FontWeight.w500, color: c.textSecondary), child: widget.action!),
+                      DefaultTextStyle(
+                        style: bodyStyle.copyWith(fontWeight: FontWeight.w500, color: c.textSecondary),
+                        child: widget.action!,
+                      ),
                     ],
                     if (widget.actionEmphasize != null) ...[const SizedBox(height: 12), widget.actionEmphasize!],
                   ],
@@ -224,7 +237,10 @@ class _PrimeBannerState extends State<PrimeBanner> {
                 if (widget.subtitle != null) DefaultTextStyle(style: bodyStyle, child: widget.subtitle!),
                 if (widget.action != null) ...[
                   const SizedBox(height: 8),
-                  DefaultTextStyle(style: bodyStyle.copyWith(fontWeight: FontWeight.w500), child: widget.action!),
+                  DefaultTextStyle(
+                    style: bodyStyle.copyWith(fontWeight: FontWeight.w500),
+                    child: widget.action!,
+                  ),
                 ],
                 if (widget.actionEmphasize != null) ...[const SizedBox(height: 12), widget.actionEmphasize!],
               ],
@@ -256,7 +272,9 @@ class _PrimeBannerState extends State<PrimeBanner> {
                     body,
                     if (widget.expandableDetails != null)
                       Container(
-                        decoration: BoxDecoration(border: Border(top: BorderSide(color: style.border))),
+                        decoration: BoxDecoration(
+                          border: Border(top: BorderSide(color: style.border)),
+                        ),
                         padding: const EdgeInsets.all(12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

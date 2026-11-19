@@ -96,7 +96,9 @@ class Radio<T> extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Flexible(child: DefaultTextStyle(style: legendStyle, child: legend!)),
+                Flexible(
+                  child: DefaultTextStyle(style: legendStyle, child: legend!),
+                ),
                 if (required) Text(' *', style: legendStyle.copyWith(color: c.statusDangerDark)),
               ],
             ),

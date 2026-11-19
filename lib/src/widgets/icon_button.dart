@@ -100,7 +100,8 @@ class IconButton extends StatelessWidget {
     }
 
     if (disabled) {
-      final filled = variant == IconButtonVariant.secondary || variant == IconButtonVariant.dangerFilled || variant == IconButtonVariant.dark;
+      final filled =
+          variant == IconButtonVariant.secondary || variant == IconButtonVariant.dangerFilled || variant == IconButtonVariant.dark;
       return (background: filled ? c.surfaceHighlight : transparent, foreground: c.iconDisabled, border: null);
     }
 

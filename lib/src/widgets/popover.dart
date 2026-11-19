@@ -83,10 +83,7 @@ class _PopoverState extends State<Popover> {
             borderRadius: BorderRadius.circular(theme.cornerRadius),
             border: Border.all(color: theme.colorScheme.iconDisabled),
           ),
-          child: DefaultTextStyle(
-            style: theme.textTheme.bodySmall,
-            child: widget.contentBuilder(context, () => _setOpen(false)),
-          ),
+          child: DefaultTextStyle(style: theme.textTheme.bodySmall, child: widget.contentBuilder(context, () => _setOpen(false))),
         ),
       ),
       child: Semantics(
@@ -155,7 +152,11 @@ class Collapsible extends StatelessWidget {
               const SizedBox(width: 6),
               Expanded(
                 child: DefaultTextStyle(
-                  style: theme.textTheme.bodySmall.copyWith(height: 1.3, fontWeight: FontWeight.w600, color: disabled ? c.textPlaceholder : c.textPrimary),
+                  style: theme.textTheme.bodySmall.copyWith(
+                    height: 1.3,
+                    fontWeight: FontWeight.w600,
+                    color: disabled ? c.textPlaceholder : c.textPrimary,
+                  ),
                   child: title,
                 ),
               ),

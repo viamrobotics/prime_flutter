@@ -91,7 +91,13 @@ class Input extends StatelessWidget {
           InputState.error => (colors.statusDangerDark, colors.statusDangerDark, PrimeIcons.alertCircle),
         };
         final Widget? trailing =
-            this.trailing ?? (stateIcon != null ? IconTheme.merge(data: IconThemeData(color: stateIconColor), child: Icon(stateIcon)) : null);
+            this.trailing ??
+            (stateIcon != null
+                ? IconTheme.merge(
+                    data: IconThemeData(color: stateIconColor),
+                    child: Icon(stateIcon),
+                  )
+                : null);
         final fillColor = disabled ? colors.surfaceHighlight : (readOnly ? colors.surfaceOffset : colors.surfaceBase);
 
         return Material(
@@ -141,7 +147,9 @@ class Input extends StatelessWidget {
               suffixIconConstraints: iconBox,
               filled: true,
               fillColor: fillColor,
-              contentPadding: dense ? const EdgeInsets.symmetric(horizontal: 8, vertical: 6) : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              contentPadding: dense
+                  ? const EdgeInsets.symmetric(horizontal: 8, vertical: 6)
+                  : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(theme.cornerRadius),
                 borderSide: BorderSide(color: stateColor ?? theme.colorScheme.borderSubtle),

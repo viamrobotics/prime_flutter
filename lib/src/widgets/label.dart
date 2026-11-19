@@ -54,7 +54,9 @@ class Label extends StatelessWidget {
     final text = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Flexible(child: DefaultTextStyle(style: style, child: label)),
+        Flexible(
+          child: DefaultTextStyle(style: style, child: label),
+        ),
         if (required) Text(' *', style: style.copyWith(color: c.statusDangerDark)),
         if (detail != null && detail!.isNotEmpty) Text(' $detail', style: style.copyWith(color: c.textPlaceholder)),
       ],
@@ -62,7 +64,13 @@ class Label extends StatelessWidget {
 
     if (child == null) return text;
     if (position == LabelPosition.left) {
-      return Row(children: [text, const SizedBox(width: 8), Expanded(child: child!)]);
+      return Row(
+        children: [
+          text,
+          const SizedBox(width: 8),
+          Expanded(child: child!),
+        ],
+      );
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

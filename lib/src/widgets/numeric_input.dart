@@ -106,7 +106,10 @@ class _NumericInputState extends State<NumericInput> {
     // typing "1." or "-0" is not rewritten under the user.
     if (_parse(_controller.text) != widget.value) {
       final text = _formatNumber(widget.value);
-      _controller.value = TextEditingValue(text: text, selection: TextSelection.collapsed(offset: text.length));
+      _controller.value = TextEditingValue(
+        text: text,
+        selection: TextSelection.collapsed(offset: text.length),
+      );
     }
   }
 

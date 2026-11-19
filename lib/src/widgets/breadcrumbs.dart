@@ -41,7 +41,9 @@ class Breadcrumbs extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: Icon(PrimeIcons.chevronRight, size: 14, color: c.iconDisabled),
               ),
-            Flexible(child: Text(crumbs[i], maxLines: 1, overflow: TextOverflow.ellipsis, style: style)),
+            Flexible(
+              child: Text(crumbs[i], maxLines: 1, overflow: TextOverflow.ellipsis, style: style),
+            ),
           ],
         ],
       ),
@@ -113,7 +115,10 @@ class NavigationBreadcrumbPage extends StatelessWidget {
     final c = PrimeTheme.of(context).colorScheme;
     return Semantics(
       selected: true,
-      child: DefaultTextStyle.merge(style: TextStyle(color: c.textPrimary), child: child),
+      child: DefaultTextStyle.merge(
+        style: TextStyle(color: c.textPrimary),
+        child: child,
+      ),
     );
   }
 }

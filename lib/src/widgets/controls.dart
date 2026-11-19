@@ -46,7 +46,11 @@ Widget _suffixText(BuildContext context, String suffix, bool disabled) {
   final theme = PrimeTheme.of(context);
   return Text(
     suffix,
-    style: theme.textTheme.bodySmall.copyWith(fontSize: 12, height: 1.2, color: disabled ? theme.colorScheme.textPlaceholder : theme.colorScheme.textTertiary),
+    style: theme.textTheme.bodySmall.copyWith(
+      fontSize: 12,
+      height: 1.2,
+      color: disabled ? theme.colorScheme.textPlaceholder : theme.colorScheme.textTertiary,
+    ),
   );
 }
 
@@ -94,7 +98,10 @@ class Panel extends StatelessWidget {
                 constraints: const BoxConstraints(minHeight: 24),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(title!, style: _controlLabelStyle(context).copyWith(fontWeight: FontWeight.w600, color: c.textPrimary)),
+                  child: Text(
+                    title!,
+                    style: _controlLabelStyle(context).copyWith(fontWeight: FontWeight.w600, color: c.textPrimary),
+                  ),
                 ),
               ),
             ...children,
@@ -147,7 +154,10 @@ class Folder extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 title,
-                style: _controlLabelStyle(context, disabled: disabled).copyWith(fontWeight: FontWeight.w600, color: disabled ? null : c.textPrimary),
+                style: _controlLabelStyle(
+                  context,
+                  disabled: disabled,
+                ).copyWith(fontWeight: FontWeight.w600, color: disabled ? null : c.textPrimary),
               ),
             ],
           ),
@@ -155,7 +165,9 @@ class Folder extends StatelessWidget {
         content: Container(
           margin: const EdgeInsets.only(top: 4, left: 6),
           padding: const EdgeInsets.only(left: 8),
-          decoration: BoxDecoration(border: Border(left: BorderSide(color: c.borderSubtle))),
+          decoration: BoxDecoration(
+            border: Border(left: BorderSide(color: c.borderSubtle)),
+          ),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, spacing: 4, children: children),
         ),
       ),
@@ -181,7 +193,12 @@ class ControlRow extends StatelessWidget {
       children: [
         SizedBox(
           width: labelWidth,
-          child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis, style: _controlLabelStyle(context, disabled: disabled)),
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: _controlLabelStyle(context, disabled: disabled),
+          ),
         ),
         const SizedBox(width: 4),
         Expanded(child: child),
@@ -261,7 +278,9 @@ class _NumberFieldState extends State<NumberField> {
     if (widget.min != null && _accumulated < widget.min!) _accumulated = widget.min!.toDouble();
     if (widget.max != null && _accumulated > widget.max!) _accumulated = widget.max!.toDouble();
     final steps = (_accumulated / widget.step).round();
-    final num next = _decimals == 0 && widget.step is int ? steps * widget.step : double.parse((steps * widget.step).toStringAsFixed(_decimals.clamp(0, 10)));
+    final num next = _decimals == 0 && widget.step is int
+        ? steps * widget.step
+        : double.parse((steps * widget.step).toStringAsFixed(_decimals.clamp(0, 10)));
     if (next != widget.value) widget.onChanged?.call(next);
   }
 
@@ -279,7 +298,12 @@ class _NumberFieldState extends State<NumberField> {
           child: Align(
             alignment: Alignment.centerLeft,
             widthFactor: 1,
-            child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis, style: _controlLabelStyle(context, disabled: widget.disabled)),
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: _controlLabelStyle(context, disabled: widget.disabled),
+            ),
           ),
         ),
       ),
@@ -301,11 +325,20 @@ class _NumberFieldState extends State<NumberField> {
       leading: inset ? label : null,
       trailing: widget.suffix != null && widget.suffix!.isNotEmpty ? _suffixText(context, widget.suffix!, widget.disabled) : null,
     );
-    final hint = widget.label != null && widget.hint != null ? _ControlHint(label: widget.label!, hint: widget.hint!, disabled: widget.disabled) : null;
+    final hint = widget.label != null && widget.hint != null
+        ? _ControlHint(label: widget.label!, hint: widget.hint!, disabled: widget.disabled)
+        : null;
     if (label == null) return input;
     if (inset) {
       // An inset label sits inside the field, so its hint goes after the field.
-      return hint == null ? input : Row(children: [Expanded(child: input), hint]);
+      return hint == null
+          ? input
+          : Row(
+              children: [
+                Expanded(child: input),
+                hint,
+              ],
+            );
     }
     return Row(
       children: [
@@ -427,7 +460,9 @@ class PointField extends StatelessWidget {
           if (label != null)
             Row(
               children: [
-                Flexible(child: Text(label!, style: _controlLabelStyle(context, disabled: disabled))),
+                Flexible(
+                  child: Text(label!, style: _controlLabelStyle(context, disabled: disabled)),
+                ),
                 if (hint != null) _ControlHint(label: label!, hint: hint!, disabled: disabled),
               ],
             ),
@@ -510,7 +545,12 @@ class PanelTextField extends StatelessWidget {
     );
     if (label == null) return input;
     final showHint = hint != null;
-    final text = Text(label!, maxLines: 1, overflow: TextOverflow.ellipsis, style: _controlLabelStyle(context, disabled: disabled));
+    final text = Text(
+      label!,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: _controlLabelStyle(context, disabled: disabled),
+    );
     return Row(
       children: [
         labelWidth != null ? SizedBox(width: labelWidth! - (showHint ? 24 : 0), child: text) : text,
@@ -577,7 +617,12 @@ class SliderField extends StatelessWidget {
         if (label != null) ...[
           SizedBox(
             width: labelWidth - (hint == null ? 0 : 24),
-            child: Text(label!, maxLines: 1, overflow: TextOverflow.ellipsis, style: _controlLabelStyle(context, disabled: disabled)),
+            child: Text(
+              label!,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: _controlLabelStyle(context, disabled: disabled),
+            ),
           ),
           if (hint != null) _ControlHint(label: label!, hint: hint!, disabled: disabled),
           const SizedBox(width: 4),

@@ -211,7 +211,9 @@ class _KeybindingsState extends State<Keybindings> {
     // An unmodified press typed into a field belongs to the field.
     if (!mod) {
       final focused = FocusManager.instance.primaryFocus?.context;
-      if (focused != null && (focused.widget is EditableText || focused.findAncestorWidgetOfExactType<EditableText>() != null)) return false;
+      if (focused != null && (focused.widget is EditableText || focused.findAncestorWidgetOfExactType<EditableText>() != null)) {
+        return false;
+      }
     }
 
     final name = key.keyLabel.toLowerCase().replaceAll(' ', '');
@@ -274,7 +276,11 @@ class _HotkeyState extends State<Hotkey> {
 
   // The closures read the widget at press time, so a new callback needs no re-registration.
   void _register() {
-    _unregister = _registry?.register(widget.binding, run: () => widget.onInvoke?.call(), when: () => widget.onInvoke != null && (widget.when?.call() ?? true));
+    _unregister = _registry?.register(
+      widget.binding,
+      run: () => widget.onInvoke?.call(),
+      when: () => widget.onInvoke != null && (widget.when?.call() ?? true),
+    );
   }
 
   @override

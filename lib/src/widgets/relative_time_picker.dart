@@ -412,12 +412,13 @@ class _Calendar extends StatelessWidget {
                   SizedBox(
                     width: _cell,
                     height: 28,
-                    child: Center(child: Text(name, style: textStyle.copyWith(fontWeight: FontWeight.w600))),
+                    child: Center(
+                      child: Text(name, style: textStyle.copyWith(fontWeight: FontWeight.w600)),
+                    ),
                   ),
               ],
             ),
-            for (int week = 0; week < cellCount ~/ 7; week++)
-              Row(children: [for (int i = 0; i < 7; i++) dayCell(week * 7 + i)]),
+            for (int week = 0; week < cellCount ~/ 7; week++) Row(children: [for (int i = 0; i < 7; i++) dayCell(week * 7 + i)]),
           ],
         ),
       ),

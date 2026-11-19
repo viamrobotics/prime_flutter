@@ -210,7 +210,15 @@ class MenuItem extends StatelessWidget {
   final bool disabled;
   final VoidCallback? onTap;
 
-  const MenuItem({super.key, required this.child, this.icon, this.shortcut, this.variant = MenuItemVariant.normal, this.disabled = false, this.onTap});
+  const MenuItem({
+    super.key,
+    required this.child,
+    this.icon,
+    this.shortcut,
+    this.variant = MenuItemVariant.normal,
+    this.disabled = false,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -363,7 +371,12 @@ class MenuGroupHeading extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       child: DefaultTextStyle(
-        style: theme.textTheme.bodySmall.copyWith(fontSize: 12, height: 1.3, fontWeight: FontWeight.w500, color: theme.colorScheme.textTertiary),
+        style: theme.textTheme.bodySmall.copyWith(
+          fontSize: 12,
+          height: 1.3,
+          fontWeight: FontWeight.w500,
+          color: theme.colorScheme.textTertiary,
+        ),
         child: child,
       ),
     );

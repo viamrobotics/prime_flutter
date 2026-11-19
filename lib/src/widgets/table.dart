@@ -73,7 +73,10 @@ class PrimeTable extends StatelessWidget {
 
     Widget cell(Widget child, Color color) => Padding(
       padding: cellPadding,
-      child: DefaultTextStyle(style: baseStyle.copyWith(color: color), child: child),
+      child: DefaultTextStyle(
+        style: baseStyle.copyWith(color: color),
+        child: child,
+      ),
     );
 
     return Table(

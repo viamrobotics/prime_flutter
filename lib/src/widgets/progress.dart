@@ -65,7 +65,13 @@ class _ProgressState extends State<Progress> with SingleTickerProviderStateMixin
                 animation: _controller,
                 builder: (context, child) => Text(
                   frames[(_controller.value * frames.length).floor() % frames.length],
-                  style: theme.textTheme.label.copyWith(fontSize: widget.size * 0.75, height: 1, letterSpacing: 0, fontWeight: FontWeight.w400, color: color),
+                  style: theme.textTheme.label.copyWith(
+                    fontSize: widget.size * 0.75,
+                    height: 1,
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.w400,
+                    color: color,
+                  ),
                 ),
               ),
             ),

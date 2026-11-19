@@ -384,7 +384,14 @@ class _TreeRow<T> extends StatefulWidget {
   final VoidCallback onToggle;
   final VoidCallback onActivate;
 
-  const _TreeRow({super.key, required this.row, required this.tree, required this.showFocus, required this.onToggle, required this.onActivate});
+  const _TreeRow({
+    super.key,
+    required this.row,
+    required this.tree,
+    required this.showFocus,
+    required this.onToggle,
+    required this.onActivate,
+  });
 
   @override
   State<_TreeRow<T>> createState() => _TreeRowState<T>();

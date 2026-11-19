@@ -152,9 +152,7 @@ LayoutNode<T>? _rewrite<T>(LayoutNode<T> node, LayoutNode<T>? Function(LayoutNod
       }
       if (panes.isEmpty) return null;
       if (panes.length == 1) return panes.first;
-      final rebuilt = changed
-          ? StackNode<T>(id: node.id, panes: panes, activeId: node.activeId)
-          : node;
+      final rebuilt = changed ? StackNode<T>(id: node.id, panes: panes, activeId: node.activeId) : node;
       return visit(rebuilt);
     case FloatNode<T>():
       final base = node.base == null ? null : _rewrite(node.base!, visit);
@@ -163,7 +161,9 @@ LayoutNode<T>? _rewrite<T>(LayoutNode<T> node, LayoutNode<T>? Function(LayoutNod
       for (final entry in node.floats) {
         final content = _rewrite(entry.content, visit);
         if (!identical(content, entry.content)) changed = true;
-        if (content != null) floats.add(identical(content, entry.content) ? entry : FloatEntry<T>(id: entry.id, rect: entry.rect, content: content));
+        if (content != null) {
+          floats.add(identical(content, entry.content) ? entry : FloatEntry<T>(id: entry.id, rect: entry.rect, content: content));
+        }
       }
       if (floats.isEmpty) return base;
       return visit(changed ? FloatNode<T>(id: node.id, base: base, floats: floats) : node);
@@ -267,14 +267,7 @@ LayoutNode<T>? selectPane<T>(LayoutNode<T>? root, String paneId) {
 /// Moves a pane (or, when [targetId] names a stack, places it beside the
 /// whole stack) into a new split next to [targetId]. [key] says which side of
 /// the new split the moved pane takes.
-LayoutNode<T>? movePane<T>(
-  LayoutNode<T>? root,
-  String paneId,
-  String targetId,
-  SplitDirection direction,
-  SplitKey key,
-  String newSplitId,
-) {
+LayoutNode<T>? movePane<T>(LayoutNode<T>? root, String paneId, String targetId, SplitDirection direction, SplitKey key, String newSplitId) {
   final pane = findLayoutNode(root, paneId);
   if (root == null || pane is! PaneNode<T> || paneId == targetId || findLayoutNode(root, targetId) == null) return root;
   final without = removePane(root, paneId);
@@ -402,7 +395,9 @@ LayoutNode<T>? setFloatRect<T>(LayoutNode<T>? root, String entryId, FloatRect re
     (node) => FloatNode<T>(
       id: node.id,
       base: node.base,
-      floats: [for (final entry in node.floats) entry.id == entryId ? FloatEntry<T>(id: entry.id, rect: rect, content: entry.content) : entry],
+      floats: [
+        for (final entry in node.floats) entry.id == entryId ? FloatEntry<T>(id: entry.id, rect: rect, content: entry.content) : entry,
+      ],
     ),
   );
 }
@@ -492,7 +487,10 @@ LayoutNode<T>? stackPanes<T>(LayoutNode<T>? root, String targetPaneId, String so
   if (existing != null) {
     final panes = [...existing.panes];
     panes.insert((index ?? panes.length).clamp(0, panes.length), source);
-    return _rewrite(without, (node) => node.id == existing.id && node is StackNode<T> ? StackNode<T>(id: node.id, panes: panes, activeId: sourceId) : node);
+    return _rewrite(
+      without,
+      (node) => node.id == existing.id && node is StackNode<T> ? StackNode<T>(id: node.id, panes: panes, activeId: sourceId) : node,
+    );
   }
   return _rewrite(without, (node) {
     if (node is! PaneNode<T> || node.id != targetPaneId) return node;
@@ -652,13 +650,7 @@ class _SplitPaneState extends State<SplitPane> {
               height: isRow ? constraints.maxHeight : firstSize,
               child: widget.first,
             ),
-            Positioned(
-              left: isRow ? firstSize : 0,
-              top: isRow ? 0 : firstSize,
-              right: 0,
-              bottom: 0,
-              child: widget.second,
-            ),
+            Positioned(left: isRow ? firstSize : 0, top: isRow ? 0 : firstSize, right: 0, bottom: 0, child: widget.second),
             Positioned(
               left: isRow ? firstSize - _hitSize / 2 : 0,
               top: isRow ? 0 : firstSize - _hitSize / 2,
@@ -903,6 +895,7 @@ class _PanesState<T> extends State<Panes<T>> {
     }
     if (changed && mounted) setState(() {});
   }
+
   final GlobalKey _rootKey = GlobalKey();
   final FocusNode _moveFocus = FocusNode(debugLabel: 'Panes move mode');
 
@@ -1042,7 +1035,14 @@ class _PanesState<T> extends State<Panes<T>> {
   /// Every place the moving pane could go, slot by slot.
   List<({String slotId, _DropRegion region})> _destinations(String sourceId) => [
     for (final slotId in _slotKeys.keys)
-      for (final region in const [_DropRegion.tabs, _DropRegion.left, _DropRegion.top, _DropRegion.center, _DropRegion.bottom, _DropRegion.right])
+      for (final region in const [
+        _DropRegion.tabs,
+        _DropRegion.left,
+        _DropRegion.top,
+        _DropRegion.center,
+        _DropRegion.bottom,
+        _DropRegion.right,
+      ])
         if (_isValid(sourceId, slotId, region)) (slotId: slotId, region: region),
   ];
 
@@ -1172,8 +1172,11 @@ class _PanesState<T> extends State<Panes<T>> {
     final slot = findLayoutNode(root, slotId);
     if (slot == null) return;
     // Tree operations address panes, so a stack is reached through one of its panes.
-    final targetPaneId = slot is StackNode<T> ? slot.panes.firstWhere((pane) => pane.id != sourceId, orElse: () => slot.activePane).id : slotId;
-    final stackIt = region == _DropRegion.tabs || (region == _DropRegion.center && (slot is StackNode<T> || widget.centerDrop == PaneCenterDrop.stack));
+    final targetPaneId = slot is StackNode<T>
+        ? slot.panes.firstWhere((pane) => pane.id != sourceId, orElse: () => slot.activePane).id
+        : slotId;
+    final stackIt =
+        region == _DropRegion.tabs || (region == _DropRegion.center && (slot is StackNode<T> || widget.centerDrop == PaneCenterDrop.stack));
 
     final LayoutNode<T>? next;
     if (stackIt) {
@@ -1338,7 +1341,13 @@ class _PanesState<T> extends State<Panes<T>> {
 
   Widget _buildPane(BuildContext context, PaneNode<T> pane, {required bool isStacked, required bool isActive, String? floatEntryId}) {
     final isMoving = _movingId == pane.id;
-    final state = PaneState(isStacked: isStacked, isActive: isActive, isMoving: isMoving, isFloating: floatEntryId != null, floatEntryId: floatEntryId);
+    final state = PaneState(
+      isStacked: isStacked,
+      isActive: isActive,
+      isMoving: isMoving,
+      isFloating: floatEntryId != null,
+      floatEntryId: floatEntryId,
+    );
     return _PanesScope(
       state: this,
       paneId: pane.id,
@@ -1354,14 +1363,22 @@ class _PanesState<T> extends State<Panes<T>> {
     final onLayoutChanged = widget.onLayoutChanged;
     switch (node) {
       case PaneNode<T>():
-        return _slot(context, node.id, _buildPane(context, node, isStacked: false, isActive: true, floatEntryId: floatEntryId), liveSlots, depth);
+        return _slot(
+          context,
+          node.id,
+          _buildPane(context, node, isStacked: false, isActive: true, floatEntryId: floatEntryId),
+          liveSlots,
+          depth,
+        );
       case SplitNode<T>():
         return SplitPane(
           key: ValueKey('split-${node.id}'),
           direction: node.direction,
           ratio: node.ratio,
           minSize: widget.minPaneSize,
-          onRatioChanged: widget.resizable && onLayoutChanged != null ? (ratio) => onLayoutChanged(setSplitRatio(widget.layout, node.id, ratio)) : null,
+          onRatioChanged: widget.resizable && onLayoutChanged != null
+              ? (ratio) => onLayoutChanged(setSplitRatio(widget.layout, node.id, ratio))
+              : null,
           first: _buildNode(context, node.first, liveSlots, floatEntryId: floatEntryId, depth: depth),
           second: _buildNode(context, node.second, liveSlots, floatEntryId: floatEntryId, depth: depth),
         );
@@ -1387,7 +1404,8 @@ class _PanesState<T> extends State<Panes<T>> {
                   if (!identical(next, widget.layout)) onLayoutChanged?.call(next);
                 },
                 // Raise again here: a quick drag can finish before the raise from its press has come back in.
-                onRectChanged: (rect) => onLayoutChanged?.call(setFloatRect(raiseFloat(widget.layout, node.floats[i].id), node.floats[i].id, rect)),
+                onRectChanged: (rect) =>
+                    onLayoutChanged?.call(setFloatRect(raiseFloat(widget.layout, node.floats[i].id), node.floats[i].id, rect)),
                 onClose: () => onLayoutChanged?.call(removeFloat(widget.layout, node.floats[i].id)),
                 chromeBuilder: widget.floatBuilder == null
                     ? null
@@ -1411,7 +1429,8 @@ class _PanesState<T> extends State<Panes<T>> {
         index: stack.panes.indexOf(active),
         sizing: StackFit.expand,
         children: [
-          for (final pane in stack.panes) _buildPane(context, pane, isStacked: true, isActive: pane.id == active.id, floatEntryId: floatEntryId),
+          for (final pane in stack.panes)
+            _buildPane(context, pane, isStacked: true, isActive: pane.id == active.id, floatEntryId: floatEntryId),
         ],
       );
     } else {
@@ -1482,9 +1501,7 @@ class _PaneTabState extends State<_PaneTab> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: widget.isActive ? c.surfaceBase : (_hovered ? c.surfaceHover : null),
-              border: Border(
-                bottom: BorderSide(color: widget.isActive ? c.actionPrimaryBg : const Color(0x00000000), width: 2),
-              ),
+              border: Border(bottom: BorderSide(color: widget.isActive ? c.actionPrimaryBg : const Color(0x00000000), width: 2)),
             ),
             child: DefaultTextStyle(
               style: theme.textTheme.bodySmall.copyWith(
@@ -1594,7 +1611,8 @@ class _FloatWindowState extends State<_FloatWindow> {
     Widget moveHandle({required Widget child}) => GestureDetector(
       behavior: HitTestBehavior.opaque,
       onPanUpdate: editable
-          ? (details) => _update((rect) => rect.copyWith(x: math.max(0, rect.x + details.delta.dx), y: math.max(0, rect.y + details.delta.dy)))
+          ? (details) =>
+                _update((rect) => rect.copyWith(x: math.max(0, rect.x + details.delta.dx), y: math.max(0, rect.y + details.delta.dy)))
           : null,
       onPanEnd: editable ? (_) => _commit() : null,
       onPanCancel: editable ? _commit : null,
@@ -1604,7 +1622,10 @@ class _FloatWindowState extends State<_FloatWindow> {
       behavior: HitTestBehavior.opaque,
       onPanUpdate: editable
           ? (details) => _update(
-              (rect) => rect.copyWith(width: math.max(_minWidth, rect.width + details.delta.dx), height: math.max(_minHeight, rect.height + details.delta.dy)),
+              (rect) => rect.copyWith(
+                width: math.max(_minWidth, rect.width + details.delta.dx),
+                height: math.max(_minHeight, rect.height + details.delta.dy),
+              ),
             )
           : null,
       onPanEnd: editable ? (_) => _commit() : null,
@@ -1656,7 +1677,10 @@ class _FloatWindowState extends State<_FloatWindow> {
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onPanUpdate: editable
-                            ? (details) => _update((rect) => rect.copyWith(x: math.max(0, rect.x + details.delta.dx), y: math.max(0, rect.y + details.delta.dy)))
+                            ? (details) => _update(
+                                (rect) =>
+                                    rect.copyWith(x: math.max(0, rect.x + details.delta.dx), y: math.max(0, rect.y + details.delta.dy)),
+                              )
                             : null,
                         onPanEnd: editable ? (_) => _commit() : null,
                         onPanCancel: editable ? _commit : null,
@@ -1674,7 +1698,12 @@ class _FloatWindowState extends State<_FloatWindow> {
                                   widget.title,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: theme.textTheme.bodySmall.copyWith(fontSize: 12, height: 1.2, fontWeight: FontWeight.w600, color: c.textSecondary),
+                                  style: theme.textTheme.bodySmall.copyWith(
+                                    fontSize: 12,
+                                    height: 1.2,
+                                    fontWeight: FontWeight.w600,
+                                    color: c.textSecondary,
+                                  ),
                                 ),
                               ),
                               if (editable)

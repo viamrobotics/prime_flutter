@@ -231,7 +231,10 @@ class _SearchableSelectState extends State<SearchableSelect> {
       _controller.clear();
     } else {
       final text = _displayFor(value);
-      _controller.value = TextEditingValue(text: text, selection: TextSelection.collapsed(offset: text.length));
+      _controller.value = TextEditingValue(
+        text: text,
+        selection: TextSelection.collapsed(offset: text.length),
+      );
     }
     if (widget.closeOnSelect) {
       _focusNode.unfocus();
@@ -310,7 +313,10 @@ class _SearchableSelectState extends State<SearchableSelect> {
         final showOther = _showOther;
         final Widget content;
         if (widget.isLoading) {
-          content = const Padding(padding: EdgeInsets.all(16), child: Center(child: Progress()));
+          content = const Padding(
+            padding: EdgeInsets.all(16),
+            child: Center(child: Progress()),
+          );
         } else if (results.isEmpty && !showOther) {
           content = Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -355,7 +361,11 @@ class _SearchableSelectState extends State<SearchableSelect> {
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [?widget.menuHeader, Flexible(child: content), ?widget.menuFooter],
+                    children: [
+                      ?widget.menuHeader,
+                      Flexible(child: content),
+                      ?widget.menuFooter,
+                    ],
                   ),
           ),
         );
@@ -499,7 +509,14 @@ class Multiselect extends StatelessWidget {
 
   void _toggle(String value) {
     if (value.isEmpty) return;
-    onChanged?.call(selected.contains(value) ? [for (final item in selected) if (item != value) item] : [...selected, value]);
+    onChanged?.call(
+      selected.contains(value)
+          ? [
+              for (final item in selected)
+                if (item != value) item,
+            ]
+          : [...selected, value],
+    );
   }
 
   String _displayFor(String value) {
@@ -555,7 +572,12 @@ class Multiselect extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(16, 10, 16, 6),
                   child: Text(
                     heading!,
-                    style: theme.textTheme.bodySmall.copyWith(fontSize: 12, height: 1.3, fontWeight: FontWeight.w500, color: theme.colorScheme.textTertiary),
+                    style: theme.textTheme.bodySmall.copyWith(
+                      fontSize: 12,
+                      height: 1.3,
+                      fontWeight: FontWeight.w500,
+                      color: theme.colorScheme.textTertiary,
+                    ),
                   ),
                 ),
           menuFooter: buttonText == null
@@ -570,7 +592,10 @@ class Multiselect extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     child: Row(
                       children: [
-                        if (buttonIcon != null) ...[Icon(buttonIcon, size: 18, color: theme.colorScheme.iconSecondary), const SizedBox(width: 8)],
+                        if (buttonIcon != null) ...[
+                          Icon(buttonIcon, size: 18, color: theme.colorScheme.iconSecondary),
+                          const SizedBox(width: 8),
+                        ],
                         Flexible(child: Text(buttonText!, style: theme.textTheme.bodyDefault.copyWith(height: 1.25))),
                       ],
                     ),
@@ -655,7 +680,8 @@ class Combobox<T> extends StatelessWidget {
 
     return SearchableSelect(
       options: [
-        for (int i = 0; i < items.length; i++) SelectOption(keyOf(i), label: items[i].label, description: items[i].description, icon: items[i].icon),
+        for (int i = 0; i < items.length; i++)
+          SelectOption(keyOf(i), label: items[i].label, description: items[i].description, icon: items[i].icon),
       ],
       value: selected < 0 ? '' : keyOf(selected),
       checkedValues: selected < 0 ? const {} : {keyOf(selected)},

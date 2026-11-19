@@ -828,7 +828,11 @@ class _CodeEditorState extends State<CodeEditor> {
 
   void _handleFocus() {
     if (_focused != _focusNode.hasFocus) setState(() => _focused = _focusNode.hasFocus);
-    if (!_focusNode.hasFocus && widget.fixJsonOnBlur && widget.language == CodeEditorLanguage.json && !widget.readOnly && widget.original == null) {
+    if (!_focusNode.hasFocus &&
+        widget.fixJsonOnBlur &&
+        widget.language == CodeEditorLanguage.json &&
+        !widget.readOnly &&
+        widget.original == null) {
       final current = _real(_controller.text);
       final fixed = tryFixJson(current);
       if (fixed != null && fixed != current) {

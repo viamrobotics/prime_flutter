@@ -25,7 +25,14 @@ class Expandable extends StatefulWidget {
 
   final ValueChanged<bool>? onOpenChanged;
 
-  const Expandable({super.key, required this.triggerBuilder, required this.content, this.open, this.initiallyOpen = false, this.onOpenChanged});
+  const Expandable({
+    super.key,
+    required this.triggerBuilder,
+    required this.content,
+    this.open,
+    this.initiallyOpen = false,
+    this.onOpenChanged,
+  });
 
   @override
   State<Expandable> createState() => _ExpandableState();
@@ -78,18 +85,10 @@ class _ExpandableState extends State<Expandable> with SingleTickerProviderStateM
           expanded: _open,
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: _toggle,
-              child: widget.triggerBuilder(context, _open),
-            ),
+            child: GestureDetector(behavior: HitTestBehavior.opaque, onTap: _toggle, child: widget.triggerBuilder(context, _open)),
           ),
         ),
-        SizeTransition(
-          sizeFactor: _size,
-          alignment: Alignment.topCenter,
-          child: widget.content,
-        ),
+        SizeTransition(sizeFactor: _size, alignment: Alignment.topCenter, child: widget.content),
       ],
     );
   }

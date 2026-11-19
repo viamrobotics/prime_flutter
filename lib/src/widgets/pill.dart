@@ -176,7 +176,12 @@ class StatusPill extends StatelessWidget {
       case StatusPillVariant.success:
         (background, border, foreground, dot) = (c.statusSuccessLight, PrimeColors.successMedium, c.statusSuccessDark, c.statusSuccessDark);
       case StatusPillVariant.warning:
-        (background, border, foreground, dot) = (c.statusWarningLight, PrimeColors.warningMedium, c.statusWarningDark, PrimeColors.warningBright);
+        (background, border, foreground, dot) = (
+          c.statusWarningLight,
+          PrimeColors.warningMedium,
+          c.statusWarningDark,
+          PrimeColors.warningBright,
+        );
       case StatusPillVariant.danger:
         (background, border, foreground, dot) = (c.statusDangerLight, PrimeColors.dangerMedium, c.statusDangerDark, c.statusDangerDark);
       case StatusPillVariant.inactive:
@@ -205,7 +210,13 @@ class StatusPill extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label.toUpperCase(),
-            style: theme.textTheme.label.copyWith(fontSize: 11, fontWeight: FontWeight.w400, height: 1, letterSpacing: 0.6, color: foreground),
+            style: theme.textTheme.label.copyWith(
+              fontSize: 11,
+              fontWeight: FontWeight.w400,
+              height: 1,
+              letterSpacing: 0.6,
+              color: foreground,
+            ),
           ),
         ],
       ),

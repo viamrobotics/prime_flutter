@@ -194,8 +194,11 @@ class _FloatingState extends State<Floating> {
           overlayChildBuilder: (overlayContext) {
             if (!widget.visible) return const SizedBox.shrink();
             final anchor = context.findRenderObject() as RenderBox?;
-                        final resolved = _resolvePlacement(anchor);
-            Widget popup = _FloatingScope(placement: resolved, child: Builder(builder: widget.floatingBuilder));
+            final resolved = _resolvePlacement(anchor);
+            Widget popup = _FloatingScope(
+              placement: resolved,
+              child: Builder(builder: widget.floatingBuilder),
+            );
             final anchors = _anchors(resolved);
             if (widget.matchWidth && anchor != null && anchor.hasSize) {
               popup = SizedBox(width: anchor.size.width, child: popup);

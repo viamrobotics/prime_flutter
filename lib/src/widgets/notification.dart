@@ -255,7 +255,10 @@ class _NotificationItemState extends State<_NotificationItem> with TickerProvide
     return FadeTransition(
       opacity: _enter,
       child: SlideTransition(
-        position: Tween<Offset>(begin: const Offset(0.5, 0), end: Offset.zero).animate(CurvedAnimation(parent: _enter, curve: Curves.easeOut)),
+        position: Tween<Offset>(
+          begin: const Offset(0.5, 0),
+          end: Offset.zero,
+        ).animate(CurvedAnimation(parent: _enter, curve: Curves.easeOut)),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: MouseRegion(

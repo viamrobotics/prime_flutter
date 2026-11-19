@@ -133,7 +133,8 @@ class _AgGridViewState extends State<_AgGridView> {
         if (mounted && !_agGridLoaded) setState(() => _failed = true);
         return;
       }
-      final options = <String, Object?>{...widget.gridOptions, 'columnDefs': widget.columnDefs, 'rowData': widget.rowData}.jsify() as JSObject;
+      final options =
+          <String, Object?>{...widget.gridOptions, 'columnDefs': widget.columnDefs, 'rowData': widget.rowData}.jsify() as JSObject;
       // The row variants the web component marks, as AG Grid row classes.
       options['getRowClass'] = ((JSObject params) {
         final data = params['data'];
