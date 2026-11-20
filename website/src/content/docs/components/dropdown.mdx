@@ -5,14 +5,14 @@ description: Dropdown component documentation.
 
 import Preview from '../../../components/Preview.astro';
 
-Dropdowns for choosing one or multiple values from a list. [PrimeDropdown] is single-select; [PrimeMultiDropdown] allows multiple selections. Styled to match other Prime form controls.
+Dropdowns for choosing one or multiple values from a list. [Dropdown] is single-select; [MultiDropdown] allows multiple selections. Styled to match other Prime form controls.
 
 ## Basic
 
 <Preview src="dropdown?style=basic" height="320px">
 
 ```dart
-PrimeDropdown<String>(
+Dropdown<String>(
   value: selected,
   placeholder: 'Select a fruit',
   items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
@@ -29,7 +29,7 @@ Use `itemBuilder` to control how each option is displayed. The selected value is
 <Preview src="dropdown?style=customLabels" height="320px">
 
 ```dart
-PrimeDropdown<String>(
+Dropdown<String>(
   value: selected,
   placeholder: 'Choose one',
   items: options,
@@ -47,7 +47,7 @@ Choose multiple values. Tap options to toggle; tap outside to close.
 <Preview src="dropdown?style=multiselect" height="320px">
 
 ```dart
-PrimeMultiDropdown<String>(
+MultiDropdown<String>(
   value: selected,
   placeholder: 'Select fruits',
   items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
@@ -64,8 +64,8 @@ When there isn’t enough space below, the menu opens above the trigger. This pr
 <Preview src="dropdown?style=basicAtBottom" height="320px">
 
 ```dart
-// Same PrimeDropdown — when placed near the bottom it opens upward
-PrimeDropdown<String>(
+// Same Dropdown — when placed near the bottom it opens upward
+Dropdown<String>(
   value: selected,
   placeholder: 'Select a fruit',
   items: ['Apple', 'Banana', 'Orange', 'Mango', 'Grape'],
@@ -80,7 +80,7 @@ PrimeDropdown<String>(
 <Preview src="dropdown?style=disabled" height="150px">
 
 ```dart
-PrimeDropdown<String>(
+Dropdown<String>(
   value: 'Apple',
   placeholder: 'Disabled',
   items: options,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Badge;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum BadgePageStyle { defaultStyle, variants, withIcon, noBackground }
@@ -10,7 +10,7 @@ class BadgePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: switch (style) {
           BadgePageStyle.defaultStyle => const Badge(child: Text('Neutral')),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide SegmentedButton;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 class SegmentedButtonPage extends StatefulWidget {

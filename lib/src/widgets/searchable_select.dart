@@ -450,7 +450,7 @@ class _OptionRow extends StatelessWidget {
 /// A searchable field for choosing several options, shown as removable pills
 /// above the field.
 ///
-/// For a non-searchable picker, use [PrimeMultiDropdown].
+/// For a non-searchable picker, use [MultiDropdown].
 ///
 /// ```dart
 /// Multiselect(
@@ -619,7 +619,7 @@ class ComboboxItem<T> {
 
 /// A text input that filters a list of options as the user types and selects
 /// one of them. Only listed options can be chosen; to accept free text, use
-/// [SearchableSelect], and to pick without typing, use [PrimeDropdown].
+/// [SearchableSelect], and to pick without typing, use [Dropdown].
 ///
 /// ```dart
 /// Combobox<String>(

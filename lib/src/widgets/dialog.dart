@@ -7,9 +7,9 @@ import '../theme/prime_theme.dart';
 import 'button.dart';
 import 'prime_icons.dart';
 
-/// A single action button for [PrimeDialog]. When pressed, the dialog closes
-/// and [PrimeDialog.show] returns [value].
-class PrimeDialogAction<T> {
+/// A single action button for [Dialog]. When pressed, the dialog closes
+/// and [Dialog.show] returns [value].
+class DialogAction<T> {
   /// The button label.
   final Widget label;
 
@@ -19,30 +19,30 @@ class PrimeDialogAction<T> {
   /// Button variant. Defaults to [ButtonVariant.secondary].
   final ButtonVariant variant;
 
-  const PrimeDialogAction({required this.label, this.value, this.variant = ButtonVariant.secondary});
+  const DialogAction({required this.label, this.value, this.variant = ButtonVariant.secondary});
 }
 
 /// A dialog popup that can show a title, content, and optional actions.
 ///
-/// Use [PrimeDialog.show] to display the dialog. It returns a [Future] that
+/// Use [Dialog.show] to display the dialog. It returns a [Future] that
 /// completes with the result when the dialog is dismissed (e.g. by tapping
 /// an action or the barrier).
 ///
 /// Example:
 ///
 /// ```dart
-/// final result = await PrimeDialog.show<bool>(
+/// final result = await Dialog.show<bool>(
 ///   context: context,
 ///   title: const Text('Confirm'),
 ///   child: const Text('Are you sure?'),
 ///   actions: [
-///     PrimeDialogAction<bool>(label: const Text('Cancel'), value: false),
-///     PrimeDialogAction<bool>(label: const Text('OK'), value: true, variant: ButtonVariant.primary),
+///     DialogAction<bool>(label: const Text('Cancel'), value: false),
+///     DialogAction<bool>(label: const Text('OK'), value: true, variant: ButtonVariant.primary),
 ///   ],
 /// );
 /// ```
-class PrimeDialog {
-  PrimeDialog._();
+class Dialog {
+  Dialog._();
 
   /// Shows a dialog with the given [title], [child] content, and optional [actions].
   ///
@@ -55,7 +55,7 @@ class PrimeDialog {
     required BuildContext context,
     Widget? title,
     required Widget child,
-    List<PrimeDialogAction<T>>? actions,
+    List<DialogAction<T>>? actions,
     bool? showCloseButton,
     bool barrierDismissible = true,
     Color? barrierColor,
@@ -77,7 +77,7 @@ class PrimeDialog {
     }
 
     entry = OverlayEntry(
-      builder: (overlayContext) => _PrimeDialogOverlay<T>(
+      builder: (overlayContext) => _DialogOverlay<T>(
         title: title,
         child: child,
         actions: actions,
@@ -92,16 +92,16 @@ class PrimeDialog {
   }
 }
 
-class _PrimeDialogOverlay<T> extends StatelessWidget {
+class _DialogOverlay<T> extends StatelessWidget {
   final Widget? title;
   final Widget child;
-  final List<PrimeDialogAction<T>>? actions;
+  final List<DialogAction<T>>? actions;
   final bool showCloseButton;
   final bool barrierDismissible;
   final Color? barrierColor;
   final void Function([T? result]) onDismiss;
 
-  const _PrimeDialogOverlay({
+  const _DialogOverlay({
     this.title,
     required this.child,
     this.actions,
@@ -215,3 +215,11 @@ class _PrimeDialogOverlay<T> extends StatelessWidget {
     );
   }
 }
+
+/// The former name of [Dialog].
+@Deprecated('Use Dialog instead. Run `dart fix --apply` to migrate.')
+typedef PrimeDialog = Dialog;
+
+/// The former name of [DialogAction].
+@Deprecated('Use DialogAction instead. Run `dart fix --apply` to migrate.')
+typedef PrimeDialogAction<T> = DialogAction<T>;

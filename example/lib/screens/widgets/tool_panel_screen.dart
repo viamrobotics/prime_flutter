@@ -35,7 +35,7 @@ class _ToolPanelScreenState extends State<ToolPanelScreen> {
               PointField(label: 'Resolution', labels: const {'x': 'W', 'y': 'H'}, min: 1, value: _size, onChanged: (v) => setState(() => _size = v)),
               ControlRow(
                 label: 'Projection',
-                child: PrimeDropdown<String>(
+                child: Dropdown<String>(
                   value: _projection,
                   items: const ['Perspective', 'Orthographic'],
                   onChanged: (v) => setState(() => _projection = v),

@@ -15,7 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 Widget host(Widget child) => PrimeApp(
-  home: PrimeScaffold(
+  home: Scaffold(
     body: SingleChildScrollView(padding: const EdgeInsets.all(16), child: child),
   ),
 );
@@ -24,9 +24,9 @@ Color? textColorOf(WidgetTester tester, String text) =>
     tester.widget<DefaultTextStyle>(find.ancestor(of: find.text(text), matching: find.byType(DefaultTextStyle)).first).style.color;
 
 BoxDecoration decorationOf(WidgetTester tester, Finder within) {
-  final container = tester.widgetList<Container>(find.descendant(of: within, matching: find.byType(Container))).firstWhere(
-    (container) => container.decoration is BoxDecoration && (container.decoration! as BoxDecoration).color != null,
-  );
+  final container = tester
+      .widgetList<Container>(find.descendant(of: within, matching: find.byType(Container)))
+      .firstWhere((container) => container.decoration is BoxDecoration && (container.decoration! as BoxDecoration).color != null);
   return container.decoration! as BoxDecoration;
 }
 
@@ -44,7 +44,11 @@ void main() {
         host(
           const AGGridTable<Map<String, Object?>>(
             height: 200,
-            columnDefs: [ColDef(field: 'id', headerName: 'ID'), ColDef(field: 'name', headerName: 'First name'), ColDef(field: 'ip', headerName: 'IP address')],
+            columnDefs: [
+              ColDef(field: 'id', headerName: 'ID'),
+              ColDef(field: 'name', headerName: 'First name'),
+              ColDef(field: 'ip', headerName: 'IP address'),
+            ],
             rowData: [],
           ),
         ),
@@ -155,11 +159,14 @@ void main() {
         builder: (context) => Button(
           label: const Text('Open'),
           onPressed: () async => onResult(
-            await PrimeDialog.show<String>(
+            await Dialog.show<String>(
               context: context,
               title: const Text('My Dialog'),
               child: const Text('Dialog content'),
-              actions: const [PrimeDialogAction(label: Text('Cancel'), value: 'cancel'), PrimeDialogAction(label: Text('OK'), value: 'ok', variant: ButtonVariant.primary)],
+              actions: const [
+                DialogAction(label: Text('Cancel'), value: 'cancel'),
+                DialogAction(label: Text('OK'), value: 'ok', variant: ButtonVariant.primary),
+              ],
               showCloseButton: true,
             ),
           ),
@@ -202,12 +209,17 @@ void main() {
           Column(
             children: [
               Expandable(triggerBuilder: (context, isOpen) => Text(isOpen ? 'A open' : 'A closed'), content: const Text('A content')),
-              Expandable(initiallyOpen: true, triggerBuilder: (context, isOpen) => Text(isOpen ? 'B open' : 'B closed'), content: const Text('B content')),
+              Expandable(
+                initiallyOpen: true,
+                triggerBuilder: (context, isOpen) => Text(isOpen ? 'B open' : 'B closed'),
+                content: const Text('B content'),
+              ),
             ],
           ),
         ),
       );
-      double heightOf(String text) => tester.getSize(find.ancestor(of: find.text(text), matching: find.byType(SizeTransition)).first).height;
+      double heightOf(String text) =>
+          tester.getSize(find.ancestor(of: find.text(text), matching: find.byType(SizeTransition)).first).height;
       expect(heightOf('A content'), 0);
       expect(heightOf('B content'), greaterThan(0));
       await tester.tap(find.text('A closed'));
@@ -225,7 +237,8 @@ void main() {
       home: Builder(
         builder: (context) => Button(
           label: const Text('Open'),
-          onPressed: () => Modal.show<void>(context: context, title: const Text('This is the modal demo'), message: const Text('Are you sure?')),
+          onPressed: () =>
+              Modal.show<void>(context: context, title: const Text('This is the modal demo'), message: const Text('Are you sure?')),
         ),
       ),
     );
@@ -294,7 +307,13 @@ void main() {
       await tester.tap(find.text('Current Page'));
       expect(visited, ['home']);
       // The current page is drawn in the primary text color; links are muted.
-      expect(tester.widget<DefaultTextStyle>(find.ancestor(of: find.text('Current Page'), matching: find.byType(DefaultTextStyle)).first).style.color, scheme.textPrimary);
+      expect(
+        tester
+            .widget<DefaultTextStyle>(find.ancestor(of: find.text('Current Page'), matching: find.byType(DefaultTextStyle)).first)
+            .style
+            .color,
+        scheme.textPrimary,
+      );
     });
   });
 
@@ -342,11 +361,21 @@ void main() {
   });
 
   group('radio.spec', () {
-    Widget radio({String? selected, bool disabled = false, Axis direction = Axis.vertical, ValueChanged<String>? onChanged, bool required = false}) => host(
+    Widget radio({
+      String? selected,
+      bool disabled = false,
+      Axis direction = Axis.vertical,
+      ValueChanged<String>? onChanged,
+      bool required = false,
+    }) => host(
       Radio<String>(
         legend: const Text('Legend'),
         required: required,
-        options: const [RadioOption(label: 'Opt 1', value: '1'), RadioOption(label: 'Opt 2', value: '2', disabled: true), RadioOption(label: 'Opt 3', value: '3')],
+        options: const [
+          RadioOption(label: 'Opt 1', value: '1'),
+          RadioOption(label: 'Opt 2', value: '2', disabled: true),
+          RadioOption(label: 'Opt 3', value: '3'),
+        ],
         selected: selected,
         disabled: disabled,
         direction: direction,
@@ -450,18 +479,18 @@ void main() {
       bool value = false;
       Widget app({bool disabled = false}) => host(
         StatefulBuilder(
-          builder: (context, setState) => SwitchToggle(value: value, disabled: disabled, onChanged: (next) => setState(() => value = next)),
+          builder: (context, setState) => Switch(value: value, disabled: disabled, onChanged: (next) => setState(() => value = next)),
         ),
       );
       await tester.pumpWidget(app());
-      await tester.tap(find.byType(SwitchToggle));
+      await tester.tap(find.byType(Switch));
       await tester.pumpAndSettle();
       expect(value, isTrue);
-      await tester.tap(find.byType(SwitchToggle));
+      await tester.tap(find.byType(Switch));
       await tester.pumpAndSettle();
       expect(value, isFalse);
       await tester.pumpWidget(app(disabled: true));
-      await tester.tap(find.byType(SwitchToggle));
+      await tester.tap(find.byType(Switch));
       expect(value, isFalse);
     });
 
@@ -470,9 +499,9 @@ void main() {
         host(
           Column(
             children: [
-              SwitchToggle(value: true, annotated: true, onChanged: (_) {}),
-              SwitchToggle(value: false, annotated: true, onChanged: (_) {}),
-              SwitchToggle(value: true, annotated: true, onText: 'Enabled', onChanged: (_) {}),
+              Switch(value: true, annotated: true, onChanged: (_) {}),
+              Switch(value: false, annotated: true, onChanged: (_) {}),
+              Switch(value: true, annotated: true, onText: 'Enabled', onChanged: (_) {}),
             ],
           ),
         ),
@@ -489,7 +518,7 @@ void main() {
       await tester.pumpWidget(
         PrimeApp(
           home: StatefulBuilder(
-            builder: (context, setState) => PrimeScaffold(
+            builder: (context, setState) => Scaffold(
               body: TabBar(
                 items: const [Text('The first tab'), Text('The second tab'), Text('The third tab')],
                 selectedIndex: selected,
@@ -579,9 +608,7 @@ void main() {
       await tester.pumpWidget(
         host(
           Column(
-            children: [
-              for (final variant in BadgeVariant.values) Badge(variant: variant, child: Text(variant.name)),
-            ],
+            children: [for (final variant in BadgeVariant.values) Badge(variant: variant, child: Text(variant.name))],
           ),
         ),
       );
@@ -641,7 +668,9 @@ void main() {
 
     testWidgets('emits close when exitable; a button toggles the details open', (tester) async {
       int closed = 0;
-      await tester.pumpWidget(host(PrimeBanner(title: const Text('T'), onClose: () => closed++, expandableDetails: const Text('The details'))));
+      await tester.pumpWidget(
+        host(PrimeBanner(title: const Text('T'), onClose: () => closed++, expandableDetails: const Text('The details'))),
+      );
       await tester.tap(find.byIcon(PrimeIcons.close));
       expect(closed, 1);
       expect(find.text('The details'), findsNothing);
@@ -673,7 +702,10 @@ void main() {
       await tester.tap(find.text('Disabled'));
       await tester.pump(const Duration(milliseconds: 200));
       expect(clicks, 1);
-      expect(tester.getSize(find.widgetWithText(Button, 'Wide')).width, greaterThan(tester.getSize(find.widgetWithText(Button, 'Click')).width * 2));
+      expect(
+        tester.getSize(find.widgetWithText(Button, 'Wide')).width,
+        greaterThan(tester.getSize(find.widgetWithText(Button, 'Click')).width * 2),
+      );
       expect(tester.takeException(), isNull);
     });
 
@@ -728,7 +760,9 @@ void main() {
     testWidgets('exposes readonly and invalid', (tester) async {
       await tester.pumpWidget(host(const CodeEditor(value: 'x', readOnly: true, invalid: true)));
       expect(tester.widget<EditableText>(find.byType(EditableText)).readOnly, isTrue);
-      final border = tester.widgetList<Container>(find.descendant(of: find.byType(CodeEditor), matching: find.byType(Container))).first.decoration! as BoxDecoration;
+      final border =
+          tester.widgetList<Container>(find.descendant(of: find.byType(CodeEditor), matching: find.byType(Container))).first.decoration!
+              as BoxDecoration;
       expect((border.border! as Border).top.color, scheme.statusDangerDark);
     });
   });
@@ -752,7 +786,8 @@ void main() {
     });
 
     test('fixes a realistic machine config with trailing commas', () {
-      const input = '{\n  "components": [\n    {\n      "name": "my-motor",\n      "attributes": {\n        "pins": { "a": "13", "b": "15", },\n        "board": "my-board",\n      },\n    },\n  ],\n  "services": [],\n}';
+      const input =
+          '{\n  "components": [\n    {\n      "name": "my-motor",\n      "attributes": {\n        "pins": { "a": "13", "b": "15", },\n        "board": "my-board",\n      },\n    },\n  ],\n  "services": [],\n}';
       expect(tryFixJson(input), isNotNull);
     });
 
@@ -763,7 +798,12 @@ void main() {
           StatefulBuilder(
             builder: (context, setState) => Column(
               children: [
-                CodeEditor(value: value, language: CodeEditorLanguage.json, fixJsonOnBlur: true, onChanged: (next) => setState(() => value = next)),
+                CodeEditor(
+                  value: value,
+                  language: CodeEditorLanguage.json,
+                  fixJsonOnBlur: true,
+                  onChanged: (next) => setState(() => value = next),
+                ),
                 const Input(placeholder: 'Other field'),
               ],
             ),
@@ -863,7 +903,14 @@ void main() {
     });
 
     test('every icon has its own glyph', () {
-      const icons = [PrimeIcons.cog, PrimeIcons.calendarBlank, PrimeIcons.checkboxBlankOutline, PrimeIcons.onnx, PrimeIcons.sparkles, PrimeIcons.folder];
+      const icons = [
+        PrimeIcons.cog,
+        PrimeIcons.calendarBlank,
+        PrimeIcons.checkboxBlankOutline,
+        PrimeIcons.onnx,
+        PrimeIcons.sparkles,
+        PrimeIcons.folder,
+      ];
       expect({for (final icon in icons) icon.codePoint}.length, icons.length);
       expect(icons.every((icon) => icon.fontFamily == 'PrimeIcons' && icon.fontPackage == 'prime_flutter'), isTrue);
     });
@@ -931,7 +978,14 @@ void main() {
   });
 
   group('range-input.spec', () {
-    Widget range({num value = 50, bool disabled = false, bool readOnly = false, ValueChanged<num>? onChanged, ValueChanged<num>? onChangeEnd, num step = 10}) =>
+    Widget range({
+      num value = 50,
+      bool disabled = false,
+      bool readOnly = false,
+      ValueChanged<num>? onChanged,
+      ValueChanged<num>? onChangeEnd,
+      num step = 10,
+    }) =>
         host(RangeInput(value: value, step: step, disabled: disabled, readOnly: readOnly, onChanged: onChanged, onChangeEnd: onChangeEnd));
 
     testWidgets('renders the number box, the slider, and the min and max', (tester) async {
@@ -1060,8 +1114,15 @@ void main() {
         host(
           const Column(
             children: [
-              Label(label: Text('Top label'), child: Input(placeholder: 'top field')),
-              Label(label: Text('Left label'), position: LabelPosition.left, child: Input(placeholder: 'left field')),
+              Label(
+                label: Text('Top label'),
+                child: Input(placeholder: 'top field'),
+              ),
+              Label(
+                label: Text('Left label'),
+                position: LabelPosition.left,
+                child: Input(placeholder: 'left field'),
+              ),
             ],
           ),
         ),
@@ -1077,7 +1138,11 @@ void main() {
           const Column(
             children: [
               Label(label: Text('Off'), disabled: true),
-              Label(label: Text('Needed'), required: true, child: Input(placeholder: 'slot')),
+              Label(
+                label: Text('Needed'),
+                required: true,
+                child: Input(placeholder: 'slot'),
+              ),
               Label(label: Text('With'), detail: '(detail)'),
             ],
           ),
@@ -1177,7 +1242,12 @@ void main() {
     }
 
     double barOf(WidgetTester tester, String title) => tester
-        .widget<FractionallySizedBox>(find.descendant(of: find.ancestor(of: find.text(title), matching: find.byType(PrimeBanner)), matching: find.byType(FractionallySizedBox)))
+        .widget<FractionallySizedBox>(
+          find.descendant(
+            of: find.ancestor(of: find.text(title), matching: find.byType(PrimeBanner)),
+            matching: find.byType(FractionallySizedBox),
+          ),
+        )
         .heightFactor!;
 
     testWidgets('displays dismissible notifications, several at once in different styles', (tester) async {
@@ -1192,7 +1262,12 @@ void main() {
       for (final title in ['Info title', 'Warn title', 'Danger title', 'Success title', 'Info message']) {
         expect(find.text(title), findsOneWidget);
       }
-      await tester.tap(find.descendant(of: find.ancestor(of: find.text('Warn title'), matching: find.byType(PrimeBanner)), matching: find.byIcon(PrimeIcons.close)));
+      await tester.tap(
+        find.descendant(
+          of: find.ancestor(of: find.text('Warn title'), matching: find.byType(PrimeBanner)),
+          matching: find.byIcon(PrimeIcons.close),
+        ),
+      );
       await tester.pump();
       expect(find.text('Warn title'), findsNothing);
       expect(find.text('Info title'), findsOneWidget);
@@ -1237,7 +1312,13 @@ void main() {
   });
 
   group('multiselect.spec', () {
-    Widget select(List<String> selected, ValueChanged<List<String>> onChanged, {SelectSort sort = SelectSort.matchesFirst, bool showPills = true, bool disabled = false}) => host(
+    Widget select(
+      List<String> selected,
+      ValueChanged<List<String>> onChanged, {
+      SelectSort sort = SelectSort.matchesFirst,
+      bool showPills = true,
+      bool disabled = false,
+    }) => host(
       Column(
         children: [
           Multiselect(
@@ -1303,7 +1384,11 @@ void main() {
       await tester.pumpWidget(
         host(
           StatefulBuilder(
-            builder: (context, setState) => Multiselect(options: SelectOption.fromStrings(['First Option', 'Option 2', 'C.) Option']), selected: selected, onChanged: (next) => setState(() => selected = next)),
+            builder: (context, setState) => Multiselect(
+              options: SelectOption.fromStrings(['First Option', 'Option 2', 'C.) Option']),
+              selected: selected,
+              onChanged: (next) => setState(() => selected = next),
+            ),
           ),
         ),
       );
@@ -1367,7 +1452,11 @@ void main() {
   });
 
   group('searchable-select.spec', () {
-    final options = [const SelectOption('one', label: 'Option One', description: 'The first', icon: PrimeIcons.cog), const SelectOption('two', label: 'Option Two'), const SelectOption('three', label: 'Something Else')];
+    final options = [
+      const SelectOption('one', label: 'Option One', description: 'The first', icon: PrimeIcons.cog),
+      const SelectOption('two', label: 'Option Two'),
+      const SelectOption('three', label: 'Something Else'),
+    ];
 
     Widget select(
       String value,
@@ -1570,7 +1659,13 @@ void main() {
     testWidgets('matches special characters at the start and in the middle of an option', (tester) async {
       Future<List<String>> search(String query) async {
         await tester.pumpWidget(
-          host(SearchableSelect(key: ValueKey(query), options: SelectOption.fromStrings(['C.) Option', 'Plain', 'Has (parens) inside']), sort: SelectSort.reduce)),
+          host(
+            SearchableSelect(
+              key: ValueKey(query),
+              options: SelectOption.fromStrings(['C.) Option', 'Plain', 'Has (parens) inside']),
+              sort: SelectSort.reduce,
+            ),
+          ),
         );
         await tester.tap(find.byType(EditableText));
         await tester.pumpAndSettle();
@@ -1594,7 +1689,7 @@ void main() {
       String? value;
       Widget app({bool disabled = false}) => host(
         StatefulBuilder(
-          builder: (context, setState) => PrimeDropdown<String>(
+          builder: (context, setState) => Dropdown<String>(
             value: value,
             placeholder: 'Select one',
             items: const ['First', 'Second'],
@@ -1632,9 +1727,9 @@ void main() {
         host(
           const Column(
             children: [
-              PrimeDropdown<String>(items: ['a'], placeholder: 'Warn state', state: InputState.warn),
-              PrimeDropdown<String>(items: ['a'], placeholder: 'Error state', state: InputState.error),
-              PrimeDropdown<String>(items: ['a'], placeholder: 'Plain'),
+              Dropdown<String>(items: ['a'], placeholder: 'Warn state', state: InputState.warn),
+              Dropdown<String>(items: ['a'], placeholder: 'Error state', state: InputState.error),
+              Dropdown<String>(items: ['a'], placeholder: 'Plain'),
             ],
           ),
         ),
@@ -1671,7 +1766,9 @@ void main() {
         PrimeTable(
           variant: variant,
           columnWidths: widths,
-          rows: const [PrimeTableRow(cells: [Text('a'), Text('a much longer cell')])],
+          rows: const [
+            PrimeTableRow(cells: [Text('a'), Text('a much longer cell')]),
+          ],
         ),
       );
       double left(String text) => tester.getTopLeft(find.text(text)).dx;
@@ -1830,7 +1927,10 @@ void main() {
           Column(
             children: [
               const SizedBox(height: 120),
-              Tooltip(message: 'Focus tip', child: Focus(focusNode: node, child: const Text('Focusable'))),
+              Tooltip(
+                message: 'Focus tip',
+                child: Focus(focusNode: node, child: const Text('Focusable')),
+              ),
             ],
           ),
         ),

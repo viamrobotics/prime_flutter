@@ -1,0 +1,97 @@
+# Data-driven fixes for prime_flutter, applied by `dart fix`.
+#
+# Each transform migrates code off a deprecated API. When you deprecate or
+# rename something, add a transform here and a case to test_fixes/.
+# Format: https://github.com/flutter/flutter/blob/master/docs/contributing/Data-driven-Fixes.md
+
+version: 1
+transforms:
+  - title: "Rename to 'Scaffold'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PrimeScaffold'
+    changes:
+      - kind: 'rename'
+        newName: 'Scaffold'
+
+  - title: "Rename to 'AppBar'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PrimeAppBar'
+    changes:
+      - kind: 'rename'
+        newName: 'AppBar'
+
+  - title: "Rename to 'Dialog'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PrimeDialog'
+    changes:
+      - kind: 'rename'
+        newName: 'Dialog'
+
+  - title: "Rename to 'DialogAction'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PrimeDialogAction'
+    changes:
+      - kind: 'rename'
+        newName: 'DialogAction'
+
+  - title: "Rename to 'Dropdown'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PrimeDropdown'
+    changes:
+      - kind: 'rename'
+        newName: 'Dropdown'
+
+  - title: "Rename to 'MultiDropdown'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PrimeMultiDropdown'
+    changes:
+      - kind: 'rename'
+        newName: 'MultiDropdown'
+
+  - title: "Rename to 'Switch'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'SwitchToggle'
+    changes:
+      - kind: 'rename'
+        newName: 'Switch'
+
+  - title: "Rename to 'TextField'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PanelTextField'
+    changes:
+      - kind: 'rename'
+        newName: 'TextField'
+
+  - title: "Rename to 'RawInput'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PrimeTextField'
+    changes:
+      - kind: 'rename'
+        newName: 'RawInput'
+
+  - title: "Rename to 'RawInputState'"
+    date: 2026-11-20
+    element:
+      uris: ['package:prime_flutter/prime_flutter.dart']
+      typedef: 'PrimeTextFieldState'
+    changes:
+      - kind: 'rename'
+        newName: 'RawInputState'

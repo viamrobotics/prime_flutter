@@ -12,8 +12,8 @@ class ShowcasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return PrimeScaffold(
-      appBar: PrimeAppBar(title: Text(title)),
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(

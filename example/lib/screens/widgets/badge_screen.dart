@@ -7,8 +7,8 @@ class BadgeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Badge')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Badge')),
       body: Column(
         children: [
           // Content

@@ -6,7 +6,7 @@ import 'package:prime_flutter/prime_flutter.dart';
 
 Widget host(Widget child) {
   return PrimeApp(
-    home: PrimeScaffold(
+    home: Scaffold(
       body: SingleChildScrollView(padding: const EdgeInsets.all(16), child: child),
     ),
   );
@@ -35,7 +35,10 @@ void main() {
             SiteBanner(
               variant: SiteBannerVariant.announcement,
               badge: 'New',
-              segments: [const SiteBannerSegment('Hello', style: SiteBannerSegmentStyle.strong), SiteBannerSegment('link', onTap: () {})],
+              segments: [
+                const SiteBannerSegment('Hello', style: SiteBannerSegmentStyle.strong),
+                SiteBannerSegment('link', onTap: () {}),
+              ],
               onDismiss: () {},
             ),
             const Breadcrumbs(crumbs: ['Dessert', 'Cookie']),
@@ -48,16 +51,23 @@ void main() {
                 const NavigationBreadcrumbPage(child: Text('arm-1')),
               ],
             ),
-            for (final variant in IconButtonVariant.values) IconButton(icon: const Icon(PrimeIcons.plus), label: 'Add $variant', variant: variant),
+            for (final variant in IconButtonVariant.values)
+              IconButton(icon: const Icon(PrimeIcons.plus), label: 'Add $variant', variant: variant),
             const IconButton(icon: Icon(PrimeIcons.plus), disabled: true, size: IconButtonSize.large),
             const IconButton(icon: Icon(PrimeIcons.plus), loading: true),
             const InlineCode('viam-server'),
             const CodeSnippet(code: '{ "a": 1 }', caption: Text('Caption')),
             const CodeSnippet(code: 'wrapped', wrapLines: true, showCopyButton: false),
-            const KbdGroup(children: [Kbd(child: Text('S')), Kbd(variant: KbdVariant.dark, child: Text('K'))]),
+            const KbdGroup(
+              children: [
+                Kbd(child: Text('S')),
+                Kbd(variant: KbdVariant.dark, child: Text('K')),
+              ],
+            ),
             const Label(label: Text('Name'), required: true, detail: '(optional)', child: Input()),
             const Label(label: Text('Left'), position: LabelPosition.left, child: Input()),
-            for (final variant in PillVariant.values) Pill(value: 'Pill $variant', variant: variant, icon: PrimeIcons.tagOutline, iconTooltip: 'Tag'),
+            for (final variant in PillVariant.values)
+              Pill(value: 'Pill $variant', variant: variant, icon: PrimeIcons.tagOutline, iconTooltip: 'Tag'),
             const Pill(value: 'Readonly', readOnly: true),
             for (final variant in StatusPillVariant.values) StatusPill(label: 'live', variant: variant, tooltip: 'Tip'),
             const StatusPill(label: 'loading', variant: StatusPillVariant.inactive, loading: true),
@@ -65,10 +75,16 @@ void main() {
             PrimeTable(
               header: const [Text('Name'), Text('Status')],
               rows: [
-                for (final variant in TableRowVariant.values) PrimeTableRow(cells: [Text('row $variant'), const Text('ok')], variant: variant),
+                for (final variant in TableRowVariant.values)
+                  PrimeTableRow(cells: [Text('row $variant'), const Text('ok')], variant: variant),
               ],
             ),
-            const PrimeTable(variant: TableVariant.auto, rows: [PrimeTableRow(cells: [Text('a'), Text('b')])]),
+            const PrimeTable(
+              variant: TableVariant.auto,
+              rows: [
+                PrimeTableRow(cells: [Text('a'), Text('b')]),
+              ],
+            ),
           ],
         ),
       ),
@@ -129,7 +145,13 @@ void main() {
     expect(tester.takeException(), isNull);
     // The progress badge wears a spinner; the dots style is a single braille glyph.
     expect(find.descendant(of: find.widgetWithText(Badge, 'PROGRESS'), matching: find.byType(Progress)), findsOneWidget);
-    expect(find.byWidgetPredicate((widget) => widget is Text && (widget.data?.length == 1) && widget.data!.codeUnitAt(0) >= 0x2800 && widget.data!.codeUnitAt(0) <= 0x28FF), findsOneWidget);
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is Text && (widget.data?.length == 1) && widget.data!.codeUnitAt(0) >= 0x2800 && widget.data!.codeUnitAt(0) <= 0x28FF,
+      ),
+      findsOneWidget,
+    );
 
     // The snippet colors its tokens: the number and the boolean differ from plain text.
     final theme = PrimeThemeData.light();
@@ -142,7 +164,10 @@ void main() {
     final json5 = highlightCode("// note\nname: 'arm'", CodeEditorLanguage.json5, theme);
     expect(json5.firstWhere((span) => span.text == '// note').style?.color, isNotNull);
     expect(json5.firstWhere((span) => span.text == 'name').style?.color, isNotNull);
-    expect(highlightCode('name: 1', CodeEditorLanguage.json, theme).any((span) => span.text == 'name' && span.style?.color != null), isFalse);
+    expect(
+      highlightCode('name: 1', CodeEditorLanguage.json, theme).any((span) => span.text == 'name' && span.style?.color != null),
+      isFalse,
+    );
   });
 
   testWidgets('Multiselect shows a heading and a call-to-action in its menu', (tester) async {
@@ -245,7 +270,9 @@ void main() {
     num? value;
     num? committed;
     await tester.pumpWidget(
-      host(NumericInput(type: NumericInputType.integer, max: 10, onChanged: (next) => value = next, onChangeEnd: (next) => committed = next)),
+      host(
+        NumericInput(type: NumericInputType.integer, max: 10, onChanged: (next) => value = next, onChangeEnd: (next) => committed = next),
+      ),
     );
     await tester.enterText(find.byType(EditableText), '42');
     expect(value, 42);
@@ -269,7 +296,13 @@ void main() {
             children: [
               RangeInput(value: 20, suffix: '%', onChanged: (_) {}),
               const RangeInput(value: 0.5, max: 1, step: 0.01, disabled: true),
-              SliderInput(key: const ValueKey('slider'), value: slider, min: 0, max: 8, onChanged: (next) => setState(() => slider = next ?? 0)),
+              SliderInput(
+                key: const ValueKey('slider'),
+                value: slider,
+                min: 0,
+                max: 8,
+                onChanged: (next) => setState(() => slider = next ?? 0),
+              ),
               VectorInput(values: vector, onChanged: (next) => setState(() => vector = next)),
             ],
           ),
@@ -451,7 +484,8 @@ void main() {
     await tester.pumpWidget(
       host(
         StatefulBuilder(
-          builder: (context, setState) => DateRangePicker(value: value, max: DateTime(2026, 3, 28), onChanged: (next) => setState(() => value = next)),
+          builder: (context, setState) =>
+              DateRangePicker(value: value, max: DateTime(2026, 3, 28), onChanged: (next) => setState(() => value = next)),
         ),
       ),
     );
@@ -513,15 +547,26 @@ void main() {
           builder: (context, setState) => Column(
             spacing: 12,
             children: [
-              DateTimeInput(key: const ValueKey('time'), type: DateTimeInputType.time, value: time, onChanged: (next) => setState(() => time = next)),
+              DateTimeInput(
+                key: const ValueKey('time'),
+                type: DateTimeInputType.time,
+                value: time,
+                onChanged: (next) => setState(() => time = next),
+              ),
               DateTimeInput(key: const ValueKey('both'), value: moment, onChanged: (next) => setState(() => moment = next)),
-              DateTimeInput(key: const ValueKey('date'), type: DateTimeInputType.date, value: day, onChanged: (next) => setState(() => day = next)),
+              DateTimeInput(
+                key: const ValueKey('date'),
+                type: DateTimeInputType.date,
+                value: day,
+                onChanged: (next) => setState(() => day = next),
+              ),
             ],
           ),
         ),
       ),
     );
-    Finder field(String key, [int index = 0]) => find.descendant(of: find.byKey(ValueKey(key)), matching: find.byType(EditableText)).at(index);
+    Finder field(String key, [int index = 0]) =>
+        find.descendant(of: find.byKey(ValueKey(key)), matching: find.byType(EditableText)).at(index);
     String text(String key, [int index = 0]) => tester.widget<EditableText>(field(key, index)).controller.text;
     Future<void> type(Finder target, String value) async {
       await tester.enterText(target, value);
@@ -713,7 +758,11 @@ void main() {
 
   group('TreeView', () {
     final nodes = [
-      (id: 'rover', name: 'Rover', children: [(id: 'rover/cam', name: 'Camera', children: null), (id: 'rover/base', name: 'Base', children: null)]),
+      (
+        id: 'rover',
+        name: 'Rover',
+        children: [(id: 'rover/cam', name: 'Camera', children: null), (id: 'rover/base', name: 'Base', children: null)],
+      ),
       (id: 'drone', name: 'Drone', children: null),
     ];
 
@@ -786,7 +835,10 @@ void main() {
 
     test('tree operations', () {
       expect(ids(root), ['a', 'b', 'c']);
-      expect((setSplitRatio(root, 'inner', 0.3) as SplitNode<String>).second, isA<SplitNode<String>>().having((s) => s.ratio, 'ratio', 0.3));
+      expect(
+        (setSplitRatio(root, 'inner', 0.3) as SplitNode<String>).second,
+        isA<SplitNode<String>>().having((s) => s.ratio, 'ratio', 0.3),
+      );
       expect(identical(setSplitRatio(root, 'missing', 0.3), root), isTrue);
 
       final removed = removePane(root, 'b') as SplitNode<String>;
@@ -853,7 +905,12 @@ void main() {
       id: 'root',
       direction: SplitDirection.row,
       first: PaneNode(id: 'a', data: 'A'),
-      second: SplitNode<String>(id: 'inner', direction: SplitDirection.column, first: PaneNode(id: 'b', data: 'B'), second: PaneNode(id: 'c', data: 'C')),
+      second: SplitNode<String>(
+        id: 'inner',
+        direction: SplitDirection.column,
+        first: PaneNode(id: 'b', data: 'B'),
+        second: PaneNode(id: 'c', data: 'C'),
+      ),
     );
     await tester.pumpWidget(
       PrimeApp(
@@ -936,7 +993,9 @@ void main() {
 
     // With centerDrop: stack, the middle of a plain pane creates a stack.
     await dragTo(find.text('Grip C'), tester.getCenter(find.text('Body A')));
-    final stacks = [for (final id in ['a', 'c']) findLayoutNode(layout, id)];
+    final stacks = [
+      for (final id in ['a', 'c']) findLayoutNode(layout, id),
+    ];
     expect(stacks.every((node) => node != null), isTrue);
     expect(find.text('Tab A'), findsOneWidget);
     expect(find.text('Tab C'), findsOneWidget);
@@ -950,7 +1009,14 @@ void main() {
       second: SplitNode<String>(
         id: 'inner',
         direction: SplitDirection.column,
-        first: StackNode<String>(id: 'stack', activeId: 'c', panes: [PaneNode(id: 'b', data: 'B'), PaneNode(id: 'c', data: 'C')]),
+        first: StackNode<String>(
+          id: 'stack',
+          activeId: 'c',
+          panes: [
+            PaneNode(id: 'b', data: 'B'),
+            PaneNode(id: 'c', data: 'C'),
+          ],
+        ),
         second: PaneNode(id: 'd', data: 'D'),
       ),
     );
@@ -1003,7 +1069,11 @@ void main() {
                   },
                 );
                 if (showAdd) {
-                  body = Hotkey(binding: const Keybinding(id: 'add', description: 'Add one', key: 'k'), onInvoke: () => adds++, child: body);
+                  body = Hotkey(
+                    binding: const Keybinding(id: 'add', description: 'Add one', key: 'k'),
+                    onInvoke: () => adds++,
+                    child: body,
+                  );
                 }
                 return Hotkey(
                   binding: const Keybinding(id: 'save', description: 'Save', group: 'File', key: 's', mod: true),
@@ -1059,7 +1129,14 @@ void main() {
       id: 'root',
       direction: SplitDirection.row,
       first: PaneNode(id: 'a', data: 'A'),
-      second: StackNode<String>(id: 'stack', activeId: 'b', panes: [PaneNode(id: 'b', data: 'B'), PaneNode(id: 'c', data: 'C')]),
+      second: StackNode<String>(
+        id: 'stack',
+        activeId: 'b',
+        panes: [
+          PaneNode(id: 'b', data: 'B'),
+          PaneNode(id: 'c', data: 'C'),
+        ],
+      ),
     );
     const rect = FloatRect(x: 40, y: 40, width: 240, height: 160);
 
@@ -1151,7 +1228,12 @@ void main() {
 
   testWidgets('a floating window is kept inside its box on a small screen', (tester) async {
     final layout = floatPane(
-      const SplitNode<String>(id: 'root', direction: SplitDirection.row, first: PaneNode(id: 'a', data: 'A'), second: PaneNode(id: 'b', data: 'B')),
+      const SplitNode<String>(
+        id: 'root',
+        direction: SplitDirection.row,
+        first: PaneNode(id: 'a', data: 'A'),
+        second: PaneNode(id: 'b', data: 'B'),
+      ),
       'a',
       const FloatRect(x: 300, y: 500, width: 360, height: 240),
       'win',
@@ -1164,7 +1246,12 @@ void main() {
           child: SizedBox(
             width: 320,
             height: 400,
-            child: Panes<String>(layout: layout, onLayoutChanged: (_) {}, paneLabel: (pane) => 'Tab ${pane.data}', paneBuilder: (context, pane, state) => Text('Body ${pane.data}')),
+            child: Panes<String>(
+              layout: layout,
+              onLayoutChanged: (_) {},
+              paneLabel: (pane) => 'Tab ${pane.data}',
+              paneBuilder: (context, pane, state) => Text('Body ${pane.data}'),
+            ),
           ),
         ),
       ),
@@ -1179,7 +1266,12 @@ void main() {
 
   testWidgets('Panes floatBuilder supplies custom window chrome', (tester) async {
     LayoutNode<String>? layout = floatPane(
-      const SplitNode<String>(id: 'root', direction: SplitDirection.row, first: PaneNode(id: 'a', data: 'A'), second: PaneNode(id: 'b', data: 'B')),
+      const SplitNode<String>(
+        id: 'root',
+        direction: SplitDirection.row,
+        first: PaneNode(id: 'a', data: 'A'),
+        second: PaneNode(id: 'b', data: 'B'),
+      ),
       'a',
       const FloatRect(x: 40, y: 40, width: 240, height: 160),
       'win',
@@ -1260,7 +1352,12 @@ void main() {
       id: 'root',
       direction: SplitDirection.row,
       first: PaneNode(id: 'a', data: 'A'),
-      second: SplitNode<String>(id: 'inner', direction: SplitDirection.column, first: PaneNode(id: 'b', data: 'B'), second: PaneNode(id: 'c', data: 'C')),
+      second: SplitNode<String>(
+        id: 'inner',
+        direction: SplitDirection.column,
+        first: PaneNode(id: 'b', data: 'B'),
+        second: PaneNode(id: 'c', data: 'C'),
+      ),
     );
     final moving = <String, bool>{};
     await tester.pumpWidget(
@@ -1325,7 +1422,10 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
     expect(ids(), ['b', 'a', 'c']);
-    expect(findLayoutNode(layout, 'new-split'), isA<SplitNode<String>>().having((split) => split.direction, 'direction', SplitDirection.row));
+    expect(
+      findLayoutNode(layout, 'new-split'),
+      isA<SplitNode<String>>().having((split) => split.direction, 'direction', SplitDirection.row),
+    );
     expect(moving.values.any((value) => value), isFalse);
 
     // Tap placement: move C, then tap the middle of B to swap them.
@@ -1383,7 +1483,8 @@ void main() {
       await tester.pumpWidget(
         host(
           StatefulBuilder(
-            builder: (context, setState) => CodeEditor(value: value, language: CodeEditorLanguage.json, onChanged: (next) => setState(() => value = next)),
+            builder: (context, setState) =>
+                CodeEditor(value: value, language: CodeEditorLanguage.json, onChanged: (next) => setState(() => value = next)),
           ),
         ),
       );
@@ -1517,8 +1618,13 @@ void main() {
         await tester.pumpWidget(
           host(
             StatefulBuilder(
-              builder: (context, setState) =>
-                  CodeEditor(key: ValueKey(diff), value: value, original: original, diff: diff, onChanged: (next) => setState(() => value = next)),
+              builder: (context, setState) => CodeEditor(
+                key: ValueKey(diff),
+                value: value,
+                original: original,
+                diff: diff,
+                onChanged: (next) => setState(() => value = next),
+              ),
             ),
           ),
         );
@@ -1559,9 +1665,7 @@ void main() {
 
         // A new value from outside is laid out as a diff again.
         value = 'zero\n$original';
-        await tester.pumpWidget(
-          host(CodeEditor(key: ValueKey(diff), value: value, original: original, diff: diff, onChanged: (_) {})),
-        );
+        await tester.pumpWidget(host(CodeEditor(key: ValueKey(diff), value: value, original: original, diff: diff, onChanged: (_) {})));
         expect(view(), value);
         expect(find.text('+'), findsOneWidget);
       }
@@ -1637,7 +1741,9 @@ void main() {
       final original = [for (int i = 1; i <= 30; i++) 'line $i'].join('\n');
       final value = original.replaceFirst('line 15', 'line fifteen');
       for (final diff in CodeEditorDiff.values) {
-        await tester.pumpWidget(host(CodeEditor(key: ValueKey(diff), value: value, original: original, diff: diff, collapseUnchanged: true)));
+        await tester.pumpWidget(
+          host(CodeEditor(key: ValueKey(diff), value: value, original: original, diff: diff, collapseUnchanged: true)),
+        );
         expect(tester.takeException(), isNull, reason: '$diff');
         expect(find.text('+'), findsOneWidget);
         expect(find.text('-'), findsOneWidget);
@@ -1684,7 +1790,9 @@ void main() {
     expect(tester.takeException(), isNull);
     expect(find.text(' *'), findsOneWidget);
     expect(find.byIcon(PrimeIcons.alertCircle), findsNWidgets(2));
-    final hint = tester.widget<DefaultTextStyle>(find.ancestor(of: find.text('Enter a valid address.'), matching: find.byType(DefaultTextStyle)).first);
+    final hint = tester.widget<DefaultTextStyle>(
+      find.ancestor(of: find.text('Enter a valid address.'), matching: find.byType(DefaultTextStyle)).first,
+    );
     expect(hint.style.color, PrimeColors.dangerDark);
 
     await tester.tap(find.text('Accept'));
@@ -1782,8 +1890,14 @@ void main() {
           children: [
             Menubar(
               menus: [
-                MenubarMenu(label: const Text('File'), items: [MenuItem(onTap: () {}, child: const Text('Open'))]),
-                MenubarMenu(label: const Text('Edit'), items: [MenuItem(onTap: () {}, child: const Text('Undo'))]),
+                MenubarMenu(
+                  label: const Text('File'),
+                  items: [MenuItem(onTap: () {}, child: const Text('Open'))],
+                ),
+                MenubarMenu(
+                  label: const Text('Edit'),
+                  items: [MenuItem(onTap: () {}, child: const Text('Undo'))],
+                ),
               ],
             ),
             const SizedBox(height: 200),
@@ -1845,7 +1959,8 @@ void main() {
     await tester.pumpWidget(
       host(
         StatefulBuilder(
-          builder: (context, setState) => DatePicker(value: value, max: DateTime(2026, 3, 20), onChanged: (next) => setState(() => value = next)),
+          builder: (context, setState) =>
+              DatePicker(value: value, max: DateTime(2026, 3, 20), onChanged: (next) => setState(() => value = next)),
         ),
       ),
     );
@@ -1888,7 +2003,14 @@ void main() {
               Folder(
                 title: 'Lighting',
                 children: [
-                  SliderField(label: 'Opacity', min: 0, max: 1, step: 0.01, value: opacity, onChanged: (next) => setState(() => opacity = next)),
+                  SliderField(
+                    label: 'Opacity',
+                    min: 0,
+                    max: 1,
+                    step: 0.01,
+                    value: opacity,
+                    onChanged: (next) => setState(() => opacity = next),
+                  ),
                   const ControlRow(label: 'Mode', child: Text('Orbit')),
                 ],
               ),
@@ -1926,8 +2048,21 @@ void main() {
           builder: (context, setState) => Panel(
             title: 'Motion',
             children: [
-              PanelTextField(label: 'Name', labelWidth: 72, hint: 'The motion service to use', placeholder: 'builtin', onChanged: (next) => setState(() => name = next)),
-              const NumberField(label: 'Power', labelWidth: 72, hint: 'Fraction of full power', suffix: '%', state: InputState.error, value: 50),
+              TextField(
+                label: 'Name',
+                labelWidth: 72,
+                hint: 'The motion service to use',
+                placeholder: 'builtin',
+                onChanged: (next) => setState(() => name = next),
+              ),
+              const NumberField(
+                label: 'Power',
+                labelWidth: 72,
+                hint: 'Fraction of full power',
+                suffix: '%',
+                state: InputState.error,
+                value: 50,
+              ),
               const SliderField(label: 'Speed', hint: 'Metres per second', suffix: 'm/s', min: 0, max: 2, step: 0.1, value: 1),
               PointField(
                 label: 'Pose',
@@ -2007,7 +2142,13 @@ void main() {
         columns: [
           DataGridColumn(id: 'name', header: const Text('Name'), value: (row) => row.name, flex: 2),
           DataGridColumn(id: 'parts', header: const Text('Parts'), value: (row) => row.parts, alignment: Alignment.centerRight),
-          DataGridColumn(id: 'action', header: const Text('Action'), sortable: false, width: 80, cellBuilder: (context, row) => const Text('Go')),
+          DataGridColumn(
+            id: 'action',
+            header: const Text('Action'),
+            sortable: false,
+            width: 80,
+            cellBuilder: (context, row) => const Text('Go'),
+          ),
         ],
       ),
     );

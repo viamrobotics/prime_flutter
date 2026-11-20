@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide NavigationBar;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum NavigationBarPageStyle { basic }
@@ -17,7 +17,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 400,

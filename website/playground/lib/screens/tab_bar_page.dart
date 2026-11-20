@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide TabBar;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum TabBarPageStyle { basic }
@@ -17,16 +17,16 @@ class _TabBarPageState extends State<TabBarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 400,
           child: Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300)),
+            decoration: BoxDecoration(border: Border.all(color: PrimeColors.gray5)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                PrimeAppBar(
+                AppBar(
                   title: const Text('My App'),
                   leading: const Icon(PrimeIcons.viamFlutter),
                   bottom: TabBar(

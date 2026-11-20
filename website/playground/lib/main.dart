@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; // Change to material for MaterialPageRoute? Or use PageRouteBuilder. PrimeApp might expect widgets app concepts.
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 import 'screens/app_bar_page.dart';
 import 'screens/avatar_page.dart';

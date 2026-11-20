@@ -33,7 +33,7 @@ class Toast extends StatelessWidget {
     final overlay = Overlay.of(context);
     late OverlayEntry entry;
 
-    // Calculate bottom offset based on PrimeScaffold and SafeArea
+    // Calculate bottom offset based on Scaffold and SafeArea
     final layoutData = PrimeLayoutData.of(context);
     final safePadding = MediaQuery.of(context).padding.bottom;
     final bottomOffset = (layoutData?.bottomOffset ?? 0) + safePadding + 24;

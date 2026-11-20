@@ -26,7 +26,7 @@ enum ModalVariant {
 /// A modal overlay with a title, message, body and up to three actions.
 ///
 /// Kept for parity with Prime for the web, where it is deprecated in favor
-/// of the dialog. Prefer [PrimeDialog] for new code; use this when you need
+/// of the dialog. Prefer [Dialog] for new code; use this when you need
 /// custom action widgets or the size variants.
 ///
 /// ```dart

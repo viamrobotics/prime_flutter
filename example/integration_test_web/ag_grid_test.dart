@@ -21,7 +21,7 @@ void main() {
     late StateSetter rebuild;
     await tester.pumpWidget(
       PrimeApp(
-        home: PrimeScaffold(
+        home: Scaffold(
           body: StatefulBuilder(
             builder: (context, setState) {
               rebuild = setState;

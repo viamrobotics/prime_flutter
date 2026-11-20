@@ -6,8 +6,8 @@ class AvatarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Avatar')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Avatar')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

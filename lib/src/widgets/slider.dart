@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../prime_flutter.dart';
 
@@ -158,7 +158,6 @@ class Slider extends StatelessWidget {
                         color: effectiveThumbColor,
                         shape: BoxShape.circle,
                         border: Border.all(color: theme.colorScheme.surfaceBase, width: 2),
-                        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 4, offset: const Offset(0, 2))],
                       ),
                     ),
                   ),

@@ -6,8 +6,8 @@ class LocationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: PrimeAppBar(
+    return Scaffold(
+      appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);

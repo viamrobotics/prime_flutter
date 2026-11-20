@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum FilterPillPageStyle { basicToggle, iconToggle, filterGroupDefault, filterGroupCustom, filterGroupComposite }
@@ -10,7 +10,7 @@ class FilterPillPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: switch (style) {
           FilterPillPageStyle.basicToggle => const _BasicToggleExample(),

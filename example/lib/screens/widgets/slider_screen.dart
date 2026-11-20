@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Slider;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 class SliderScreen extends StatefulWidget {
@@ -20,8 +20,8 @@ class _SliderScreenState extends State<SliderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Slider')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Slider')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -81,11 +81,11 @@ class _SliderScreenState extends State<SliderScreen> {
                   Slider(
                     value: _customColorValue,
                     divisions: 5,
-                    activeTrackColor: Colors.purple,
-                    inactiveTrackColor: Colors.purple.withValues(alpha: 0.2),
-                    thumbColor: Colors.purple,
-                    activeTickColor: Colors.white,
-                    inactiveTickColor: Colors.purple.withValues(alpha: 0.5),
+                    activeTrackColor: const Color(0xFF9C27B0),
+                    inactiveTrackColor: const Color(0xFF9C27B0).withValues(alpha: 0.2),
+                    thumbColor: const Color(0xFF9C27B0),
+                    activeTickColor: PrimeColors.gray0,
+                    inactiveTickColor: const Color(0xFF9C27B0).withValues(alpha: 0.5),
                     onChanged: (v) => setState(() => _customColorValue = v),
                   ),
                 ],

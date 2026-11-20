@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart' show InputDecoration, Material, MaterialType, TextField;
 import 'package:flutter/rendering.dart' show RenderEditable;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -12,6 +11,7 @@ import '../theme/prime_theme_data.dart';
 import 'input.dart';
 import 'internal/pressable.dart';
 import 'prime_icons.dart';
+import 'raw_input.dart';
 
 /// Fixes common JSON slips, currently trailing commas before `}` and `]`,
 /// and returns the result when it is valid JSON, or null when it is not.
@@ -1329,7 +1329,7 @@ class _CodeEditorState extends State<CodeEditor> {
                 mainAxisSize: bounded ? MainAxisSize.max : MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (_searchOpen && isEditor) Material(type: MaterialType.transparency, child: _buildSearchBar(theme)),
+                  if (_searchOpen && isEditor) _buildSearchBar(theme),
                   bounded ? Expanded(child: body) : body,
                 ],
               );
@@ -1465,7 +1465,7 @@ class _CodeEditorState extends State<CodeEditor> {
                         : _lineHeight),
           ];
 
-    final field = TextField(
+    final field = RawInput(
       key: _fieldKey,
       controller: _controller,
       focusNode: _focusNode,
@@ -1488,10 +1488,8 @@ class _CodeEditorState extends State<CodeEditor> {
           : _strut,
       cursorColor: c.textPrimary,
       cursorWidth: 1.5,
-      decoration: InputDecoration.collapsed(
-        hintText: widget.placeholder,
-        hintStyle: style.copyWith(color: c.textTertiary),
-      ),
+      placeholder: widget.placeholder,
+      placeholderStyle: style.copyWith(color: c.textTertiary),
       onChanged: _handleChanged,
     );
 
@@ -1607,7 +1605,7 @@ class _CodeEditorState extends State<CodeEditor> {
       );
     }
 
-    return Material(type: MaterialType.transparency, child: editor);
+    return editor;
   }
 
   /// Groups diff lines into visible lines and collapsed runs of unchanged ones.

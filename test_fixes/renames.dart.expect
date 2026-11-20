@@ -1,0 +1,28 @@
+import 'package:flutter/widgets.dart';
+import 'package:prime_flutter/prime_flutter.dart';
+
+void main() {
+  runApp(
+    PrimeApp(
+      home: Scaffold(
+        appBar: const AppBar(title: Text('Renames')),
+        body: Column(
+          children: [
+            Switch(value: true, onChanged: (_) {}),
+            Dropdown<String>(items: const ['a'], onChanged: (_) {}),
+            MultiDropdown<String>(items: const ['a'], onChanged: (_) {}),
+            const TextField(label: 'Name'),
+            const RawInput(placeholder: 'Raw'),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Future<void> ask(BuildContext context) async {
+  const DialogAction<bool> ok = DialogAction<bool>(label: Text('OK'), value: true);
+  await Dialog.show<bool>(context: context, title: const Text('Sure?'), actions: [ok], child: const Text('Body'));
+}
+
+RawInputState? stateOf(GlobalKey<RawInputState> key) => key.currentState;

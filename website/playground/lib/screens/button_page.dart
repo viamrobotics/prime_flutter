@@ -21,7 +21,7 @@ class ButtonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: switch (style) {
           PlaygroundButtonStyle.primary => Button(label: const Text('Primary'), onPressed: () {}, variant: ButtonVariant.primary),

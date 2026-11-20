@@ -6,8 +6,8 @@ class DialogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Dialog')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Dialog')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -18,13 +18,13 @@ class DialogScreen extends StatelessWidget {
             Button(
               label: const Text('Show dialog'),
               onPressed: () async {
-                await PrimeDialog.show<bool>(
+                await Dialog.show<bool>(
                   context: context,
                   title: const Text('Confirm'),
                   child: const Text('Are you sure you want to continue?'),
                   actions: [
-                    PrimeDialogAction<bool>(label: const Text('Cancel'), value: false),
-                    PrimeDialogAction<bool>(
+                    DialogAction<bool>(label: const Text('Cancel'), value: false),
+                    DialogAction<bool>(
                       label: const Text('OK'),
                       value: true,
                       variant: ButtonVariant.primary,
@@ -40,7 +40,7 @@ class DialogScreen extends StatelessWidget {
               variant: ButtonVariant.secondary,
               label: const Text('Show alert'),
               onPressed: () {
-                PrimeDialog.show<void>(
+                Dialog.show<void>(
                   context: context,
                   title: const Text('Notice'),
                   child: const Text('Tap outside or the close icon to dismiss.'),

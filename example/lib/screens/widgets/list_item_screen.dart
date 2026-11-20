@@ -7,8 +7,8 @@ class ListItemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('List Items')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('List Items')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(

@@ -1,0 +1,8 @@
+# The files here use deprecated APIs on purpose: they are the input for
+# `dart fix --compare-to-golden`, which checks lib/fix_data.yaml.
+analyzer:
+  errors:
+    unused_local_variable: ignore
+linter:
+  rules:
+    - deprecated_member_use_from_same_package

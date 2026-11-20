@@ -6,8 +6,8 @@ class ButtonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: PrimeAppBar(title: const Text('Buttons')),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Buttons')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(

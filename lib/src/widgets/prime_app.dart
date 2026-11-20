@@ -1,15 +1,50 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../theme/prime_theme.dart';
 import '../theme/prime_theme_data.dart';
 import '../theme/prime_theme_mode.dart';
+import 'prime_page_route.dart';
+import 'scroll_behavior.dart';
 
-/// A widget for building a Prime app. Lightly wraps a [WidgetsApp] with a [PrimeTheme].
+/// The root of a Prime app: what `MaterialApp` or `CupertinoApp` is to their
+/// design systems, built on [WidgetsApp] alone.
 ///
-/// use at the root of your app to provide a theme and other configuration options when building a Prime styled application.
+/// It provides everything the widgets beneath it expect from an app root:
+///
+///  * a [PrimeTheme], chosen from [theme] and [darkTheme] by [themeMode];
+///  * a [Navigator] (or a [Router], with [PrimeApp.router]) whose pages
+///    transition with [PrimePageRoute];
+///  * a [HeroController], so [Hero]s fly between pages;
+///  * a [ScrollConfiguration] with [PrimeScrollBehavior];
+///  * default text, icon and text-selection styles from the theme;
+///  * the framework's localizations, keyboard shortcuts and focus traversal.
+///
+/// ```dart
+/// void main() => runApp(const PrimeApp(title: 'My app', home: HomeScreen()));
+/// ```
+///
+/// ## Localization
+///
+/// Prime's widgets take their few built-in strings from [WidgetsLocalizations],
+/// which is English and left-to-right unless told otherwise. To follow the
+/// device language and text direction, add `flutter_localizations` to your
+/// app and pass `GlobalWidgetsLocalizations.delegate` in
+/// [localizationsDelegates], along with your [supportedLocales].
+///
+/// ## Mixing in Material or Cupertino widgets
+///
+/// A Material or Cupertino widget placed under a `PrimeApp` (your own, or one
+/// from a package) may look up `MaterialLocalizations` or
+/// `CupertinoLocalizations`. Provide them through [localizationsDelegates]:
+/// `GlobalMaterialLocalizations.delegates` from `package:material_ui` covers
+/// Material, Cupertino and the widgets layer.
 class PrimeApp extends StatefulWidget {
+  /// A one-line description of the app for the device, e.g. in the task
+  /// switcher. See [onGenerateTitle] for a localized title.
   final String title;
+
+  /// Generates the app title from localized strings. Wins over [title].
+  final GenerateAppTitle? onGenerateTitle;
   final Widget? home;
   final Map<String, WidgetBuilder>? routes;
   final String? initialRoute;
@@ -27,12 +62,25 @@ class PrimeApp extends StatefulWidget {
   final Iterable<Locale> supportedLocales;
   final bool showPerformanceOverlay;
   final bool showSemanticsDebugger;
-  final Map<LogicalKeySet, Intent>? shortcuts;
+  final Map<ShortcutActivator, Intent>? shortcuts;
   final Map<Type, Action<Intent>>? actions;
   final String? restorationScopeId;
+
+  /// The theme, and the light theme when [darkTheme] is also given.
+  /// Defaults to [PrimeThemeData.light].
   final PrimeThemeData? theme;
+
+  /// The theme used when [themeMode] resolves to dark. Defaults to [theme].
   final PrimeThemeData? darkTheme;
+
   final PrimeThemeMode themeMode;
+
+  /// How scrollables behave throughout the app. Defaults to [PrimeScrollBehavior].
+  final ScrollBehavior? scrollBehavior;
+
+  /// Called for each navigation change, e.g. to tell the platform whether the
+  /// app can handle the system back gesture. See [WidgetsApp.onNavigationNotification].
+  final NotificationListenerCallback<NavigationNotification>? onNavigationNotification;
 
   // Router specific
   final RouteInformationProvider? routeInformationProvider;
@@ -67,6 +115,9 @@ class PrimeApp extends StatefulWidget {
     this.theme,
     this.darkTheme,
     this.themeMode = PrimeThemeMode.system,
+    this.scrollBehavior,
+    this.onGenerateTitle,
+    this.onNavigationNotification,
   }) : routeInformationProvider = null,
        routeInformationParser = null,
        routerDelegate = null,
@@ -96,6 +147,9 @@ class PrimeApp extends StatefulWidget {
     this.theme,
     this.darkTheme,
     this.themeMode = PrimeThemeMode.system,
+    this.scrollBehavior,
+    this.onGenerateTitle,
+    this.onNavigationNotification,
   }) : home = null,
        routes = null,
        initialRoute = null,
@@ -110,22 +164,26 @@ class PrimeApp extends StatefulWidget {
 }
 
 class _PrimeAppState extends State<PrimeApp> {
-  Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegates sync* {
-    if (widget.localizationsDelegates != null) {
-      yield* widget.localizationsDelegates!;
-    }
-    yield GlobalMaterialLocalizations.delegate;
-    yield GlobalCupertinoLocalizations.delegate;
-    yield GlobalWidgetsLocalizations.delegate;
+  // Material and Cupertino apps each install one. Without it, Heroes do not fly.
+  final HeroController _heroController = HeroController();
+
+  @override
+  void dispose() {
+    _heroController.dispose();
+    super.dispose();
   }
 
-  Widget _buildWidgetApp(BuildContext context) {
-    if (widget.routerDelegate != null || widget.routerConfig != null) {
+  bool get _usesRouter => widget.routerDelegate != null || widget.routerConfig != null;
+
+  Widget _buildWidgetApp(BuildContext context, PrimeThemeData theme) {
+    if (_usesRouter) {
       return WidgetsApp.router(
         key: GlobalObjectKey(this),
         title: widget.title,
-        color: _theme.colorScheme.actionPrimaryBg,
-        textStyle: _theme.textTheme.bodyDefault,
+        onGenerateTitle: widget.onGenerateTitle,
+        onNavigationNotification: widget.onNavigationNotification,
+        color: theme.colorScheme.actionPrimaryBg,
+        textStyle: theme.textTheme.bodyDefault,
         debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
         routeInformationProvider: widget.routeInformationProvider,
         routeInformationParser: widget.routeInformationParser,
@@ -134,7 +192,7 @@ class _PrimeAppState extends State<PrimeApp> {
         backButtonDispatcher: widget.backButtonDispatcher,
         builder: _builder,
         locale: widget.locale,
-        localizationsDelegates: _localizationsDelegates,
+        localizationsDelegates: widget.localizationsDelegates,
         localeListResolutionCallback: widget.localeListResolutionCallback,
         localeResolutionCallback: widget.localeResolutionCallback,
         supportedLocales: widget.supportedLocales,
@@ -146,12 +204,13 @@ class _PrimeAppState extends State<PrimeApp> {
       );
     }
 
-    final effectiveTheme = _theme;
     return WidgetsApp(
       key: GlobalObjectKey(this),
       title: widget.title,
-      color: effectiveTheme.colorScheme.actionPrimaryBg,
-      textStyle: effectiveTheme.textTheme.bodyDefault,
+      onGenerateTitle: widget.onGenerateTitle,
+      onNavigationNotification: widget.onNavigationNotification,
+      color: theme.colorScheme.actionPrimaryBg,
+      textStyle: theme.textTheme.bodyDefault,
       debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
       home: widget.home,
       routes: widget.routes ?? const <String, WidgetBuilder>{},
@@ -163,7 +222,7 @@ class _PrimeAppState extends State<PrimeApp> {
       navigatorObservers: widget.navigatorObservers ?? const <NavigatorObserver>[],
       builder: _builder,
       locale: widget.locale,
-      localizationsDelegates: _localizationsDelegates,
+      localizationsDelegates: widget.localizationsDelegates,
       localeListResolutionCallback: widget.localeListResolutionCallback,
       localeResolutionCallback: widget.localeResolutionCallback,
       supportedLocales: widget.supportedLocales,
@@ -173,13 +232,7 @@ class _PrimeAppState extends State<PrimeApp> {
       actions: widget.actions,
       restorationScopeId: widget.restorationScopeId,
       pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) {
-        return PageRouteBuilder<T>(
-          settings: settings,
-          pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-        );
+        return PrimePageRoute<T>(settings: settings, builder: builder);
       },
     );
   }
@@ -198,24 +251,34 @@ class _PrimeAppState extends State<PrimeApp> {
     return theme;
   }
 
+  // Runs above the Navigator, so everything here reaches every route,
+  // including dialogs, sheets and overlays.
   Widget _builder(BuildContext context, Widget? child) {
-    final effectiveTheme = _theme;
+    final theme = _theme;
+    final colors = theme.colorScheme;
+    final content = child ?? const SizedBox.shrink();
 
     return PrimeTheme(
-      data: effectiveTheme,
-      child: Builder(
-        builder: (context) {
-          final theme = PrimeTheme.of(context);
-          final content = child ?? const SizedBox.shrink();
-          final wrappedContent = DefaultTextStyle(style: theme.textTheme.bodyDefault, child: content);
-          return widget.builder?.call(context, wrappedContent) ?? wrappedContent;
-        },
+      data: theme,
+      child: DefaultSelectionStyle(
+        cursorColor: colors.inputFocus,
+        selectionColor: colors.inputFocus.withValues(alpha: 0.3),
+        child: IconTheme(
+          data: IconThemeData(color: colors.iconPrimary, size: 24),
+          child: DefaultTextStyle(
+            style: theme.textTheme.bodyDefault,
+            child: Builder(builder: (context) => widget.builder?.call(context, content) ?? content),
+          ),
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildWidgetApp(context);
+    return ScrollConfiguration(
+      behavior: widget.scrollBehavior ?? const PrimeScrollBehavior(),
+      child: HeroControllerScope(controller: _heroController, child: _buildWidgetApp(context, _theme)),
+    );
   }
 }

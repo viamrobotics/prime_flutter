@@ -9,11 +9,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/cirruslabs/flutter:stable
 
     steps:
       - uses: actions/checkout@v7
+
+      # The Flutter version the repo is developed on, pinned in .fvmrc
+      - name: Read the pinned Flutter version
+        id: fvm
+        run: echo "version=$(jq -r .flutter .fvmrc)" >> "$GITHUB_OUTPUT"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.fvm.outputs.version }}
+          channel: stable
+          cache: true
 
       - run: flutter --version
       - run: flutter pub get
@@ -25,5 +34,11 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
-      # - name: Run unit tests
-      #   run: flutter test
+      # Includes the guard that keeps Material and Cupertino out of lib/
+      - name: Run unit tests
+        run: flutter test
+
+      # Checks that `dart fix` migrates every deprecated name (lib/fix_data.yaml)
+      - name: Verify dart fix migrations
+        run: dart fix --compare-to-golden
+        working-directory: test_fixes

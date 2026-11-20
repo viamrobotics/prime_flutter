@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Divider;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum DividerPageStyle { defaultStyle }
@@ -10,7 +10,7 @@ class DividerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 300,

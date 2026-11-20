@@ -6,8 +6,8 @@ class ExpansionListItemScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: PrimeAppBar(title: Text('Expansion List Item')),
+    return Scaffold(
+      appBar: AppBar(title: Text('Expansion List Item')),
       body: SingleChildScrollView(
         child: Column(
           children: [

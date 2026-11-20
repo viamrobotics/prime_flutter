@@ -5,7 +5,7 @@ import '../theme/prime_theme.dart';
 /// A switch toggle widget.
 ///
 /// Used to toggle a boolean state on or off.
-class SwitchToggle extends StatelessWidget {
+class Switch extends StatelessWidget {
   /// Whether the switch is on or off.
   final bool value;
 
@@ -28,7 +28,7 @@ class SwitchToggle extends StatelessWidget {
   final String onText;
   final String offText;
 
-  const SwitchToggle({
+  const Switch({
     super.key,
     required this.value,
     this.onChanged,
@@ -121,3 +121,7 @@ class SwitchToggle extends StatelessWidget {
     );
   }
 }
+
+/// The former name of [Switch].
+@Deprecated('Use Switch instead. Run `dart fix --apply` to migrate.')
+typedef SwitchToggle = Switch;

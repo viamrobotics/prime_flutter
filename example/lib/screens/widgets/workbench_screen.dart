@@ -187,8 +187,8 @@ class _WorkbenchScreenState extends State<WorkbenchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: PrimeAppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: const Text('Workbench'),
         actions: [
           IconButton(

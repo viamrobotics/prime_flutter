@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum AvatarPageStyle { initials, icon, sizes, interactive }
@@ -10,7 +10,7 @@ class AvatarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: switch (style) {
           AvatarPageStyle.initials => const Avatar(child: Text('CP')),

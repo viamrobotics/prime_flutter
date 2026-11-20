@@ -14,8 +14,8 @@ class _AppBarScreenState extends State<AppBarScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('App Bar')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('App Bar')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 24, 24, 36),
         child: Column(
@@ -23,11 +23,11 @@ class _AppBarScreenState extends State<AppBarScreen> {
           children: [
             _Section(
               label: 'Basic',
-              child: const PrimeAppBar(title: Text('Basic AppBar'), leading: Icon(PrimeIcons.viamFlutter)),
+              child: const AppBar(title: Text('Basic AppBar'), leading: Icon(PrimeIcons.viamFlutter)),
             ),
             _Section(
               label: 'With actions',
-              child: const PrimeAppBar(
+              child: const AppBar(
                 title: Text('With Actions'),
                 leading: Icon(PrimeIcons.viamFlutter),
                 actions: [Icon(PrimeIcons.viamFlutter), Icon(PrimeIcons.viamFlutter)],
@@ -35,7 +35,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
             ),
             _Section(
               label: 'With bottom (TabBar)',
-              child: PrimeAppBar(
+              child: AppBar(
                 title: const Text('With Bottom'),
                 leading: const Icon(PrimeIcons.menu),
                 bottom: TabBar(
@@ -50,7 +50,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
               description:
                   'Title takes remaining space and ellipses cleanly against actions. '
                   'The leading slot is no longer constrained to icon width.',
-              child: const PrimeAppBar(
+              child: const AppBar(
                 centerTitle: false,
                 leading: Icon(PrimeIcons.menu),
                 title: Text('A very long title that would otherwise overlap actions', overflow: TextOverflow.ellipsis),
@@ -60,7 +60,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
             _Section(
               label: 'Left-aligned with wide leading',
               description: 'The leading slot can host more than an icon — e.g. an org switcher.',
-              child: PrimeAppBar(
+              child: AppBar(
                 centerTitle: false,
                 leading: Row(
                   mainAxisSize: MainAxisSize.min,

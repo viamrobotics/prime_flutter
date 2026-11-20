@@ -1,6 +1,7 @@
 analyzer:
   exclude:
     - build/**
+    - test_fixes/**
 include: package:flutter_lints/flutter.yaml
 
 linter:
