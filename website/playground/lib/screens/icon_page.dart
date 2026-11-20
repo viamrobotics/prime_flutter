@@ -341,4 +341,13 @@ final Map<String, IconData> _allIcons = {
   'onnx': PrimeIcons.onnx,
   'pytorch': PrimeIcons.pytorch,
   'tensorflow': PrimeIcons.tensorflow,
+  'bluetooth': PrimeIcons.bluetooth,
+  'wifi': PrimeIcons.wifi,
+  'wifiStrength1': PrimeIcons.wifiStrength1,
+  'wifiStrength2': PrimeIcons.wifiStrength2,
+  'wifiStrength3': PrimeIcons.wifiStrength3,
+  'wifiStrength4': PrimeIcons.wifiStrength4,
+  'lockOpenOutline': PrimeIcons.lockOpenOutline,
+  'power': PrimeIcons.power,
+  'cellphoneWireless': PrimeIcons.cellphoneWireless,
 };

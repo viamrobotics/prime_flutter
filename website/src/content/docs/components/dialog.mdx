@@ -26,3 +26,11 @@ Dialog.show<bool>(
 </Preview>
 
 Tap outside or the close icon to dismiss (returns null). [barrierDismissible] defaults to true.
+
+## Theming
+
+The dialog uses the `PrimeTheme` of the context you pass to `Dialog.show`, even though it is drawn above the rest of the app. This applies to `Modal.show`, `BottomSheet.show`, `Takeover.show` and `Toast.show` too. A screen wrapped in its own `PrimeTheme` (a dark panel, or a Prime flow inside a `MaterialApp`) gets dialogs in that theme.
+
+## Forms in a dialog
+
+`DialogAction` buttons always close the dialog with their value. For a dialog whose buttons depend on what the user types, such as a password prompt whose Connect button stays disabled until there is text, use `Modal.show`. It is a route, so the content can close it with `Navigator.of(context).pop(value)`, and Android back closes it.

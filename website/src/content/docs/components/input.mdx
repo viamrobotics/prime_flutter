@@ -53,3 +53,36 @@ Input(
 ```
 
 </Preview>
+
+## Form validation
+
+`InputFormField` is an `Input` that takes part in a `Form`, like Material's `TextFormField`. Its `validator` runs when the form's `FormState.validate()` is called, or as the user types if `autovalidateMode` says so. An error turns the field red and shows the message under the input in place of `hint`. It also supports `onSaved`, `initialValue` and a `controller`, and `FormState.reset()` restores the initial value.
+
+<Preview src="input?style=formField" height="220px">
+
+```dart
+final formKey = GlobalKey<FormState>();
+
+Form(
+  key: formKey,
+  child: Column(
+    children: [
+      InputFormField(
+        label: const Text('Machine name'),
+        hint: const Text('Letters, numbers and dashes.'),
+        required: true,
+        validator: (value) => (value ?? '').trim().isEmpty ? 'Enter a machine name.' : null,
+      ),
+      Button(
+        variant: ButtonVariant.primary,
+        label: const Text('Save'),
+        onPressed: () => formKey.currentState!.validate(),
+      ),
+    ],
+  ),
+)
+```
+
+</Preview>
+
+To show an error without a `Form`, set `state: InputState.error` on an `Input` and add a `Hint` (see [Field](../field/)).

@@ -87,3 +87,14 @@ AppBar(
 ```
 
 </Preview>
+
+## Back Button
+
+When `leading` is null and the route can be popped, `AppBar` shows a back button that pops the route. Set `automaticallyImplyLeading: false` to hide it, for screens that handle going back themselves, such as a multi-step flow that steps back through its own pages before leaving the route. Pass a `leading` widget to show your own button instead.
+
+```dart
+AppBar(
+  automaticallyImplyLeading: false,
+  leading: step > 0 ? IconButton(icon: const Icon(PrimeIcons.arrowLeft), label: 'Back', onPressed: previousStep) : null,
+)
+```
