@@ -7,7 +7,7 @@ documentation: https://design-mobile.viam.com
 
 environment:
   sdk: ^3.10.0
-  flutter: ">=3.47.9"
+  flutter: ">=3.50.0"
 
 dependencies:
   flutter:
