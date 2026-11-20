@@ -41,6 +41,8 @@ Prime Flutter provides a set of polished, reusable widgets that adhere to a cons
 
 ## Getting started
 
+Prime Flutter requires Flutter 3.50 or later.
+
 Add `prime_flutter` to your `pubspec.yaml`:
 
 ```yaml
