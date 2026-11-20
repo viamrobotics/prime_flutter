@@ -70,7 +70,9 @@ class Modal extends StatelessWidget {
     bool barrierDismissible = true,
     bool useRootNavigator = true,
   }) {
-    return Navigator.of(context, rootNavigator: useRootNavigator).push<T>(
+    final navigator = Navigator.of(context, rootNavigator: useRootNavigator);
+    final themes = InheritedTheme.capture(from: context, to: navigator.context);
+    return navigator.push<T>(
       PageRouteBuilder<T>(
         opaque: false,
         barrierDismissible: barrierDismissible,
@@ -79,13 +81,15 @@ class Modal extends StatelessWidget {
         fullscreenDialog: true,
         transitionDuration: const Duration(milliseconds: 120),
         reverseTransitionDuration: const Duration(milliseconds: 120),
-        pageBuilder: (routeContext, _, _) => EscapeToPop(
-          child: Modal(
-            title: title,
-            message: message,
-            variant: variant,
-            actions: actionsBuilder?.call(routeContext) ?? const [],
-            child: child,
+        pageBuilder: (routeContext, _, _) => themes.wrap(
+          EscapeToPop(
+            child: Modal(
+              title: title,
+              message: message,
+              variant: variant,
+              actions: actionsBuilder?.call(routeContext) ?? const [],
+              child: child,
+            ),
           ),
         ),
         transitionsBuilder: (context, animation, _, child) => FadeTransition(opacity: animation, child: child),
