@@ -1,3 +1,6 @@
+## 0.3.2
+* Fixed `PrimeIcons` glyphs drawing off-center. The font's horizontal metrics gave nearly every glyph a left side bearing of 0, so text renderers shifted each outline flush left inside its box, by up to 4px at 24px. The outlines are unchanged; the side bearings now match them. `test/icon_font_test.dart` checks every glyph.
+
 ## 0.3.1
 * Prime now bundles the Public Sans typeface (regular, medium, semibold and bold) and uses it for every text style except `label`, which stays on Roboto Mono. Text in Prime widgets no longer falls back to the platform font, and an app does not need to add Public Sans to its own `pubspec.yaml`. `PrimeTypography.fontFamily` and `PrimeTypography.fontPackage` name the family for styles of your own.
 * Added a `NOTICES` file carrying the SIL Open Font License for Public Sans. Flutter reads it at build time, so the font's license appears in `LicenseRegistry` and `showLicensePage`-style screens of any app that depends on `prime_flutter`, with no code in the app.
