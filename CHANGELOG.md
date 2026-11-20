@@ -1,3 +1,6 @@
+## 0.3.4
+* Added `Markdown`, which renders GitHub-flavored Markdown with Prime's type and color: headings, emphasis, inline code, links (`onTapLink`), ordered, unordered and task lists, block quotes, rules, tables, and fenced code as a `CodeSnippet`. It accepts incomplete input, so text that is still streaming in can be rendered as it grows. `prime_flutter` now depends on the `markdown` package for parsing.
+
 ## 0.3.3
 * Added `automaticallyImplyLeading` to `AppBar`. Set it to false to hide the back button a poppable route would otherwise get, for screens that handle going back themselves. Defaults to true, so existing app bars are unchanged.
 * `PrimeTheme` is now an `InheritedTheme`, and `Dialog.show`, `Modal.show`, `Takeover.show` and `Toast.show` carry the caller's `PrimeTheme` into what they open, as `BottomSheet.show` already tried to. A Prime flow inside an app that is not a `PrimeApp` can wrap itself in a `PrimeTheme`, and its dialogs and toasts no longer fail with "No PrimeTheme found in context". A screen-local theme (a dark panel, say) now reaches the dialogs it opens too.

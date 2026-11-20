@@ -235,6 +235,9 @@ final Map<String, WidgetBuilder> demos = {
   'kbd': (context) => const KbdGroup(children: [Kbd(child: Icon(PrimeIcons.appleKeyboardCommand)), Kbd(child: Text('S'))]),
   'code-snippet': (context) => const CodeSnippet(caption: Text('Install the server, then start it.'), code: 'curl -fsSL https://example.com/install.sh | sh\nviam-server -config /etc/viam.json'),
   'inline-code': (context) => const Row(mainAxisSize: MainAxisSize.min, spacing: 6, children: [Text('Restart'), InlineCode('viam-server'), Text('to apply.')]),
+  'markdown': (context) => const Markdown(
+    data: 'Lower `max_rpm` on **motor-left**:\n\n- Check the wiring first\n- Then change the limit\n\n```json\n{\n  "max_rpm": 180\n}\n```',
+  ),
   'code-editor': (context) => _Demo<String>(_json, (context, value, set) => CodeEditor(semanticLabel: 'Config', language: CodeEditorLanguage.json, value: value, onChanged: set)),
   'code-editor-diff': (context) => _Demo<String>(
     _json.replaceFirst('50', '80').replaceFirst('false', 'true'),
