@@ -6,6 +6,14 @@ class PrimeTheme extends InheritedWidget {
 
   const PrimeTheme({super.key, required this.data, required super.child});
 
+  /// The theme of the closest [PrimeTheme] ancestor, or null when there is none.
+  ///
+  /// Packages that may render outside a `PrimeApp` use this to fall back to a
+  /// theme of their own, e.g. `PrimeTheme.maybeOf(context) ?? PrimeThemeData.light()`.
+  static PrimeThemeData? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<PrimeTheme>()?.data;
+  }
+
   static PrimeThemeData of(BuildContext context) {
     final PrimeTheme? result = context.dependOnInheritedWidgetOfExactType<PrimeTheme>();
     assert(result != null, 'No PrimeTheme found in context');

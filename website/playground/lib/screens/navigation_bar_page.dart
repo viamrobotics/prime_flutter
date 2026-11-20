@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide NavigationBar;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum NavigationBarPageStyle { basic }

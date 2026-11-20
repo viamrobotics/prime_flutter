@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum ProgressPageStyle { basic, sized, colored }
@@ -21,11 +21,11 @@ class ProgressPage extends StatelessWidget {
           ProgressPageStyle.colored => const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Progress(color: Colors.blue),
+              Progress(color: PrimeColors.focusBlue),
               SizedBox(width: 24),
-              Progress(color: Colors.red),
+              Progress(color: PrimeColors.dangerDark),
               SizedBox(width: 24),
-              Progress(color: Colors.green),
+              Progress(color: PrimeColors.successDark),
             ],
           ),
         },

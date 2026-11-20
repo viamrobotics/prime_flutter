@@ -1,13 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+
 import '../../prime_flutter.dart';
 
 /// The validation state of an [Input], shown through its border and a
 /// trailing status icon.
 enum InputState { none, info, warn, error }
 
-/// A text input widget. Lightly wraps a [TextField] with a [Material] widget.
-class Input extends StatelessWidget {
+/// A text input widget: a [PrimeTextField] in Prime's bordered box, with
+/// optional leading and trailing icons and a validation state.
+class Input extends StatefulWidget {
   final TextEditingController? controller;
   final String? placeholder;
   final Widget? leading;
@@ -73,101 +75,130 @@ class Input extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return PrimeTheme.consumer(
-      builder: (context, theme) {
-        final colors = theme.colorScheme;
-        // Inside a Field, the field's disabled flag and state apply unless set here.
-        final field = Field.maybeOf(context);
-        final disabled = this.disabled || (field?.disabled ?? false);
-        final state = this.state != InputState.none ? this.state : (field?.state ?? InputState.none);
-        final textStyle = dense ? theme.textTheme.bodySmall.copyWith(fontSize: 13, height: 1.2) : theme.textTheme.bodyDefault;
-        final iconBox = dense ? const BoxConstraints(minWidth: 24, minHeight: 28) : const BoxConstraints(minWidth: 44, minHeight: 40);
-        final iconPadding = EdgeInsets.symmetric(horizontal: dense ? 6 : 12);
-        final (Color? stateColor, Color? stateIconColor, IconData? stateIcon) = switch (state) {
-          InputState.none => (null, null, null),
-          InputState.info => (null, colors.statusInfoDark, PrimeIcons.information),
-          InputState.warn => (colors.statusWarningDark, PrimeColors.warningBright, PrimeIcons.alert),
-          InputState.error => (colors.statusDangerDark, colors.statusDangerDark, PrimeIcons.alertCircle),
-        };
-        final Widget? trailing =
-            this.trailing ??
-            (stateIcon != null
-                ? IconTheme.merge(
-                    data: IconThemeData(color: stateIconColor),
-                    child: Icon(stateIcon),
-                  )
-                : null);
-        final fillColor = disabled ? colors.surfaceHighlight : (readOnly ? colors.surfaceOffset : colors.surfaceBase);
+  State<Input> createState() => _InputState();
+}
 
-        return Material(
-          type: MaterialType.transparency,
-          child: TextField(
-            controller: controller,
-            obscureText: obscureText,
-            keyboardType: keyboardType,
-            textInputAction: textInputAction,
-            onChanged: onChanged,
-            onSubmitted: (_) => onSubmitted?.call(),
-            autofocus: autofocus,
-            autocorrect: autocorrect,
-            focusNode: focusNode,
-            autofillHints: autofillHints,
-            enabled: !disabled,
-            readOnly: readOnly,
-            inputFormatters: inputFormatters,
-            onTap: onTap,
-            minLines: minLines,
-            maxLines: maxLines,
-            style: textStyle.copyWith(color: disabled ? colors.textPlaceholder : colors.inputText),
-            cursorColor: theme.colorScheme.inputFocus,
-            decoration: InputDecoration(
-              isDense: true,
-              hintText: placeholder,
-              hintStyle: textStyle.copyWith(color: theme.colorScheme.textTertiary),
-              prefixIcon: leading != null
-                  ? Padding(
-                      padding: iconPadding,
-                      child: IconTheme(
-                        data: IconThemeData(color: theme.colorScheme.textTertiary, size: dense ? 16 : 20),
-                        child: leading!,
-                      ),
-                    )
-                  : null,
-              prefixIconConstraints: iconBox,
-              suffixIcon: trailing != null
-                  ? Padding(
-                      padding: iconPadding,
-                      child: IconTheme(
-                        data: IconThemeData(color: theme.colorScheme.textTertiary, size: dense ? 16 : 20),
-                        child: trailing,
-                      ),
-                    )
-                  : null,
-              suffixIconConstraints: iconBox,
-              filled: true,
-              fillColor: fillColor,
-              contentPadding: dense
-                  ? const EdgeInsets.symmetric(horizontal: 8, vertical: 6)
-                  : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(theme.cornerRadius),
-                borderSide: BorderSide(color: stateColor ?? theme.colorScheme.borderSubtle),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(theme.cornerRadius),
-                borderSide: BorderSide(color: theme.colorScheme.borderSubtle),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(theme.cornerRadius),
-                borderSide: BorderSide(color: stateColor ?? theme.colorScheme.inputFocus, width: 2),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(theme.cornerRadius),
-                borderSide: BorderSide(color: theme.colorScheme.statusDangerDark),
-              ),
-              focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(theme.cornerRadius)),
+class _InputState extends State<Input> {
+  FocusNode? _internalFocusNode;
+  FocusNode get _focusNode => widget.focusNode ?? (_internalFocusNode ??= FocusNode(debugLabel: 'Input'));
+
+  @override
+  void didUpdateWidget(Input oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.focusNode != null && _internalFocusNode != null) {
+      _internalFocusNode!.dispose();
+      _internalFocusNode = null;
+    }
+  }
+
+  @override
+  void dispose() {
+    _internalFocusNode?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = PrimeTheme.of(context);
+    final colors = theme.colorScheme;
+    final dense = widget.dense;
+    // Inside a Field, the field's disabled flag and state apply unless set here.
+    final field = Field.maybeOf(context);
+    final disabled = widget.disabled || (field?.disabled ?? false);
+    final state = widget.state != InputState.none ? widget.state : (field?.state ?? InputState.none);
+    final textStyle = dense ? theme.textTheme.bodySmall.copyWith(fontSize: 13, height: 1.2) : theme.textTheme.bodyDefault;
+    final iconBox = dense ? const BoxConstraints(minWidth: 24, minHeight: 28) : const BoxConstraints(minWidth: 44, minHeight: 40);
+    final iconPadding = EdgeInsets.symmetric(horizontal: dense ? 6 : 12);
+    final (Color? stateColor, Color? stateIconColor, IconData? stateIcon) = switch (state) {
+      InputState.none => (null, null, null),
+      InputState.info => (null, colors.statusInfoDark, PrimeIcons.information),
+      InputState.warn => (colors.statusWarningDark, PrimeColors.warningBright, PrimeIcons.alert),
+      InputState.error => (colors.statusDangerDark, colors.statusDangerDark, PrimeIcons.alertCircle),
+    };
+    final Widget? leading = widget.leading;
+    final Widget? trailing =
+        widget.trailing ??
+        (stateIcon != null
+            ? IconTheme.merge(
+                data: IconThemeData(color: stateIconColor),
+                child: Icon(stateIcon),
+              )
+            : null);
+    final fillColor = disabled ? colors.surfaceHighlight : (widget.readOnly ? colors.surfaceOffset : colors.surfaceBase);
+    final contentPadding = dense
+        ? const EdgeInsets.symmetric(horizontal: 8, vertical: 6)
+        : const EdgeInsets.symmetric(horizontal: 16, vertical: 12);
+    final focusNode = _focusNode;
+
+    Widget iconSlot(Widget icon) {
+      return ConstrainedBox(
+        constraints: iconBox,
+        child: Center(
+          widthFactor: 1,
+          heightFactor: 1,
+          child: Padding(
+            padding: iconPadding,
+            child: IconTheme(
+              data: IconThemeData(color: colors.textTertiary, size: dense ? 16 : 20),
+              child: icon,
             ),
+          ),
+        ),
+      );
+    }
+
+    return PrimeTextField(
+      controller: widget.controller,
+      focusNode: focusNode,
+      obscureText: widget.obscureText,
+      keyboardType: widget.keyboardType ?? (widget.maxLines == 1 ? null : TextInputType.multiline),
+      textInputAction: widget.textInputAction,
+      onChanged: widget.onChanged,
+      onSubmitted: (_) => widget.onSubmitted?.call(),
+      autofocus: widget.autofocus,
+      autocorrect: widget.autocorrect,
+      autofillHints: widget.autofillHints,
+      enabled: !disabled,
+      readOnly: widget.readOnly,
+      inputFormatters: widget.inputFormatters,
+      onTap: widget.onTap,
+      minLines: widget.minLines,
+      maxLines: widget.maxLines,
+      style: textStyle.copyWith(color: disabled ? colors.textPlaceholder : colors.inputText),
+      placeholder: widget.placeholder,
+      placeholderStyle: textStyle.copyWith(color: colors.textTertiary),
+      cursorColor: colors.inputFocus,
+      decorationBuilder: (context, editable) {
+        return ListenableBuilder(
+          listenable: focusNode,
+          builder: (context, child) {
+            // The border is painted over the box rather than laid out around
+            // it, so the text does not shift when focus thickens it.
+            final BorderSide side = disabled
+                ? BorderSide(color: colors.borderSubtle)
+                : focusNode.hasFocus
+                ? BorderSide(color: stateColor ?? colors.inputFocus, width: 2)
+                : BorderSide(color: stateColor ?? colors.borderSubtle);
+            return Container(
+              decoration: BoxDecoration(color: fillColor, borderRadius: BorderRadius.circular(theme.cornerRadius)),
+              foregroundDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(theme.cornerRadius),
+                border: Border.fromBorderSide(side),
+              ),
+              child: child,
+            );
+          },
+          child: Row(
+            children: [
+              if (leading != null) iconSlot(leading),
+              Expanded(
+                child: Padding(
+                  padding: contentPadding.copyWith(left: leading != null ? 0 : null, right: trailing != null ? 0 : null),
+                  child: editable,
+                ),
+              ),
+              if (trailing != null) iconSlot(trailing),
+            ],
           ),
         );
       },

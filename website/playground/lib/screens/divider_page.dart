@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Divider;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum DividerPageStyle { defaultStyle }

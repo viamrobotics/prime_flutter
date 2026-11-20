@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide TabBar;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum TabBarPageStyle { basic }
@@ -22,7 +22,7 @@ class _TabBarPageState extends State<TabBarPage> {
         child: SizedBox(
           width: 400,
           child: Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300)),
+            decoration: BoxDecoration(border: Border.all(color: PrimeColors.gray5)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

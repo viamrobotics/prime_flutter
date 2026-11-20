@@ -51,7 +51,7 @@ dependencies:
 
 ## Usage
 
-Wrap your application in `PrimeApp` to provide the necessary theme context:
+`PrimeApp` is the root of your app. It takes the place of `MaterialApp` or `CupertinoApp`, and is built on `package:flutter/widgets.dart` alone: Prime Flutter does not import Material or Cupertino, and an app built with it does not need to either.
 
 ```dart
 import 'package:flutter/widgets.dart';
@@ -68,10 +68,68 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeApp(
       title: 'Prime Flutter Demo',
+      theme: PrimeThemeData.light(),
+      darkTheme: PrimeThemeData.dark(),
       home: const HomeScreen(),
     );
   }
 }
+```
+
+With a declarative router, use `PrimeApp.router` and build pages with `PrimePage`, so they get Prime's page transitions:
+
+```dart
+final router = GoRouter(
+  routes: [
+    GoRoute(path: '/', pageBuilder: (context, state) => PrimePage(key: state.pageKey, child: const HomeScreen())),
+  ],
+);
+
+PrimeApp.router(routerConfig: router);
+```
+
+### What the app root gives you
+
+| You used to get it from Material | In Prime |
+|---|---|
+| `MaterialApp`, `MaterialApp.router` | `PrimeApp`, `PrimeApp.router` |
+| `ThemeData`, `Theme.of` | `PrimeThemeData`, `PrimeTheme.of` / `PrimeTheme.maybeOf` |
+| `MaterialPageRoute`, `MaterialPage` | `PrimePageRoute`, `PrimePage` |
+| `PageTransitionsTheme` | `PrimeThemeData.pageTransitionsTheme` (`PrimePageTransitionsTheme`) |
+| iOS back-swipe, Android predictive back | Built into the default page transitions |
+| `Scaffold`, `AppBar` | `PrimeScaffold`, `PrimeAppBar` |
+| `TextField` | `Input`, or `PrimeTextField` for a field with chrome of your own |
+| Selection handles and the copy/paste menu | `PrimeTextSelectionControls`, `PrimeTextSelectionToolbar` (the native menu on iOS) |
+| `SelectionArea`, `SelectableText` | `PrimeSelectionArea` |
+| `showModalBottomSheet` | `BottomSheet.show`, `PrimeModalSheetRoute` |
+| `showDialog`, `AlertDialog` | `PrimeDialog.show`, `Modal.show` |
+| `ScaffoldMessenger`, `SnackBar` | `Toast.show`, `Notify.of` |
+| `MaterialScrollBehavior` | `PrimeScrollBehavior` |
+| `Hero` animations | Work as usual: `PrimeApp` installs a `HeroController` |
+
+### Localization
+
+Prime takes its few built-in strings (Copy, Paste, and so on) from Flutter's `WidgetsLocalizations`, which is English and left-to-right by default. To follow the device language and text direction, add `flutter_localizations` to your app and pass its widgets delegate:
+
+```dart
+PrimeApp(
+  localizationsDelegates: const [GlobalWidgetsLocalizations.delegate],
+  supportedLocales: const [Locale('en'), Locale('ar')],
+  // ...
+);
+```
+
+### Still using some Material or Cupertino widgets?
+
+They keep working under a `PrimeApp`. Widgets that look up `MaterialLocalizations` or `CupertinoLocalizations` (text fields, dialogs, pickers, and some third-party packages) need those delegates, which `PrimeApp` no longer adds for you. With the standalone `material_ui` package (Flutter 3.47 and later), one list covers Material, Cupertino and the widgets layer:
+
+```dart
+import 'package:material_ui/material_ui.dart' show GlobalMaterialLocalizations;
+
+PrimeApp(
+  localizationsDelegates: GlobalMaterialLocalizations.delegates,
+  // ...
+);
 ```
 
 ### Using Widgets
@@ -101,7 +159,8 @@ Prime Flutter uses `PrimeTheme` to manage colors, typography, and other design t
 
 ```dart
 final theme = PrimeTheme.of(context);
-final primaryColor = theme.colorScheme.primary;
+final background = theme.colorScheme.surfaceBase;
+final body = theme.textTheme.bodyDefault;
 ```
 
 ## License

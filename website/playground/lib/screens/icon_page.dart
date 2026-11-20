@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Tooltip;
+import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
@@ -43,27 +43,10 @@ class _IconPageState extends State<IconPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TextField(
+            child: Input(
               controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search icons...',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: PrimeTheme.of(context).colorScheme.borderSubtle),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: PrimeTheme.of(context).colorScheme.borderSubtle),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: PrimeTheme.of(context).colorScheme.inputFocus),
-                ),
-                filled: true,
-                fillColor: PrimeTheme.of(context).colorScheme.surfaceBase,
-                contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-              ),
+              placeholder: 'Search icons...',
+              leading: const Icon(PrimeIcons.magnify),
               onChanged: (value) {
                 setState(() {
                   _searchQuery = value;
@@ -108,9 +91,7 @@ class _IconCardState extends State<_IconCard> {
 
   void _copyToClipboard() {
     Clipboard.setData(ClipboardData(text: 'PrimeIcons.${widget.name}'));
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Copied PrimeIcons.${widget.name} to clipboard'), duration: const Duration(milliseconds: 500)));
+    Toast.show(context, message: 'Copied PrimeIcons.${widget.name} to clipboard', duration: const Duration(milliseconds: 500));
   }
 
   @override
@@ -127,7 +108,7 @@ class _IconCardState extends State<_IconCard> {
             decoration: BoxDecoration(
               color: _hovering
                   ? PrimeTheme.of(context).colorScheme.surfaceHighlight
-                  : Colors.transparent, // Transparent when not hovered for cleaner look
+                  : const Color(0x00000000), // Transparent when not hovered for cleaner look
               borderRadius: BorderRadius.circular(4),
               border: _hovering ? Border.all(color: PrimeTheme.of(context).colorScheme.borderSubtle.withValues(alpha: 0.5)) : null,
             ),

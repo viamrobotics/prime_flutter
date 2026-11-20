@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide TabBar;
+import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
 enum AppBarPageStyle { basic, withActions, withBottom, leftAligned }
@@ -16,7 +16,7 @@ class AppBarPage extends StatelessWidget {
           width: 400,
           child: Container(
             // Adding a border to visually show the app bar container in the white playground
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300)),
+            decoration: BoxDecoration(border: Border.all(color: PrimeColors.gray5)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

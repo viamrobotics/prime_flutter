@@ -25,5 +25,6 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
-      # - name: Run unit tests
-      #   run: flutter test
+      # Includes the guard that keeps Material and Cupertino out of lib/
+      - name: Run unit tests
+        run: flutter test
