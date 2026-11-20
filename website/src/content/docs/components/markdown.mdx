@@ -1,0 +1,41 @@
+---
+title: Markdown
+description: Renders GitHub-flavored Markdown with Prime's type and color.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Markdown` renders a Markdown string: headings, emphasis, inline code, links, lists (ordered, unordered and task), block quotes, rules, tables, and fenced code, which becomes a `CodeSnippet`. Raw HTML is shown as text.
+
+<Preview src="demo?name=markdown" height="320px">
+
+```dart
+Markdown(
+  data: 'Lower `max_rpm` on **motor-left**:\n\n- Check the wiring first\n- Then change the limit',
+)
+```
+
+</Preview>
+
+## Links
+
+Links are styled but do nothing until you pass `onTapLink`, which receives the destination.
+
+```dart
+Markdown(
+  data: 'See [the docs](https://docs.viam.com).',
+  onTapLink: (href) => launchUrl(Uri.parse(href)),
+)
+```
+
+## Streaming text
+
+`data` does not have to be complete. An unclosed `**` shows as typed and an unclosed code fence renders as a snippet of what has arrived, so you can rebuild with the text so far while a reply streams in.
+
+## Options
+
+| Property | Description |
+| --- | --- |
+| `style` | Text style for body copy. Defaults to `bodyDefault`. |
+| `blockSpacing` | Vertical gap between blocks. Defaults to 12. |
+| `onCopyCode` | Called after a copy attempt on a code block, as `CodeSnippet.onCopy`. |
