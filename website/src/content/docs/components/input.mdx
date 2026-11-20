@@ -54,35 +54,39 @@ Input(
 
 </Preview>
 
-## Form validation
+## Validation
 
-`InputFormField` is an `Input` that takes part in a `Form`, like Material's `TextFormField`. Its `validator` runs when the form's `FormState.validate()` is called, or as the user types if `autovalidateMode` says so. An error turns the field red and shows the message under the input in place of `hint`. It also supports `onSaved`, `initialValue` and a `controller`, and `FormState.reset()` restores the initial value.
+Validate in your own code and show the result through the field: `state: InputState.error` turns the input red and adds an error icon, and a `Hint` inside a `Field` takes the error color. Check on submit, as below, or on every change with `onChanged`.
 
-<Preview src="input?style=formField" height="220px">
+<Preview src="input?style=validation" height="220px">
 
 ```dart
-final formKey = GlobalKey<FormState>();
+String? error;
 
-Form(
-  key: formKey,
-  child: Column(
-    children: [
-      InputFormField(
-        label: const Text('Machine name'),
-        hint: const Text('Letters, numbers and dashes.'),
-        required: true,
-        validator: (value) => (value ?? '').trim().isEmpty ? 'Enter a machine name.' : null,
+Column(
+  children: [
+    Field(
+      required: true,
+      state: error != null ? InputState.error : InputState.none,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 4,
+        children: [
+          const Label(label: Text('Machine name')),
+          Input(controller: name, placeholder: 'my-rover'),
+          Hint(child: Text(error ?? 'Letters, numbers and dashes.')),
+        ],
       ),
-      Button(
-        variant: ButtonVariant.primary,
-        label: const Text('Save'),
-        onPressed: () => formKey.currentState!.validate(),
-      ),
-    ],
-  ),
+    ),
+    Button(
+      variant: ButtonVariant.primary,
+      label: const Text('Save'),
+      onPressed: () => setState(() => error = name.text.trim().isEmpty ? 'Enter a machine name.' : null),
+    ),
+  ],
 )
 ```
 
 </Preview>
 
-To show an error without a `Form`, set `state: InputState.error` on an `Input` and add a `Hint` (see [Field](../field/)).
+See [Field](../field/) for labels, hints and shared state.
