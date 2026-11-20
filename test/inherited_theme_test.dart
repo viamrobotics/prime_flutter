@@ -57,4 +57,10 @@ void main() {
     await tester.pump(const Duration(seconds: 5));
     await tester.pumpAndSettle();
   });
+
+  test('dark input text contrasts with the dark input fill', () {
+    final c = PrimeThemeData.dark().colorScheme;
+    expect(c.inputText, isNot(c.surfaceBase));
+    expect(c.inputText, c.textPrimary);
+  });
 }
