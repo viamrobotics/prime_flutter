@@ -30,6 +30,7 @@ export 'src/widgets/filter_pill.dart';
 export 'src/widgets/floating.dart';
 export 'src/widgets/icon_button.dart';
 export 'src/widgets/input.dart';
+export 'src/widgets/input_form_field.dart';
 export 'src/widgets/kbd.dart';
 export 'src/widgets/keybindings.dart';
 export 'src/widgets/label.dart';

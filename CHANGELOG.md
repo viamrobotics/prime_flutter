@@ -1,3 +1,9 @@
+## 0.3.3
+* Added `InputFormField`, an `Input` that takes part in a `Form` (the counterpart of Material's `TextFormField`). Its `validator` runs on `FormState.validate()` or as the user types per `autovalidateMode`, and an error puts the field in `InputState.error` with the message shown under the input. It also takes `label`, `hint`, `required`, `onSaved` and `initialValue`.
+* Added `automaticallyImplyLeading` to `AppBar`. Set it to false to hide the back button a poppable route would otherwise get, for screens that handle going back themselves. Defaults to true, so existing app bars are unchanged.
+* Added 9 icons to `PrimeIcons`, from Material Design Icons: `bluetooth`, `wifi`, `wifiStrength1` to `wifiStrength4`, `lockOpenOutline` (matches the existing outlined `lock`), `power` and `cellphoneWireless`.
+* Added `tool/add_mdi_icons.py`, which adds Material Design Icons glyphs to `fonts/PrimeIcons.ttf` the way the existing ones were made, and prints the `PrimeIcons` constants for them.
+
 ## 0.3.2
 * Fixed `PrimeIcons` glyphs drawing off-center. The font's horizontal metrics gave nearly every glyph a left side bearing of 0, so text renderers shifted each outline flush left inside its box, by up to 4px at 24px. The outlines are unchanged; the side bearings now match them. `test/icon_font_test.dart` checks every glyph.
 
