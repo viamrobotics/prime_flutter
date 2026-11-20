@@ -165,6 +165,16 @@ final background = theme.colorScheme.surfaceBase;
 final body = theme.textTheme.bodyDefault;
 ```
 
+### Typeface
+
+Prime's text styles use [Public Sans](https://public-sans.digital.gov), which this package bundles in regular, medium, semibold and bold. You do not declare the font in your app. For a style of your own, name the bundled family:
+
+```dart
+const TextStyle(fontFamily: PrimeTypography.fontFamily, package: PrimeTypography.fontPackage, fontSize: 20);
+```
+
+Public Sans is licensed under the SIL Open Font License. The package's `NOTICES` file carries that license, and Flutter adds it to `LicenseRegistry` when it builds your app, so it shows on your licenses screen without any code.
+
 ## License
 
 Copyright 2025 Viam Inc.

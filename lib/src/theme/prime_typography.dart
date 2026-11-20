@@ -4,13 +4,46 @@ import 'prime_colors.dart';
 class PrimeTypography {
   PrimeTypography._();
 
-  static const TextStyle heading = TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: PrimeColors.gray9, height: 1.2);
+  /// The family of the Public Sans typeface this package bundles. Use it with `package: fontPackage`.
+  static const String fontFamily = 'Public Sans';
 
-  static const TextStyle title = TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: PrimeColors.gray9, height: .8);
+  /// The package [fontFamily] is loaded from.
+  static const String fontPackage = 'prime_flutter';
 
-  static const TextStyle bodyDefault = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: PrimeColors.gray9);
+  static const TextStyle heading = TextStyle(
+    fontFamily: fontFamily,
+    package: fontPackage,
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+    color: PrimeColors.gray9,
+    height: 1.2,
+  );
 
-  static const TextStyle bodySmall = TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: PrimeColors.gray9, height: 1.5);
+  static const TextStyle title = TextStyle(
+    fontFamily: fontFamily,
+    package: fontPackage,
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: PrimeColors.gray9,
+    height: .8,
+  );
+
+  static const TextStyle bodyDefault = TextStyle(
+    fontFamily: fontFamily,
+    package: fontPackage,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: PrimeColors.gray9,
+  );
+
+  static const TextStyle bodySmall = TextStyle(
+    fontFamily: fontFamily,
+    package: fontPackage,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: PrimeColors.gray9,
+    height: 1.5,
+  );
 
   static const TextStyle label = TextStyle(
     fontSize: 12,
@@ -23,6 +56,8 @@ class PrimeTypography {
   );
 
   static const TextStyle link = TextStyle(
+    fontFamily: fontFamily,
+    package: fontPackage,
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: PrimeColors.focusBlue,
