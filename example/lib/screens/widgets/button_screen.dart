@@ -9,8 +9,8 @@ class ButtonScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
 
-    return PrimeScaffold(
-      appBar: PrimeAppBar(title: Text('Buttons')),
+    return Scaffold(
+      appBar: AppBar(title: Text('Buttons')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(

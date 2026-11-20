@@ -16,8 +16,8 @@ class _SwitchScreenState extends State<SwitchScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Switch Toggle')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Switch Toggle')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -27,7 +27,7 @@ class _SwitchScreenState extends State<SwitchScreen> {
             const SizedBox(height: 8),
             Row(
               children: [
-                SwitchToggle(
+                Switch(
                   value: _value1,
                   onChanged: (v) => setState(() => _value1 = v),
                 ),
@@ -38,7 +38,7 @@ class _SwitchScreenState extends State<SwitchScreen> {
             const SizedBox(height: 24),
             Text('Pre-selected', style: theme.textTheme.title),
             const SizedBox(height: 8),
-            SwitchToggle(
+            Switch(
               value: _value2,
               onChanged: (v) => setState(() => _value2 = v),
             ),
@@ -47,13 +47,13 @@ class _SwitchScreenState extends State<SwitchScreen> {
             const SizedBox(height: 8),
             Row(
               children: [
-                SwitchToggle(
+                Switch(
                   value: false,
                   disabled: true,
                   onChanged: (v) {},
                 ),
                 const SizedBox(width: 16),
-                SwitchToggle(
+                Switch(
                   value: true,
                   disabled: true,
                   onChanged: (v) {},
@@ -66,7 +66,7 @@ class _SwitchScreenState extends State<SwitchScreen> {
             ListItem(
               title: const Text('Notifications'),
               subtitle: const Text('Enable push notifications'),
-              trailing: SwitchToggle(
+              trailing: Switch(
                 value: _value3,
                 onChanged: (v) => setState(() => _value3 = v),
               ),

@@ -17,7 +17,7 @@ class _TabBarPageState extends State<TabBarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 400,
@@ -26,7 +26,7 @@ class _TabBarPageState extends State<TabBarPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                PrimeAppBar(
+                AppBar(
                   title: const Text('My App'),
                   leading: const Icon(PrimeIcons.viamFlutter),
                   bottom: TabBar(

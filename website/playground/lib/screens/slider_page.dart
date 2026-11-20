@@ -88,7 +88,7 @@ class _SliderPageState extends State<SliderPage> {
         break;
     }
 
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: Padding(padding: const EdgeInsets.all(24.0), child: content),
       ),

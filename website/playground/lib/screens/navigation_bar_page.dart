@@ -17,7 +17,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 400,

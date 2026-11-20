@@ -495,14 +495,15 @@ class PointField extends StatelessWidget {
   }
 }
 
-/// A compact text field for tool panels, in the same row layout as
-/// [NumberField]. Named `PanelTextField` because Material already has a
-/// `TextField`.
+/// A compact, labelled text field for tool panels, in the same row layout as
+/// [NumberField], [PointField] and [SliderField].
+///
+/// For a text box anywhere else, such as a form or a search bar, use [Input].
 ///
 /// ```dart
-/// PanelTextField(label: 'Motion name', placeholder: 'builtin', onChanged: setName)
+/// TextField(label: 'Motion name', placeholder: 'builtin', onChanged: setName)
 /// ```
-class PanelTextField extends StatelessWidget {
+class TextField extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final String? label;
@@ -519,7 +520,7 @@ class PanelTextField extends StatelessWidget {
   /// Width reserved for the label so rows line up. Null sizes to the text.
   final double? labelWidth;
 
-  const PanelTextField({
+  const TextField({
     super.key,
     this.controller,
     this.onChanged,
@@ -663,3 +664,7 @@ class SliderField extends StatelessWidget {
     );
   }
 }
+
+/// The former name of [TextField].
+@Deprecated('Use TextField instead. Run `dart fix --apply` to migrate.')
+typedef PanelTextField = TextField;

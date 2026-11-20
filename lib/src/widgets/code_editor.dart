@@ -11,7 +11,7 @@ import '../theme/prime_theme_data.dart';
 import 'input.dart';
 import 'internal/pressable.dart';
 import 'prime_icons.dart';
-import 'text_field.dart';
+import 'raw_input.dart';
 
 /// Fixes common JSON slips, currently trailing commas before `}` and `]`,
 /// and returns the result when it is valid JSON, or null when it is not.
@@ -1465,7 +1465,7 @@ class _CodeEditorState extends State<CodeEditor> {
                         : _lineHeight),
           ];
 
-    final field = PrimeTextField(
+    final field = RawInput(
       key: _fieldKey,
       controller: _controller,
       focusNode: _focusNode,

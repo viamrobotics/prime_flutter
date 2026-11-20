@@ -10,7 +10,7 @@ class AppBarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 400,
@@ -21,13 +21,13 @@ class AppBarPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 switch (style) {
-                  AppBarPageStyle.basic => const PrimeAppBar(title: Text('Basic AppBar'), leading: Icon(PrimeIcons.viamFlutter)),
-                  AppBarPageStyle.withActions => const PrimeAppBar(
+                  AppBarPageStyle.basic => const AppBar(title: Text('Basic AppBar'), leading: Icon(PrimeIcons.viamFlutter)),
+                  AppBarPageStyle.withActions => const AppBar(
                     title: Text('With Actions'),
                     leading: Icon(PrimeIcons.viamFlutter),
                     actions: [Icon(PrimeIcons.viamFlutter), Icon(PrimeIcons.viamFlutter)],
                   ),
-                  AppBarPageStyle.withBottom => PrimeAppBar(
+                  AppBarPageStyle.withBottom => AppBar(
                     title: const Text('With Bottom'),
                     leading: const Icon(PrimeIcons.menu),
                     bottom: TabBar(
@@ -36,7 +36,7 @@ class AppBarPage extends StatelessWidget {
                       items: const [Text('Tab 1'), Text('Tab 2'), Text('Tab 3')],
                     ),
                   ),
-                  AppBarPageStyle.leftAligned => const PrimeAppBar(
+                  AppBarPageStyle.leftAligned => const AppBar(
                     centerTitle: false,
                     leading: Icon(PrimeIcons.menu),
                     title: Text('A long left-aligned title', overflow: TextOverflow.ellipsis),

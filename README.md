@@ -19,11 +19,11 @@ Prime Flutter provides a set of polished, reusable widgets that adhere to a cons
 -   **Input**: Styled text fields with built-in focus states and icon support.
 -   **ListItem**: Versatile list items with support for leading/trailing widgets and expansion.
 -   **NavigationBar**: A custom bottom navigation bar.
--   **PrimeAppBar**: A clean, customizable app bar.
+-   **AppBar**: A clean, customizable app bar.
 -   **PrimeSheet**: A modal bottom sheet with a modern look and feel.
 -   **FilterPill**: Selectable chips for filtering content.
 -   **Progress**: Circular progress indicators.
--   **PrimeScaffold**: A scaffold wrapper that integrates seamlessly with the Prime theme.
+-   **Scaffold**: A scaffold wrapper that integrates seamlessly with the Prime theme.
 -   **PrimeBanner**, **SiteBanner**, **NotificationContainer** / **Notify**: Inline alerts, app-wide banners, and stacked notifications.
 -   **IconButton**, **FloatingMenu**, **ContextMenu**, **NavDropdown**: Icon-only actions and anchored menus.
 -   **Tooltip**, **Floating**: Hover/long-press hints and the anchored-popup primitive behind every menu.
@@ -97,12 +97,12 @@ PrimeApp.router(routerConfig: router);
 | `MaterialPageRoute`, `MaterialPage` | `PrimePageRoute`, `PrimePage` |
 | `PageTransitionsTheme` | `PrimeThemeData.pageTransitionsTheme` (`PrimePageTransitionsTheme`) |
 | iOS back-swipe, Android predictive back | Built into the default page transitions |
-| `Scaffold`, `AppBar` | `PrimeScaffold`, `PrimeAppBar` |
-| `TextField` | `Input`, or `PrimeTextField` for a field with chrome of your own |
+| `Scaffold`, `AppBar` | `Scaffold`, `AppBar` |
+| Material's `TextField` | `Input`, or `RawInput` for a field with chrome of your own |
 | Selection handles and the copy/paste menu | `PrimeTextSelectionControls`, `PrimeTextSelectionToolbar` (the native menu on iOS) |
-| `SelectionArea`, `SelectableText` | `PrimeSelectionArea` |
+| `SelectionArea`, `SelectableText` | `SelectionArea` |
 | `showModalBottomSheet` | `BottomSheet.show`, `PrimeModalSheetRoute` |
-| `showDialog`, `AlertDialog` | `PrimeDialog.show`, `Modal.show` |
+| `showDialog`, `AlertDialog` | `Dialog.show`, `Modal.show` |
 | `ScaffoldMessenger`, `SnackBar` | `Toast.show`, `Notify.of` |
 | `MaterialScrollBehavior` | `PrimeScrollBehavior` |
 | `Hero` animations | Work as usual: `PrimeApp` installs a `HeroController` |

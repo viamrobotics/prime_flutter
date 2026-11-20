@@ -10,7 +10,7 @@ class AvatarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: switch (style) {
           AvatarPageStyle.initials => const Avatar(child: Text('CP')),

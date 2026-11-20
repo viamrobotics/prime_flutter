@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../theme/prime_theme.dart';
 
 /// A scaffold widget. Used to build a Prime styled screens.
-class PrimeScaffold extends StatelessWidget {
+class Scaffold extends StatelessWidget {
   /// The body of the scaffold.
   final Widget body;
 
@@ -28,7 +28,7 @@ class PrimeScaffold extends StatelessWidget {
   /// [bottomNavigationBar] stays where it is, under the keyboard.
   final bool resizeToAvoidBottomInset;
 
-  const PrimeScaffold({
+  const Scaffold({
     super.key,
     required this.body,
     this.appBar,
@@ -123,3 +123,7 @@ class PrimeLayoutData extends InheritedWidget {
   @override
   bool updateShouldNotify(PrimeLayoutData oldWidget) => bottomOffset != oldWidget.bottomOffset;
 }
+
+/// The former name of [Scaffold].
+@Deprecated('Use Scaffold instead. Run `dart fix --apply` to migrate.')
+typedef PrimeScaffold = Scaffold;

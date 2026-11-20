@@ -13,8 +13,8 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Navigation Bar')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Navigation Bar')),
       body: Center(child: Text('Selected Index: $_selectedIndex', style: PrimeTheme.of(context).textTheme.heading)),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,

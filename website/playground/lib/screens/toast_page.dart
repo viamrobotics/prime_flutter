@@ -34,7 +34,7 @@ class _ToastPageState extends State<ToastPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: Button(label: const Text('Show Toast'), onPressed: _showToast),
       ),

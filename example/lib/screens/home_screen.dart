@@ -9,8 +9,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return PrimeScaffold(
-      appBar: PrimeAppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text('Prime Flutter'),
         actions: [
           GestureDetector(

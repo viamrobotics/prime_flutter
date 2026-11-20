@@ -7,7 +7,7 @@ import '../../prime_flutter.dart';
 /// trailing status icon.
 enum InputState { none, info, warn, error }
 
-/// A text input widget: a [PrimeTextField] in Prime's bordered box, with
+/// A text input widget: a [RawInput] in Prime's bordered box, with
 /// optional leading and trailing icons and a validation state.
 class Input extends StatefulWidget {
   final TextEditingController? controller;
@@ -147,7 +147,7 @@ class _InputState extends State<Input> {
       );
     }
 
-    return PrimeTextField(
+    return RawInput(
       controller: widget.controller,
       focusNode: focusNode,
       obscureText: widget.obscureText,

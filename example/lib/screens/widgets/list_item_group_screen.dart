@@ -7,8 +7,8 @@ class ListItemGroupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('List Item Group')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('List Item Group')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(

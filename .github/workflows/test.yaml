@@ -37,3 +37,8 @@ jobs:
       # Includes the guard that keeps Material and Cupertino out of lib/
       - name: Run unit tests
         run: flutter test
+
+      # Checks that `dart fix` migrates every deprecated name (lib/fix_data.yaml)
+      - name: Verify dart fix migrations
+        run: dart fix --compare-to-golden
+        working-directory: test_fixes

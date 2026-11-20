@@ -10,7 +10,7 @@ class FilterPillPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: switch (style) {
           FilterPillPageStyle.basicToggle => const _BasicToggleExample(),

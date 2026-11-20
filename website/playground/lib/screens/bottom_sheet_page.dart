@@ -10,7 +10,7 @@ class BottomSheetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: Button(
           label: const Text('Show bottom sheet'),

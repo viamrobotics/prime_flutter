@@ -17,14 +17,14 @@ class _SwitchPageState extends State<SwitchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: switch (widget.style) {
-          SwitchPageStyle.basic => SwitchToggle(
+          SwitchPageStyle.basic => Switch(
               value: _value,
               onChanged: (v) => setState(() => _value = v),
             ),
-          SwitchPageStyle.disabled => SwitchToggle(
+          SwitchPageStyle.disabled => Switch(
               value: _value,
               disabled: true,
               onChanged: (v) => setState(() => _value = v),

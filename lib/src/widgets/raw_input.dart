@@ -20,8 +20,8 @@ import 'text_selection.dart';
 ///
 /// [decorationBuilder] wraps the text in a border, padding or icons. Taps
 /// anywhere on the decoration focus the field.
-class PrimeTextField extends StatefulWidget {
-  const PrimeTextField({
+class RawInput extends StatefulWidget {
+  const RawInput({
     super.key,
     this.controller,
     this.focusNode,
@@ -177,15 +177,15 @@ class PrimeTextField extends StatefulWidget {
   final Widget Function(BuildContext context, Widget editable)? decorationBuilder;
 
   @override
-  State<PrimeTextField> createState() => PrimeTextFieldState();
+  State<RawInput> createState() => RawInputState();
 }
 
-class PrimeTextFieldState extends State<PrimeTextField> implements TextSelectionGestureDetectorBuilderDelegate {
+class RawInputState extends State<RawInput> implements TextSelectionGestureDetectorBuilderDelegate {
   TextEditingController? _internalController;
   TextEditingController get _controller => widget.controller ?? (_internalController ??= TextEditingController());
 
   FocusNode? _internalFocusNode;
-  FocusNode get _focusNode => widget.focusNode ?? (_internalFocusNode ??= FocusNode(debugLabel: 'PrimeTextField'));
+  FocusNode get _focusNode => widget.focusNode ?? (_internalFocusNode ??= FocusNode(debugLabel: 'RawInput'));
 
   late final _GestureBuilder _gestures = _GestureBuilder(this);
   bool _showSelectionHandles = false;
@@ -216,7 +216,7 @@ class PrimeTextFieldState extends State<PrimeTextField> implements TextSelection
   }
 
   @override
-  void didUpdateWidget(PrimeTextField oldWidget) {
+  void didUpdateWidget(RawInput oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
       (oldWidget.controller ?? _internalController)?.removeListener(_handleTextChanged);
@@ -435,10 +435,18 @@ class PrimeTextFieldState extends State<PrimeTextField> implements TextSelection
 }
 
 class _GestureBuilder extends TextSelectionGestureDetectorBuilder {
-  _GestureBuilder(PrimeTextFieldState state) : _state = state, super(delegate: state);
+  _GestureBuilder(RawInputState state) : _state = state, super(delegate: state);
 
-  final PrimeTextFieldState _state;
+  final RawInputState _state;
 
   @override
   void onUserTap() => _state.widget.onTap?.call();
 }
+
+/// The former name of [RawInput].
+@Deprecated('Use RawInput instead. Run `dart fix --apply` to migrate.')
+typedef PrimeTextField = RawInput;
+
+/// The former name of [RawInputState].
+@Deprecated('Use RawInputState instead. Run `dart fix --apply` to migrate.')
+typedef PrimeTextFieldState = RawInputState;

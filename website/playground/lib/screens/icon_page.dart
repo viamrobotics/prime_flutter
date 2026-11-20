@@ -26,7 +26,7 @@ class _IconPageState extends State<IconPage> {
   @override
   Widget build(BuildContext context) {
     if (widget.style == IconPageStyle.example) {
-      return const PrimeScaffold(
+      return const Scaffold(
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -38,7 +38,7 @@ class _IconPageState extends State<IconPage> {
 
     final filteredIcons = _allIcons.entries.where((entry) => entry.key.toLowerCase().contains(_searchQuery.toLowerCase())).toList();
 
-    return PrimeScaffold(
+    return Scaffold(
       body: Column(
         children: [
           Padding(

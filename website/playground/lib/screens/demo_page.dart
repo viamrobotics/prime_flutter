@@ -537,7 +537,7 @@ class DemoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
     final builder = demos[name];
-    return PrimeScaffold(
+    return Scaffold(
       body: DefaultTextStyle(
         style: theme.textTheme.bodySmall,
         child: Center(

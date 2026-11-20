@@ -23,8 +23,8 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
         return PrimeTheme(
           // Ensure we are previewing what we are editing
           data: PrimeThemeData(colorScheme: scheme, textTheme: previewTextTheme, cornerRadius: 8.0),
-          child: PrimeScaffold(
-            appBar: PrimeAppBar(
+          child: Scaffold(
+            appBar: AppBar(
               title: const Text('Theme Editor'),
               actions: [
                 GestureDetector(

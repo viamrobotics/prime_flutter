@@ -6,8 +6,8 @@ class ProgressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Progress')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Progress')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

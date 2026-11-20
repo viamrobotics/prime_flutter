@@ -16,14 +16,14 @@ import 'prime_icons.dart';
 /// Example:
 ///
 /// ```dart
-/// PrimeDropdown<String>(
+/// Dropdown<String>(
 ///   value: selected,
 ///   placeholder: 'Select an option',
 ///   items: ['Apple', 'Banana', 'Orange'],
 ///   onChanged: (v) => setState(() => selected = v),
 /// )
 /// ```
-class PrimeDropdown<T> extends StatefulWidget {
+class Dropdown<T> extends StatefulWidget {
   /// The currently selected value, or null if none.
   final T? value;
 
@@ -42,7 +42,7 @@ class PrimeDropdown<T> extends StatefulWidget {
   /// Whether the dropdown is disabled.
   final bool disabled;
 
-  const PrimeDropdown({
+  const Dropdown({
     super.key,
     this.value,
     required this.items,
@@ -57,10 +57,10 @@ class PrimeDropdown<T> extends StatefulWidget {
   final InputState state;
 
   @override
-  State<PrimeDropdown<T>> createState() => _PrimeDropdownState<T>();
+  State<Dropdown<T>> createState() => _DropdownState<T>();
 }
 
-class _PrimeDropdownState<T> extends State<PrimeDropdown<T>> {
+class _DropdownState<T> extends State<Dropdown<T>> {
   final GlobalKey _triggerKey = GlobalKey();
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
@@ -304,20 +304,20 @@ class _DropdownItemState<T> extends State<_DropdownItem<T>> {
 
 /// A dropdown that lets the user choose multiple values from a list.
 ///
-/// Styled like [PrimeDropdown]. The trigger shows the selected count or labels.
+/// Styled like [Dropdown]. The trigger shows the selected count or labels.
 /// Tap an option to toggle; tap outside to close.
 ///
 /// Example:
 ///
 /// ```dart
-/// PrimeMultiDropdown<String>(
+/// MultiDropdown<String>(
 ///   value: selected,
 ///   placeholder: 'Select fruits',
 ///   items: ['Apple', 'Banana', 'Orange'],
 ///   onChanged: (v) => setState(() => selected = v),
 /// )
 /// ```
-class PrimeMultiDropdown<T> extends StatefulWidget {
+class MultiDropdown<T> extends StatefulWidget {
   /// Currently selected values.
   final List<T> value;
 
@@ -339,7 +339,7 @@ class PrimeMultiDropdown<T> extends StatefulWidget {
   /// Whether the dropdown is disabled.
   final bool disabled;
 
-  const PrimeMultiDropdown({
+  const MultiDropdown({
     super.key,
     this.value = const [],
     required this.items,
@@ -351,10 +351,10 @@ class PrimeMultiDropdown<T> extends StatefulWidget {
   });
 
   @override
-  State<PrimeMultiDropdown<T>> createState() => _PrimeMultiDropdownState<T>();
+  State<MultiDropdown<T>> createState() => _MultiDropdownState<T>();
 }
 
-class _PrimeMultiDropdownState<T> extends State<PrimeMultiDropdown<T>> {
+class _MultiDropdownState<T> extends State<MultiDropdown<T>> {
   final GlobalKey _triggerKey = GlobalKey();
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
@@ -639,3 +639,11 @@ class _MultiDropdownItemState<T> extends State<_MultiDropdownItem<T>> {
     );
   }
 }
+
+/// The former name of [Dropdown].
+@Deprecated('Use Dropdown instead. Run `dart fix --apply` to migrate.')
+typedef PrimeDropdown<T> = Dropdown<T>;
+
+/// The former name of [MultiDropdown].
+@Deprecated('Use MultiDropdown instead. Run `dart fix --apply` to migrate.')
+typedef PrimeMultiDropdown<T> = MultiDropdown<T>;

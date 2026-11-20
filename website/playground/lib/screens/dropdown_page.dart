@@ -23,7 +23,7 @@ class _DropdownPageState extends State<DropdownPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Align(
         alignment: _isAtBottom ? Alignment.bottomCenter : Alignment.topCenter,
         child: Padding(
@@ -33,32 +33,32 @@ class _DropdownPageState extends State<DropdownPage> {
           child: SizedBox(
             width: 300,
             child: switch (widget.style) {
-              DropdownPageStyle.basic => PrimeDropdown<String>(
+              DropdownPageStyle.basic => Dropdown<String>(
                   value: _value,
                   placeholder: 'Select a fruit',
                   items: _options,
                   onChanged: (v) => setState(() => _value = v),
                 ),
-              DropdownPageStyle.basicAtBottom => PrimeDropdown<String>(
+              DropdownPageStyle.basicAtBottom => Dropdown<String>(
                   value: _value,
                   placeholder: 'Select a fruit',
                   items: _options,
                   onChanged: (v) => setState(() => _value = v),
                 ),
-              DropdownPageStyle.customLabels => PrimeDropdown<String>(
+              DropdownPageStyle.customLabels => Dropdown<String>(
                 value: _value,
                 placeholder: 'Choose one',
                 items: _options,
                 itemBuilder: (s) => Text(s.toUpperCase()),
                 onChanged: (v) => setState(() => _value = v),
               ),
-            DropdownPageStyle.multiselect => PrimeMultiDropdown<String>(
+            DropdownPageStyle.multiselect => MultiDropdown<String>(
                 value: _multiValue,
                 placeholder: 'Select fruits',
                 items: _options,
                 onChanged: (v) => setState(() => _multiValue = v),
               ),
-              DropdownPageStyle.disabled => PrimeDropdown<String>(
+              DropdownPageStyle.disabled => Dropdown<String>(
                   value: 'Apple',
                   placeholder: 'Disabled',
                   items: _options,

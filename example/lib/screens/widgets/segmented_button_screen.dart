@@ -23,8 +23,8 @@ class _SegmentedButtonScreenState extends State<SegmentedButtonScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: PrimeAppBar(title: const Text('Segmented Button')),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Segmented Button')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(

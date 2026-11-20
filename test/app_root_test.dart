@@ -14,11 +14,11 @@ import 'package:prime_flutter/prime_flutter.dart';
 const mobile = TargetPlatformVariant({TargetPlatform.android, TargetPlatform.iOS});
 const desktop = TargetPlatformVariant({TargetPlatform.macOS, TargetPlatform.linux, TargetPlatform.windows});
 
-Widget host(Widget child) => PrimeApp(home: PrimeScaffold(body: child));
+Widget host(Widget child) => PrimeApp(home: Scaffold(body: child));
 
 Widget page(String name, {Widget? child}) {
-  return PrimeScaffold(
-    appBar: PrimeAppBar(title: Text('$name bar')),
+  return Scaffold(
+    appBar: AppBar(title: Text('$name bar')),
     body: Center(child: child ?? Text(name)),
   );
 }
@@ -504,12 +504,12 @@ void main() {
       expect(controller.text, 'hellohello');
     }, variant: TargetPlatformVariant.only(TargetPlatform.linux));
 
-    testWidgets('PrimeTextField takes a decoration of its own', (tester) async {
+    testWidgets('RawInput takes a decoration of its own', (tester) async {
       final controller = TextEditingController();
       addTearDown(controller.dispose);
       await tester.pumpWidget(
         host(
-          PrimeTextField(
+          RawInput(
             controller: controller,
             placeholder: 'Search',
             decorationBuilder: (context, editable) => Padding(key: const Key('chrome'), padding: const EdgeInsets.all(30), child: editable),
@@ -521,20 +521,20 @@ void main() {
       await tester.tapAt(tester.getTopLeft(find.byKey(const Key('chrome'))) + const Offset(5, 5));
       await tester.pump();
       expect(tester.testTextInput.isVisible, isTrue);
-      await tester.enterText(find.byType(PrimeTextField), 'x');
+      await tester.enterText(find.byType(RawInput), 'x');
       await tester.pump();
       expect(controller.text, 'x');
       expect(find.text('Search'), findsNothing);
     });
   });
 
-  group('PrimeSelectionArea', () {
+  group('SelectionArea', () {
     testWidgets('selects and copies static text', (tester) async {
       final clipboard = FakeClipboard()..install(tester);
       SelectedContent? selected;
       await tester.pumpWidget(
         host(
-          PrimeSelectionArea(
+          SelectionArea(
             onSelectionChanged: (content) => selected = content,
             child: const Center(child: Text('machine online')),
           ),
@@ -644,12 +644,12 @@ void main() {
     });
   });
 
-  group('PrimeScaffold', () {
+  group('Scaffold', () {
     testWidgets('shrinks the body above the keyboard and hides the insets from it', (tester) async {
       double? seenInset;
       Widget app({required bool resize}) {
         return PrimeApp(
-          home: PrimeScaffold(
+          home: Scaffold(
             resizeToAvoidBottomInset: resize,
             bottomNavigationBar: const SizedBox(height: 50, child: Text('nav')),
             floatingActionButton: const SizedBox.square(dimension: 40, child: Text('fab')),
@@ -685,7 +685,7 @@ void main() {
       await tester.pumpWidget(
         PrimeApp(
           theme: PrimeThemeData.dark(),
-          home: const PrimeScaffold(body: SizedBox()),
+          home: const Scaffold(body: SizedBox()),
         ),
       );
       final region = tester.widget<AnnotatedRegion<SystemUiOverlayStyle>>(find.byType(AnnotatedRegion<SystemUiOverlayStyle>));

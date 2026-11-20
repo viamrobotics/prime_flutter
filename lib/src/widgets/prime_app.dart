@@ -36,9 +36,8 @@ import 'scroll_behavior.dart';
 /// A Material or Cupertino widget placed under a `PrimeApp` (your own, or one
 /// from a package) may look up `MaterialLocalizations` or
 /// `CupertinoLocalizations`. Provide them through [localizationsDelegates]:
-/// `DefaultMaterialLocalizations.delegate` and
-/// `DefaultCupertinoLocalizations.delegate` for English, or the `Global*`
-/// delegates from `flutter_localizations` for every language.
+/// `GlobalMaterialLocalizations.delegates` from `package:material_ui` covers
+/// Material, Cupertino and the widgets layer.
 class PrimeApp extends StatefulWidget {
   /// A one-line description of the app for the device, e.g. in the task
   /// switcher. See [onGenerateTitle] for a localized title.

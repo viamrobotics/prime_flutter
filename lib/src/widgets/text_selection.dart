@@ -342,10 +342,10 @@ class _TextMagnifier extends StatelessWidget {
 /// Wrap a screen, or a single [Text], to let the user select and copy from it:
 ///
 /// ```dart
-/// PrimeSelectionArea(child: Text(log))
+/// SelectionArea(child: Text(log))
 /// ```
-class PrimeSelectionArea extends StatefulWidget {
-  const PrimeSelectionArea({
+class SelectionArea extends StatefulWidget {
+  const SelectionArea({
     super.key,
     required this.child,
     this.focusNode,
@@ -370,12 +370,12 @@ class PrimeSelectionArea extends StatefulWidget {
   final ValueChanged<SelectedContent?>? onSelectionChanged;
 
   @override
-  State<PrimeSelectionArea> createState() => _PrimeSelectionAreaState();
+  State<SelectionArea> createState() => _SelectionAreaState();
 }
 
-class _PrimeSelectionAreaState extends State<PrimeSelectionArea> {
+class _SelectionAreaState extends State<SelectionArea> {
   FocusNode? _internalNode;
-  FocusNode get _focusNode => widget.focusNode ?? (_internalNode ??= FocusNode(debugLabel: 'PrimeSelectionArea'));
+  FocusNode get _focusNode => widget.focusNode ?? (_internalNode ??= FocusNode(debugLabel: 'SelectionArea'));
 
   @override
   void dispose() {

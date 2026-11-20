@@ -6,8 +6,8 @@ class ToastScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Toast')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Toast')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

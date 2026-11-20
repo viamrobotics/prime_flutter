@@ -14,8 +14,8 @@ class _TabBarScreenState extends State<TabBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: PrimeAppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: const Text('machine-123'),
         actions: [IconButton(icon: Icon(PrimeIcons.dotsHorizontal), onPressed: () {})],
         bottom: TabBar(

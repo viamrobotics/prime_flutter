@@ -6,8 +6,8 @@ class BottomSheetScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Bottom Sheet')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Bottom Sheet')),
       body: Center(
         child: Column(
           spacing: 16.0,

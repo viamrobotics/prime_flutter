@@ -18,8 +18,8 @@ class _DropdownScreenState extends State<DropdownScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Dropdown')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Dropdown')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -27,7 +27,7 @@ class _DropdownScreenState extends State<DropdownScreen> {
           children: [
             Text('Basic', style: theme.textTheme.title),
             const SizedBox(height: 8),
-            PrimeDropdown<String>(
+            Dropdown<String>(
               value: _fruit,
               placeholder: 'Select a fruit',
               items: _fruits,
@@ -36,7 +36,7 @@ class _DropdownScreenState extends State<DropdownScreen> {
             const SizedBox(height: 24),
             Text('With custom item labels', style: theme.textTheme.title),
             const SizedBox(height: 8),
-            PrimeDropdown<String>(
+            Dropdown<String>(
               value: _customLabel,
               placeholder: 'Choose one',
               items: _fruits,
@@ -46,7 +46,7 @@ class _DropdownScreenState extends State<DropdownScreen> {
             const SizedBox(height: 24),
             Text('Multiselect', style: theme.textTheme.title),
             const SizedBox(height: 8),
-            PrimeMultiDropdown<String>(
+            MultiDropdown<String>(
               value: _multi,
               placeholder: 'Select fruits',
               items: _fruits,
@@ -55,7 +55,7 @@ class _DropdownScreenState extends State<DropdownScreen> {
             const SizedBox(height: 24),
             Text('Disabled', style: theme.textTheme.title),
             const SizedBox(height: 8),
-            PrimeDropdown<String>(
+            Dropdown<String>(
               value: 'Apple',
               placeholder: 'Disabled',
               items: _fruits,

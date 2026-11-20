@@ -20,8 +20,8 @@ class _SliderScreenState extends State<SliderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
-      appBar: const PrimeAppBar(title: Text('Slider')),
+    return Scaffold(
+      appBar: const AppBar(title: Text('Slider')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

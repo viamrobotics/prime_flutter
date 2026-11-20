@@ -10,7 +10,7 @@ class DividerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimeScaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: 300,
