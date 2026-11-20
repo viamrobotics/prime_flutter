@@ -233,4 +233,15 @@ class PrimeIcons {
   static const IconData onnx = IconData(0xe8d9, fontFamily: _ff, fontPackage: _fp);
   static const IconData pytorch = IconData(0xe8da, fontFamily: _ff, fontPackage: _fp);
   static const IconData tensorflow = IconData(0xe8db, fontFamily: _ff, fontPackage: _fp);
+
+  // Connectivity and device glyphs, from Material Design Icons.
+  static const IconData bluetooth = IconData(0xe8dc, fontFamily: _ff, fontPackage: _fp);
+  static const IconData wifi = IconData(0xe8dd, fontFamily: _ff, fontPackage: _fp);
+  static const IconData wifiStrength1 = IconData(0xe8de, fontFamily: _ff, fontPackage: _fp);
+  static const IconData wifiStrength2 = IconData(0xe8df, fontFamily: _ff, fontPackage: _fp);
+  static const IconData wifiStrength3 = IconData(0xe8e0, fontFamily: _ff, fontPackage: _fp);
+  static const IconData wifiStrength4 = IconData(0xe8e1, fontFamily: _ff, fontPackage: _fp);
+  static const IconData lockOpenOutline = IconData(0xe8e2, fontFamily: _ff, fontPackage: _fp);
+  static const IconData power = IconData(0xe8e3, fontFamily: _ff, fontPackage: _fp);
+  static const IconData cellphoneWireless = IconData(0xe8e4, fontFamily: _ff, fontPackage: _fp);
 }

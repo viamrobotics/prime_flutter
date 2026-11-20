@@ -67,6 +67,7 @@ class Dialog {
     final showX = showCloseButton ?? !hasActions;
 
     final completer = Completer<T?>();
+    final themes = InheritedTheme.capture(from: context, to: overlay.context);
     late OverlayEntry entry;
 
     void dismiss([T? result]) {
@@ -77,14 +78,16 @@ class Dialog {
     }
 
     entry = OverlayEntry(
-      builder: (overlayContext) => _DialogOverlay<T>(
-        title: title,
-        child: child,
-        actions: actions,
-        showCloseButton: showX,
-        barrierDismissible: barrierDismissible,
-        barrierColor: barrierColor,
-        onDismiss: dismiss,
+      builder: (overlayContext) => themes.wrap(
+        _DialogOverlay<T>(
+          title: title,
+          child: child,
+          actions: actions,
+          showCloseButton: showX,
+          barrierDismissible: barrierDismissible,
+          barrierColor: barrierColor,
+          onDismiss: dismiss,
+        ),
       ),
     );
     overlay.insert(entry);

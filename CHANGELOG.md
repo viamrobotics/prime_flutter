@@ -1,3 +1,10 @@
+## 0.3.3
+* Added `automaticallyImplyLeading` to `AppBar`. Set it to false to hide the back button a poppable route would otherwise get, for screens that handle going back themselves. Defaults to true, so existing app bars are unchanged.
+* `PrimeTheme` is now an `InheritedTheme`, and `Dialog.show`, `Modal.show`, `Takeover.show` and `Toast.show` carry the caller's `PrimeTheme` into what they open, as `BottomSheet.show` already tried to. A Prime flow inside an app that is not a `PrimeApp` can wrap itself in a `PrimeTheme`, and its dialogs and toasts no longer fail with "No PrimeTheme found in context". A screen-local theme (a dark panel, say) now reaches the dialogs it opens too.
+* Fixed text typed into an `Input` being invisible in the dark theme: `PrimeColorScheme.dark()` set `inputText` to gray9, the color of the input's own fill. It is now gray0, like `textPrimary`.
+* Added 9 icons to `PrimeIcons`, from Material Design Icons: `bluetooth`, `wifi`, `wifiStrength1` to `wifiStrength4`, `lockOpenOutline` (matches the existing outlined `lock`), `power` and `cellphoneWireless`.
+* Added `tool/add_mdi_icons.py`, which adds Material Design Icons glyphs to `fonts/PrimeIcons.ttf` the way the existing ones were made, and prints the `PrimeIcons` constants for them.
+
 ## 0.3.2
 * Fixed `PrimeIcons` glyphs drawing off-center. The font's horizontal metrics gave nearly every glyph a left side bearing of 0, so text renderers shifted each outline flush left inside its box, by up to 4px at 24px. The outlines are unchanged; the side bearings now match them. `test/icon_font_test.dart` checks every glyph.
 

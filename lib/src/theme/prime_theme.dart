@@ -1,7 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'prime_theme_data.dart';
 
-class PrimeTheme extends InheritedWidget {
+/// Provides [PrimeThemeData] to the widgets below it.
+///
+/// It is an [InheritedTheme], so dialogs, modals, sheets, toasts and takeovers opened from below a [PrimeTheme] use
+/// that theme even though their routes and overlay entries sit above it in the tree. A flow inside a non-Prime app can
+/// wrap itself in a [PrimeTheme] and everything it opens follows.
+class PrimeTheme extends InheritedTheme {
   final PrimeThemeData data;
 
   const PrimeTheme({super.key, required this.data, required super.child});
@@ -28,6 +33,9 @@ class PrimeTheme extends InheritedWidget {
       },
     );
   }
+
+  @override
+  Widget wrap(BuildContext context, Widget child) => PrimeTheme(data: data, child: child);
 
   @override
   bool updateShouldNotify(PrimeTheme oldWidget) {

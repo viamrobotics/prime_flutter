@@ -31,6 +31,7 @@ class Toast extends StatelessWidget {
     Widget? action,
   }) {
     final overlay = Overlay.of(context);
+    final themes = InheritedTheme.capture(from: context, to: overlay.context);
     late OverlayEntry entry;
 
     // Calculate bottom offset based on Scaffold and SafeArea
@@ -40,15 +41,17 @@ class Toast extends StatelessWidget {
 
     entry = OverlayEntry(
       builder: (context) {
-        return _ToastOverlay(
-          message: message,
-          variant: variant,
-          duration: duration,
-          action: action,
-          bottomOffset: bottomOffset,
-          onDismiss: () {
-            entry.remove();
-          },
+        return themes.wrap(
+          _ToastOverlay(
+            message: message,
+            variant: variant,
+            duration: duration,
+            action: action,
+            bottomOffset: bottomOffset,
+            onDismiss: () {
+              entry.remove();
+            },
+          ),
         );
       },
     );

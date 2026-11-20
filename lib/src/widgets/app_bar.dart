@@ -32,7 +32,21 @@ class AppBar extends StatelessWidget implements PreferredSizeWidget {
   /// constrained to icon width — pass anything (e.g. an org switcher).
   final bool centerTitle;
 
-  const AppBar({super.key, this.title, this.leading, this.actions, this.bottom, this.centerTitle = true});
+  /// Whether to show a back button when [leading] is null and the route can be popped.
+  ///
+  /// Set to false for screens that handle going back themselves, such as a multi-step flow that steps back through its
+  /// own pages before leaving the route.
+  final bool automaticallyImplyLeading;
+
+  const AppBar({
+    super.key,
+    this.title,
+    this.leading,
+    this.actions,
+    this.bottom,
+    this.centerTitle = true,
+    this.automaticallyImplyLeading = true,
+  });
 
   @override
   // +1 accounts for the 1px bottom border, which insets the Container's layout size.
@@ -45,21 +59,19 @@ class AppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return PrimeTheme.consumer(
       builder: (context, theme) {
-        Widget? effectiveLeading = leading;
-
         // Automatically add back button if no leading widget and route can be dismissed
-        if (effectiveLeading == null && canPop) {
-          effectiveLeading = MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              behavior: HitTestBehavior.opaque,
-              child: SizedBox.square(dimension: 24, child: Icon(PrimeIcons.chevronLeft, size: 24)),
-            ),
-          );
-        } else if (effectiveLeading == null && !canPop) {
-          effectiveLeading = SizedBox.shrink();
-        }
+        final Widget effectiveLeading =
+            leading ??
+            (canPop && automaticallyImplyLeading
+                ? MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      behavior: HitTestBehavior.opaque,
+                      child: SizedBox.square(dimension: 24, child: Icon(PrimeIcons.chevronLeft, size: 24)),
+                    ),
+                  )
+                : const SizedBox.shrink());
 
         return Container(
           decoration: BoxDecoration(

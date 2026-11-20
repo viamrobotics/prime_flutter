@@ -34,12 +34,14 @@ class Takeover extends StatelessWidget {
   ///
   /// The returned future completes with the value passed to `Navigator.pop`.
   static Future<T?> show<T>({required BuildContext context, required WidgetBuilder builder, bool useRootNavigator = true}) {
-    return Navigator.of(context, rootNavigator: useRootNavigator).push<T>(
+    final navigator = Navigator.of(context, rootNavigator: useRootNavigator);
+    final themes = InheritedTheme.capture(from: context, to: navigator.context);
+    return navigator.push<T>(
       PageRouteBuilder<T>(
         fullscreenDialog: true,
         transitionDuration: const Duration(milliseconds: 150),
         reverseTransitionDuration: const Duration(milliseconds: 150),
-        pageBuilder: (context, animation, secondaryAnimation) => EscapeToPop(child: Builder(builder: builder)),
+        pageBuilder: (context, animation, secondaryAnimation) => themes.wrap(EscapeToPop(child: Builder(builder: builder))),
         transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
       ),
     );
