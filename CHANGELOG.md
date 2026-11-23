@@ -1,4 +1,4 @@
-## 0.3.5
+## 0.3.6
 Every color a Prime widget draws with now comes from `PrimeColorScheme`, so a custom scheme restyles all of them. Before, several widgets used fixed colors or chose between two sets by checking whether the theme was dark.
 
 * Added `PrimeColorScheme.copyWith`.
@@ -13,6 +13,9 @@ Every color a Prime widget draws with now comes from `PrimeColorScheme`, so a cu
 * The danger `Button` takes its text color from `actionStatusFg`, like the success button, so it is white in the dark theme too.
 * Small visual changes in the default themes, where a fixed color became a derived one: the unfilled part of a filled `PrimeBanner`'s progress bar, the outline-danger `Button` hover tint, the dismiss and expand icons on banners, and the quieter text, dismiss icon and dark `Pill` fill on inverse surfaces. Each moved by a shade at most.
 * A test fails if a widget uses a fixed color again.
+
+## 0.3.5
+* Added `Markdown`, which renders GitHub-flavored Markdown with Prime's type and color: headings, emphasis, inline code, links (`onTapLink`), ordered, unordered and task lists, block quotes, rules, tables, and fenced code as a `CodeSnippet`. It accepts incomplete input, so text that is still streaming in can be rendered as it grows. `prime_flutter` now depends on the `markdown` package for parsing.
 
 ## 0.3.4
 * Added `Chart`, a time-series line chart matching `prime-charts` in Prime for the web. `ChartSeries` and `ChartPoint` describe the lines, and a `null` value is a gap. `ChartPlot` draws the lines, grid, axes and a tooltip for the nearest point on hover, touch or arrow keys. `ChartLegend` shows or hides a series, and `ChartTable` lists the visible series by time. Bounds (`xMin`, `xMax`, `yMin`, `yMax`), `xFormat` and `yFormat`, `loading` and a custom `empty` state are supported. It is drawn with `CustomPainter` and adds no dependency.
