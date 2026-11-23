@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 
-import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 import 'internal/pressable.dart';
 import 'prime_icons.dart';
@@ -74,24 +73,25 @@ class Pill extends StatelessWidget {
         break;
       case PillVariant.dark:
         if (hasIcon) {
-          background = PrimeColors.gray7;
-          border = PrimeColors.gray8;
-          foreground = PrimeColors.gray0;
+          // A softer inverse surface: the inverse text color mixed into it.
+          background = Color.alphaBlend(c.textInverse.withValues(alpha: 0.45), c.surfaceInverse);
+          border = Color.alphaBlend(c.textInverse.withValues(alpha: 0.25), c.surfaceInverse);
+          foreground = c.textInverse;
         }
-        removeColor = hasIcon ? PrimeColors.gray2 : removeColor;
-        removeHover = hasIcon ? PrimeColors.gray0 : removeHover;
+        removeColor = hasIcon ? c.textInverse.withValues(alpha: 0.85) : removeColor;
+        removeHover = hasIcon ? c.textInverse : removeHover;
       case PillVariant.info:
         background = c.statusInfoLight;
-        border = PrimeColors.infoMedium;
+        border = c.statusInfoMedium;
         foreground = c.statusInfoDark;
         removeColor = c.statusInfoDark;
-        removeHover = PrimeColors.infoMedium;
+        removeHover = c.statusInfoMedium;
       case PillVariant.warning:
         background = c.statusWarningLight;
-        border = PrimeColors.warningMedium;
+        border = c.statusWarningMedium;
         foreground = c.statusWarningDark;
         removeColor = c.statusWarningDark;
-        removeHover = PrimeColors.warningMedium;
+        removeHover = c.statusWarningMedium;
     }
     if (disabled || readOnly) {
       background = c.surfaceHighlight;
@@ -101,7 +101,7 @@ class Pill extends StatelessWidget {
     final textStyle = theme.textTheme.bodySmall.copyWith(fontSize: 12, height: 1.3, color: foreground);
     Widget? leading;
     if (hasIcon) {
-      leading = Icon(icon, size: 14, color: iconColor ?? (variant == PillVariant.dark ? PrimeColors.gray0 : c.iconSecondary));
+      leading = Icon(icon, size: 14, color: iconColor ?? (variant == PillVariant.dark ? c.textInverse : c.iconSecondary));
       if (iconTooltip != null) leading = Tooltip(message: iconTooltip, child: leading);
     }
 
@@ -174,16 +174,11 @@ class StatusPill extends StatelessWidget {
     final Color background, border, foreground, dot;
     switch (variant) {
       case StatusPillVariant.success:
-        (background, border, foreground, dot) = (c.statusSuccessLight, PrimeColors.successMedium, c.statusSuccessDark, c.statusSuccessDark);
+        (background, border, foreground, dot) = (c.statusSuccessLight, c.statusSuccessMedium, c.statusSuccessDark, c.statusSuccessDark);
       case StatusPillVariant.warning:
-        (background, border, foreground, dot) = (
-          c.statusWarningLight,
-          PrimeColors.warningMedium,
-          c.statusWarningDark,
-          PrimeColors.warningBright,
-        );
+        (background, border, foreground, dot) = (c.statusWarningLight, c.statusWarningMedium, c.statusWarningDark, c.statusWarningBright);
       case StatusPillVariant.danger:
-        (background, border, foreground, dot) = (c.statusDangerLight, PrimeColors.dangerMedium, c.statusDangerDark, c.statusDangerDark);
+        (background, border, foreground, dot) = (c.statusDangerLight, c.statusDangerMedium, c.statusDangerDark, c.statusDangerDark);
       case StatusPillVariant.inactive:
         (background, border, foreground, dot) = (c.surfaceOffset, c.borderSubtle, c.textSecondary, c.iconSecondary);
     }

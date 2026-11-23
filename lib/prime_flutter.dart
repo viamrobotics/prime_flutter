@@ -1,6 +1,7 @@
 // Theme
 export 'src/theme/prime_color_scheme.dart';
 export 'src/theme/prime_colors.dart';
+export 'src/theme/prime_syntax_colors.dart';
 export 'src/theme/prime_text_theme.dart';
 export 'src/theme/prime_theme.dart';
 export 'src/theme/prime_theme_data.dart';

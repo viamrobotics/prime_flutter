@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_color_scheme.dart';
-import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 
 enum ButtonVariant { primary, secondary, ghost, danger, outlineDanger, success }
@@ -200,42 +199,35 @@ class _ButtonState extends State<Button> {
       borderColor: null,
     );
 
-    // Standard hover overlay: 10% black scrim
+    // Hover and press tint the background with the scheme's text color: 10% on hover, 20% on press.
     Color withHover(Color base) {
       if (!_isHovered) return base;
 
-      // Primary buttons step toward pure black: gray9 → gray9_5 (hover) → black (press)
+      // Primary buttons have their own hover and press colors.
       if (widget.variant == ButtonVariant.primary) {
-        return PrimeColors.gray9_5;
+        return colorScheme.actionPrimaryHover;
       }
 
       // Outline danger buttons should be dark red
       if (widget.variant == ButtonVariant.outlineDanger) {
-        return Color.alphaBlend(const Color.fromARGB(255, 132, 0, 0).withValues(alpha: 0.1), base);
+        return Color.alphaBlend(colorScheme.statusDangerDark.withValues(alpha: 0.1), base);
       }
-      return Color.alphaBlend(const Color(0xFF000000).withValues(alpha: 0.1), base);
+      return Color.alphaBlend(colorScheme.textPrimary.withValues(alpha: 0.1), base);
     }
 
-    // Standard press overlay: 20% black scrim (keeping consistent with darkening request, though original was lightening)
-    // Actually, user only specified hover to be standard. I will assume they want press to be consistent or similar.
-    // The original code Lightened on press. I should probably switch press to darken as well for consistency,
-    // or keep it if they didn't ask.
-    // "move to that direction for every button variant that makes sense" implies the "scrim" approach.
-    // I'll stick to the "scrim" approach for press too, maybe 20%?
     Color withPress(Color base) {
       if (!_isPressed) return base;
 
-      // Primary press goes to pure black (final phase after gray9_5 hover)
       if (widget.variant == ButtonVariant.primary) {
-        return PrimeColors.black;
+        return colorScheme.actionPrimaryPressed;
       }
 
       // Outline danger buttons should be dark red
       if (widget.variant == ButtonVariant.outlineDanger) {
-        return Color.alphaBlend(const Color.fromARGB(255, 132, 0, 0).withValues(alpha: 0.2), base);
+        return Color.alphaBlend(colorScheme.statusDangerDark.withValues(alpha: 0.2), base);
       }
 
-      return Color.alphaBlend(const Color(0xFF000000).withValues(alpha: 0.2), base);
+      return Color.alphaBlend(colorScheme.textPrimary.withValues(alpha: 0.2), base);
     }
 
     Color resolve(Color base) {
@@ -273,8 +265,7 @@ class _ButtonState extends State<Button> {
           );
         }
         // Ghost starts transparent.
-        // Hover: transparent + 10% black = 10% black.
-        // Press: transparent + 20% black = 20% black.
+        // Hover and press show the tint alone.
         return (
           backgroundColor: resolve(const Color(0x00000000)),
           foregroundColor: colorScheme.textPrimary, // Match secondary text color
@@ -286,8 +277,8 @@ class _ButtonState extends State<Button> {
         final base = colorScheme.statusDangerDark;
         return (
           backgroundColor: resolve(base),
-          foregroundColor: colorScheme.actionPrimaryFg,
-          iconColor: colorScheme.actionPrimaryFg,
+          foregroundColor: colorScheme.actionStatusFg,
+          iconColor: colorScheme.actionStatusFg,
           borderColor: null,
         );
       case ButtonVariant.outlineDanger:
@@ -304,8 +295,8 @@ class _ButtonState extends State<Button> {
         final base = colorScheme.statusSuccessDark;
         return (
           backgroundColor: resolve(base),
-          foregroundColor: const Color(0xFFFFFFFF),
-          iconColor: const Color(0xFFFFFFFF),
+          foregroundColor: colorScheme.actionStatusFg,
+          iconColor: colorScheme.actionStatusFg,
           borderColor: null,
         );
     }

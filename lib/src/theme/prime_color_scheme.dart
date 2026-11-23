@@ -1,6 +1,16 @@
 import 'package:flutter/widgets.dart';
 import 'prime_colors.dart';
+import 'prime_syntax_colors.dart';
 
+/// Every color a Prime widget draws with.
+///
+/// Widgets read their colors from here and nowhere else, so a scheme is a
+/// complete theme: [PrimeColorScheme.light] and [PrimeColorScheme.dark] are
+/// two of them, and any other can be built with the constructor or by
+/// changing one with [copyWith].
+///
+/// Only the original colors are required. The rest default to the values of
+/// the light scheme, so set the ones your theme needs to change.
 class PrimeColorScheme {
   // --- Surface (Backgrounds) ---
   /// Scaffold background, Bottom sheet background
@@ -57,21 +67,70 @@ class PrimeColorScheme {
   /// Input focus ring/border
   final Color inputFocus;
 
+  /// Primary button and dark icon button bg while hovered. Other buttons tint their own background with [textPrimary]
+  final Color actionPrimaryHover;
+
+  /// Primary button and dark icon button bg while pressed
+  final Color actionPrimaryPressed;
+
+  /// Text and icons on a solid status button (danger, success)
+  final Color actionStatusFg;
+
   // --- Status (Feedback) ---
   final Color statusDangerLight;
+
   final Color statusDangerDark;
+
   final Color statusInfoLight;
+
   final Color statusInfoDark;
+
   final Color statusSuccessLight;
+
   final Color statusSuccessDark;
+
   final Color statusWarningLight;
+
   final Color statusWarningDark;
 
-  // --- Charts ---
-  /// The colors a [Chart] gives its series, in order, wrapping at the end.
-  /// Choose ones that hold against [surfaceBase].
-  final List<Color> chartSeries;
+  /// Border of a danger surface
+  final Color statusDangerMedium;
 
+  /// Border of an info surface
+  final Color statusInfoMedium;
+
+  /// Border of a success surface
+  final Color statusSuccessMedium;
+
+  /// Border of a warning surface, search match highlight
+  final Color statusWarningMedium;
+
+  /// Warning icons, dots and accents
+  final Color statusWarningBright;
+
+  /// Pending surface
+  final Color statusPendingLight;
+
+  /// Border of a pending surface
+  final Color statusPendingMedium;
+
+  /// Pending text and accents
+  final Color statusPendingDark;
+
+  /// Titles on a status surface (banners). Pair it with the `status*Light` colors, not with [surfaceBase]
+  final Color statusTextPrimary;
+
+  /// Body text on a status surface
+  final Color statusTextSecondary;
+
+  // --- Inverse (surfaces that contrast with the page) ---
+  /// A surface that contrasts with the page: the announcement banner, the dark pill
+  final Color surfaceInverse;
+
+  /// Text and icons on an inverse surface. Quieter tones are this color at lower opacity
+  final Color textInverse;
+
+  // --- Charts ---
   /// Chart grid lines
   final Color chartGrid;
 
@@ -80,6 +139,15 @@ class PrimeColorScheme {
 
   /// Chart tick labels
   final Color chartAxisLabel;
+
+  /// The colors a [Chart] gives its series, in order, wrapping at the end.
+  /// Choose ones that hold against [surfaceBase].
+  final List<Color> chartSeries;
+
+  // --- Code ---
+  /// Syntax highlighting colors for [CodeEditor] and [CodeSnippet]. When
+  /// null, a light or dark set is chosen to suit [surfaceBase].
+  final PrimeSyntaxColors? syntax;
 
   const PrimeColorScheme({
     required this.surfaceBase,
@@ -107,21 +175,37 @@ class PrimeColorScheme {
     required this.statusSuccessDark,
     required this.statusWarningLight,
     required this.statusWarningDark,
-    this.chartSeries = PrimeColors.chartSeries,
+    this.actionPrimaryHover = PrimeColors.gray9_5,
+    this.actionPrimaryPressed = PrimeColors.black,
+    this.actionStatusFg = PrimeColors.gray0,
+    this.statusDangerMedium = PrimeColors.dangerMedium,
+    this.statusInfoMedium = PrimeColors.infoMedium,
+    this.statusSuccessMedium = PrimeColors.successMedium,
+    this.statusWarningMedium = PrimeColors.warningMedium,
+    this.statusWarningBright = PrimeColors.warningBright,
+    this.statusPendingLight = PrimeColors.pendingLight,
+    this.statusPendingMedium = PrimeColors.pendingMedium,
+    this.statusPendingDark = PrimeColors.pendingDark,
+    this.statusTextPrimary = PrimeColors.gray9,
+    this.statusTextSecondary = PrimeColors.gray8,
+    this.surfaceInverse = PrimeColors.gray9_5,
+    this.textInverse = PrimeColors.gray0,
     this.chartGrid = PrimeColors.gray2,
     this.chartAxis = PrimeColors.chartAxis,
     this.chartAxisLabel = PrimeColors.chartAxisLabel,
+    this.chartSeries = PrimeColors.chartSeries,
+    this.syntax,
   });
 
   factory PrimeColorScheme.light() {
     return const PrimeColorScheme(
-      // Surface
+      // Surface (Backgrounds)
       surfaceBase: PrimeColors.gray0,
       surfaceOffset: PrimeColors.gray1,
       surfaceHover: PrimeColors.gray1_5,
       surfaceHighlight: PrimeColors.gray2,
 
-      // Typography
+      // Typography (Content)
       textPrimary: PrimeColors.gray9,
       textSecondary: PrimeColors.gray8,
       textTertiary: PrimeColors.gray7,
@@ -132,15 +216,18 @@ class PrimeColorScheme {
       iconSecondary: PrimeColors.gray6,
       iconDisabled: PrimeColors.gray5,
 
-      // Interactive
+      // Interactive (Buttons & Inputs)
       actionPrimaryBg: PrimeColors.gray9,
       actionPrimaryFg: PrimeColors.gray0,
       actionNeutralBg: PrimeColors.gray1,
       borderSubtle: PrimeColors.borderSubtle,
       inputText: PrimeColors.gray9,
       inputFocus: PrimeColors.focusBlue,
+      actionPrimaryHover: PrimeColors.gray9_5,
+      actionPrimaryPressed: PrimeColors.black,
+      actionStatusFg: PrimeColors.gray0,
 
-      // Status
+      // Status (Feedback)
       statusDangerLight: PrimeColors.dangerLight,
       statusDangerDark: PrimeColors.dangerDark,
       statusInfoLight: PrimeColors.infoLight,
@@ -149,19 +236,42 @@ class PrimeColorScheme {
       statusSuccessDark: PrimeColors.successDark,
       statusWarningLight: PrimeColors.warningLight,
       statusWarningDark: PrimeColors.warningDark,
+      statusDangerMedium: PrimeColors.dangerMedium,
+      statusInfoMedium: PrimeColors.infoMedium,
+      statusSuccessMedium: PrimeColors.successMedium,
+      statusWarningMedium: PrimeColors.warningMedium,
+      statusWarningBright: PrimeColors.warningBright,
+      statusPendingLight: PrimeColors.pendingLight,
+      statusPendingMedium: PrimeColors.pendingMedium,
+      statusPendingDark: PrimeColors.pendingDark,
+      statusTextPrimary: PrimeColors.gray9,
+      statusTextSecondary: PrimeColors.gray8,
+
+      // Inverse (surfaces that contrast with the page)
+      surfaceInverse: PrimeColors.gray9_5,
+      textInverse: PrimeColors.gray0,
+
+      // Charts
+      chartGrid: PrimeColors.gray2,
+      chartAxis: PrimeColors.chartAxis,
+      chartAxisLabel: PrimeColors.chartAxisLabel,
+      chartSeries: PrimeColors.chartSeries,
+
+      // Code
+      syntax: PrimeSyntaxColors.light,
     );
   }
 
   // TODO improve dark theme
   factory PrimeColorScheme.dark() {
     return const PrimeColorScheme(
-      // Surface
+      // Surface (Backgrounds)
       surfaceBase: PrimeColors.gray9,
       surfaceOffset: PrimeColors.gray8,
       surfaceHover: PrimeColors.gray7_5,
       surfaceHighlight: PrimeColors.gray7,
 
-      // Typography
+      // Typography (Content)
       textPrimary: PrimeColors.gray0,
       textSecondary: PrimeColors.gray2,
       textTertiary: PrimeColors.gray5,
@@ -172,15 +282,18 @@ class PrimeColorScheme {
       iconSecondary: PrimeColors.gray6,
       iconDisabled: PrimeColors.gray5,
 
-      // Interactive
+      // Interactive (Buttons & Inputs)
       actionPrimaryBg: PrimeColors.gray0,
       actionPrimaryFg: PrimeColors.gray9,
       actionNeutralBg: PrimeColors.gray8,
       borderSubtle: PrimeColors.gray8,
       inputText: PrimeColors.gray0,
       inputFocus: PrimeColors.focusBlue,
+      actionPrimaryHover: PrimeColors.gray2,
+      actionPrimaryPressed: PrimeColors.gray5,
+      actionStatusFg: PrimeColors.gray0,
 
-      // Status
+      // Status (Feedback)
       statusDangerLight: PrimeColors.dangerLight,
       statusDangerDark: PrimeColors.dangerDark,
       statusInfoLight: PrimeColors.infoLight,
@@ -189,12 +302,126 @@ class PrimeColorScheme {
       statusSuccessDark: PrimeColors.successDark,
       statusWarningLight: PrimeColors.warningLight,
       statusWarningDark: PrimeColors.warningDark,
+      statusDangerMedium: PrimeColors.dangerMedium,
+      statusInfoMedium: PrimeColors.infoMedium,
+      statusSuccessMedium: PrimeColors.successMedium,
+      statusWarningMedium: PrimeColors.warningMedium,
+      statusWarningBright: PrimeColors.warningBright,
+      statusPendingLight: PrimeColors.pendingLight,
+      statusPendingMedium: PrimeColors.pendingMedium,
+      statusPendingDark: PrimeColors.pendingDark,
+      statusTextPrimary: PrimeColors.gray9,
+      statusTextSecondary: PrimeColors.gray8,
+
+      // Inverse (surfaces that contrast with the page)
+      surfaceInverse: PrimeColors.gray9_5,
+      textInverse: PrimeColors.gray0,
 
       // Charts
-      chartSeries: PrimeColors.chartSeriesBright,
       chartGrid: PrimeColors.chartGridDim,
       chartAxis: PrimeColors.chartAxisDim,
       chartAxisLabel: PrimeColors.gray6,
+      chartSeries: PrimeColors.chartSeriesBright,
+
+      // Code
+      syntax: PrimeSyntaxColors.dark,
+    );
+  }
+
+  /// This scheme with the given colors replaced.
+  PrimeColorScheme copyWith({
+    Color? surfaceBase,
+    Color? surfaceOffset,
+    Color? surfaceHover,
+    Color? surfaceHighlight,
+    Color? textPrimary,
+    Color? textSecondary,
+    Color? textTertiary,
+    Color? textPlaceholder,
+    Color? iconPrimary,
+    Color? iconSecondary,
+    Color? iconDisabled,
+    Color? actionPrimaryBg,
+    Color? actionPrimaryFg,
+    Color? actionNeutralBg,
+    Color? borderSubtle,
+    Color? inputText,
+    Color? inputFocus,
+    Color? actionPrimaryHover,
+    Color? actionPrimaryPressed,
+    Color? actionStatusFg,
+    Color? statusDangerLight,
+    Color? statusDangerDark,
+    Color? statusInfoLight,
+    Color? statusInfoDark,
+    Color? statusSuccessLight,
+    Color? statusSuccessDark,
+    Color? statusWarningLight,
+    Color? statusWarningDark,
+    Color? statusDangerMedium,
+    Color? statusInfoMedium,
+    Color? statusSuccessMedium,
+    Color? statusWarningMedium,
+    Color? statusWarningBright,
+    Color? statusPendingLight,
+    Color? statusPendingMedium,
+    Color? statusPendingDark,
+    Color? statusTextPrimary,
+    Color? statusTextSecondary,
+    Color? surfaceInverse,
+    Color? textInverse,
+    Color? chartGrid,
+    Color? chartAxis,
+    Color? chartAxisLabel,
+    List<Color>? chartSeries,
+    PrimeSyntaxColors? syntax,
+  }) {
+    return PrimeColorScheme(
+      surfaceBase: surfaceBase ?? this.surfaceBase,
+      surfaceOffset: surfaceOffset ?? this.surfaceOffset,
+      surfaceHover: surfaceHover ?? this.surfaceHover,
+      surfaceHighlight: surfaceHighlight ?? this.surfaceHighlight,
+      textPrimary: textPrimary ?? this.textPrimary,
+      textSecondary: textSecondary ?? this.textSecondary,
+      textTertiary: textTertiary ?? this.textTertiary,
+      textPlaceholder: textPlaceholder ?? this.textPlaceholder,
+      iconPrimary: iconPrimary ?? this.iconPrimary,
+      iconSecondary: iconSecondary ?? this.iconSecondary,
+      iconDisabled: iconDisabled ?? this.iconDisabled,
+      actionPrimaryBg: actionPrimaryBg ?? this.actionPrimaryBg,
+      actionPrimaryFg: actionPrimaryFg ?? this.actionPrimaryFg,
+      actionNeutralBg: actionNeutralBg ?? this.actionNeutralBg,
+      borderSubtle: borderSubtle ?? this.borderSubtle,
+      inputText: inputText ?? this.inputText,
+      inputFocus: inputFocus ?? this.inputFocus,
+      actionPrimaryHover: actionPrimaryHover ?? this.actionPrimaryHover,
+      actionPrimaryPressed: actionPrimaryPressed ?? this.actionPrimaryPressed,
+      actionStatusFg: actionStatusFg ?? this.actionStatusFg,
+      statusDangerLight: statusDangerLight ?? this.statusDangerLight,
+      statusDangerDark: statusDangerDark ?? this.statusDangerDark,
+      statusInfoLight: statusInfoLight ?? this.statusInfoLight,
+      statusInfoDark: statusInfoDark ?? this.statusInfoDark,
+      statusSuccessLight: statusSuccessLight ?? this.statusSuccessLight,
+      statusSuccessDark: statusSuccessDark ?? this.statusSuccessDark,
+      statusWarningLight: statusWarningLight ?? this.statusWarningLight,
+      statusWarningDark: statusWarningDark ?? this.statusWarningDark,
+      statusDangerMedium: statusDangerMedium ?? this.statusDangerMedium,
+      statusInfoMedium: statusInfoMedium ?? this.statusInfoMedium,
+      statusSuccessMedium: statusSuccessMedium ?? this.statusSuccessMedium,
+      statusWarningMedium: statusWarningMedium ?? this.statusWarningMedium,
+      statusWarningBright: statusWarningBright ?? this.statusWarningBright,
+      statusPendingLight: statusPendingLight ?? this.statusPendingLight,
+      statusPendingMedium: statusPendingMedium ?? this.statusPendingMedium,
+      statusPendingDark: statusPendingDark ?? this.statusPendingDark,
+      statusTextPrimary: statusTextPrimary ?? this.statusTextPrimary,
+      statusTextSecondary: statusTextSecondary ?? this.statusTextSecondary,
+      surfaceInverse: surfaceInverse ?? this.surfaceInverse,
+      textInverse: textInverse ?? this.textInverse,
+      chartGrid: chartGrid ?? this.chartGrid,
+      chartAxis: chartAxis ?? this.chartAxis,
+      chartAxisLabel: chartAxisLabel ?? this.chartAxisLabel,
+      chartSeries: chartSeries ?? this.chartSeries,
+      syntax: syntax ?? this.syntax,
     );
   }
 }

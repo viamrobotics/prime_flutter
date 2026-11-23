@@ -1,3 +1,19 @@
+## 0.3.6
+Every color a Prime widget draws with now comes from `PrimeColorScheme`, so a custom scheme restyles all of them. Before, several widgets used fixed colors or chose between two sets by checking whether the theme was dark.
+
+* Added `PrimeColorScheme.copyWith`.
+* Added scheme colors for what was fixed. They are optional and default to the light scheme's values, so existing custom schemes still compile:
+  * Status: `statusDangerMedium`, `statusInfoMedium`, `statusSuccessMedium` and `statusWarningMedium` (borders), `statusWarningBright`, `statusPendingLight`, `statusPendingMedium` and `statusPendingDark`, and `statusTextPrimary` and `statusTextSecondary` for content on a status surface.
+  * Actions: `actionPrimaryHover`, `actionPrimaryPressed` and `actionStatusFg` (text on a solid danger or success button).
+  * Inverse: `surfaceInverse` and `textInverse`, used by the announcement `SiteBanner`, the dark `Pill` and the dark `Kbd`. Quieter tones on an inverse surface are `textInverse` at lower opacity.
+  * Code: `syntax`, a `PrimeSyntaxColors`, used by `CodeEditor` and `CodeSnippet`. Left null, a light or dark set is chosen to suit `surfaceBase`, as before.
+* `PrimeBanner`, `SiteBanner`, `Pill`, `StatusPill`, `Badge`, `StatusDot`, `Kbd`, `Input`, `Button`, `IconButton`, `Avatar` and `CodeEditor` read these in place of fixed colors.
+* Hover and press on every button but the primary one now tint the background with `textPrimary` (10% and 20%) instead of with black. The light theme looks the same. In the dark theme they lighten instead of darkening a surface that was already dark.
+* Fixed the primary `Button` and the dark `IconButton` in the dark theme turning near-black, under dark text, when hovered or pressed. `PrimeColorScheme.dark()` now gives them light hover and press colors.
+* The danger `Button` takes its text color from `actionStatusFg`, like the success button, so it is white in the dark theme too.
+* Small visual changes in the default themes, where a fixed color became a derived one: the unfilled part of a filled `PrimeBanner`'s progress bar, the outline-danger `Button` hover tint, the dismiss and expand icons on banners, and the quieter text, dismiss icon and dark `Pill` fill on inverse surfaces. Each moved by a shade at most.
+* A test fails if a widget uses a fixed color again.
+
 ## 0.3.5
 * Added `Markdown`, which renders GitHub-flavored Markdown with Prime's type and color: headings, emphasis, inline code, links (`onTapLink`), ordered, unordered and task lists, block quotes, rules, tables, and fenced code as a `CodeSnippet`. It accepts incomplete input, so text that is still streaming in can be rendered as it grows. `prime_flutter` now depends on the `markdown` package for parsing.
 

@@ -112,7 +112,7 @@ class _InputState extends State<Input> {
     final (Color? stateColor, Color? stateIconColor, IconData? stateIcon) = switch (state) {
       InputState.none => (null, null, null),
       InputState.info => (null, colors.statusInfoDark, PrimeIcons.information),
-      InputState.warn => (colors.statusWarningDark, PrimeColors.warningBright, PrimeIcons.alert),
+      InputState.warn => (colors.statusWarningDark, colors.statusWarningBright, PrimeIcons.alert),
       InputState.error => (colors.statusDangerDark, colors.statusDangerDark, PrimeIcons.alertCircle),
     };
     final Widget? leading = widget.leading;

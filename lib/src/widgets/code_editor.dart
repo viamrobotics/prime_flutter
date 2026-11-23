@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart' show RenderEditable;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../theme/prime_colors.dart';
+import '../theme/prime_syntax_colors.dart';
 import '../theme/prime_theme.dart';
 import '../theme/prime_theme_data.dart';
 import 'input.dart';
@@ -51,7 +51,7 @@ enum CodeEditorLanguage { go, javascript, json, python, sql, typescript, json5 }
 /// Colored spans for [source] in [language], with Prime's code token colors
 /// for the theme. Used by [CodeEditor] and [CodeSnippet].
 List<TextSpan> highlightCode(String source, CodeEditorLanguage? language, PrimeThemeData theme) =>
-    _highlight(source, language, _CodePalette.of(theme));
+    _highlight(source, language, _paletteOf(theme));
 
 /// The diff view's layout. [unified] interleaves deleted and inserted lines,
 /// [split] puts the original beside the current value.
@@ -59,50 +59,9 @@ enum CodeEditorDiff { unified, split }
 
 // --- Highlighting ----------------------------------------------------------
 
-class _CodePalette {
-  final Color comment, keyword, type, function, string, number, boolean, nullValue, property, lineNumber;
+typedef _CodePalette = PrimeSyntaxColors;
 
-  const _CodePalette({
-    required this.comment,
-    required this.keyword,
-    required this.type,
-    required this.function,
-    required this.string,
-    required this.number,
-    required this.boolean,
-    required this.nullValue,
-    required this.property,
-    required this.lineNumber,
-  });
-
-  static const light = _CodePalette(
-    comment: Color(0xFF008000),
-    keyword: Color(0xFF0000FF),
-    type: Color(0xFF1B6580),
-    function: Color(0xFF795E26),
-    string: Color(0xFF9C251D),
-    number: Color(0xFF2F6447),
-    boolean: Color(0xFF201293),
-    nullValue: Color(0xFF770088),
-    property: Color(0xFF000000),
-    lineNumber: Color(0xFF4B758D),
-  );
-
-  static const dark = _CodePalette(
-    comment: Color(0xFF7EC87E),
-    keyword: Color(0xFF79B8FF),
-    type: Color(0xFF6CC4E0),
-    function: Color(0xFFDCDCAA),
-    string: Color(0xFFF0A8A2),
-    number: Color(0xFF7FC99A),
-    boolean: Color(0xFFA9A1FF),
-    nullValue: Color(0xFFE29CE2),
-    property: Color(0xFFE4E4E6),
-    lineNumber: Color(0xFF7FA9C0),
-  );
-
-  static _CodePalette of(PrimeThemeData theme) => theme.colorScheme.surfaceBase.computeLuminance() < 0.5 ? dark : light;
-}
+_CodePalette _paletteOf(PrimeThemeData theme) => theme.colorScheme.syntax ?? PrimeSyntaxColors.forSurface(theme.colorScheme.surfaceBase);
 
 class _Grammar {
   final RegExp pattern;
@@ -285,7 +244,7 @@ bool _isChunkChar(int codeUnit) => codeUnit >= _chunkFirst && codeUnit <= _foldL
 
 class _CodeController extends TextEditingController {
   CodeEditorLanguage? language;
-  _CodePalette palette = _CodePalette.light;
+  _CodePalette palette = PrimeSyntaxColors.light;
 
   /// Search hits to paint, in order, and which one is current.
   List<TextRange> matches = const [];
@@ -1255,12 +1214,12 @@ class _CodeEditorState extends State<CodeEditor> {
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
     final c = theme.colorScheme;
-    final palette = _CodePalette.of(theme);
+    final palette = _paletteOf(theme);
     _controller
       ..language = widget.language
       ..palette = palette
-      ..matchColor = PrimeColors.warningMedium.withValues(alpha: 0.55)
-      ..activeMatchColor = PrimeColors.warningBright.withValues(alpha: 0.75);
+      ..matchColor = c.statusWarningMedium.withValues(alpha: 0.55)
+      ..activeMatchColor = c.statusWarningBright.withValues(alpha: 0.75);
     final isEditor = widget.original == null || _diffEditable;
 
     final borderColor = widget.invalid ? c.statusDangerDark : (_focused && isEditor ? c.inputFocus : c.borderSubtle);
