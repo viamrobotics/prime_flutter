@@ -1,3 +1,7 @@
+## 0.3.4
+* Added `Chart`, a time-series line chart matching `prime-charts` in Prime for the web. `ChartSeries` and `ChartPoint` describe the lines, and a `null` value is a gap. `ChartPlot` draws the lines, grid, axes and a tooltip for the nearest point on hover, touch or arrow keys. `ChartLegend` shows or hides a series, and `ChartTable` lists the visible series by time. Bounds (`xMin`, `xMax`, `yMin`, `yMax`), `xFormat` and `yFormat`, `loading` and a custom `empty` state are supported. It is drawn with `CustomPainter` and adds no dependency.
+* Added the chart colors to `PrimeColors`: `chartSeries` and `chartSeriesDark` (seven each), and `chartGrid`, `chartAxis` and `chartAxisLabel` with their `Dark` forms.
+
 ## 0.3.3
 * Added `automaticallyImplyLeading` to `AppBar`. Set it to false to hide the back button a poppable route would otherwise get, for screens that handle going back themselves. Defaults to true, so existing app bars are unchanged.
 * `PrimeTheme` is now an `InheritedTheme`, and `Dialog.show`, `Modal.show`, `Takeover.show` and `Toast.show` carry the caller's `PrimeTheme` into what they open, as `BottomSheet.show` already tried to. A Prime flow inside an app that is not a `PrimeApp` can wrap itself in a `PrimeTheme`, and its dialogs and toasts no longer fail with "No PrimeTheme found in context". A screen-local theme (a dark panel, say) now reaches the dialogs it opens too.

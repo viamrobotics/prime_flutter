@@ -38,6 +38,7 @@ Prime Flutter provides a set of polished, reusable widgets that adhere to a cons
 -   **CodeEditor**: A code editor with syntax highlighting, a line-number gutter, and a diff view.
 -   **Panes**, **SplitPane**: Resizable split-pane layouts driven by a layout tree, with tabbed stacks.
 -   **TreeView**: An expandable, selectable tree with keyboard navigation.
+-   **Chart**, **ChartPlot**, **ChartLegend**, **ChartTable**: A time-series line chart with a tooltip, a toggleable legend, and a table view.
 
 ## Getting started
 

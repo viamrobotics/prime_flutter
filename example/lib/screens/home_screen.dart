@@ -194,6 +194,13 @@ class HomeScreen extends StatelessWidget {
             ),
             _buildListItem(
               context: context,
+              title: 'Chart',
+              description: 'Time-series lines, legend, tooltip, table',
+              icon: PrimeIcons.chartLine,
+              screen: const ChartScreen(),
+            ),
+            _buildListItem(
+              context: context,
               title: 'Code Editor',
               description: 'Syntax highlighting and diff view',
               icon: PrimeIcons.codeBraces,
