@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_color_scheme.dart';
-import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 
 enum ButtonVariant { primary, secondary, ghost, danger, outlineDanger, success }
@@ -204,16 +203,16 @@ class _ButtonState extends State<Button> {
     Color withHover(Color base) {
       if (!_isHovered) return base;
 
-      // Primary buttons step toward pure black: gray9 → gray9_5 (hover) → black (press)
+      // Primary buttons have their own hover and press colors.
       if (widget.variant == ButtonVariant.primary) {
-        return PrimeColors.gray9_5;
+        return colorScheme.actionPrimaryHover;
       }
 
       // Outline danger buttons should be dark red
       if (widget.variant == ButtonVariant.outlineDanger) {
-        return Color.alphaBlend(const Color.fromARGB(255, 132, 0, 0).withValues(alpha: 0.1), base);
+        return Color.alphaBlend(colorScheme.statusDangerDark.withValues(alpha: 0.1), base);
       }
-      return Color.alphaBlend(const Color(0xFF000000).withValues(alpha: 0.1), base);
+      return Color.alphaBlend(colorScheme.interactionTint.withValues(alpha: 0.1), base);
     }
 
     // Standard press overlay: 20% black scrim (keeping consistent with darkening request, though original was lightening)
@@ -225,17 +224,16 @@ class _ButtonState extends State<Button> {
     Color withPress(Color base) {
       if (!_isPressed) return base;
 
-      // Primary press goes to pure black (final phase after gray9_5 hover)
       if (widget.variant == ButtonVariant.primary) {
-        return PrimeColors.black;
+        return colorScheme.actionPrimaryPressed;
       }
 
       // Outline danger buttons should be dark red
       if (widget.variant == ButtonVariant.outlineDanger) {
-        return Color.alphaBlend(const Color.fromARGB(255, 132, 0, 0).withValues(alpha: 0.2), base);
+        return Color.alphaBlend(colorScheme.statusDangerDark.withValues(alpha: 0.2), base);
       }
 
-      return Color.alphaBlend(const Color(0xFF000000).withValues(alpha: 0.2), base);
+      return Color.alphaBlend(colorScheme.interactionTint.withValues(alpha: 0.2), base);
     }
 
     Color resolve(Color base) {
@@ -286,8 +284,8 @@ class _ButtonState extends State<Button> {
         final base = colorScheme.statusDangerDark;
         return (
           backgroundColor: resolve(base),
-          foregroundColor: colorScheme.actionPrimaryFg,
-          iconColor: colorScheme.actionPrimaryFg,
+          foregroundColor: colorScheme.actionStatusFg,
+          iconColor: colorScheme.actionStatusFg,
           borderColor: null,
         );
       case ButtonVariant.outlineDanger:
@@ -304,8 +302,8 @@ class _ButtonState extends State<Button> {
         final base = colorScheme.statusSuccessDark;
         return (
           backgroundColor: resolve(base),
-          foregroundColor: const Color(0xFFFFFFFF),
-          iconColor: const Color(0xFFFFFFFF),
+          foregroundColor: colorScheme.actionStatusFg,
+          iconColor: colorScheme.actionStatusFg,
           borderColor: null,
         );
     }

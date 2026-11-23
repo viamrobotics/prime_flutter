@@ -43,10 +43,10 @@ class _AvatarState extends State<Avatar> {
         Color resolveBackground() {
           if (!isInteractive) return effectiveBackgroundColor;
           if (_isPressed) {
-            return Color.alphaBlend(const Color(0xFF000000).withValues(alpha: 0.2), effectiveBackgroundColor);
+            return Color.alphaBlend(theme.colorScheme.interactionTint.withValues(alpha: 0.2), effectiveBackgroundColor);
           }
           if (_isHovered) {
-            return Color.alphaBlend(const Color(0xFF000000).withValues(alpha: 0.1), effectiveBackgroundColor);
+            return Color.alphaBlend(theme.colorScheme.interactionTint.withValues(alpha: 0.1), effectiveBackgroundColor);
           }
           return effectiveBackgroundColor;
         }

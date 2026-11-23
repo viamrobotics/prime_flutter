@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../theme/prime_colors.dart';
+import '../theme/prime_color_scheme.dart';
 import '../theme/prime_theme.dart';
 import 'icon_button.dart';
 import 'internal/pressable.dart';
@@ -76,13 +76,13 @@ class SiteBanner extends StatelessWidget {
 
     final isWarning = variant == SiteBannerVariant.warning;
     final background = isWarning ? theme.colorScheme.statusWarningLight : theme.colorScheme.statusInfoLight;
-    final iconColor = isWarning ? PrimeColors.warningBright : theme.colorScheme.statusInfoDark;
+    final iconColor = isWarning ? theme.colorScheme.statusWarningBright : theme.colorScheme.statusInfoDark;
     final hasHeading = heading != null;
     final linkColor = theme.textTheme.link.color;
     final valueStyle = theme.textTheme.bodySmall.copyWith(
       fontSize: hasHeading ? 12 : 14,
       fontWeight: hasHeading ? FontWeight.w400 : FontWeight.w600,
-      color: onTap != null ? linkColor : PrimeColors.gray9,
+      color: onTap != null ? linkColor : theme.colorScheme.statusTextPrimary,
     );
 
     return Semantics(
@@ -103,7 +103,7 @@ class SiteBanner extends StatelessWidget {
                   if (hasHeading)
                     Text(
                       heading!,
-                      style: theme.textTheme.bodySmall.copyWith(fontWeight: FontWeight.w600, color: PrimeColors.gray9),
+                      style: theme.textTheme.bodySmall.copyWith(fontWeight: FontWeight.w600, color: theme.colorScheme.statusTextPrimary),
                     ),
                   if (value != null)
                     GestureDetector(
@@ -136,7 +136,7 @@ class SiteBanner extends StatelessWidget {
             if (onDismiss != null) ...[
               const SizedBox(width: 12),
               IconButton(
-                icon: const Icon(PrimeIcons.close, color: PrimeColors.gray7),
+                icon: Icon(PrimeIcons.close, color: theme.colorScheme.statusIcon),
                 label: 'Dismiss banner',
                 showTooltip: false,
                 variant: IconButtonVariant.ghost,
@@ -151,14 +151,15 @@ class SiteBanner extends StatelessWidget {
 
   Widget _buildAnnouncement(BuildContext context) {
     final theme = PrimeTheme.of(context);
-    final mono = theme.textTheme.label.copyWith(fontWeight: FontWeight.w400, letterSpacing: 0, color: const Color(0xFFD7D7D9));
+    final c = theme.colorScheme;
+    final mono = theme.textTheme.label.copyWith(fontWeight: FontWeight.w400, letterSpacing: 0, color: c.textInverseSecondary);
 
     return Semantics(
       container: true,
       label: 'site banner',
       child: ClipRect(
         child: CustomPaint(
-          painter: const _GridPainter(),
+          painter: _GridPainter(background: c.surfaceInverse, line: c.textInversePrimary),
           child: SizedBox(
             width: double.infinity,
             child: Stack(
@@ -175,14 +176,14 @@ class SiteBanner extends StatelessWidget {
                     children: [
                       if (badge != null)
                         Container(
-                          color: PrimeColors.gray0,
+                          color: c.textInversePrimary,
                           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                           child: Text(
                             badge!.toUpperCase(),
-                            style: mono.copyWith(fontSize: 10, fontWeight: FontWeight.w700, color: PrimeColors.gray9_5),
+                            style: mono.copyWith(fontSize: 10, fontWeight: FontWeight.w700, color: c.surfaceInverse),
                           ),
                         ),
-                      for (final segment in segments) _buildSegment(segment, mono),
+                      for (final segment in segments) _buildSegment(segment, mono, c),
                     ],
                   ),
                 ),
@@ -197,7 +198,7 @@ class SiteBanner extends StatelessWidget {
                         semanticLabel: 'Dismiss announcement',
                         builder: (context, hovered, pressed) => Padding(
                           padding: const EdgeInsets.all(8),
-                          child: Icon(PrimeIcons.close, size: 18, color: hovered || pressed ? PrimeColors.gray0 : PrimeColors.gray6),
+                          child: Icon(PrimeIcons.close, size: 18, color: hovered || pressed ? c.textInversePrimary : c.iconInverse),
                         ),
                       ),
                     ),
@@ -210,7 +211,7 @@ class SiteBanner extends StatelessWidget {
     );
   }
 
-  Widget _buildSegment(SiteBannerSegment segment, TextStyle base) {
+  Widget _buildSegment(SiteBannerSegment segment, TextStyle base, PrimeColorScheme c) {
     if (segment.onTap != null) {
       return GestureDetector(
         onTap: segment.onTap,
@@ -220,9 +221,9 @@ class SiteBanner extends StatelessWidget {
             segment.text,
             style: base.copyWith(
               fontWeight: FontWeight.w700,
-              color: PrimeColors.gray0,
+              color: c.textInversePrimary,
               decoration: TextDecoration.underline,
-              decorationColor: PrimeColors.gray7,
+              decorationColor: c.textInverseTertiary,
             ),
           ),
         ),
@@ -232,28 +233,31 @@ class SiteBanner extends StatelessWidget {
       case SiteBannerSegmentStyle.strong:
         return Text(
           segment.text,
-          style: base.copyWith(fontWeight: FontWeight.w700, color: PrimeColors.gray0),
+          style: base.copyWith(fontWeight: FontWeight.w700, color: c.textInversePrimary),
         );
       case SiteBannerSegmentStyle.subtle:
-        return Text(segment.text, style: base.copyWith(color: PrimeColors.gray7));
+        return Text(segment.text, style: base.copyWith(color: c.textInverseTertiary));
       case SiteBannerSegmentStyle.normal:
         return Text(segment.text, style: base);
     }
   }
 }
 
-/// Black backdrop with a faint 16px grid that fades in toward the right.
+/// The inverse backdrop with a faint 16px grid that fades in toward the right.
 class _GridPainter extends CustomPainter {
-  const _GridPainter();
+  final Color background;
+  final Color line;
+
+  const _GridPainter({required this.background, required this.line});
 
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
-    canvas.drawRect(rect, Paint()..color = PrimeColors.gray9_5);
+    canvas.drawRect(rect, Paint()..color = background);
 
     final paint = Paint()
       ..strokeWidth = 1
-      ..shader = const LinearGradient(colors: [Color(0x00FFFFFF), Color(0x1FFFFFFF)]).createShader(rect);
+      ..shader = LinearGradient(colors: [line.withValues(alpha: 0), line.withValues(alpha: 0.12)]).createShader(rect);
     for (double x = 0; x <= size.width; x += 16) {
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
     }
@@ -263,5 +267,5 @@ class _GridPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_GridPainter oldDelegate) => false;
+  bool shouldRepaint(_GridPainter oldDelegate) => background != oldDelegate.background || line != oldDelegate.line;
 }

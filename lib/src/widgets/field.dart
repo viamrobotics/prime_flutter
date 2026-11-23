@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 import 'input.dart';
 import 'prime_icons.dart';
@@ -232,7 +231,7 @@ class StatusDot extends StatelessWidget {
     final c = PrimeTheme.of(context).colorScheme;
     final color = switch (state) {
       StatusDotState.info => c.statusInfoDark,
-      StatusDotState.warning => PrimeColors.warningBright,
+      StatusDotState.warning => c.statusWarningBright,
       StatusDotState.success => c.statusSuccessDark,
       StatusDotState.danger => c.statusDangerDark,
       StatusDotState.disabled => c.iconDisabled,

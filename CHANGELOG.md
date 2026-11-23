@@ -1,3 +1,18 @@
+## 0.3.5
+Every color a Prime widget draws with now comes from `PrimeColorScheme`, so a custom scheme restyles all of them. Before, several widgets used fixed colors or chose between two sets by checking whether the theme was dark.
+
+* Added `PrimeColorScheme.copyWith`.
+* Added scheme colors for what was fixed. They are optional and default to the light scheme's values, so existing custom schemes still compile:
+  * Status: `statusDangerMedium`, `statusInfoMedium`, `statusSuccessMedium` and `statusWarningMedium` (borders), `statusWarningBright`, `statusPendingLight`, `statusPendingMedium` and `statusPendingDark`, and `statusTextPrimary`, `statusTextSecondary` and `statusIcon` for content on a status surface.
+  * Actions: `actionPrimaryHover`, `actionPrimaryPressed`, `actionStatusFg` (text on a solid danger or success button) and `interactionTint` (the hover and press overlay).
+  * Inverse surfaces: `surfaceInverse`, `surfaceInverseOffset`, `borderInverse`, `textInversePrimary`, `textInverseSecondary`, `textInverseTertiary` and `iconInverse`, used by the announcement `SiteBanner`, the dark `Pill` and the dark `Kbd`.
+  * Code: `syntax`, a `PrimeSyntaxColors`, used by `CodeEditor` and `CodeSnippet`. Left null, a light or dark set is chosen to suit `surfaceBase`, as before.
+* `PrimeBanner`, `SiteBanner`, `Pill`, `StatusPill`, `Badge`, `StatusDot`, `Kbd`, `Input`, `Button`, `IconButton`, `Avatar` and `CodeEditor` read these in place of fixed colors.
+* Fixed the primary `Button` and the dark `IconButton` in the dark theme turning near-black, under dark text, when hovered or pressed. `PrimeColorScheme.dark()` now gives them light hover and press colors.
+* The danger `Button` takes its text color from `actionStatusFg`, like the success button, so it is white in the dark theme too.
+* Small visual changes in the default themes: the unfilled part of a filled `PrimeBanner`'s progress bar is now the accent blended halfway into the banner's background, the outline-danger `Button` hover tint is the danger color, and three grays moved by one step (the banner's expand chevron, and the dark `Pill`'s remove icon).
+* A test fails if a widget uses a fixed color again.
+
 ## 0.3.4
 * Added `Chart`, a time-series line chart matching `prime-charts` in Prime for the web. `ChartSeries` and `ChartPoint` describe the lines, and a `null` value is a gap. `ChartPlot` draws the lines, grid, axes and a tooltip for the nearest point on hover, touch or arrow keys. `ChartLegend` shows or hides a series, and `ChartTable` lists the visible series by time. Bounds (`xMin`, `xMax`, `yMin`, `yMax`), `xFormat` and `yFormat`, `loading` and a custom `empty` state are supported. It is drawn with `CustomPainter` and adds no dependency.
 * Added chart colors to `PrimeColorScheme`: `chartSeries` (the list a chart gives its series, in order), `chartGrid`, `chartAxis` and `chartAxisLabel`. They are optional and default to the light values, so existing custom schemes still compile, and a custom scheme can restyle charts by setting them. `PrimeColorScheme.dark()` sets its own. The values are in `PrimeColors` as `chartSeries`, `chartSeriesBright`, `chartAxis`, `chartAxisDim`, `chartAxisLabel` and `chartGridDim`.

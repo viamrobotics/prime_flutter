@@ -24,8 +24,8 @@ class Kbd extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = PrimeTheme.of(context);
     final isDark = variant == KbdVariant.dark;
-    final foreground = isDark ? const Color(0x99FFFFFF) : theme.colorScheme.textTertiary;
-    final border = isDark ? const Color(0x33FFFFFF) : theme.colorScheme.iconDisabled;
+    final foreground = isDark ? theme.colorScheme.textInversePrimary.withValues(alpha: 0.6) : theme.colorScheme.textTertiary;
+    final border = isDark ? theme.colorScheme.textInversePrimary.withValues(alpha: 0.2) : theme.colorScheme.iconDisabled;
 
     return Container(
       height: 18,

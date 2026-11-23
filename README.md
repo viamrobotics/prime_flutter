@@ -166,6 +166,26 @@ final background = theme.colorScheme.surfaceBase;
 final body = theme.textTheme.bodyDefault;
 ```
 
+### Custom themes
+
+Every color a Prime widget draws with is a field of `PrimeColorScheme`, so a scheme is a complete theme. `PrimeColorScheme.light()` and `PrimeColorScheme.dark()` are two of them. Start from one and change what you need with `copyWith`:
+
+```dart
+final scheme = PrimeColorScheme.light().copyWith(
+  surfaceBase: const Color(0xFFFDF6E3),
+  actionPrimaryBg: const Color(0xFF268BD2),
+  actionPrimaryHover: const Color(0xFF1F78B8),
+  chartSeries: const [Color(0xFF268BD2), Color(0xFFD33682)],
+);
+
+PrimeApp(
+  theme: PrimeThemeData(colorScheme: scheme, textTheme: PrimeTextTheme.withColorScheme(scheme), cornerRadius: 8),
+  home: const HomeScreen(),
+)
+```
+
+The fields come in groups: surfaces, text, icons, actions, status (with their own text colors, since a status surface need not follow the page), inverse surfaces, charts, and `syntax` for code. Only the original fields are required by the constructor. The rest default to the light scheme's values.
+
 ### Typeface
 
 Prime's text styles use [Public Sans](https://public-sans.digital.gov), which this package bundles in regular, medium, semibold and bold. You do not declare the font in your app. For a style of your own, name the bundled family:

@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_color_scheme.dart';
-import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 import 'internal/pressable.dart';
 import 'progress.dart';
@@ -93,7 +92,8 @@ class IconButton extends StatelessWidget {
 
   ({Color background, Color foreground, Color? border}) _colors(PrimeColorScheme c, bool hovered, bool pressed) {
     const transparent = Color(0x00000000);
-    Color scrim(Color base, [Color tint = const Color(0xFF000000)]) {
+    Color scrim(Color base, [Color? tintColor]) {
+      final tint = tintColor ?? c.interactionTint;
       if (pressed) return Color.alphaBlend(tint.withValues(alpha: 0.16), base);
       if (hovered) return Color.alphaBlend(tint.withValues(alpha: 0.08), base);
       return base;
@@ -129,14 +129,10 @@ class IconButton extends StatelessWidget {
           border: null,
         );
       case IconButtonVariant.dangerFilled:
-        return (
-          background: scrim(c.statusDangerLight, c.statusDangerDark),
-          foreground: c.statusDangerDark,
-          border: PrimeColors.dangerMedium,
-        );
+        return (background: scrim(c.statusDangerLight, c.statusDangerDark), foreground: c.statusDangerDark, border: c.statusDangerMedium);
       case IconButtonVariant.dark:
         return (
-          background: pressed ? PrimeColors.black : (hovered ? PrimeColors.gray9_5 : c.actionPrimaryBg),
+          background: pressed ? c.actionPrimaryPressed : (hovered ? c.actionPrimaryHover : c.actionPrimaryBg),
           foreground: c.actionPrimaryFg,
           border: null,
         );

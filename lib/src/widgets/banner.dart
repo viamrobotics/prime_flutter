@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_color_scheme.dart';
-import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 import 'icon_button.dart';
 import 'prime_icons.dart';
@@ -26,45 +25,47 @@ enum BannerAppearance {
   BannerVariant variant,
   PrimeColorScheme c,
 ) {
+  // The unfilled part of the accent bar: the accent, halfway to the surface.
+  Color track(Color accent, Color surface) => Color.lerp(accent, surface, 0.5)!;
   switch (variant) {
     case BannerVariant.info:
       return (
         background: c.statusInfoLight,
-        border: PrimeColors.infoMedium,
+        border: c.statusInfoMedium,
         accent: c.statusInfoDark,
-        accentTrack: const Color(0xFF80B3E5),
+        accentTrack: track(c.statusInfoDark, c.statusInfoLight),
         icon: PrimeIcons.information,
       );
     case BannerVariant.warning:
       return (
         background: c.statusWarningLight,
-        border: PrimeColors.warningMedium,
-        accent: PrimeColors.warningBright,
-        accentTrack: const Color(0xFFEED59F),
+        border: c.statusWarningMedium,
+        accent: c.statusWarningBright,
+        accentTrack: track(c.statusWarningBright, c.statusWarningLight),
         icon: PrimeIcons.alert,
       );
     case BannerVariant.danger:
       return (
         background: c.statusDangerLight,
-        border: PrimeColors.dangerMedium,
+        border: c.statusDangerMedium,
         accent: c.statusDangerDark,
-        accentTrack: const Color(0xFFDF9A9B),
+        accentTrack: track(c.statusDangerDark, c.statusDangerLight),
         icon: PrimeIcons.alertCircle,
       );
     case BannerVariant.success:
       return (
         background: c.statusSuccessLight,
-        border: PrimeColors.successMedium,
+        border: c.statusSuccessMedium,
         accent: c.statusSuccessDark,
-        accentTrack: const Color(0xFF9EBE9F),
+        accentTrack: track(c.statusSuccessDark, c.statusSuccessLight),
         icon: PrimeIcons.checkCircle,
       );
     case BannerVariant.pending:
       return (
-        background: PrimeColors.pendingLight,
-        border: PrimeColors.pendingMedium,
-        accent: PrimeColors.pendingDark,
-        accentTrack: PrimeColors.pendingLight,
+        background: c.statusPendingLight,
+        border: c.statusPendingMedium,
+        accent: c.statusPendingDark,
+        accentTrack: c.statusPendingLight,
         icon: null,
       );
   }
@@ -140,9 +141,13 @@ class _PrimeBannerState extends State<PrimeBanner> {
     final style = bannerVariantStyle(widget.variant, theme.colorScheme);
     final isSmall = widget.size == BannerSize.small;
     final fontSize = isSmall ? 12.0 : 14.0;
-    // Status surfaces stay light in both themes, so text is pinned dark.
-    final titleStyle = theme.textTheme.bodySmall.copyWith(fontSize: fontSize, fontWeight: FontWeight.w600, color: PrimeColors.gray9);
-    final bodyStyle = theme.textTheme.bodySmall.copyWith(fontSize: fontSize, color: PrimeColors.gray8);
+    // Status surfaces have their own text colors, since they need not follow the page's.
+    final titleStyle = theme.textTheme.bodySmall.copyWith(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w600,
+      color: theme.colorScheme.statusTextPrimary,
+    );
+    final bodyStyle = theme.textTheme.bodySmall.copyWith(fontSize: fontSize, color: theme.colorScheme.statusTextSecondary);
     final radius = BorderRadius.circular(theme.cornerRadius);
 
     if (widget.appearance == BannerAppearance.outlined) {
@@ -288,7 +293,7 @@ class _PrimeBannerState extends State<PrimeBanner> {
                                   AnimatedRotation(
                                     turns: _detailsOpen ? 0.25 : 0,
                                     duration: const Duration(milliseconds: 150),
-                                    child: const Icon(PrimeIcons.chevronRight, size: 16, color: PrimeColors.gray6),
+                                    child: Icon(PrimeIcons.chevronRight, size: 16, color: theme.colorScheme.statusIcon),
                                   ),
                                   const SizedBox(width: 4),
                                   Text('Details', style: bodyStyle.copyWith(fontSize: 12)),
@@ -325,7 +330,7 @@ class _PrimeBannerState extends State<PrimeBanner> {
                   top: 4,
                   right: 4,
                   child: IconButton(
-                    icon: const Icon(PrimeIcons.close, color: PrimeColors.gray7),
+                    icon: Icon(PrimeIcons.close, color: theme.colorScheme.statusIcon),
                     label: 'Dismiss notification',
                     showTooltip: false,
                     variant: IconButtonVariant.ghost,

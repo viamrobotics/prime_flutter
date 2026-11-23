@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../theme/prime_color_scheme.dart';
-import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 import 'progress.dart';
 
@@ -90,7 +89,7 @@ class Badge extends StatelessWidget {
       case BadgeVariant.neutral:
         return (backgroundColor: colorScheme.surfaceHighlight, foregroundColor: colorScheme.textSecondary);
       case BadgeVariant.pending:
-        return (backgroundColor: PrimeColors.pendingLight, foregroundColor: PrimeColors.pendingDark);
+        return (backgroundColor: colorScheme.statusPendingLight, foregroundColor: colorScheme.statusPendingDark);
       case BadgeVariant.progress:
         return (backgroundColor: colorScheme.statusInfoLight, foregroundColor: colorScheme.statusInfoDark);
       case BadgeVariant.inactive:
