@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../theme/prime_colors.dart';
 import '../theme/prime_theme.dart';
 import 'internal/chart_math.dart';
 import 'progress.dart';
@@ -41,8 +40,9 @@ class ChartSeries {
   /// value in the tooltip.
   final String? unit;
 
-  /// The line's color. Without it the series takes the next of the seven
-  /// chart colors by its position in [Chart.series], wrapping after seven.
+  /// The line's color. Without it the series takes the next color of
+  /// [PrimeColorScheme.chartSeries] by its position in [Chart.series],
+  /// wrapping at the end.
   final Color? color;
 
   /// Shows a loading mark beside the series in the legend.
@@ -228,8 +228,8 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = PrimeTheme.of(context).brightness == Brightness.dark;
-    final palette = isDark ? PrimeColors.chartSeriesDark : PrimeColors.chartSeries;
+    final colors = PrimeTheme.of(context).colorScheme;
+    final palette = colors.chartSeries.isEmpty ? [colors.textPrimary] : colors.chartSeries;
 
     final series = <_Series>[];
     for (var i = 0; i < widget.series.length; i++) {
@@ -523,9 +523,8 @@ class _ChartPlotState extends State<ChartPlot> {
     final chart = _ChartScope.of(context, 'ChartPlot');
     final theme = PrimeTheme.of(context);
     final colors = theme.colorScheme;
-    final isDark = theme.brightness == Brightness.dark;
     final labelStyle = theme.textTheme.bodySmall
-        .copyWith(fontSize: 12, height: 1.33, color: isDark ? PrimeColors.chartAxisLabelDark : PrimeColors.chartAxisLabel)
+        .copyWith(fontSize: 12, height: 1.33, color: colors.chartAxisLabel)
         .merge(widget.labelStyle);
 
     final isInteractive = widget.tooltip && !chart.isEmpty && firstPoint(chart.data, chart.window) != null;
@@ -575,8 +574,8 @@ class _ChartPlotState extends State<ChartPlot> {
                     grid: widget.grid,
                     xAxis: widget.xAxis,
                     yAxis: widget.yAxis,
-                    gridColor: isDark ? PrimeColors.chartGridDark : PrimeColors.chartGrid,
-                    axisColor: isDark ? PrimeColors.chartAxisDark : PrimeColors.chartAxis,
+                    gridColor: colors.chartGrid,
+                    axisColor: colors.chartAxis,
                     marker: reading,
                     markerBorder: colors.surfaceBase,
                   ),

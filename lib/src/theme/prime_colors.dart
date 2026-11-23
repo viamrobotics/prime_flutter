@@ -41,7 +41,8 @@ class PrimeColors {
   static const Color pendingMedium = Color(0xFFD3C1F6);
   static const Color pendingDark = Color(0xFF7C2FCA);
 
-  // Charts. The series colors are assigned in order and wrap after seven.
+  // Charts. `chartSeries` holds on a light surface and `chartSeriesBright` on
+  // a dark one. A series takes them in order, wrapping after seven.
   static const List<Color> chartSeries = [
     Color(0xFF3F6DD7),
     Color(0xFFD55079),
@@ -51,7 +52,7 @@ class PrimeColors {
     Color(0xFF970525),
     Color(0xFF069999),
   ];
-  static const List<Color> chartSeriesDark = [
+  static const List<Color> chartSeriesBright = [
     Color(0xFF5686F2),
     Color(0xFFD24D76),
     Color(0xFFA56CDD),
@@ -60,12 +61,10 @@ class PrimeColors {
     Color(0xFFC8414B),
     Color(0xFF19A0A0),
   ];
-  static const Color chartGrid = Color(0xFFEDEEF0);
-  static const Color chartGridDark = Color(0xFF242426);
   static const Color chartAxis = Color(0xFFD7D7D9);
-  static const Color chartAxisDark = Color(0xFF3A3A3D);
+  static const Color chartAxisDim = Color(0xFF3A3A3D);
   static const Color chartAxisLabel = Color(0xFF6E7074);
-  static const Color chartAxisLabelDark = Color(0xFF9C9CA4);
+  static const Color chartGridDim = Color(0xFF242426);
 
   // Hardcoded / Specific
   static const Color focusBlue = Color(0xFF007AFF);

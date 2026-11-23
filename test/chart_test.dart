@@ -626,6 +626,74 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
+    testWidgets('series take their colors from the color scheme, in order and wrapping', (tester) async {
+      const first = Color(0xFF112233);
+      const second = Color(0xFF445566);
+      final light = PrimeColorScheme.light();
+      final scheme = PrimeColorScheme(
+        surfaceBase: light.surfaceBase,
+        surfaceOffset: light.surfaceOffset,
+        surfaceHover: light.surfaceHover,
+        surfaceHighlight: light.surfaceHighlight,
+        textPrimary: light.textPrimary,
+        textSecondary: light.textSecondary,
+        textTertiary: light.textTertiary,
+        textPlaceholder: light.textPlaceholder,
+        iconPrimary: light.iconPrimary,
+        iconSecondary: light.iconSecondary,
+        iconDisabled: light.iconDisabled,
+        actionPrimaryBg: light.actionPrimaryBg,
+        actionPrimaryFg: light.actionPrimaryFg,
+        actionNeutralBg: light.actionNeutralBg,
+        borderSubtle: light.borderSubtle,
+        inputText: light.inputText,
+        inputFocus: light.inputFocus,
+        statusDangerLight: light.statusDangerLight,
+        statusDangerDark: light.statusDangerDark,
+        statusInfoLight: light.statusInfoLight,
+        statusInfoDark: light.statusInfoDark,
+        statusSuccessLight: light.statusSuccessLight,
+        statusSuccessDark: light.statusSuccessDark,
+        statusWarningLight: light.statusWarningLight,
+        statusWarningDark: light.statusWarningDark,
+        chartSeries: const [first, second],
+      );
+      const explicit = Color(0xFF778899);
+      await tester.pumpWidget(
+        PrimeApp(
+          theme: PrimeThemeData(colorScheme: scheme, textTheme: PrimeTextTheme.withColorScheme(scheme), cornerRadius: 8),
+          home: Scaffold(
+            body: Chart(
+              semanticLabel: 'Temperature',
+              series: [
+                ChartSeries(name: 'a', points: readings([1, 2])),
+                ChartSeries(name: 'b', points: readings([2, 3])),
+                ChartSeries(name: 'c', points: readings([3, 4])),
+                ChartSeries(name: 'd', points: readings([4, 5]), color: explicit),
+              ],
+              child: const ChartLegend(),
+            ),
+          ),
+        ),
+      );
+      Color swatch(String name) {
+        final item = find.ancestor(of: find.text(name), matching: find.byType(Row)).first;
+        final box = tester.widget<Container>(find.descendant(of: item, matching: find.byType(Container)).first);
+        return (box.decoration! as BoxDecoration).color!;
+      }
+
+      expect(swatch('a'), first);
+      expect(swatch('b'), second);
+      expect(swatch('c'), first);
+      expect(swatch('d'), explicit);
+    });
+
+    test('the dark scheme carries its own chart colors', () {
+      expect(PrimeColorScheme.light().chartSeries, PrimeColors.chartSeries);
+      expect(PrimeColorScheme.dark().chartSeries, PrimeColors.chartSeriesBright);
+      expect(PrimeColorScheme.dark().chartAxisLabel, isNot(PrimeColorScheme.light().chartAxisLabel));
+    });
+
     test('a point can be given in epoch milliseconds', () {
       expect(ChartPoint.millis(1795129200000, 3).x.millisecondsSinceEpoch, 1795129200000);
     });

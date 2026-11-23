@@ -1,6 +1,6 @@
 ## 0.3.4
 * Added `Chart`, a time-series line chart matching `prime-charts` in Prime for the web. `ChartSeries` and `ChartPoint` describe the lines, and a `null` value is a gap. `ChartPlot` draws the lines, grid, axes and a tooltip for the nearest point on hover, touch or arrow keys. `ChartLegend` shows or hides a series, and `ChartTable` lists the visible series by time. Bounds (`xMin`, `xMax`, `yMin`, `yMax`), `xFormat` and `yFormat`, `loading` and a custom `empty` state are supported. It is drawn with `CustomPainter` and adds no dependency.
-* Added the chart colors to `PrimeColors`: `chartSeries` and `chartSeriesDark` (seven each), and `chartGrid`, `chartAxis` and `chartAxisLabel` with their `Dark` forms.
+* Added chart colors to `PrimeColorScheme`: `chartSeries` (the list a chart gives its series, in order), `chartGrid`, `chartAxis` and `chartAxisLabel`. They are optional and default to the light values, so existing custom schemes still compile, and a custom scheme can restyle charts by setting them. `PrimeColorScheme.dark()` sets its own. The values are in `PrimeColors` as `chartSeries`, `chartSeriesBright`, `chartAxis`, `chartAxisDim`, `chartAxisLabel` and `chartGridDim`.
 
 ## 0.3.3
 * Added `automaticallyImplyLeading` to `AppBar`. Set it to false to hide the back button a poppable route would otherwise get, for screens that handle going back themselves. Defaults to true, so existing app bars are unchanged.
