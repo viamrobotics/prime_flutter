@@ -1,6 +1,6 @@
 name: prime_flutter
 description: "Pretty Rad Interactive Modular Elements. A collection of UI elements for Flutter, implementing Viam's design system."
-version: 0.3.4
+version: 0.3.5
 homepage: https://github.com/viamrobotics/prime_flutter
 repository: https://github.com/viamrobotics/prime_flutter
 documentation: https://design-mobile.viam.com
@@ -12,6 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  markdown: ^7.3.0
 
 dev_dependencies:
   flutter_test:

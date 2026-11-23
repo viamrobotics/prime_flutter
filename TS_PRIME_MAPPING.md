@@ -155,6 +155,8 @@ Only the v1 components that have no v2 row above.
 
 These have no TS counterpart because they serve mobile apps: `PrimeApp`, `Scaffold`, `AppBar`, `NavigationBar`, `BottomSheet`, `PrimePageRoute` and its transitions, `ListItem`, `ListItemGroup`, `ExpansionListItem`, `Avatar`, `Divider`, `FilterPill`, `FilterGroup`, `Slider`, `SelectionArea`, `PrimeScrollBehavior`.
 
+`Markdown` (`markdown.dart`) has no TS counterpart either. It renders chat and assistant text, with fenced code as a `CodeSnippet`.
+
 ## Not ported yet
 
 - `FileInput` (prime-ui) and `FileField` (prime-controls)

@@ -36,6 +36,7 @@ export 'src/widgets/keybindings.dart';
 export 'src/widgets/label.dart';
 export 'src/widgets/list_item.dart';
 export 'src/widgets/list_item_group.dart';
+export 'src/widgets/markdown.dart';
 export 'src/widgets/menu.dart';
 export 'src/widgets/modal.dart';
 export 'src/widgets/nav_dropdown.dart';
