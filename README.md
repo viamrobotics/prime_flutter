@@ -184,7 +184,7 @@ PrimeApp(
 )
 ```
 
-The fields come in groups: surfaces, text, icons, actions, status (with their own text colors, since a status surface need not follow the page), inverse surfaces, charts, and `syntax` for code. Only the original fields are required by the constructor. The rest default to the light scheme's values.
+The fields come in groups: surfaces, text, icons, actions, status (with their own text colors, since a status surface need not follow the page), an inverse surface and its text, charts, and `syntax` for code. States and quieter tones are derived from these: hover and press tint a background with `textPrimary`, and subtle text on an inverse surface is `textInverse` at lower opacity. Only the original fields are required by the constructor. The rest default to the light scheme's values.
 
 ### Typeface
 

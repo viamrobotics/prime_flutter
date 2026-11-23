@@ -67,7 +67,7 @@ class PrimeColorScheme {
   /// Input focus ring/border
   final Color inputFocus;
 
-  /// Primary button and dark icon button bg while hovered
+  /// Primary button and dark icon button bg while hovered. Other buttons tint their own background with [textPrimary]
   final Color actionPrimaryHover;
 
   /// Primary button and dark icon button bg while pressed
@@ -75,9 +75,6 @@ class PrimeColorScheme {
 
   /// Text and icons on a solid status button (danger, success)
   final Color actionStatusFg;
-
-  /// Blended over a surface at low opacity while it is hovered or pressed
-  final Color interactionTint;
 
   // --- Status (Feedback) ---
   final Color statusDangerLight;
@@ -126,30 +123,12 @@ class PrimeColorScheme {
   /// Body text on a status surface
   final Color statusTextSecondary;
 
-  /// Neutral icons on a status surface, such as a dismiss button
-  final Color statusIcon;
-
   // --- Inverse (surfaces that contrast with the page) ---
-  /// Announcement banner background
+  /// A surface that contrasts with the page: the announcement banner, the dark pill
   final Color surfaceInverse;
 
-  /// Dark pill background
-  final Color surfaceInverseOffset;
-
-  /// Dark pill border
-  final Color borderInverse;
-
-  /// Emphasized text on an inverse surface
-  final Color textInversePrimary;
-
-  /// Body text on an inverse surface
-  final Color textInverseSecondary;
-
-  /// Subtle text on an inverse surface
-  final Color textInverseTertiary;
-
-  /// Icons on an inverse surface
-  final Color iconInverse;
+  /// Text and icons on an inverse surface. Quieter tones are this color at lower opacity
+  final Color textInverse;
 
   // --- Charts ---
   /// Chart grid lines
@@ -199,7 +178,6 @@ class PrimeColorScheme {
     this.actionPrimaryHover = PrimeColors.gray9_5,
     this.actionPrimaryPressed = PrimeColors.black,
     this.actionStatusFg = PrimeColors.gray0,
-    this.interactionTint = PrimeColors.black,
     this.statusDangerMedium = PrimeColors.dangerMedium,
     this.statusInfoMedium = PrimeColors.infoMedium,
     this.statusSuccessMedium = PrimeColors.successMedium,
@@ -210,14 +188,8 @@ class PrimeColorScheme {
     this.statusPendingDark = PrimeColors.pendingDark,
     this.statusTextPrimary = PrimeColors.gray9,
     this.statusTextSecondary = PrimeColors.gray8,
-    this.statusIcon = PrimeColors.gray7,
     this.surfaceInverse = PrimeColors.gray9_5,
-    this.surfaceInverseOffset = PrimeColors.gray7,
-    this.borderInverse = PrimeColors.gray8,
-    this.textInversePrimary = PrimeColors.gray0,
-    this.textInverseSecondary = PrimeColors.chartAxis,
-    this.textInverseTertiary = PrimeColors.gray7,
-    this.iconInverse = PrimeColors.gray6,
+    this.textInverse = PrimeColors.gray0,
     this.chartGrid = PrimeColors.gray2,
     this.chartAxis = PrimeColors.chartAxis,
     this.chartAxisLabel = PrimeColors.chartAxisLabel,
@@ -254,7 +226,6 @@ class PrimeColorScheme {
       actionPrimaryHover: PrimeColors.gray9_5,
       actionPrimaryPressed: PrimeColors.black,
       actionStatusFg: PrimeColors.gray0,
-      interactionTint: PrimeColors.black,
 
       // Status (Feedback)
       statusDangerLight: PrimeColors.dangerLight,
@@ -275,16 +246,10 @@ class PrimeColorScheme {
       statusPendingDark: PrimeColors.pendingDark,
       statusTextPrimary: PrimeColors.gray9,
       statusTextSecondary: PrimeColors.gray8,
-      statusIcon: PrimeColors.gray7,
 
       // Inverse (surfaces that contrast with the page)
       surfaceInverse: PrimeColors.gray9_5,
-      surfaceInverseOffset: PrimeColors.gray7,
-      borderInverse: PrimeColors.gray8,
-      textInversePrimary: PrimeColors.gray0,
-      textInverseSecondary: PrimeColors.chartAxis,
-      textInverseTertiary: PrimeColors.gray7,
-      iconInverse: PrimeColors.gray6,
+      textInverse: PrimeColors.gray0,
 
       // Charts
       chartGrid: PrimeColors.gray2,
@@ -327,7 +292,6 @@ class PrimeColorScheme {
       actionPrimaryHover: PrimeColors.gray2,
       actionPrimaryPressed: PrimeColors.gray5,
       actionStatusFg: PrimeColors.gray0,
-      interactionTint: PrimeColors.black,
 
       // Status (Feedback)
       statusDangerLight: PrimeColors.dangerLight,
@@ -348,16 +312,10 @@ class PrimeColorScheme {
       statusPendingDark: PrimeColors.pendingDark,
       statusTextPrimary: PrimeColors.gray9,
       statusTextSecondary: PrimeColors.gray8,
-      statusIcon: PrimeColors.gray7,
 
       // Inverse (surfaces that contrast with the page)
       surfaceInverse: PrimeColors.gray9_5,
-      surfaceInverseOffset: PrimeColors.gray7,
-      borderInverse: PrimeColors.gray8,
-      textInversePrimary: PrimeColors.gray0,
-      textInverseSecondary: PrimeColors.chartAxis,
-      textInverseTertiary: PrimeColors.gray7,
-      iconInverse: PrimeColors.gray6,
+      textInverse: PrimeColors.gray0,
 
       // Charts
       chartGrid: PrimeColors.chartGridDim,
@@ -392,7 +350,6 @@ class PrimeColorScheme {
     Color? actionPrimaryHover,
     Color? actionPrimaryPressed,
     Color? actionStatusFg,
-    Color? interactionTint,
     Color? statusDangerLight,
     Color? statusDangerDark,
     Color? statusInfoLight,
@@ -411,14 +368,8 @@ class PrimeColorScheme {
     Color? statusPendingDark,
     Color? statusTextPrimary,
     Color? statusTextSecondary,
-    Color? statusIcon,
     Color? surfaceInverse,
-    Color? surfaceInverseOffset,
-    Color? borderInverse,
-    Color? textInversePrimary,
-    Color? textInverseSecondary,
-    Color? textInverseTertiary,
-    Color? iconInverse,
+    Color? textInverse,
     Color? chartGrid,
     Color? chartAxis,
     Color? chartAxisLabel,
@@ -446,7 +397,6 @@ class PrimeColorScheme {
       actionPrimaryHover: actionPrimaryHover ?? this.actionPrimaryHover,
       actionPrimaryPressed: actionPrimaryPressed ?? this.actionPrimaryPressed,
       actionStatusFg: actionStatusFg ?? this.actionStatusFg,
-      interactionTint: interactionTint ?? this.interactionTint,
       statusDangerLight: statusDangerLight ?? this.statusDangerLight,
       statusDangerDark: statusDangerDark ?? this.statusDangerDark,
       statusInfoLight: statusInfoLight ?? this.statusInfoLight,
@@ -465,14 +415,8 @@ class PrimeColorScheme {
       statusPendingDark: statusPendingDark ?? this.statusPendingDark,
       statusTextPrimary: statusTextPrimary ?? this.statusTextPrimary,
       statusTextSecondary: statusTextSecondary ?? this.statusTextSecondary,
-      statusIcon: statusIcon ?? this.statusIcon,
       surfaceInverse: surfaceInverse ?? this.surfaceInverse,
-      surfaceInverseOffset: surfaceInverseOffset ?? this.surfaceInverseOffset,
-      borderInverse: borderInverse ?? this.borderInverse,
-      textInversePrimary: textInversePrimary ?? this.textInversePrimary,
-      textInverseSecondary: textInverseSecondary ?? this.textInverseSecondary,
-      textInverseTertiary: textInverseTertiary ?? this.textInverseTertiary,
-      iconInverse: iconInverse ?? this.iconInverse,
+      textInverse: textInverse ?? this.textInverse,
       chartGrid: chartGrid ?? this.chartGrid,
       chartAxis: chartAxis ?? this.chartAxis,
       chartAxisLabel: chartAxisLabel ?? this.chartAxisLabel,

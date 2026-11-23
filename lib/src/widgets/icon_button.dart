@@ -93,7 +93,7 @@ class IconButton extends StatelessWidget {
   ({Color background, Color foreground, Color? border}) _colors(PrimeColorScheme c, bool hovered, bool pressed) {
     const transparent = Color(0x00000000);
     Color scrim(Color base, [Color? tintColor]) {
-      final tint = tintColor ?? c.interactionTint;
+      final tint = tintColor ?? c.textPrimary;
       if (pressed) return Color.alphaBlend(tint.withValues(alpha: 0.16), base);
       if (hovered) return Color.alphaBlend(tint.withValues(alpha: 0.08), base);
       return base;

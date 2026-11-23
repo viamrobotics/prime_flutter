@@ -73,12 +73,13 @@ class Pill extends StatelessWidget {
         break;
       case PillVariant.dark:
         if (hasIcon) {
-          background = c.surfaceInverseOffset;
-          border = c.borderInverse;
-          foreground = c.textInversePrimary;
+          // A softer inverse surface: the inverse text color mixed into it.
+          background = Color.alphaBlend(c.textInverse.withValues(alpha: 0.45), c.surfaceInverse);
+          border = Color.alphaBlend(c.textInverse.withValues(alpha: 0.25), c.surfaceInverse);
+          foreground = c.textInverse;
         }
-        removeColor = hasIcon ? c.textInverseSecondary : removeColor;
-        removeHover = hasIcon ? c.textInversePrimary : removeHover;
+        removeColor = hasIcon ? c.textInverse.withValues(alpha: 0.85) : removeColor;
+        removeHover = hasIcon ? c.textInverse : removeHover;
       case PillVariant.info:
         background = c.statusInfoLight;
         border = c.statusInfoMedium;
@@ -100,7 +101,7 @@ class Pill extends StatelessWidget {
     final textStyle = theme.textTheme.bodySmall.copyWith(fontSize: 12, height: 1.3, color: foreground);
     Widget? leading;
     if (hasIcon) {
-      leading = Icon(icon, size: 14, color: iconColor ?? (variant == PillVariant.dark ? c.textInversePrimary : c.iconSecondary));
+      leading = Icon(icon, size: 14, color: iconColor ?? (variant == PillVariant.dark ? c.textInverse : c.iconSecondary));
       if (iconTooltip != null) leading = Tooltip(message: iconTooltip, child: leading);
     }
 

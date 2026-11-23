@@ -293,7 +293,11 @@ class _PrimeBannerState extends State<PrimeBanner> {
                                   AnimatedRotation(
                                     turns: _detailsOpen ? 0.25 : 0,
                                     duration: const Duration(milliseconds: 150),
-                                    child: Icon(PrimeIcons.chevronRight, size: 16, color: theme.colorScheme.statusIcon),
+                                    child: Icon(
+                                      PrimeIcons.chevronRight,
+                                      size: 16,
+                                      color: theme.colorScheme.statusTextSecondary.withValues(alpha: 0.7),
+                                    ),
                                   ),
                                   const SizedBox(width: 4),
                                   Text('Details', style: bodyStyle.copyWith(fontSize: 12)),
@@ -330,7 +334,7 @@ class _PrimeBannerState extends State<PrimeBanner> {
                   top: 4,
                   right: 4,
                   child: IconButton(
-                    icon: Icon(PrimeIcons.close, color: theme.colorScheme.statusIcon),
+                    icon: Icon(PrimeIcons.close, color: theme.colorScheme.statusTextSecondary.withValues(alpha: 0.7)),
                     label: 'Dismiss notification',
                     showTooltip: false,
                     variant: IconButtonVariant.ghost,

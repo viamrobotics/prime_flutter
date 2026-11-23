@@ -15,15 +15,10 @@ const Color pendingLight = Color(0xFF030303);
 const Color pendingDark = Color(0xFF040404);
 const Color statusText = Color(0xFF050505);
 const Color statusBody = Color(0xFF060606);
-const Color statusIcon = Color(0xFF070707);
 const Color hover = Color(0xFF080808);
 const Color pressed = Color(0xFF090909);
 const Color inverse = Color(0xFF0A0A0A);
-const Color inverseOffset = Color(0xFF0B0B0B);
-const Color inverseBorder = Color(0xFF0C0C0C);
 const Color inverseText = Color(0xFF0D0D0D);
-const Color inverseBody = Color(0xFF0E0E0E);
-const Color inverseSubtle = Color(0xFF0F0F0F);
 const Color statusFg = Color(0xFF101010);
 const Color keyword = Color(0xFF111111);
 
@@ -38,16 +33,11 @@ final PrimeColorScheme scheme = PrimeColorScheme.light().copyWith(
   statusPendingDark: pendingDark,
   statusTextPrimary: statusText,
   statusTextSecondary: statusBody,
-  statusIcon: statusIcon,
   actionPrimaryHover: hover,
   actionPrimaryPressed: pressed,
   actionStatusFg: statusFg,
   surfaceInverse: inverse,
-  surfaceInverseOffset: inverseOffset,
-  borderInverse: inverseBorder,
-  textInversePrimary: inverseText,
-  textInverseSecondary: inverseBody,
-  textInverseTertiary: inverseSubtle,
+  textInverse: inverseText,
 );
 
 Widget host(Widget child, {PrimeColorScheme? colors}) {
@@ -161,7 +151,7 @@ void main() {
         host(PrimeBanner(variant: BannerVariant.warning, title: const Text('Heads up'), subtitle: const Text('Details'), onClose: () {})),
       );
       final colors = colorsOf(tester, find.byType(PrimeBanner));
-      expect(colors, containsAll([medium, bright, statusText, statusBody, statusIcon]));
+      expect(colors, containsAll([medium, bright, statusText, statusBody, statusBody.withValues(alpha: 0.7)]));
 
       await tester.pumpWidget(host(const PrimeBanner(variant: BannerVariant.pending, title: Text('Working'))));
       expect(colorsOf(tester, find.byType(PrimeBanner)), containsAll([pendingLight, medium]));
@@ -179,7 +169,10 @@ void main() {
           ),
         ),
       );
-      expect(colorsOf(tester, find.byType(Column).first), containsAll([medium, bright, inverseOffset, inverseBorder, inverseText]));
+      expect(
+        colorsOf(tester, find.byType(Column).first),
+        containsAll([medium, bright, inverseText, Color.alphaBlend(inverseText.withValues(alpha: 0.45), inverse)]),
+      );
     });
 
     testWidgets('Badge, StatusDot and Kbd', (tester) async {
@@ -219,7 +212,10 @@ void main() {
         ),
       );
       final colors = colorsOf(tester, find.byType(Column).first);
-      expect(colors, containsAll([bright, statusText, statusIcon, inverse, inverseText, inverseBody, inverseSubtle]));
+      expect(
+        colors,
+        containsAll([bright, statusText, inverse, inverseText, inverseText.withValues(alpha: 0.83), inverseText.withValues(alpha: 0.45)]),
+      );
     });
 
     testWidgets('Button hover and press, and solid status text', (tester) async {
@@ -249,6 +245,24 @@ void main() {
       expect(colorsOf(tester, find.byType(Button).first), contains(pressed));
       await mouse.up();
       await tester.pumpAndSettle();
+    });
+
+    testWidgets('other buttons tint their background with the text color on hover', (tester) async {
+      const text = Color(0xFF123456);
+      final colors = scheme.copyWith(textPrimary: text);
+      await tester.pumpWidget(
+        host(
+          Button(label: const Text('Cancel'), onPressed: () {}),
+          colors: colors,
+        ),
+      );
+
+      final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await mouse.addPointer(location: Offset.zero);
+      addTearDown(mouse.removePointer);
+      await mouse.moveTo(tester.getCenter(find.text('Cancel')));
+      await tester.pumpAndSettle();
+      expect(colorsOf(tester, find.byType(Button)), contains(Color.alphaBlend(text.withValues(alpha: 0.1), colors.actionNeutralBg)));
     });
 
     testWidgets('code takes the scheme\'s syntax colors, and follows the surface without them', (tester) async {

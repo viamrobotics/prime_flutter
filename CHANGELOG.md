@@ -3,14 +3,15 @@ Every color a Prime widget draws with now comes from `PrimeColorScheme`, so a cu
 
 * Added `PrimeColorScheme.copyWith`.
 * Added scheme colors for what was fixed. They are optional and default to the light scheme's values, so existing custom schemes still compile:
-  * Status: `statusDangerMedium`, `statusInfoMedium`, `statusSuccessMedium` and `statusWarningMedium` (borders), `statusWarningBright`, `statusPendingLight`, `statusPendingMedium` and `statusPendingDark`, and `statusTextPrimary`, `statusTextSecondary` and `statusIcon` for content on a status surface.
-  * Actions: `actionPrimaryHover`, `actionPrimaryPressed`, `actionStatusFg` (text on a solid danger or success button) and `interactionTint` (the hover and press overlay).
-  * Inverse surfaces: `surfaceInverse`, `surfaceInverseOffset`, `borderInverse`, `textInversePrimary`, `textInverseSecondary`, `textInverseTertiary` and `iconInverse`, used by the announcement `SiteBanner`, the dark `Pill` and the dark `Kbd`.
+  * Status: `statusDangerMedium`, `statusInfoMedium`, `statusSuccessMedium` and `statusWarningMedium` (borders), `statusWarningBright`, `statusPendingLight`, `statusPendingMedium` and `statusPendingDark`, and `statusTextPrimary` and `statusTextSecondary` for content on a status surface.
+  * Actions: `actionPrimaryHover`, `actionPrimaryPressed` and `actionStatusFg` (text on a solid danger or success button).
+  * Inverse: `surfaceInverse` and `textInverse`, used by the announcement `SiteBanner`, the dark `Pill` and the dark `Kbd`. Quieter tones on an inverse surface are `textInverse` at lower opacity.
   * Code: `syntax`, a `PrimeSyntaxColors`, used by `CodeEditor` and `CodeSnippet`. Left null, a light or dark set is chosen to suit `surfaceBase`, as before.
 * `PrimeBanner`, `SiteBanner`, `Pill`, `StatusPill`, `Badge`, `StatusDot`, `Kbd`, `Input`, `Button`, `IconButton`, `Avatar` and `CodeEditor` read these in place of fixed colors.
+* Hover and press on every button but the primary one now tint the background with `textPrimary` (10% and 20%) instead of with black. The light theme looks the same. In the dark theme they lighten instead of darkening a surface that was already dark.
 * Fixed the primary `Button` and the dark `IconButton` in the dark theme turning near-black, under dark text, when hovered or pressed. `PrimeColorScheme.dark()` now gives them light hover and press colors.
 * The danger `Button` takes its text color from `actionStatusFg`, like the success button, so it is white in the dark theme too.
-* Small visual changes in the default themes: the unfilled part of a filled `PrimeBanner`'s progress bar is now the accent blended halfway into the banner's background, the outline-danger `Button` hover tint is the danger color, and three grays moved by one step (the banner's expand chevron, and the dark `Pill`'s remove icon).
+* Small visual changes in the default themes, where a fixed color became a derived one: the unfilled part of a filled `PrimeBanner`'s progress bar, the outline-danger `Button` hover tint, the dismiss and expand icons on banners, and the quieter text, dismiss icon and dark `Pill` fill on inverse surfaces. Each moved by a shade at most.
 * A test fails if a widget uses a fixed color again.
 
 ## 0.3.4

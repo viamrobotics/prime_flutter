@@ -136,7 +136,7 @@ class SiteBanner extends StatelessWidget {
             if (onDismiss != null) ...[
               const SizedBox(width: 12),
               IconButton(
-                icon: Icon(PrimeIcons.close, color: theme.colorScheme.statusIcon),
+                icon: Icon(PrimeIcons.close, color: theme.colorScheme.statusTextSecondary.withValues(alpha: 0.7)),
                 label: 'Dismiss banner',
                 showTooltip: false,
                 variant: IconButtonVariant.ghost,
@@ -152,14 +152,18 @@ class SiteBanner extends StatelessWidget {
   Widget _buildAnnouncement(BuildContext context) {
     final theme = PrimeTheme.of(context);
     final c = theme.colorScheme;
-    final mono = theme.textTheme.label.copyWith(fontWeight: FontWeight.w400, letterSpacing: 0, color: c.textInverseSecondary);
+    final mono = theme.textTheme.label.copyWith(
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0,
+      color: c.textInverse.withValues(alpha: 0.83),
+    );
 
     return Semantics(
       container: true,
       label: 'site banner',
       child: ClipRect(
         child: CustomPaint(
-          painter: _GridPainter(background: c.surfaceInverse, line: c.textInversePrimary),
+          painter: _GridPainter(background: c.surfaceInverse, line: c.textInverse),
           child: SizedBox(
             width: double.infinity,
             child: Stack(
@@ -176,7 +180,7 @@ class SiteBanner extends StatelessWidget {
                     children: [
                       if (badge != null)
                         Container(
-                          color: c.textInversePrimary,
+                          color: c.textInverse,
                           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                           child: Text(
                             badge!.toUpperCase(),
@@ -198,7 +202,11 @@ class SiteBanner extends StatelessWidget {
                         semanticLabel: 'Dismiss announcement',
                         builder: (context, hovered, pressed) => Padding(
                           padding: const EdgeInsets.all(8),
-                          child: Icon(PrimeIcons.close, size: 18, color: hovered || pressed ? c.textInversePrimary : c.iconInverse),
+                          child: Icon(
+                            PrimeIcons.close,
+                            size: 18,
+                            color: hovered || pressed ? c.textInverse : c.textInverse.withValues(alpha: 0.6),
+                          ),
                         ),
                       ),
                     ),
@@ -221,9 +229,9 @@ class SiteBanner extends StatelessWidget {
             segment.text,
             style: base.copyWith(
               fontWeight: FontWeight.w700,
-              color: c.textInversePrimary,
+              color: c.textInverse,
               decoration: TextDecoration.underline,
-              decorationColor: c.textInverseTertiary,
+              decorationColor: c.textInverse.withValues(alpha: 0.45),
             ),
           ),
         ),
@@ -233,10 +241,10 @@ class SiteBanner extends StatelessWidget {
       case SiteBannerSegmentStyle.strong:
         return Text(
           segment.text,
-          style: base.copyWith(fontWeight: FontWeight.w700, color: c.textInversePrimary),
+          style: base.copyWith(fontWeight: FontWeight.w700, color: c.textInverse),
         );
       case SiteBannerSegmentStyle.subtle:
-        return Text(segment.text, style: base.copyWith(color: c.textInverseTertiary));
+        return Text(segment.text, style: base.copyWith(color: c.textInverse.withValues(alpha: 0.45)));
       case SiteBannerSegmentStyle.normal:
         return Text(segment.text, style: base);
     }
