@@ -67,6 +67,20 @@ class PrimeColorScheme {
   final Color statusWarningLight;
   final Color statusWarningDark;
 
+  // --- Charts ---
+  /// The colors a [Chart] gives its series, in order, wrapping at the end.
+  /// Choose ones that hold against [surfaceBase].
+  final List<Color> chartSeries;
+
+  /// Chart grid lines
+  final Color chartGrid;
+
+  /// Chart axis lines and tick marks
+  final Color chartAxis;
+
+  /// Chart tick labels
+  final Color chartAxisLabel;
+
   const PrimeColorScheme({
     required this.surfaceBase,
     required this.surfaceOffset,
@@ -93,6 +107,10 @@ class PrimeColorScheme {
     required this.statusSuccessDark,
     required this.statusWarningLight,
     required this.statusWarningDark,
+    this.chartSeries = PrimeColors.chartSeries,
+    this.chartGrid = PrimeColors.gray2,
+    this.chartAxis = PrimeColors.chartAxis,
+    this.chartAxisLabel = PrimeColors.chartAxisLabel,
   });
 
   factory PrimeColorScheme.light() {
@@ -171,6 +189,12 @@ class PrimeColorScheme {
       statusSuccessDark: PrimeColors.successDark,
       statusWarningLight: PrimeColors.warningLight,
       statusWarningDark: PrimeColors.warningDark,
+
+      // Charts
+      chartSeries: PrimeColors.chartSeriesBright,
+      chartGrid: PrimeColors.chartGridDim,
+      chartAxis: PrimeColors.chartAxisDim,
+      chartAxisLabel: PrimeColors.gray6,
     );
   }
 }

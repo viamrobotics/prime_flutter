@@ -1,0 +1,113 @@
+---
+title: Chart
+description: A time-series line chart.
+---
+
+import Preview from '../../../components/Preview.astro';
+
+`Chart` draws one or more series of values over time. It is drawn by Prime itself and adds no dependency to your app.
+
+## Usage
+
+Give `Chart` the series. Its `child` arranges the parts: `ChartPlot` draws the lines, `ChartLegend` shows or hides a series, and `ChartTable` lists the values. Leave `child` out to get the plot alone.
+
+<Preview src="demo?name=chart" height="320px">
+
+```dart
+Chart(
+  semanticLabel: 'Cell temperature',
+  series: [
+    ChartSeries(name: 'cell-01', unit: '°C', points: cellOne),
+    ChartSeries(name: 'cell-02', unit: '°C', points: cellTwo),
+  ],
+  child: const Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      ChartLegend(),
+      SizedBox(height: 240, child: ChartPlot()),
+    ],
+  ),
+)
+```
+
+</Preview>
+
+## Points and gaps
+
+A point is a time and a value. A `null` value is a gap: the line breaks there and never joins across it. A point with no neighbor on either side draws as a dot.
+
+```dart
+final cellOne = [
+  ChartPoint(DateTime(2026, 11, 19, 18, 0), 24.1),
+  ChartPoint(DateTime(2026, 11, 19, 18, 1), null), // gap
+  ChartPoint.millis(1795129320000, 24.6),
+];
+```
+
+A series takes the next of seven chart colors by its position. Pass `color` to choose one.
+
+## Sizing
+
+`ChartPlot` fills the space it is given, so size it with a `SizedBox` or an `Expanded`. With no height limit it is 256 tall.
+
+To line up the plots of charts stacked in a column, give each `ChartPlot` the same `yAxisMinWidth`, at least as wide as the widest value label.
+
+## Bounds and formats
+
+The axes fit the visible series. A value bound from the data is rounded out to the next tick, and a bound you give is used exactly. Hiding a series refits the axes, unless every series is hidden.
+
+`xFormat` and `yFormat` format the axis labels, and the tooltip and the table follow them. One value axis serves every series, so when they share a unit, add it in `yFormat`.
+
+```dart
+Chart(
+  semanticLabel: 'Requests per hour',
+  yMin: 0,
+  yMax: 20000,
+  yFormat: (value) => '${(value / 1000).round()}k',
+  xMin: DateTime(2026, 11, 19),
+  xMax: DateTime(2026, 11, 20),
+  series: series,
+)
+```
+
+## Loading and empty
+
+`loading` lays an overlay on the plot and keeps the last lines underneath. `ChartSeries.loading` puts a loading mark beside one series in the legend. When no series has a point, the plot shows "No data", or the widget passed as `empty`.
+
+## Tooltip and keyboard
+
+Hovering or touching the plot shows the nearest point of a visible series. With keyboard focus:
+
+| Key | Moves to |
+| --- | --- |
+| Left, Right | The previous or next point |
+| Up, Down | The previous or next series, at its point nearest in time |
+| Home, End | The first or last point |
+| Page Up, Page Down | A tenth of the series back or forward |
+| Escape | Hides the tooltip |
+
+Gaps, hidden series and points outside the time range are skipped.
+
+```dart
+ChartPlot(
+  grid: false,
+  tooltipYFormat: (value) => value.toStringAsFixed(2),
+)
+```
+
+## Table
+
+`ChartTable` lists the visible series with a Time column and one column per series. Rows merge the series on time, and a series with no value at a time leaves an empty cell.
+
+```dart
+Chart(
+  semanticLabel: 'Battery voltage',
+  series: series,
+  child: const Column(
+    children: [
+      SizedBox(height: 180, child: ChartPlot()),
+      ChartTable(),
+    ],
+  ),
+)
+```
