@@ -141,6 +141,10 @@ class ThemeManager extends ChangeNotifier {
       'statusSuccessDark': s.statusSuccessDark.toARGB32(),
       'statusWarningLight': s.statusWarningLight.toARGB32(),
       'statusWarningDark': s.statusWarningDark.toARGB32(),
+      'chartSeries': [for (final color in s.chartSeries) color.toARGB32()],
+      'chartGrid': s.chartGrid.toARGB32(),
+      'chartAxis': s.chartAxis.toARGB32(),
+      'chartAxisLabel': s.chartAxisLabel.toARGB32(),
     };
   }
 
@@ -180,6 +184,12 @@ class ThemeManager extends ChangeNotifier {
       statusSuccessDark: c('statusSuccessDark', defaults.statusSuccessDark),
       statusWarningLight: c('statusWarningLight', defaults.statusWarningLight),
       statusWarningDark: c('statusWarningDark', defaults.statusWarningDark),
+      chartSeries: map['chartSeries'] is List
+          ? [for (final value in map['chartSeries'] as List) Color(value as int)]
+          : defaults.chartSeries,
+      chartGrid: c('chartGrid', defaults.chartGrid),
+      chartAxis: c('chartAxis', defaults.chartAxis),
+      chartAxisLabel: c('chartAxisLabel', defaults.chartAxisLabel),
     );
   }
 

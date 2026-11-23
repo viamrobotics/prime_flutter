@@ -303,6 +303,9 @@ class _GlobalThemeEditorState extends State<GlobalThemeEditor> {
       'statusSuccessDark': s.statusSuccessDark,
       'statusWarningLight': s.statusWarningLight,
       'statusWarningDark': s.statusWarningDark,
+      'chartGrid': s.chartGrid,
+      'chartAxis': s.chartAxis,
+      'chartAxisLabel': s.chartAxisLabel,
     };
   }
 
@@ -343,6 +346,10 @@ PrimeColorScheme(
   statusSuccessDark: ${getColorString(s.statusSuccessDark)},
   statusWarningLight: ${getColorString(s.statusWarningLight)},
   statusWarningDark: ${getColorString(s.statusWarningDark)},
+  chartSeries: [${s.chartSeries.map(getColorString).join(', ')}],
+  chartGrid: ${getColorString(s.chartGrid)},
+  chartAxis: ${getColorString(s.chartAxis)},
+  chartAxisLabel: ${getColorString(s.chartAxisLabel)},
 );
 ''';
   }

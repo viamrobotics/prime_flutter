@@ -28,6 +28,7 @@ Prime Flutter provides a set of polished, reusable widgets that adhere to a cons
 -   **IconButton**, **FloatingMenu**, **ContextMenu**, **NavDropdown**: Icon-only actions and anchored menus.
 -   **Tooltip**, **Floating**: Hover/long-press hints and the anchored-popup primitive behind every menu.
 -   **Pill**, **StatusPill**, **Kbd**, **InlineCode**, **CodeSnippet**: Compact tokens and read-only code.
+-   **Markdown**: Renders GitHub-flavored Markdown, including text that is still streaming in.
 -   **Label**, **NumericInput**, **SliderInput**, **RangeInput**, **VectorInput**, **Radio**: Form controls.
 -   **SearchableSelect**, **Multiselect**, **RelativeTimePicker**: Searchable pickers and a relative/absolute time field.
 -   **Breadcrumbs**, **NavigationBreadcrumb**, **Expandable**, **Takeover**: Navigation aids, disclosures, and full-screen flows.
@@ -38,6 +39,7 @@ Prime Flutter provides a set of polished, reusable widgets that adhere to a cons
 -   **CodeEditor**: A code editor with syntax highlighting, a line-number gutter, and a diff view.
 -   **Panes**, **SplitPane**: Resizable split-pane layouts driven by a layout tree, with tabbed stacks.
 -   **TreeView**: An expandable, selectable tree with keyboard navigation.
+-   **Chart**, **ChartPlot**, **ChartLegend**, **ChartTable**: A time-series line chart with a tooltip, a toggleable legend, and a table view.
 
 ## Getting started
 

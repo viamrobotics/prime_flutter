@@ -23,6 +23,7 @@ export 'widgets/segmented_button_screen.dart';
 export 'widgets/switch_screen.dart';
 export 'widgets/toast_screen.dart';
 
+export 'widgets/chart_screen.dart';
 export 'widgets/code_editor_screen.dart';
 export 'widgets/data_display_screen.dart';
 export 'widgets/feedback_screen.dart';

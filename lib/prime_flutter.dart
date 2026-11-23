@@ -14,6 +14,7 @@ export 'src/widgets/banner.dart';
 export 'src/widgets/bottom_sheet.dart';
 export 'src/widgets/breadcrumbs.dart';
 export 'src/widgets/button.dart';
+export 'src/widgets/chart.dart';
 export 'src/widgets/code_editor.dart';
 export 'src/widgets/code_snippet.dart';
 export 'src/widgets/context_menu.dart';

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/widgets.dart';
 import 'package:prime_flutter/prime_flutter.dart';
 
@@ -32,6 +34,11 @@ const _files = [
   _File('config.json', 'config.json'),
 ];
 
+List<ChartPoint> _readings(double base, double swing, double phase, {Set<int> gaps = const {}}) => [
+  for (var i = 0; i < 60; i++)
+    ChartPoint(DateTime(2026, 11, 19, 18, i), gaps.contains(i) ? null : base + swing * math.sin(i / 6 + phase) + (i % 5) * swing / 20),
+];
+
 const _json = '{\n  "name": "arm-1",\n  "speed": 50,\n  "debug": false\n}';
 
 final List<SelectOption> _components = SelectOption.fromStrings(['Arm', 'Base', 'Board', 'Camera', 'Gantry', 'Gripper', 'Motor', 'Sensor']);
@@ -44,7 +51,12 @@ final Map<String, WidgetBuilder> demos = {
     spacing: 12,
     children: [
       for (final variant in BannerVariant.values)
-        PrimeBanner(variant: variant, loading: variant == BannerVariant.pending, title: Text('A ${variant.name} banner'), subtitle: const Text('With a subtitle.')),
+        PrimeBanner(
+          variant: variant,
+          loading: variant == BannerVariant.pending,
+          title: Text('A ${variant.name} banner'),
+          subtitle: const Text('With a subtitle.'),
+        ),
     ],
   ),
   'banner-outlined': (context) => Column(
@@ -92,8 +104,14 @@ final Map<String, WidgetBuilder> demos = {
           spacing: 8,
           runSpacing: 8,
           children: [
-            Button(label: const Text('Success'), onPressed: () => Notify.of(context).success('Saved', message: 'Your changes are live.')),
-            Button(label: const Text('Danger'), onPressed: () => Notify.of(context).danger('Failed', message: 'Could not reach the machine.')),
+            Button(
+              label: const Text('Success'),
+              onPressed: () => Notify.of(context).success('Saved', message: 'Your changes are live.'),
+            ),
+            Button(
+              label: const Text('Danger'),
+              onPressed: () => Notify.of(context).danger('Failed', message: 'Could not reach the machine.'),
+            ),
             Button(label: const Text('Pending'), onPressed: () => Notify.of(context).pending('Uploading', persist: true)),
           ],
         ),
@@ -104,7 +122,8 @@ final Map<String, WidgetBuilder> demos = {
     spacing: 12,
     runSpacing: 12,
     children: [
-      for (final variant in IconButtonVariant.values) IconButton(icon: const Icon(PrimeIcons.trashCanOutline), label: variant.name, variant: variant, onPressed: () {}),
+      for (final variant in IconButtonVariant.values)
+        IconButton(icon: const Icon(PrimeIcons.trashCanOutline), label: variant.name, variant: variant, onPressed: () {}),
       const IconButton(icon: Icon(PrimeIcons.plus), label: 'Loading', loading: true, variant: IconButtonVariant.secondary),
     ],
   ),
@@ -134,25 +153,49 @@ final Map<String, WidgetBuilder> demos = {
           ],
         ),
         const MenuSeparator(),
-        MenuSub(items: [MenuItem(onTap: () {}, child: const Text('CSV')), MenuItem(onTap: () {}, child: const Text('JSON'))], child: const Text('Export as')),
+        MenuSub(
+          items: [
+            MenuItem(onTap: () {}, child: const Text('CSV')),
+            MenuItem(onTap: () {}, child: const Text('JSON')),
+          ],
+          child: const Text('Export as'),
+        ),
         MenuItem(icon: PrimeIcons.trashCanOutline, variant: MenuItemVariant.danger, onTap: () {}, child: const Text('Delete')),
       ],
     ),
   ),
   'menubar': (context) => Menubar(
     menus: [
-      MenubarMenu(label: const Text('File'), items: [MenuItem(shortcut: '⌘N', onTap: () {}, child: const Text('New')), MenuItem(shortcut: '⌘O', onTap: () {}, child: const Text('Open'))]),
-      MenubarMenu(label: const Text('Edit'), items: [MenuItem(shortcut: '⌘Z', onTap: () {}, child: const Text('Undo'))]),
-      MenubarMenu(label: const Text('View'), items: [MenuItem(onTap: () {}, child: const Text('Zoom in'))]),
+      MenubarMenu(
+        label: const Text('File'),
+        items: [
+          MenuItem(shortcut: '⌘N', onTap: () {}, child: const Text('New')),
+          MenuItem(shortcut: '⌘O', onTap: () {}, child: const Text('Open')),
+        ],
+      ),
+      MenubarMenu(
+        label: const Text('Edit'),
+        items: [MenuItem(shortcut: '⌘Z', onTap: () {}, child: const Text('Undo'))],
+      ),
+      MenubarMenu(
+        label: const Text('View'),
+        items: [MenuItem(onTap: () {}, child: const Text('Zoom in'))],
+      ),
     ],
   ),
   'context-menu-region': (context) => ContextMenuRegion(
-    items: [MenuItem(icon: PrimeIcons.contentCopy, onTap: () {}, child: const Text('Copy')), MenuItem(icon: PrimeIcons.contentPaste, onTap: () {}, child: const Text('Paste'))],
+    items: [
+      MenuItem(icon: PrimeIcons.contentCopy, onTap: () {}, child: const Text('Copy')),
+      MenuItem(icon: PrimeIcons.contentPaste, onTap: () {}, child: const Text('Paste')),
+    ],
     child: Container(
       width: 280,
       height: 96,
       alignment: Alignment.center,
-      decoration: BoxDecoration(border: Border.all(color: PrimeTheme.of(context).colorScheme.borderSubtle), borderRadius: BorderRadius.circular(8)),
+      decoration: BoxDecoration(
+        border: Border.all(color: PrimeTheme.of(context).colorScheme.borderSubtle),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: const Text('Right-click or long-press here'),
     ),
   ),
@@ -165,7 +208,12 @@ final Map<String, WidgetBuilder> demos = {
       items: [
         ContextMenuItem(icon: PrimeIcons.pencilOutline, onTap: () => set(false), child: const Text('Rename')),
         const ContextMenuSeparator(),
-        ContextMenuItem(icon: PrimeIcons.trashCanOutline, variant: ContextMenuItemVariant.danger, onTap: () => set(false), child: const Text('Delete')),
+        ContextMenuItem(
+          icon: PrimeIcons.trashCanOutline,
+          variant: ContextMenuItemVariant.danger,
+          onTap: () => set(false),
+          child: const Text('Delete'),
+        ),
       ],
     ),
   ),
@@ -232,19 +280,36 @@ final Map<String, WidgetBuilder> demos = {
       StatusDot(state: StatusDotState.info, working: true, label: 'Working'),
     ],
   ),
-  'kbd': (context) => const KbdGroup(children: [Kbd(child: Icon(PrimeIcons.appleKeyboardCommand)), Kbd(child: Text('S'))]),
-  'code-snippet': (context) => const CodeSnippet(caption: Text('Install the server, then start it.'), code: 'curl -fsSL https://example.com/install.sh | sh\nviam-server -config /etc/viam.json'),
-  'inline-code': (context) => const Row(mainAxisSize: MainAxisSize.min, spacing: 6, children: [Text('Restart'), InlineCode('viam-server'), Text('to apply.')]),
+  'kbd': (context) => const KbdGroup(
+    children: [
+      Kbd(child: Icon(PrimeIcons.appleKeyboardCommand)),
+      Kbd(child: Text('S')),
+    ],
+  ),
+  'code-snippet': (context) => const CodeSnippet(
+    caption: Text('Install the server, then start it.'),
+    code: 'curl -fsSL https://example.com/install.sh | sh\nviam-server -config /etc/viam.json',
+  ),
+  'inline-code': (context) =>
+      const Row(mainAxisSize: MainAxisSize.min, spacing: 6, children: [Text('Restart'), InlineCode('viam-server'), Text('to apply.')]),
   'markdown': (context) => const Markdown(
     data: 'Lower `max_rpm` on **motor-left**:\n\n- Check the wiring first\n- Then change the limit\n\n```json\n{\n  "max_rpm": 180\n}\n```',
   ),
-  'code-editor': (context) => _Demo<String>(_json, (context, value, set) => CodeEditor(semanticLabel: 'Config', language: CodeEditorLanguage.json, value: value, onChanged: set)),
+  'code-editor': (context) => _Demo<String>(
+    _json,
+    (context, value, set) => CodeEditor(semanticLabel: 'Config', language: CodeEditorLanguage.json, value: value, onChanged: set),
+  ),
   'code-editor-diff': (context) => _Demo<String>(
     _json.replaceFirst('50', '80').replaceFirst('false', 'true'),
     (context, value, set) => CodeEditor(language: CodeEditorLanguage.json, original: _json, value: value, onChanged: set),
   ),
-  'code-editor-split': (context) =>
-      CodeEditor(language: CodeEditorLanguage.json, original: _json, value: _json.replaceFirst('50', '80'), diff: CodeEditorDiff.split, wrapLines: true),
+  'code-editor-split': (context) => CodeEditor(
+    language: CodeEditorLanguage.json,
+    original: _json,
+    value: _json.replaceFirst('50', '80'),
+    diff: CodeEditorDiff.split,
+    wrapLines: true,
+  ),
   'field': (context) => const Field(
     required: true,
     state: InputState.error,
@@ -252,14 +317,22 @@ final Map<String, WidgetBuilder> demos = {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 4,
-      children: [Label(label: Text('Email')), Input(placeholder: 'you@example.com'), Hint(child: Text('Enter a valid address.'))],
+      children: [
+        Label(label: Text('Email')),
+        Input(placeholder: 'you@example.com'),
+        Hint(child: Text('Enter a valid address.')),
+      ],
     ),
   ),
   'label': (context) => const Column(
     mainAxisSize: MainAxisSize.min,
     spacing: 12,
     children: [
-      Label(label: Text('Name'), required: true, child: Input(placeholder: 'Machine name')),
+      Label(
+        label: Text('Name'),
+        required: true,
+        child: Input(placeholder: 'Machine name'),
+      ),
       Label(label: Text('Notes'), detail: '(optional)', child: Input()),
       Label(label: Text('Left'), position: LabelPosition.left, child: Input()),
     ],
@@ -293,16 +366,20 @@ final Map<String, WidgetBuilder> demos = {
   'textarea': (context) => const Textarea(placeholder: 'Anything else we should know?'),
   'numeric-input': (context) =>
       _Demo<num?>(3, (context, value, set) => NumericInput(type: NumericInputType.integer, value: value, min: 0, max: 10, onChanged: set)),
-  'slider-input': (context) => _Demo<num?>(0.5, (context, value, set) => SliderInput(value: value, step: 0.1, min: 0, max: 1, onChanged: set)),
+  'slider-input': (context) =>
+      _Demo<num?>(0.5, (context, value, set) => SliderInput(value: value, step: 0.1, min: 0, max: 1, onChanged: set)),
   'range-input': (context) => _Demo<num>(40, (context, value, set) => RangeInput(value: value, step: 10, suffix: '%', onChanged: set)),
-  'vector-input': (context) => _Demo<Map<String, num>>({'x': 0, 'y': 1.5, 'z': -2}, (context, value, set) => VectorInput(values: value, step: 0.5, onChanged: set)),
+  'vector-input': (context) =>
+      _Demo<Map<String, num>>({'x': 0, 'y': 1.5, 'z': -2}, (context, value, set) => VectorInput(values: value, step: 0.5, onChanged: set)),
   'searchable-select': (context) => _Demo<String>(
     '',
-    (context, value, set) => SearchableSelect(options: _components, value: value, exclusive: true, placeholder: 'Search components', onChanged: set),
+    (context, value, set) =>
+        SearchableSelect(options: _components, value: value, exclusive: true, placeholder: 'Search components', onChanged: set),
   ),
   'multiselect': (context) => _Demo<List<String>>(
     ['Arm'],
-    (context, value, set) => Multiselect(options: _components, selected: value, clearable: true, placeholder: 'Add components', onChanged: set),
+    (context, value, set) =>
+        Multiselect(options: _components, selected: value, clearable: true, placeholder: 'Add components', onChanged: set),
   ),
   'combobox': (context) => _Demo<String?>(
     'motor',
@@ -346,7 +423,12 @@ final Map<String, WidgetBuilder> demos = {
     onPressed: () => Takeover.show<void>(
       context: context,
       builder: (context) => const Takeover(
-        header: TakeoverHeader(children: [Expanded(child: TakeoverTitle(child: Text('Setup wizard'))), TakeoverClose()]),
+        header: TakeoverHeader(
+          children: [
+            Expanded(child: TakeoverTitle(child: Text('Setup wizard'))),
+            TakeoverClose(),
+          ],
+        ),
         child: Center(child: Text('Your content here')),
       ),
     ),
@@ -375,7 +457,14 @@ final Map<String, WidgetBuilder> demos = {
   ),
   'data-grid': (context) => DataGrid<({String name, int parts})>(
     height: 240,
-    rows: const [(name: 'rover', parts: 3), (name: 'arm-1', parts: 12), (name: 'arm-2', parts: 12), (name: 'drone', parts: 1), (name: 'gantry', parts: 6), (name: 'kiosk', parts: 2)],
+    rows: const [
+      (name: 'rover', parts: 3),
+      (name: 'arm-1', parts: 12),
+      (name: 'arm-2', parts: 12),
+      (name: 'drone', parts: 1),
+      (name: 'gantry', parts: 6),
+      (name: 'kiosk', parts: 2),
+    ],
     initialSort: const DataGridSort('name'),
     onRowTap: (_) {},
     columns: [
@@ -410,12 +499,24 @@ final Map<String, WidgetBuilder> demos = {
         direction: SplitDirection.column,
         ratio: 0.6,
         first: PaneNode(id: 'editor', data: 'Editor'),
-        second: StackNode<String>(id: 'bottom', activeId: 'logs', panes: [PaneNode(id: 'logs', data: 'Logs'), PaneNode(id: 'problems', data: 'Problems')]),
+        second: StackNode<String>(
+          id: 'bottom',
+          activeId: 'logs',
+          panes: [
+            PaneNode(id: 'logs', data: 'Logs'),
+            PaneNode(id: 'problems', data: 'Problems'),
+          ],
+        ),
       ),
     ),
     (context, layout, set) => SizedBox(
       height: 320,
-      child: Panes<String>(layout: layout, onLayoutChanged: set, paneLabel: (pane) => pane.data, paneBuilder: (context, pane, state) => Center(child: Text(pane.data))),
+      child: Panes<String>(
+        layout: layout,
+        onLayoutChanged: set,
+        paneLabel: (pane) => pane.data,
+        paneBuilder: (context, pane, state) => Center(child: Text(pane.data)),
+      ),
     ),
   ),
   'panes-rearrange': (context) => _Demo<LayoutNode<String>?>(
@@ -446,8 +547,15 @@ final Map<String, WidgetBuilder> demos = {
           children: [
             Row(
               children: [
-                Expanded(child: PaneDragTrigger(child: Padding(padding: const EdgeInsets.all(8), child: Text(pane.data)))),
-                PaneMoveTrigger(label: 'Move ${pane.data}', child: const Padding(padding: EdgeInsets.all(8), child: Icon(PrimeIcons.cursorMove, size: 16))),
+                Expanded(
+                  child: PaneDragTrigger(
+                    child: Padding(padding: const EdgeInsets.all(8), child: Text(pane.data)),
+                  ),
+                ),
+                PaneMoveTrigger(
+                  label: 'Move ${pane.data}',
+                  child: const Padding(padding: EdgeInsets.all(8), child: Icon(PrimeIcons.cursorMove, size: 16)),
+                ),
               ],
             ),
             const Expanded(child: SizedBox.expand()),
@@ -495,7 +603,31 @@ final Map<String, WidgetBuilder> demos = {
     0.4,
     (context, ratio, set) => SizedBox(
       height: 200,
-      child: SplitPane(ratio: ratio, onRatioChanged: set, first: const Center(child: Text('First')), second: const Center(child: Text('Second'))),
+      child: SplitPane(
+        ratio: ratio,
+        onRatioChanged: set,
+        first: const Center(child: Text('First')),
+        second: const Center(child: Text('Second')),
+      ),
+    ),
+  ),
+  'chart': (context) => Chart(
+    semanticLabel: 'Cell temperature',
+    series: [
+      ChartSeries(name: 'cell-01', unit: '°C', points: _readings(24, 4, 0)),
+      ChartSeries(
+        name: 'cell-02',
+        unit: '°C',
+        points: _readings(21, 3, 2, gaps: const {20, 21, 22}),
+      ),
+    ],
+    child: const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ChartLegend(),
+        SizedBox(height: 8),
+        SizedBox(height: 240, child: ChartPlot()),
+      ],
     ),
   ),
   'tree-view': (context) => SizedBox(
@@ -518,11 +650,27 @@ final Map<String, WidgetBuilder> demos = {
       child: Panel(
         title: 'Camera',
         children: [
-          NumberField(label: 'FOV', labelWidth: 72, min: 10, max: 120, value: value.$1, onChanged: (next) => set((next, value.$2, value.$3))),
+          NumberField(
+            label: 'FOV',
+            labelWidth: 72,
+            min: 10,
+            max: 120,
+            value: value.$1,
+            onChanged: (next) => set((next, value.$2, value.$3)),
+          ),
           PointField(label: 'Position', step: 0.1, value: value.$2, onChanged: (next) => set((value.$1, next, value.$3))),
           Folder(
             title: 'Lighting',
-            children: [SliderField(label: 'Intensity', min: 0, max: 1, step: 0.01, value: value.$3, onChanged: (next) => set((value.$1, value.$2, next)))],
+            children: [
+              SliderField(
+                label: 'Intensity',
+                min: 0,
+                max: 1,
+                step: 0.01,
+                value: value.$3,
+                onChanged: (next) => set((value.$1, value.$2, next)),
+              ),
+            ],
           ),
         ],
       ),
